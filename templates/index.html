@@ -93,7 +93,7 @@
                         <li><a href="#portfolio">Gala</a></li>
                         <li><a href="#testimonials">About</a></li>
                         <li><a href="#job">Careers</a></li>
-                        <li><a href="#contact">Contact</a></li>
+						<li><a href="#contact">Contact</a></li>
                         <!--<li><a href="Affiliate.html" class="btn btn-blue btn-effect">Launch Your Own Geekz</a></li>
 <!--                        <li><a href="https://thegeekstudio.wordpress.com/" target="_blank">Blog</a></li>-->
                         
@@ -103,8 +103,16 @@
                 
 				<!-- /main nav -->
 				
-            </div></td>
-            <td><a href="/schoolasaservice" class="btn btn-blue-affiliatewrap btn-effect">Affiliate Your School</a></td></table>
+			</div></td>
+			{% if user.is_authenticated %}
+			<td><p>Welcome {{user.username}}</p></td>
+			<td><a href="/logout" class="btn btn-blue-affiliatewrap btn-effect">Logout</a></td>
+			{% else %}
+			<td><a href="/login" class="btn btn-blue-affiliatewrap btn-effect">Login</a></td>
+			{% endif %}
+			<td><a href="/schoolasaservice" class="btn btn-blue-affiliatewrap btn-effect">Affiliate Your School</a></td>
+			
+		</table>
         </header>
         <!--
         End Fixed Navigation

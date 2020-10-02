@@ -1,0 +1,19 @@
+{% load socialaccount %}
+{% providers_media_js %}
+
+<div>
+    <form action="/login_" method="POST">
+        {% csrf_token %}
+        <input type="email" name="email" placeholder="Enter Email Address" required />
+        <input type="password" name="password" placeholder="Enter Password" required />
+        <input type="submit" value="Login" />
+    </form>
+</div>
+----OR-----
+<div>
+    <a href="{% provider_login_url "google" %}" class="btn btn-primary btn-lg btn-block login-btn">Log in with google</a>
+    <a href="{% provider_login_url "facebook" method="oauth2" %}" class="btn btn-primary btn-lg btn-block login-btn">Log in with facebook</a>
+</div>
+<div>
+    Don't have an account <a href="signup">Sign up</a>
+</div>
