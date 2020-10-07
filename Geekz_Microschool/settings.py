@@ -61,6 +61,9 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
+
 ROOT_URLCONF = 'Geekz_Microschool.urls'
 
 TEMPLATES = [
@@ -141,3 +144,22 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
 #after social authentication
 SITE_ID = 1
 LOGIN_REDIRECT_URL = "/"
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google' : {
+        'SCOPE' : [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS' : {
+            'access_type' : 'online',
+        }
+    }
+}
+
+
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+
+ACCOUNT_USERNAME_REQUIRED = False
+
+SOCIALACCOUNT_QUERY_EMAIL = True

@@ -1,4 +1,6 @@
 {% load static %}
+{% load socialaccount %}
+{% providers_media_js %}
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -104,20 +106,18 @@
 					</div>
 				</td>
 
-				<!--
-				{% if user.is_authenticated %}
-				<td><p>Welcome {{user.username}}</p></td>
-				<td><a href="/logout" class="btn btn-blue-affiliatewrap btn-effect">Logout</a></td>
-				{% else %}
-				<td><a href="/login" class="btn btn-blue-affiliatewrap btn-effect">Login</a></td>
-				{% endif %}-->
-
 				<td>
 					<a href="/schoolasaservice" class="btn btn-blue-affiliatewrap btn-effect">Affiliate Your School</a>
 				</td>
+
 				<td>
 					<!--03-10-2020 start login and signup popup modal-->
-					<a href class="fa fa-user fa-3x" data-toggle="modal" data-target="#login" style="padding: 10px;"></a>
+					{% if user.is_authenticated %}
+						<td><p>Welcome {{user.email}}</p></td>
+						<td><a href="/logout" class="btn btn-blue-affiliatewrap btn-effect">Logout</a></td>
+					{% else %}
+						<a href style="color: grey; text-decoration: none; padding:20px" class="fa fa-user fa-3x" data-toggle="modal" data-target="#login" style="padding: 10px;"></a>
+					{% endif %}
 
 					<!--login popup modal-->
 					<div id="login" class="modal fade" role="dialog">
@@ -130,69 +130,71 @@
 								</div>
 
 								<div class="modal-body">
-									<div class="col-sm-9 mt-5" style="width: 100%;">
-										<button type="button" class="btn btn-icon btn-block text-left ">
+									<div class="input-field" style="width: 100%;">
+										<a href="{% provider_login_url "google" %}" class="btn btn-blue-affiliatewrap btn-effect" style="width: 100%;">
 											<span>
-												<img src="https://img.icons8.com/color/48/000000/google-logo.png" class="img-fluid mr-1" width="25">
+												<i class="fa fa-google"></i>
 											</span>
 											Continue with Google
-										</button>
+										</a>
 									</div>
 												
-									<div class="col-sm-9 mt-2" style="width: 100%; margin-top: 10px;">
-										<button type="button" class="btn btn-icon btn-block text-left">
+									<div class="input-field" style="width: 100%; margin-top: 10px;">
+										<a href="{% provider_login_url "facebook" method="oauth2" %}" class="btn btn-blue-affiliatewrap btn-effect" style="width: 100%;">
 											<span>
-												<img src="https://i.imgur.com/URmkevm.png" class="img-fluid mr-1" width="25">
+												<i class="fa fa-facebook"></i>
 											</span>
 											Continue with Facebook
-										</button>
+										</a>
 									</div>
 
-									<div class="col-sm-9 mt-2" style="width: 100%; margin-top: 10px;">
-										<button type="button" class="btn btn-icon btn-block text-left" data-dismiss="modal" data-toggle="modal" data-target="#emaillogin">
+									<div class="input-field" style="width: 100%; margin-top: 10px;">
+										<button type="button" class="btn btn-blue-affiliatewrap btn-effect" style="width: 100%;" data-dismiss="modal" data-toggle="modal" data-target="#emaillogin">
 										<span>
-											<img src="https://img.icons8.com/carbon-copy/100/000000/new-post.png" class="img-fluid mr-1" width="25">
+											<i class="fa fa-envelope-o"></i>
 										</span>
 										Continue with Email
 										</button>
 									</div>
 									
-									<div class="col-sm-9 mt-2" style="width: 100%; margin-top: 10px; text-align:center;">
+									<div class="input-field" style="width: 100%; margin-top: 10px; text-align:center;">
 										Don’t have an account?
 										<a href data-dismiss="modal" data-toggle="modal" data-target="#signup">Sign up</a>
 									</div>
 								</div>
 							</div>
-							</div>
 						</div>
 					</div>
+				
 					<!--end login popup modal-->
 
 					<!--start email login popup modal-->
 					<div id="emaillogin" class="modal fade" role="dialog">
 						<div class="modal-dialog">
 							<!-- Modal content-->
-							<div class="modal-content" style="background-color: white; width: 400px; height: 300px">
+							<div class="modal-content" style="background-color: white; width: 400px; height: 400px">
 								<div class="modal-header">
 									<button type="button" class="close" data-dismiss="modal">&times;</button>
 									<h4 class="modal-title" style="text-align: center;">Continue with Email</h4>
 								</div>
-
 								<div class="modal-body">
-									<div class="col-sm-9 mt-5" style="width: 100%;">
-										<input type="email" name="email" style="width: 100%;" placeholder="Email" required />
-									</div>
+									<form action="/login" method="POST">
+										{% csrf_token %}
+										<div class="input-field" style="width: 100%;">
+											<input type="email" name="email" class="form-control" style="width: 100%;" placeholder="Email" required />
+										</div>
 
-									<div class="col-sm-9 mt-5" style="width: 100%;">
-										<input type="password" name="password" style="width: 100%;" placeholder="Password" required />
-									</div>
+										<div class="input-field" style="width: 100%;">
+											<input type="password" name="password" class="form-control" style="width: 100%;" placeholder="Password" required />
+										</div>
 
-									<div class="col-sm-9 mt-2" style="width: 100%; margin-top: 10px;">
-										<input type="submit" class="btn btn-icon btn-block text-left" value="Log in" />
-									</div>
+										<div class="input-field" style="width: 100%; margin-top: 10px;">
+											<input type="submit" class="btn btn-blue-affiliatewrap btn-effect" style="width: 100%;" value="Log in" />
+										</div>
+									</form>
 
 									<div class="col-sm-9 mt-2" style="width: 100%; margin-top: 10px; text-align:center;">
-										<a href="#forgotpass">Forgotten your password?</a>
+										<a href="/forgotpassword">Forgotten your password?</a>
 									</div>
 									
 									<div class="col-sm-9 mt-2" style="width: 100%; margin-top: 10px; text-align:center;">
@@ -200,12 +202,13 @@
 									</div>
 
 									<div class="col-sm-9 mt-2" style="width: 100%; margin-top: 10px; text-align:center;">
-										Don’t have an account? <a href data-dismiss="modal" data-toggle="modal" data-target="#signup" >Sign up</a> </div>
+										Don’t have an account? <a href data-dismiss="modal" data-toggle="modal" data-target="#signup" >Sign up</a>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
+				
 					<!--end email login popup modal-->
 
 					<!--start signup popup modal-->
@@ -219,34 +222,34 @@
 								</div>
 
 								<div class="modal-body">
-									<div class="col-sm-9 mt-5" style="width: 100%;">
-										<button type="button" class="btn btn-icon btn-block text-left ">
+									<div class="input-field" style="width: 100%;">
+										<a href="{% provider_login_url "google" %}" class="btn btn-blue-affiliatewrap btn-effect" style="width: 100%;">
 											<span>
-												<img src="https://img.icons8.com/color/48/000000/google-logo.png" class="img-fluid mr-1" width="25">
+												<i class="fa fa-google"></i>
 											</span>
 											Continue with Google
-										</button>
+										</a>
 									</div>
 											
-									<div class="col-sm-9 mt-2" style="width: 100%; margin-top: 10px;">
-										<button type="button" class="btn btn-icon btn-block text-left">
+									<div class="input-field" style="width: 100%; margin-top: 10px;">
+										<a href="{% provider_login_url "facebook" method="oauth2" %}" class="btn btn-blue-affiliatewrap btn-effect" style="width: 100%;">
 											<span>
-												<img src="https://i.imgur.com/URmkevm.png" class="img-fluid mr-1" width="25">
+												<i class="fa fa-facebook"></i>
 											</span>
 											Continue with Facebook
-										</button>
+										</a>
 									</div>
 								
-									<div class="col-sm-9 mt-2" style="width: 100%; margin-top: 10px;">
-										<button type="button" class="btn btn-icon btn-block text-left" data-dismiss="modal" data-toggle="modal" data-target="#emailsignup">
+									<div class="input-field" style="width: 100%; margin-top: 10px;">
+										<button type="button" class="btn btn-blue-affiliatewrap btn-effect" style="width: 100%;" data-dismiss="modal" data-toggle="modal" data-target="#emailsignup">
 											<span>
-												<img src="https://img.icons8.com/carbon-copy/100/000000/new-post.png" class="img-fluid mr-1" width="25">
+												<i class="fa fa-envelope-o"></i>
 											</span>
 											Continue with Email
 										</button>
 									</div>
 
-									<div class="col-sm-9 mt-2" style="width: 100%; margin-top: 10px; text-align:center;">
+									<div class="input-field" style="width: 100%; margin-top: 10px; text-align:center;">
 										Already have an account?
 										<a href data-dismiss="modal" data-toggle="modal" data-target="#login">Log in</a>
 									</div>
@@ -261,39 +264,50 @@
 						<div class="modal-dialog">
 					
 							<!-- Modal content-->
-							<div class="modal-content" style="background-color: white; width: 400px; height: 330px">
+							<div class="modal-content" style="background-color: white; width: 400px; height: 500px">
 								<div class="modal-header">
 									<button type="button" class="close" data-dismiss="modal">&times;</button>
 									<h4 class="modal-title" style="text-align: center;">Continue with Email</h4>
 								</div>
 								<div class="modal-body">
-									<div class="col-sm-9 mt-5" style="width: 100%;">
-										<input type="text" name="fullname" style="width: 100%;" placeholder="Full name" required />
-									</div>
+									<form action="/signup" method="POST">
+										{% csrf_token %}
+										<div class="input-field" style="width: 100%;">
+											<input type="text" name="fullname" class="form-control" style="width: 100%;" placeholder="Full name" required />
+										</div>
 
-									<div class="col-sm-9 mt-5" style="width: 100%;">
-										<input type="email" name="email" style="width: 100%;" placeholder="Email" required />
-									</div>
+										<div class="input-field" style="width: 100%;">
+											<input type="email" name="email" class="form-control" style="width: 100%;" placeholder="Email" required />
+										</div>
 
-									<div class="col-sm-9 mt-5" style="width: 100%;">
-										<input type="password" name="password" style="width: 100%;" placeholder="Password" required />
-									</div>
+										<div class="input-field" style="width: 100%;">
+											<input type="password" name="password" class="form-control" style="width: 100%;" placeholder="Password" required />
+										</div>
 
-									<div class="col-sm-9 mt-5" style="width: 100%;">
-										<input type="text" name="phoneno" style="width: 100%;" placeholder="Phone number" required />
-									</div>
+										<div class="input-field" style="width: 100%;">
+											<input type="text" name="phoneno" class="form-control" style="width: 100%;" placeholder="Phone number" required />
+										</div>
 
-									<div class="col-sm-9 mt-5" style="width: 100%;">
-										<input type="checkbox" name="sameasphone"  value="same as phone">  Whatsapp number is same as above number
-									</div>
-									
-									<div class="col-sm-9 mt-5" style="width: 100%;">
-										<input type="text" name="whatsappno" style="width: 100%;" placeholder="Whatsapp number" />
-									</div>
+										<div class="input-field col-sm-9 mt-5" style="width: 100%;">
+											<input type="checkbox" name="sameasphone" id="sap" value="yes" onclick="ShowHideDiv(this)" /> Whatsapp number is same as above number
+										</div>
+										
+										<div class="input-field" style="width: 100%;" id="wn" style="display: none;">
+											<input type="text" name="whatsappno" class="form-control" style="width: 100%;" placeholder="Whatsapp number" />
+										</div>
 
-									<div class="col-sm-9 mt-2" style="width: 100%; margin-top: 10px;">
-										<input type="submit" class="btn btn-icon btn-block text-left" value="Submit" />
-									</div>
+										<!--script to show whatsapp number field based on checkbox-->
+										<script type="text/javascript">
+											function ShowHideDiv(sap){
+												var wm = document.getElementById("wn");
+												wn.style.display = sap.unchecked ? "block" : "none";
+											}
+										</script>
+
+										<div class="input-field" style="width: 100%; margin-top: 10px;">
+											<input type="submit" class="btn btn-blue-affiliatewrap btn-effect" style="width: 100%;" value="Submit" />
+										</div>
+									</form>
 								</div>
 							</div>
 						</div>
