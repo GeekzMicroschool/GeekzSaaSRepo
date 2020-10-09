@@ -1,6 +1,5 @@
 {% load static %}
 {% load socialaccount %}
-{% providers_media_js %}
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -105,7 +104,6 @@
 						<!-- /main nav -->
 					</div>
 				</td>
-
 				<td>
 					<a href="/schoolasaservice" class="btn btn-blue-affiliatewrap btn-effect">Affiliate Your School</a>
 				</td>
@@ -178,10 +176,10 @@
 									<h4 class="modal-title" style="text-align: center;">Continue with Email</h4>
 								</div>
 								<div class="modal-body">
-									<form action="/login" method="POST">
+									<form action="/accounts/login/" method="POST">
 										{% csrf_token %}
 										<div class="input-field" style="width: 100%;">
-											<input type="email" name="email" class="form-control" style="width: 100%;" placeholder="Email" required />
+											<input type="email" name="login" class="form-control" style="width: 100%;" placeholder="Email" required />
 										</div>
 
 										<div class="input-field" style="width: 100%;">
@@ -270,7 +268,7 @@
 									<h4 class="modal-title" style="text-align: center;">Continue with Email</h4>
 								</div>
 								<div class="modal-body">
-									<form action="/signup" method="POST">
+									<form action="/accounts/signup/" method="POST">
 										{% csrf_token %}
 										<div class="input-field" style="width: 100%;">
 											<input type="text" name="fullname" class="form-control" style="width: 100%;" placeholder="Full name" required />
@@ -281,19 +279,23 @@
 										</div>
 
 										<div class="input-field" style="width: 100%;">
-											<input type="password" name="password" class="form-control" style="width: 100%;" placeholder="Password" required />
+											<input type="password" name="password1" class="form-control" style="width: 100%;" placeholder="Password" required />
 										</div>
 
 										<div class="input-field" style="width: 100%;">
-											<input type="text" name="phoneno" class="form-control" style="width: 100%;" placeholder="Phone number" required />
+											<input type="password" name="password2" class="form-control" style="width: 100%;" placeholder="Password" required />
+										</div>
+
+										<div class="input-field" style="width: 100%;">
+											<input type="text" name="phone_no" class="form-control" style="width: 100%;" placeholder="Phone number" required />
 										</div>
 
 										<div class="input-field col-sm-9 mt-5" style="width: 100%;">
-											<input type="checkbox" name="sameasphone" id="sap" value="yes" onclick="ShowHideDiv(this)" /> Whatsapp number is same as above number
+											<input type="checkbox" name="sameasphone" id="sap" value="True" onclick="ShowHideDiv(this)" /> Whatsapp number is same as above number
 										</div>
 										
 										<div class="input-field" style="width: 100%;" id="wn" style="display: none;">
-											<input type="text" name="whatsappno" class="form-control" style="width: 100%;" placeholder="Whatsapp number" />
+											<input type="text" name="whatsapp_no" class="form-control" style="width: 100%;" placeholder="Whatsapp number" />
 										</div>
 
 										<!--script to show whatsapp number field based on checkbox-->

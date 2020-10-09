@@ -2,8 +2,11 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User,auth
 from django.contrib import messages
 from .models import UserDetails
+#from allauth.account.decorators import verified_email_required
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+#@login_required
 def index(request):
     return render(request, 'index.html')
 
@@ -24,15 +27,19 @@ def jobs(request):
     return render(request, 'jobs.html')
 
 
+#@verified_email_required
+'''
 def login(request):
     if request.method == "POST":
         email=request.POST['email']
         password=request.POST['password']
-        user = auth.authenticate(username=email, password=password)
+        user = auth.authenticate(email=email, password=password)
         if user is not None and user.is_superuser == False:
+            print("usseer",user)
             auth.login(request, user)
             return render(request, 'index.html')
         else:
+            print("usseer",user)
             return render(request, 'index.html')
 
 
@@ -61,6 +68,14 @@ def signup(request):
             messages.info(request, 'Registration Successfull')
             return render(request, 'index.html')
 
+'''
+'''
+def glogin(request):
+    def populate_user(self, request, sociallogin, data):
+        print("sdsdsd",sociallogin.account.user)
+        return render(request, 'index.html')
+    populate_user()
+    return render(request, 'index.html')'''
 
 def logout(request):
     auth.logout(request)
