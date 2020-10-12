@@ -1,18 +1,52 @@
-{% load socialaccount %}
-{% providers_media_js %}
+{% extends "account/base.html" %}
 
-<div>
-    <form action="/signup_" method="POST">
-        {% csrf_token %}
-        <input type="text" name="firstname" placeholder="Enter First Name" required />
-        <input type="text" name="lastname" placeholder="Enter Last Name" required />
-        <input type="email" name="email" placeholder="Enter Email Address" required />
-        <input type="password" name="password" placeholder="Enter Password" required />
-        <input type="submit" value="Sign up" />
-    </form>
+{% load i18n %}
+
+{% block head_title %}{% trans "Signup" %}{% endblock %}
+{% block head_links %} 
+
+<title>Signup</title>
+
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+
+ {% block messages %}
+    {% if messages %}
+    <div>
+        <ul>
+        {% for message in messages %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>{{message}}</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+        </div>
+        {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+  {% endblock %}
+  
+
+<h3 class="h3" id="head_banner">{% trans "Sign Up" %}</h3>
+
+<p class="exist_account_info">{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
+
+<form class="container-fluid text-center" id="signup_form" method="post" action="{% url 'account_signup' %}">
+  {% csrf_token %}
+
+  {{ form.as_p }}
+
+  {% if redirect_field_value %}
+
+  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+  
+  {% endif %}
+  
+  <button class="btn btn-outline-primary btn-lg" type="submit">{% trans "Sign Up" %}</button>
+</form>
+
 </div>
-----OR-----
-<div>
-    <a href="{% provider_login_url "google" %}" class="btn btn-primary btn-lg btn-block login-btn">Sign up with google</a>
-    <a href="{% provider_login_url "facebook" method="oauth2" %}" class="btn btn-primary btn-lg btn-block login-btn">Sign up with facebook</a>
-</div>
+{% endblock %}
