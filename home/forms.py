@@ -4,6 +4,8 @@ from .models import UserDetails
 
 from django.core.validators import FileExtensionValidator
 
+from allauth.socialaccount.forms import SignupForm as SocialSignupForm
+
 
 class SimpleSignupForm(SignupForm):
     email = forms.EmailField(max_length=255)
@@ -26,4 +28,21 @@ class SimpleSignupForm(SignupForm):
 
         # Now create new models
         UserDetails.objects.create(email = user.email, fullname = self.cleaned_data['fullname'], phone_no = self.cleaned_data['phone_no'], whatsapp_no = whatsapp_no)
+        return user
+
+
+class CustomSocialSignupForm(SocialSignupForm):
+
+    def save(self, request):
+   
+        # Ensure you call the parent classes save.
+        # .save() returns a User object.
+        user = super().save(request)
+
+        # Add your own processing here.
+        user_profile = UserProfile()
+        user_profile.user = user
+        user_profile.ip = get_ip(request)
+        user_profile.save()
+        # You must return the original result.
         return user

@@ -196,3 +196,9 @@ EMAIL_HOST_PASSWORD='Abcd@1234'
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 ACCOUNT_FORMS = {'signup': 'home.forms.SimpleSignupForm'}
+
+SOCIALACCOUNT_FORMS = {
+    'signup': 'home.forms.CustomSocialSignupForm',
+}
+
+SOCIALACCOUNT_AUTO_SIGNUP = False
