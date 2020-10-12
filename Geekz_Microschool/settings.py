@@ -165,10 +165,7 @@ SOCIALACCOUNT_PROVIDERS = {
         'AUTH_PARAMS' : {
             'access_type' : 'online',
         }
-    }
-}
-
-SOCIALACCOUNT_PROVIDERS = {
+    },
     'facebook': {
         'METHOD': 'oauth2',
         'SCOPE': ['email', 'public_profile'],

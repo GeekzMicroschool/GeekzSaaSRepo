@@ -1,1 +1,17 @@
 testing
+
+https://www.youtube.com/watch?v=YnrgBeIRtvo&feature=emb_title
+
+https://testdriven.io/blog/dockerizing-django-with-postgres-gunicorn-and-nginx/#postgres
+
+https://stackoverflow.com/questions/31083385/django-allauth-check-whether-user-signed-up-using-a-social-account
+
+https://stackoverflow.com/questions/13140021/django-allauth-linking-multiple-social-accounts-to-a-single-user
+
+https://github.com/pennersr/django-allauth/issues/191#issuecomment-13477334
+
+https://stackoverflow.com/questions/13037644/how-do-i-connect-multiple-social-auth-providers-to-the-same-django-user-using-dj
+
+https://github.com/pennersr/django-allauth/issues/2222
+
+https://github.com/pennersr/django-allauth/issues/1217
