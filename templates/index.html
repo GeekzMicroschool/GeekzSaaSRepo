@@ -263,7 +263,7 @@
 						<div class="modal-dialog">
 					
 							<!-- Modal content-->
-							<div class="modal-content" style="background-color: white; width: 400px; height: 550px">
+							<div class="modal-content" style="background-color: white; width: 400px; height: 500px">
 								<div class="modal-header">
 									<button type="button" class="close" data-dismiss="modal">&times;</button>
 									<h4 class="modal-title" style="text-align: center;">Continue with Email</h4>
@@ -272,43 +272,60 @@
 									<form action="/accounts/signup/" method="POST">
 										{% csrf_token %}
 										<div class="input-field" style="width: 100%;">
-											<input type="text" name="fullname" class="form-control" style="width: 100%;" placeholder="Full name" required />
+											<input type="text" name="fullname" class="form-control" style="width: 100%;" placeholder="Full Name" required />
 										</div>
 
 										<div class="input-field" style="width: 100%;">
 											<input type="email" name="email" class="form-control" style="width: 100%;" placeholder="Email" required />
 										</div>
 
-										<div class="input-field" style="width: 100%;">
-											<input type="password" name="password1" class="form-control" style="width: 100%;" placeholder="Password" required />
+										<div class="input-field" style="width: 100%;">	
+											<input type="password" name="password1" id="password1" class="form-control" style="width: 100%;" placeholder="Password" required />
+											<span class="eye" style="position:fixed; right:123px; top:209px; cursor: pointer;" onclick="ShowPassword()">
+												<i id="hide1" style="display: block;" class="fa fa-eye"></i>
+												<i id="hide2" style="display: none;" class="fa fa-eye-slash"></i>
+											</span>
 										</div>
 
-										<div class="input-field" style="width: 100%;">
-											<input type="password" name="password2" class="form-control" style="width: 100%;" placeholder="Password" required />
-										</div>
+										<!--script for show/hide password-->
+										<script>
+											function ShowPassword(){
+												var x = document.getElementById("password1");
+												var y = document.getElementById("hide1");
+												var z = document.getElementById("hide2");
+										
+												if(x.type=='password'){
+													x.type="text";
+													y.style.display="none";
+													z.style.display="block";
+												}
+												else{
+													x.type="password";
+													y.style.display="block";
+													z.style.display="none";
+												}
+											}
+										</script>
 
 										<div class="input-field" style="width: 100%;">
 											<input type="text" name="phone_no" class="form-control" style="width: 100%;" placeholder="Phone number" required />
 										</div>
 
 										<div class="input-field col-sm-9 mt-5" style="width: 100%;">
-											<input type="checkbox" name="sameasphone" id="sap" value="True" onclick="ShowHideDiv(this)" /> Whatsapp number is same as above number
+											<input type="checkbox" name="sameasphone" value="True" checked /> Get Important Notifications On WhatsApp
 										</div>
-										
-										<div class="input-field" style="width: 100%;" id="wn" style="display: none;">
-											<input type="text" name="whatsapp_no" class="form-control" style="width: 100%;" placeholder="Whatsapp number" />
-										</div>
-
-										<!--script to show whatsapp number field based on checkbox-->
-										<script type="text/javascript">
-											function ShowHideDiv(sap){
-												var wm = document.getElementById("wn");
-												wn.style.display = sap.unchecked ? "block" : "none";
-											}
-										</script>
 
 										<div class="input-field" style="width: 100%; margin-top: 10px;">
-											<input type="submit" class="btn btn-blue-affiliatewrap btn-effect" style="width: 100%;" value="Submit" />
+											<input type="submit" class="btn btn-blue-affiliatewrap btn-effect" style="width: 100%;" value="SIGN UP" />
+										</div>
+
+										<div class="col-sm-9 mt-2" style="width: 100%; margin-top: 10px; text-align:center;">
+											<a href data-dismiss="modal" data-toggle="modal" data-target="#signup">More Signup Options</a>
+										</div>
+	
+										<div class="input-field" style="width: 100%; margin-top: 10px; text-align:center;">
+											Already have an account?
+											<a href data-dismiss="modal" data-toggle="modal" data-target="#login">Log in</a>
 										</div>
 									</form>
 								</div>
