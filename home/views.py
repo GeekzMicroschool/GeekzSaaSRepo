@@ -5,6 +5,10 @@ from .models import UserDetails
 #from allauth.account.decorators import verified_email_required
 from django.contrib.auth.decorators import login_required
 
+from django.dispatch import receiver
+from allauth.socialaccount.signals import pre_social_login
+
+
 # Create your views here.
 #@login_required
 def index(request):
@@ -75,6 +79,17 @@ def glogin(request):
         print("sdsdsd",sociallogin.account.user)
         return render(request, 'index.html')
     populate_user()
+    return render(request, 'index.html')'''
+
+'''
+@receiver(pre_social_login)
+def gsignup(sender, **kwargs):
+    request = kwargs['request']
+    user = kwargs['user']
+    # Do your stuff with the user
+    print('usser',user)
+    print('requessss',request)
+    #user.save()
     return render(request, 'index.html')'''
 
 def logout(request):

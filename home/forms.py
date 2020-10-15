@@ -4,6 +4,7 @@ from .models import UserDetails
 
 from django.core.validators import FileExtensionValidator
 
+from allauth.socialaccount.forms import SignupForm as SocialSignupForm
 
 class SimpleSignupForm(SignupForm):
     email = forms.EmailField(max_length=255)
@@ -26,4 +27,25 @@ class SimpleSignupForm(SignupForm):
 
         # Now create new models
         UserDetails.objects.create(email = user.email, fullname = self.cleaned_data['fullname'], phone_no = self.cleaned_data['phone_no'], whatsapp_no = whatsapp_no)
+        return user
+
+
+class CustomSocialSignupForm(SocialSignupForm):
+    phone_no = forms.IntegerField()
+    sameasphone = forms.BooleanField(required=False)
+    whatsapp_no = forms.IntegerField(required=False)
+
+    def save(self, request):
+        user = super(CustomSocialSignupForm, self).save(request)
+        print("uuuus",user.email)
+
+        if self.cleaned_data['sameasphone'] == True:
+            whatsapp_no = self.cleaned_data['phone_no']
+        else:
+            try:
+                whatsapp_no = self.cleaned_data['whatsapp_no']
+            except:
+                whatsapp_no = ''
+        fullname = user.first_name+" "+user.last_name
+        UserDetails.objects.create(email = user.email, fullname = fullname, phone_no = self.cleaned_data['phone_no'], whatsapp_no = whatsapp_no)
         return user
