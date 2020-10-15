@@ -130,7 +130,7 @@
 
 								<div class="modal-body">
 									<div class="input-field" style="width: 100%;">
-										<a href="{% provider_login_url "google" %}" class="btn btn-blue-affiliatewrap btn-effect" style="width: 100%;">
+										<a href="{% provider_login_url "google" %}" class="btn btn-blue-affiliatewrap btn-effect" style="width: 100%;" onclick="window.open('{% provider_login_url "google" %}', 'newwindow', 'width=600,height=800'); return false;">
 											<span>
 												<i class="fa fa-google"></i>
 											</span>
@@ -147,13 +147,10 @@
 										</a>
 									</div>
 
-									<div class="input-field" style="width: 100%; margin-top: 10px;">
-										<button type="button" class="btn btn-blue-affiliatewrap btn-effect" style="width: 100%;" data-dismiss="modal" data-toggle="modal" data-target="#emaillogin">
-										<span>
-											<i class="fa fa-envelope-o"></i>
-										</span>
+									<div class="input-field" style="width: 100%; margin-top: 10px; text-align:center;">
+										<a href data-dismiss="modal" data-toggle="modal" data-target="#emaillogin">
 										Continue with Email
-										</button>
+										</a>
 									</div>
 									
 									<div class="input-field" style="width: 100%; margin-top: 10px; text-align:center;">
@@ -193,7 +190,7 @@
 									</form>
 
 									<div class="col-sm-9 mt-2" style="width: 100%; margin-top: 10px; text-align:center;">
-										<a href="/forgotpassword">Forgotten your password?</a>
+										<a href="{% url 'account_reset_password' %}">Forgotten your password?</a>
 									</div>
 									
 									<div class="col-sm-9 mt-2" style="width: 100%; margin-top: 10px; text-align:center;">
@@ -238,19 +235,16 @@
 											Continue with Facebook
 										</a>
 									</div>
-								
-									<div class="input-field" style="width: 100%; margin-top: 10px;">
-										<button type="button" class="btn btn-blue-affiliatewrap btn-effect" style="width: 100%;" data-dismiss="modal" data-toggle="modal" data-target="#emailsignup">
-											<span>
-												<i class="fa fa-envelope-o"></i>
-											</span>
-											Continue with Email
-										</button>
-									</div>
 
 									<div class="input-field" style="width: 100%; margin-top: 10px; text-align:center;">
 										Already have an account?
 										<a href data-dismiss="modal" data-toggle="modal" data-target="#login">Log in</a>
+									</div>
+
+									<div class="input-field" style="width: 100%; margin-top: 10px; text-align:center;">
+										<a href data-dismiss="modal" data-toggle="modal" data-target="#emailsignup">
+											Continue with Email
+										</a>
 									</div>
 								</div>
 							</div>

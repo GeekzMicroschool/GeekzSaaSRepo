@@ -50,6 +50,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
 
     'home.apps.HomeConfig',
+
+    'django_inlinecss',
 ]
 
 MIDDLEWARE = [
@@ -69,6 +71,7 @@ ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 5
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 7
+ACCOUNT_SIGNUP_PASSWORD_VERIFICATION = False
 
 ROOT_URLCONF = 'Geekz_Microschool.urls'
 
