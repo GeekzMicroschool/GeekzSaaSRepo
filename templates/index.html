@@ -46,8 +46,29 @@
         <link rel="icon" type="image/png" href="{% static 'img/favicon-32x32.png' %}" sizes="32x32">
 
         <style>
-        .buttongeekzhome {width:250px}
-        </style>
+			.buttongeekzhome {
+				width:250px
+			}
+		
+			.dropdown {
+				position: relative;
+				display: inline-block;
+			  }
+			  
+			  .dropdown-content {
+				display: none;
+				position: absolute;
+				background-color: rgba(0,0,0,.4);
+				
+				box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+				padding: 12px 16px;
+				z-index: 1;
+			  }
+			  
+			  .dropdown:hover .dropdown-content {
+				display: block;
+			  }
+		</style>
     </head>
 	
     <body id="body">
@@ -112,8 +133,29 @@
 				<td>
 					<!--03-10-2020 start login and signup popup modal-->
 					{% if user.is_authenticated %}
-						<td><p>Welcome {{user.email}}</p></td>
-						<td><a href="/logout" class="btn btn-blue-affiliatewrap btn-effect">Logout</a></td>
+						{% if user.socialaccount_set.all %}
+							{% for account in user.socialaccount_set.all %}
+								<td style="padding: 20px;">
+									<div class="dropdown">
+										<img src="{{account.extra_data.picture}}" height="40" width="40" style="border-radius: 50%;">
+										<div class="dropdown-content">
+										<p><a href="/logout" class="btn btn-blue-affiliatewrap btn-effect">Logout</a></p>
+										</div>
+									</div>
+								</td>
+							{% endfor %}
+							{% else %}
+								<!--simple user-->
+								<td style="padding: 20px;">
+									<div class="dropdown">
+										<a href style="color: grey; text-decoration: none;" class="fa fa-user fa-3x"></a>
+										<div class="dropdown-content">
+										<p><a href="/logout" class="btn btn-blue-affiliatewrap btn-effect">Logout</a></p>
+										</div>
+									</div>
+								</td>
+								<!--/simple user-->
+							{% endif %}
 					{% else %}
 						<a href style="color: grey; text-decoration: none; padding:20px" class="fa fa-user fa-3x" data-toggle="modal" data-target="#login" style="padding: 10px;"></a>
 					{% endif %}
@@ -130,7 +172,7 @@
 
 								<div class="modal-body">
 									<div class="input-field" style="width: 100%;">
-										<a href="{% provider_login_url "google" %}" class="btn btn-blue-affiliatewrap btn-effect" style="width: 100%;" onclick="window.open('{% provider_login_url "google" %}', 'newwindow', 'width=600,height=800'); return false;">
+										<a href="{% provider_login_url "google" %}" class="btn btn-blue-affiliatewrap btn-effect" style="width: 100%;">
 											<span>
 												<i class="fa fa-google"></i>
 											</span>
@@ -219,7 +261,7 @@
 
 								<div class="modal-body">
 									<div class="input-field" style="width: 100%;">
-										<a href="{% provider_login_url "google" %}" class="btn btn-blue-affiliatewrap btn-effect" style="width: 100%;" onclick="window.open('{% provider_login_url "google" %}', 'newwindow', 'width=600,height=800'); return false;">
+										<a href="{% provider_login_url "google" %}" class="btn btn-blue-affiliatewrap btn-effect" style="width: 100%;">
 											<span>
 												<i class="fa fa-google"></i>
 											</span>
