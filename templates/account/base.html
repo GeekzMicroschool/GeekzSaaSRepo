@@ -1,39 +1,431 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+{% load static %}
+{% load socialaccount %}
 <!DOCTYPE html>
 <html>
-<head>
-    
- {% load static %}
- 	
- <link rel="stylesheet" href="{% static 'account/Css/Custom-Account-Styles.css' %}" type = "text/css"/>
- <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+    <head>
+        <!-- meta character set -->
+        <meta charset="utf-8">
+        <!-- Always force latest IE rendering engine or request Chrome Frame -->
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>{% block title %}Geekz Microschool | School as a Service On-Demand{% endblock title %}</title>
+        <!-- Meta Description -->
+        <meta name="description" content="Your school to Learn Life at your own pace with Personalized Learning Plan for each Individual Kid Founded by Former Microsoft Program Manager.">
+        <meta name="keywords" content="international school, Montessori, Preschool, Play School, IB School, Kindergarten, Primary School, IGCSE, ICSE, CBSE, Alternative School, Next Generation School, Play Groups, American School, geekz, geeks, school, reimagined school, international, velachery, chennai, personalized, personalised, curriculum, self paced, learning, mastery, khan academy, duolingo, Microsoft, Program Manager, Micro school, microschool, micro-school, alternate school, education, schoology, india">
+        <meta name="author" content="Sridhar Gopalaswamy">
+        
+		<!-- Mobile Specific Meta -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+		
+        <!-- CSS -->
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
+		
+		<!-- Fontawesome Icon font -->
+        <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+		<!-- bootstrap.min -->
+        <link rel="stylesheet" href="{% static 'css/jquery.fancybox.css' %}">
+		<!-- bootstrap.min -->
+        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+		<!-- bootstrap.min -->
+        <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
+		<!-- bootstrap.min -->
+        <link rel="stylesheet" href="{% static 'css/slit-slider.css' %}">
+		<!-- bootstrap.min -->
+        <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+		<!-- Main Stylesheet -->
+        <link rel="stylesheet" href="{% static 'css/main.css' %}">
 
- <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<!-- Modernizer Script for old Browsers -->
+        <script src="{% static 'js/modernizr-2.6.2.min.js' %}"></script>
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
-    <!-- Font Awesome Icons -->
+        <!-- Tab logo-->
+        <link rel="icon" type="image/png" href="{% static 'img/favicon-32x32.png' %}" sizes="32x32">
 
-{% block head_links %}
-{% endblock %}
-</head>
-<body>
-	{% block content%}
-	    {% block messages %}
-        {% endblock %}
-    {% endblock %}
+        <style>
+			.buttongeekzhome{
+				width:250px
+            }
+            .dropdown {
+			    position: relative;
+				display: inline-block;
+			}
+			  
+			.dropdown-content {
+				display: none;
+				position: absolute;
+				background-color: rgba(0,0,0,.4);
+				
+				box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+				padding: 12px 16px;
+				z-index: 1;
+			}
+			  
+			.dropdown:hover .dropdown-content {
+			    display: block;
+			}
+        </style>
+        <body id="body">
+            {% block preloader %}
+            {% endblock preloader %}
+
+            {% block navbar %}
+            <header id="navigation" class="navbar-inverse navbar-fixed-top animated-header">
+                <table style="width:90%">
+                    <td>
+                        <div class="container">
+                            <div class="navbar-header">
+                                <!-- responsive nav button -->
+                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                                <!-- /responsive nav button -->
+                                
+                                <!-- logo -->
+                                <h1 class="navbar-logo">
+                                    <a href="/" style="color:#fff;">
+                                        <img src="{% static 'img/Geekz%20Logo.png' %}" height="70" style="position:relative;bottom:0px;" title="Geekz Microschool" alt="Geekz Microschool"><span style="position:relative;top:11px;" title="Geekz Microschool"></span>
+                                    </a>
+                                </h1>
+                                <!-- /logo -->
+                            </div>
     
-    {% block content_extra %}
-    {% endblock %}
+                            {% block mainnav %}
+                            <!-- main nav -->
+                            <nav class="collapse navbar-collapse navbar-right" role="navigation">
+                                <ul id="nav" class= "nav navbar-tabs">
+            <!--                        <li><a href="/">Home</a></li>-->
+                                    <li><a href="#service">Education</a></li>
+                                    <li><a href="#admissions">Admissions</a></li>
+                                    <li><a href="#portfolio">Gala</a></li>
+                                    <li><a href="#testimonials">About</a></li>
+                                    <li><a href="#job">Careers</a></li>
+                                    <li><a href="#contact">Contact</a></li>
+                                    <!--<li><a href="Affiliate.html" class="btn btn-blue btn-effect">Launch Your Own Geekz</a></li>
+            <!--                        <li><a href="https://thegeekstudio.wordpress.com/" target="_blank">Blog</a></li>-->
+                                    
+                                </ul>
+                            </nav>
+                            <!-- /main nav -->
+                            
+                        </div>
+                    </td>
+                
+                    <td>
+                        <a href="/schoolasaservice" class="btn btn-blue-affiliatewrap btn-effect">Affiliate Your School</a>
+                    </td>
+                    {% endblock mainnav %}
+                    <td>
+                        <!--03-10-2020 start login and signup popup modal-->
+                        {% if user.is_authenticated %}
+                            {% if user.socialaccount_set.all %}
+                                {% for account in user.socialaccount_set.all %}
+                                    <td style="padding: 20px;">
+                                        <div class="dropdown">
+                                            <img src="{{account.extra_data.picture}}" height="40" width="40" style="border-radius: 50%;">
+                                            <div class="dropdown-content">
+                                            <p><a href="/logout" class="btn btn-blue-affiliatewrap btn-effect">Logout</a></p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                {% endfor %}
+                                {% else %}
+                                    <!--simple user-->
+                                    <td style="padding: 20px;">
+                                        <div class="dropdown">
+                                            <a href style="color: grey; text-decoration: none;" class="fa fa-user fa-3x"></a>
+                                            <div class="dropdown-content">
+                                            <p><a href="/logout" class="btn btn-blue-affiliatewrap btn-effect">Logout</a></p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <!--/simple user-->
+                                {% endif %}
+                        {% else %}
+                            <a href style="color: grey; text-decoration: none; padding:20px" class="fa fa-user fa-3x" data-toggle="modal" data-target="#login" style="padding: 10px;"></a>
+                        {% endif %}
     
-    {% block extra_body %}
-    {% endblock %}
-</body>
+                        <!--login popup modal-->
+                        <div id="login" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                                <!-- Modal content-->
+                                <div class="modal-content" style="background-color: white; width: 400px; height: 300px">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title" style="text-align: center;">Log in</h4>
+                                    </div>
+    
+                                    <div class="modal-body">
+                                        <div class="input-field" style="width: 100%;">
+                                            <a href="{% provider_login_url "google" %}" class="btn btn-blue-affiliatewrap btn-effect" style="width: 100%;">
+                                                <span>
+                                                    <i class="fa fa-google"></i>
+                                                </span>
+                                                Continue with Google
+                                            </a>
+                                        </div>
+                                                    
+                                        <div class="input-field" style="width: 100%; margin-top: 10px;">
+                                            <a href="{% provider_login_url "facebook" method="oauth2" %}" class="btn btn-blue-affiliatewrap btn-effect" style="width: 100%;">
+                                                <span>
+                                                    <i class="fa fa-facebook"></i>
+                                                </span>
+                                                Continue with Facebook
+                                            </a>
+                                        </div>
+    
+                                        <div class="input-field" style="width: 100%; margin-top: 10px; text-align:center;">
+                                            <a href data-dismiss="modal" data-toggle="modal" data-target="#emaillogin">
+                                            Continue with Email
+                                            </a>
+                                        </div>
+                                        
+                                        <div class="input-field" style="width: 100%; margin-top: 10px; text-align:center;">
+                                            Don’t have an account?
+                                            <a href data-dismiss="modal" data-toggle="modal" data-target="#signup">Sign up</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <!--end login popup modal-->
+    
+                        <!--start email login popup modal-->
+                        <div id="emaillogin" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                                <!-- Modal content-->
+                                <div class="modal-content" style="background-color: white; width: 400px; height: 400px">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title" style="text-align: center;">Continue with Email</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="/accounts/login/" method="POST">
+                                            {% csrf_token %}
+                                            <div class="input-field" style="width: 100%;">
+                                                <input type="email" name="login" class="form-control" style="width: 100%;" placeholder="Email" required />
+                                            </div>
+    
+                                            <div class="input-field" style="width: 100%;">
+                                                <input type="password" name="password" class="form-control" style="width: 100%;" placeholder="Password" required />
+                                            </div>
+    
+                                            <div class="input-field" style="width: 100%; margin-top: 10px;">
+                                                <input type="submit" class="btn btn-blue-affiliatewrap btn-effect" style="width: 100%;" value="Log in" />
+                                            </div>
+                                        </form>
+    
+                                        <div class="col-sm-9 mt-2" style="width: 100%; margin-top: 10px; text-align:center;">
+                                            <a href="{% url 'account_reset_password' %}">Forgotten your password?</a>
+                                        </div>
+                                        
+                                        <div class="col-sm-9 mt-2" style="width: 100%; margin-top: 10px; text-align:center;">
+                                            <a href data-dismiss="modal" data-toggle="modal" data-target="#login">More login options</a>
+                                        </div>
+    
+                                        <div class="col-sm-9 mt-2" style="width: 100%; margin-top: 10px; text-align:center;">
+                                            Don’t have an account? <a href data-dismiss="modal" data-toggle="modal" data-target="#signup" >Sign up</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <!--end email login popup modal-->
+    
+                        <!--start signup popup modal-->
+                        <div id="signup" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                                <!-- Modal content-->
+                                <div class="modal-content" style="background-color: white; width: 400px; height: 300px">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title" style="text-align: center;">Sign up</h4>
+                                    </div>
+    
+                                    <div class="modal-body">
+                                        <div class="input-field" style="width: 100%;">
+                                            <a href="{% provider_login_url "google" %}" class="btn btn-blue-affiliatewrap btn-effect" style="width: 100%;">
+                                                <span>
+                                                    <i class="fa fa-google"></i>
+                                                </span>
+                                                Continue with Google
+                                            </a>
+                                        </div>
+                                                
+                                        <div class="input-field" style="width: 100%; margin-top: 10px;">
+                                            <a href="{% provider_login_url "facebook" method="oauth2" %}" class="btn btn-blue-affiliatewrap btn-effect" style="width: 100%;">
+                                                <span>
+                                                    <i class="fa fa-facebook"></i>
+                                                </span>
+                                                Continue with Facebook
+                                            </a>
+                                        </div>
+    
+                                        <div class="input-field" style="width: 100%; margin-top: 10px; text-align:center;">
+                                            Already have an account?
+                                            <a href data-dismiss="modal" data-toggle="modal" data-target="#login">Log in</a>
+                                        </div>
+    
+                                        <div class="input-field" style="width: 100%; margin-top: 10px; text-align:center;">
+                                            <a href data-dismiss="modal" data-toggle="modal" data-target="#emailsignup">
+                                                Continue with Email
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--end signup popup modal-->
+    
+                        <!--start email signup popup modal-->
+                        <div id="emailsignup" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                        
+                                <!-- Modal content-->
+                                <div class="modal-content" style="background-color: white; width: 400px; height: 500px">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title" style="text-align: center;">Continue with Email</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="/accounts/signup/" method="POST">
+                                            {% csrf_token %}
+                                            <div class="input-field" style="width: 100%;">
+                                                <input type="text" name="fullname" class="form-control" style="width: 100%;" placeholder="Full Name" required />
+                                            </div>
+    
+                                            <div class="input-field" style="width: 100%;">
+                                                <input type="email" name="email" class="form-control" style="width: 100%;" placeholder="Email" required />
+                                            </div>
+    
+                                            <div class="input-field" style="width: 100%;">	
+                                                <input type="password" name="password1" id="password1" class="form-control" style="width: 100%;" placeholder="Password" required />
+                                                <span class="eye" style="position:fixed; right:123px; top:209px; cursor: pointer;" onclick="ShowPassword()">
+                                                    <i id="hide1" style="display: block;" class="fa fa-eye"></i>
+                                                    <i id="hide2" style="display: none;" class="fa fa-eye-slash"></i>
+                                                </span>
+                                            </div>
+    
+                                            <!--script for show/hide password-->
+                                            <script>
+                                                function ShowPassword(){
+                                                    var x = document.getElementById("password1");
+                                                    var y = document.getElementById("hide1");
+                                                    var z = document.getElementById("hide2");
+                                            
+                                                    if(x.type=='password'){
+                                                        x.type="text";
+                                                        y.style.display="none";
+                                                        z.style.display="block";
+                                                    }
+                                                    else{
+                                                        x.type="password";
+                                                        y.style.display="block";
+                                                        z.style.display="none";
+                                                    }
+                                                }
+                                            </script>
+    
+                                            <div class="input-field" style="width: 100%;">
+                                                <input type="text" name="phone_no" class="form-control" style="width: 100%;" placeholder="Phone number" required />
+                                            </div>
+    
+                                            <div class="input-field col-sm-9 mt-5" style="width: 100%;">
+                                                <input type="checkbox" name="sameasphone" value="True" checked /> Get Important Notifications On WhatsApp
+                                            </div>
+    
+                                            <div class="input-field" style="width: 100%; margin-top: 10px;">
+                                                <input type="submit" class="btn btn-blue-affiliatewrap btn-effect" style="width: 100%;" value="SIGN UP" />
+                                            </div>
+    
+                                            <div class="col-sm-9 mt-2" style="width: 100%; margin-top: 10px; text-align:center;">
+                                                <a href data-dismiss="modal" data-toggle="modal" data-target="#signup">More Signup Options</a>
+                                            </div>
+        
+                                            <div class="input-field" style="width: 100%; margin-top: 10px; text-align:center;">
+                                                Already have an account?
+                                                <a href data-dismiss="modal" data-toggle="modal" data-target="#login">Log in</a>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--end email signup popup modal-->
+                        <!--end login and signup popup modal-->
+                    </td>
+                </table>
+            </header>
+            
+            <!--
+            End Fixed Navigation
+            ==================================== -->
+            {% endblock navbar %}
+
+            {% block content %}
+            {% endblock content %}
+
+            {% block footer %}
+            <footer id="footer">
+                <div class="container">
+                    <div class="row text-center">
+                        <div class="footer-content">
+                            <div class="wow animated fadeInDown">
+                                <p>Let's be a Family</p>
+                                <p>Don't worry, We don't spam family!</p>
+                            </div>
+                            <form id="subscribemail" action="javascript:postEmailToGoogle()" method="post" class="subscribe-form wow animated fadeInUp">
+                                <div class="input-field">
+                                    <input type="email" id="Email" class="subscribe form-control" placeholder="Enter Your Email..." required>
+                                    <button type="submit" class="submit-icon">
+                                        <i class="fa fa-paper-plane fa-lg"></i>
+                                    </button>
+                                    <span id="subscribed" style="width:100px"></span>
+                                </div>
+                            </form>
+                            <div class="footer-social">
+                                <ul>
+                                    <li class="wow animated zoomIn"><a href="https://www.facebook.com/VrGeekz/" target="_blank"><i class="fa fa-facebook fa-3x"></i></a></li>
+                                    <li class="wow animated zoomIn" data-wow-delay="0.3s"><a href="https://www.instagram.com/vrgeekz/" target="_blank"><i class="fa fa-instagram fa-3x"></i></a></li>
+                                    <li class="wow animated zoomIn" data-wow-delay="0.6s"><a href="https://www.youtube.com/channel/UCNy54QG09WBP7ZU8eOSRntQ/videos" target="_blank"><i class="fa fa-youtube-play fa-3x"></i></a></li>
+                                    <li class="wow animated zoomIn" data-wow-delay="0.9s"><a href="https://twitter.com/VrGeekz" target="_blank"><i class="fa fa-twitter fa-3x"></i></a></li>
+                                    <!-- <li class="wow animated zoomIn" data-wow-delay="0.9s"><a href="https://thegeekstudio.wordpress.com/" target="_blank"><i class="fa fa-rss fa-3x"></i></a></li> -->
+                                </ul>
+                            </div>
+                            
+                            <p>Copyright &copy; 2020 by Geekz. All rights reserved.</p>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+            {% endblock footer %}
+
+            <!-- Essential jQuery Plugins
+		================================================== -->
+		<!-- Main jQuery -->
+        <script src="{% static 'js/jquery-1.11.1.min.js' %}"></script>
+		<!-- Twitter Bootstrap -->
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>
+		<!-- Single Page Nav -->
+        <script src="{% static 'js/jquery.singlePageNav.min.js' %}"></script>
+		<!-- jquery.fancybox.pack -->
+        <script src="{% static 'js/jquery.fancybox.pack.js' %}"></script>
+		<!-- Google Map API -->
+		<script src="http://maps.google.com/maps/api/js?key=AIzaSyAhy_mC_xNa374iO1IAFuoioiNHYM9oYpw&sensor=false"></script>
+		<!-- Owl Carousel -->
+        <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+        <!-- jquery easing -->
+        <script src="{% static 'js/jquery.easing.min.js' %}"></script>
+        <!-- Fullscreen slider -->
+        <script src="{% static 'js/jquery.slitslider.js' %}"></script>
+        <script src="{% static 'js/jquery.ba-cond.min.js' %}"></script>
+		<!-- onscroll animation -->
+        <script src="{% static 'js/wow.min.js' %}"></script>
+		<!-- Custom Functions -->
+        <script src="{% static 'js/main.js' %}"></script>
+        </body>
+    </head>
 </html>
