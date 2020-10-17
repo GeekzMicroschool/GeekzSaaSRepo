@@ -1,264 +1,187 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
-    <head>
-    	<!-- meta character set -->
-        <meta charset="utf-8">
-		<!-- Always force latest IE rendering engine or request Chrome Frame -->
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>Geekz | Jobs</title>		
-		<!-- Meta Description -->
-        <meta name="description" content="Geekz Jobs">
-        <meta name="keywords" content="Jobs, careers, geekz careers, geekz jobs, geekz, geeks, school, reimagined school, international, velachery, chennai, personalized, curriculum, self paced, learning, mastery, khan academy, duolingo, Microsoft, Program Manager, international school, open position, principal, teacher, educator, india">
-        <meta name="author" content="Sridhar Gopalaswamy">
-		
-		<!-- Mobile Specific Meta -->
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-		
-		<!-- CSS
-		================================================== -->
-		
-		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
-		
-		<!-- Fontawesome Icon font -->
-        <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
-		<!-- bootstrap.min -->
-        <link rel="stylesheet" href="{% static 'css/jquery.fancybox.css' %}">
-		<!-- bootstrap.min -->
-        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-		<!-- bootstrap.min -->
-        <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
-		<!-- bootstrap.min -->
-        <link rel="stylesheet" href="{% static 'css/slit-slider.css' %}">
-		<!-- bootstrap.min -->
-        <link rel="stylesheet" href="{% static 'css/animate.css' %}">
-		<!-- Main Stylesheet -->
-        <link rel="stylesheet" href="{% static 'css/main.css' %}">
+{% block title %}Geekz | Jobs{% endblock title %}
 
-		<!-- Modernizer Script for old Browsers -->
-        <script src="{% static 'js/modernizr-2.6.2.min.js' %}"></script>
-                
-<!--        Tab logo-->
-        <link rel="icon" type="image/png" href="{% static 'img/favicon-32x32.png' %}" sizes="32x32">
-
-    </head>
-	
-    <body id="body">
-
-		<!-- preloader -->
-		<div id="preloader">
-            <div class="loder-box">
-            	<div class="battery"></div>
-            </div>
-		</div>
-		<!-- end preloader -->
-
-        <!--
-        Fixed Navigation
-        ==================================== -->
-        <header id="navigation" class="navbar-inverse navbar-fixed-top animated-header">
-            <table style="width:90%" align="center"><td>
-            <div class="container" style="width:90%">
-                <div class="navbar-header">
-                    <!-- responsive nav button -->
-					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-						<span class="sr-only">Toggle navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-                    </button>
-					<!-- /responsive nav button -->
-					
-					<!-- logo -->
-					<h1 class="navbar-logo">
-						<a href="http://www.geekz.school" style="color:#fff;">
-                            <img src="{% static 'img/Geekz%20Logo.png' %}" height="70" style="position:relative;bottom:0px;" title="Geekz Microschool"><span style="position:relative;top:11px;" title="Geekz Microschool"></span>
-                        </a>
-					</h1>
-					<!-- /logo -->
-                </div>
-                
-                <!-- main nav -->
-                <nav class="collapse navbar-collapse navbar-right" role="navigation">
-                    <ul id="nav" class= "nav navbar-tabs">
-                        <li><a href="#body">Home</a></li>
+{% block navbar %}
+<header id="navigation" class="navbar-inverse navbar-fixed-top animated-header">
+    <table style="width:90%" align="center"><td>
+    <div class="container" style="width:90%">
+        <div class="navbar-header">
+            <!-- responsive nav button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <!-- /responsive nav button -->
+            
+            <!-- logo -->
+            <h1 class="navbar-logo">
+                <a href="http://www.geekz.school" style="color:#fff;">
+                    <img src="{% static 'img/Geekz%20Logo.png' %}" height="70" style="position:relative;bottom:0px;" title="Geekz Microschool"><span style="position:relative;top:11px;" title="Geekz Microschool"></span>
+                </a>
+            </h1>
+            <!-- /logo -->
+        </div>
+        
+        <!-- main nav -->
+        <nav class="collapse navbar-collapse navbar-right" role="navigation">
+            <ul id="nav" class= "nav navbar-tabs">
+                <li><a href="/">Home</a></li>
 <!--                        <li><a href="#service">Education</a></li>-->
 <!--                        <li><a href="#admissions">Admissions</a></li>-->
 <!--                        <li><a href="#testimonials">About</a></li>-->
 <!--                        <li><a href="#">Careers</a></li>-->
-                        <li><a href="#footer">Contact</a></li>
-                    </ul>
-                </nav>
-                
-				<!-- /main nav -->
-                
-            </div></td>
-            <td width="30%"><a href="/schoolasaservice" class="btn btn-blue-affiliatewrap btn-effect">Launch Your Own Geekz</a></td></table>
-            
-        </header>
-        <!--
-        End Fixed Navigation
-        ==================================== -->
-		
-		<main class="site-content" role="main">
+                <li><a href="#footer">Contact</a></li>
+            </ul>
+        </nav>
+        
+        <!-- /main nav -->
+        
+    </div></td>
+    <td width="30%"><a href="/schoolasaservice" class="btn btn-blue-affiliatewrap btn-effect">Launch Your Own Geekz</a></td></table>
+    
+</header>
+{% endblock navbar %}
+
+{% block content %}
+
+<main class="site-content" role="main">
 		
 			
-			<!-- Contact section -->
-			<section id="contact" >
-				<div class="container">
-					<div class="row">
-						
-						<div class="sec-title text-center wow animated fadeInDown">
-                            <span>&nbsp;</span><p>&nbsp;</p>
-							<h2>Jobs at Geekz</h2>
-							<p id="geekzapply">Thank you for your interest in Geekz Microschool! We are excited to get to know you.<br><br>Geekz is the brainchild of Ex-Microsoft Program Manager headquartered in Velachery Chennai. Geekz world-class team of educators, entrepreneurs, and technologists is working together to build a network of micro-schools that offer personalized, child-centered learning experiences. Our passion for re-imagining education informs what we do everyday, whether it’s connecting with communities of parents and students to learn how we can meet their needs, researching new technology tools for the classroom, or recruiting the best talent for our team.<br><br>If you feel driven to create transformative educational experiences that will prepare  our children for 2040 and beyond, please take a look at our jobs below and apply for an open position today.</p>
-						</div>
-						
-						<div class="text-justify contact-form wow animated fadeInUp">
-							<h1 align="left"><b>ELEMENTARY EDUCATOR</b></h1>
-							<p>Geekz Microschool is reimagining K-5 education from the ground up. Our world-class team of educators and technologists is working together to build a network of micro schools that offers a transformatively better school experience. We’re dedicated to creating and providing a child-centered, personalized education that leverages local experiential learning. Geekz mission is to empower every child to identify their inner calling and learn life at their own pace, preparing students for the world in 2040 and beyond.<br><br>The Education team is at the forefront of pioneering the Geekz model. Our educators are the experts in our students’ learning, and they direct the personalization of what, where, when, and how they learn. Geekz educators customize their own classroom’s curriculum, emphasizing both academic rigor and social emotional learning. Building a 21st century Education team translates to the opportunity for year-round work, flexible time-off and modern technology to enhance and empower teaching and learning. Educators have the opportunity for rapid career growth to become Head, Director or VP of school as Geekz grow and open network of micro schools across India.<br><br>This role is based at our Velachery site, where we serve students in grades PreK-5.</p><br><br>
-                            
-						</div>
-						
-                        <div class="col-md-7 contact-form wow animated fadeInLeft">
-							<h3><b>RESPONSIBILITIES</b></h3>
-                            <ul>
-                                <li>Guide mixed-age classroom of students to learn life </li>
-                                <li>Design or customize experiential, project-based trans-disciplinary lessons for the class to create activities that are relevant and real-world</li>
-                                <li>Research education apps to promote digital learning</li>
-                                <li>Curate individual learning experiences based on each student’s abilities, needs, and learning approach to construct and exhibit core competencies</li>
-                                <li>Determine students’ academic and social emotional learning goals and ensure that they’re met</li>
-                                <li>Use the resources of the city and community to create an education that is relevant and real</li>
-                                <li>Collect and use data to constructively and collaboratively assess students' learning real-time</li>
-                                <li>Communicate learning targets and outcomes to colleagues, parents, and students on a regular basis</li>
-                                <li>Commit to building a community of child-centered educators by mentoring other educators and making regular contributions to the network, including sharing materials, best practices, research findings, etc</li>
-                                <li>Build and maintain positive, transparent partnerships with the school’s families by engaging with the community through frequent and rich communication</li>
-                                <li>Help in admissions, educator recruitment, facilitating personal training and parent university</li>
-                                <li>Prompt and regular attendance on all school and work days</li>
-                            </ul>
-                        </div>
-                        <div id="tips" class="col-md-4 wow animated fadeInRight" style="float:right;">
-							<address class="contact-details">
-                                <h3>Compensation & Benefits</h3>
-                                <p><i class="fa fa-money"></i>Competitive compensation commensurate with experience</p>
-                                <p><i class="fa fa-university"></i>Autonomous power to drive your Classroom</p>
-                                <p><i class="fa fa-tablet"></i>Smart device for every Educator at work</p>
-							</address>
-						</div>
-                        
-                        <div class="col-md-7 contact-form wow animated fadeInLeft">
-                            <h3><b>BASIC QUALIFICATION</b></h3>
-                            <ul>
-                                <li>Strong written and top-notch communication skills</li>
-                                <li>Passion to be creative and build innovative lesson plans simulating real life is MUST required</li>
-                                <li>Love for children, home-like care and passion to reimagine education</li>
-                                <li>Knowledge of learning methodologies in Montessori, IB international schools for PreK-5 students</li>
-                                <li>Prior experience using Android smart devices such as Tablets, Smartphones and Laptops</li>
-                                <li>Willingness to learn and utilize the latest technologies, Education Apps for effective  learning and communication</li>
-                                <li>Open mind to embrace and learn new next-gen education model</li>
-                                <li>Ability to teach a wide range of subjects (ALL Geekz educators teach all subjects in this transdisciplinary model)</li>
-                                <li>Ability to lead students in engaging discussions</li>
-                                <li>Passion for working with and engaging children in student driven, personalized learning experiences</li>
-                                <li>Belief in fostering children’s social emotional capabilities and whole child learning</li>
-                                <li>Commitment to continuous improvement and data informed decisions</li>
-                                <li>Willingness to write blogs</li>
-                                <li>Entrepreneurial mindset and customer service orientation</li>
-                            </ul>
-                        </div>
-                        
-                        <div id="tips" class="col-md-4 wow animated fadeInRight" style="float:right;">
-							<address class="contact-details">
-                                <h3>Contact Us</h3>						
+    <!-- Contact section -->
+    <section id="contact" >
+        <div class="container">
+            <div class="row">
+                
+                <div class="sec-title text-center wow animated fadeInDown">
+                    <span>&nbsp;</span><p>&nbsp;</p>
+                    <h2>Jobs at Geekz</h2>
+                    <p id="geekzapply">Thank you for your interest in Geekz Microschool! We are excited to get to know you.<br><br>Geekz is the brainchild of Ex-Microsoft Program Manager headquartered in Velachery Chennai. Geekz world-class team of educators, entrepreneurs, and technologists is working together to build a network of micro-schools that offer personalized, child-centered learning experiences. Our passion for re-imagining education informs what we do everyday, whether it’s connecting with communities of parents and students to learn how we can meet their needs, researching new technology tools for the classroom, or recruiting the best talent for our team.<br><br>If you feel driven to create transformative educational experiences that will prepare  our children for 2040 and beyond, please take a look at our jobs below and apply for an open position today.</p>
+                </div>
+                
+                <div class="text-justify contact-form wow animated fadeInUp">
+                    <h1 align="left"><b>ELEMENTARY EDUCATOR</b></h1>
+                    <p>Geekz Microschool is reimagining K-5 education from the ground up. Our world-class team of educators and technologists is working together to build a network of micro schools that offers a transformatively better school experience. We’re dedicated to creating and providing a child-centered, personalized education that leverages local experiential learning. Geekz mission is to empower every child to identify their inner calling and learn life at their own pace, preparing students for the world in 2040 and beyond.<br><br>The Education team is at the forefront of pioneering the Geekz model. Our educators are the experts in our students’ learning, and they direct the personalization of what, where, when, and how they learn. Geekz educators customize their own classroom’s curriculum, emphasizing both academic rigor and social emotional learning. Building a 21st century Education team translates to the opportunity for year-round work, flexible time-off and modern technology to enhance and empower teaching and learning. Educators have the opportunity for rapid career growth to become Head, Director or VP of school as Geekz grow and open network of micro schools across India.<br><br>This role is based at our Velachery site, where we serve students in grades PreK-5.</p><br><br>
+                    
+                </div>
+                
+                <div class="col-md-7 contact-form wow animated fadeInLeft">
+                    <h3><b>RESPONSIBILITIES</b></h3>
+                    <ul>
+                        <li>Guide mixed-age classroom of students to learn life </li>
+                        <li>Design or customize experiential, project-based trans-disciplinary lessons for the class to create activities that are relevant and real-world</li>
+                        <li>Research education apps to promote digital learning</li>
+                        <li>Curate individual learning experiences based on each student’s abilities, needs, and learning approach to construct and exhibit core competencies</li>
+                        <li>Determine students’ academic and social emotional learning goals and ensure that they’re met</li>
+                        <li>Use the resources of the city and community to create an education that is relevant and real</li>
+                        <li>Collect and use data to constructively and collaboratively assess students' learning real-time</li>
+                        <li>Communicate learning targets and outcomes to colleagues, parents, and students on a regular basis</li>
+                        <li>Commit to building a community of child-centered educators by mentoring other educators and making regular contributions to the network, including sharing materials, best practices, research findings, etc</li>
+                        <li>Build and maintain positive, transparent partnerships with the school’s families by engaging with the community through frequent and rich communication</li>
+                        <li>Help in admissions, educator recruitment, facilitating personal training and parent university</li>
+                        <li>Prompt and regular attendance on all school and work days</li>
+                    </ul>
+                </div>
+                <div id="tips" class="col-md-4 wow animated fadeInRight" style="float:right;">
+                    <address class="contact-details">
+                        <h3>Compensation & Benefits</h3>
+                        <p><i class="fa fa-money"></i>Competitive compensation commensurate with experience</p>
+                        <p><i class="fa fa-university"></i>Autonomous power to drive your Classroom</p>
+                        <p><i class="fa fa-tablet"></i>Smart device for every Educator at work</p>
+                    </address>
+                </div>
+                
+                <div class="col-md-7 contact-form wow animated fadeInLeft">
+                    <h3><b>BASIC QUALIFICATION</b></h3>
+                    <ul>
+                        <li>Strong written and top-notch communication skills</li>
+                        <li>Passion to be creative and build innovative lesson plans simulating real life is MUST required</li>
+                        <li>Love for children, home-like care and passion to reimagine education</li>
+                        <li>Knowledge of learning methodologies in Montessori, IB international schools for PreK-5 students</li>
+                        <li>Prior experience using Android smart devices such as Tablets, Smartphones and Laptops</li>
+                        <li>Willingness to learn and utilize the latest technologies, Education Apps for effective  learning and communication</li>
+                        <li>Open mind to embrace and learn new next-gen education model</li>
+                        <li>Ability to teach a wide range of subjects (ALL Geekz educators teach all subjects in this transdisciplinary model)</li>
+                        <li>Ability to lead students in engaging discussions</li>
+                        <li>Passion for working with and engaging children in student driven, personalized learning experiences</li>
+                        <li>Belief in fostering children’s social emotional capabilities and whole child learning</li>
+                        <li>Commitment to continuous improvement and data informed decisions</li>
+                        <li>Willingness to write blogs</li>
+                        <li>Entrepreneurial mindset and customer service orientation</li>
+                    </ul>
+                </div>
+                
+                <div id="tips" class="col-md-4 wow animated fadeInRight" style="float:right;">
+                    <address class="contact-details">
+                        <h3>Contact Us</h3>						
 <!--								<p><i class="fa fa-pencil"></i>Phoenix Inc.<span>PO Box 345678</span> <span>Little Lonsdale St, Melbourne </span><span>Australia</span></p><br>-->
-                                <p><i class="fa fa-pencil"></i>Door No 21 Plot No 196<span>4th Street Murugu Nagar</span><span>Velachery Chennai</span></p><br>
-								<p><i class="fa fa-phone"></i>Phone: +91 98842 GEEKZ<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+91 98842 43359</span></p>
-								<p><i class="fa fa-envelope"></i>jobs@geekz.school</p>
-                                <br>
-                                <h3>Apply Now</h3>
-                                <p>We look for educators with creativity and passion to rebuild schooling ground up, NOT their degrees or teaching experience as you don't need them to be talented. We welcome innovative talents looking to switch from IT, Visual Communication or any other domains to build future of our nation.<br><br>To be considered for this role, please submit a cover letter that explains why you would be a great fit for this role along with your resume to <b>jobs@geekz.school.</b></p>
-							</address>
-						</div>
-                        
-                        <div class="col-md-7 contact-form wow animated fadeInLeft">
-                            <h3><b>PREFERRED QUALIFICATION</b></h3>
-                            <ul>
-                                <li>Ability to teach foreign languages is desired but NOT REQUIRED</li>
-                                <li>Ability to speak in US/UK accent is added advantage</li>
-                                <li>Ability to teach variety of arts programs including but not limited to arts, music, theatre plays, choreography, cinematography</li>
-                                <li>Prior experience mentoring other educators</li>
-                                <li>Prior experience working with multiple grade levels</li>
-                            </ul>
-						</div>
-                        
-					</div>
-				</div>
-			</section>
-			<!-- end Contact section -->
-		</main>
-		
-		<footer id="footer">
-			<div class="container">
-				<div class="row text-center">
-					<div class="footer-content">
-						<div class="wow animated fadeInDown">
+                        <p><i class="fa fa-pencil"></i>Door No 21 Plot No 196<span>4th Street Murugu Nagar</span><span>Velachery Chennai</span></p><br>
+                        <p><i class="fa fa-phone"></i>Phone: +91 98842 GEEKZ<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+91 98842 43359</span></p>
+                        <p><i class="fa fa-envelope"></i>jobs@geekz.school</p>
+                        <br>
+                        <h3>Apply Now</h3>
+                        <p>We look for educators with creativity and passion to rebuild schooling ground up, NOT their degrees or teaching experience as you don't need them to be talented. We welcome innovative talents looking to switch from IT, Visual Communication or any other domains to build future of our nation.<br><br>To be considered for this role, please submit a cover letter that explains why you would be a great fit for this role along with your resume to <b>jobs@geekz.school.</b></p>
+                    </address>
+                </div>
+                
+                <div class="col-md-7 contact-form wow animated fadeInLeft">
+                    <h3><b>PREFERRED QUALIFICATION</b></h3>
+                    <ul>
+                        <li>Ability to teach foreign languages is desired but NOT REQUIRED</li>
+                        <li>Ability to speak in US/UK accent is added advantage</li>
+                        <li>Ability to teach variety of arts programs including but not limited to arts, music, theatre plays, choreography, cinematography</li>
+                        <li>Prior experience mentoring other educators</li>
+                        <li>Prior experience working with multiple grade levels</li>
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+    <!-- end Contact section -->
+</main>
+{% endblock content %}
+
+{% block footer %}
+<footer id="footer">
+    <div class="container">
+        <div class="row text-center">
+            <div class="footer-content">
+                <div class="wow animated fadeInDown">
 <!--							<p>Let's be a Family!</p>-->
-                            <p></p>
-                            <address class="contact-details">
-                            <p><i class="fa fa-pencil"></i>Geekz Microschool Velachery Chennai<br><i class="fa fa-envelope"></i>hello@geekz.school</p>
-                            <p><i class="fa fa-phone"></i>+91 98842 GEEKZ </p>
+                    <p></p>
+                    <address class="contact-details">
+                    <p><i class="fa fa-pencil"></i>Geekz Microschool Velachery Chennai<br><i class="fa fa-envelope"></i>hello@geekz.school</p>
+                    <p><i class="fa fa-phone"></i>+91 98842 GEEKZ </p>
 <!--							<p>Don't worry, We don't spam family!</p>-->
-                            </address>
-						</div>
+                    </address>
+                </div>
 
-						<form id="subscribemail" action="javascript:postEmailToGoogle()" method="post" class="subscribe-form wow animated fadeInUp">
-							<div class="input-field">
-								<input type="email" id="Email" class="subscribe form-control" placeholder="Enter Your Email...">
-								<button type="submit" class="submit-icon">
-									<i class="fa fa-paper-plane fa-lg"></i>
-								</button>
-                                <span id="subscribed" style="width:100px"></span>
-							</div>
-						</form>
+                <form id="subscribemail" action="javascript:postEmailToGoogle()" method="post" class="subscribe-form wow animated fadeInUp">
+                    <div class="input-field">
+                        <input type="email" id="Email" class="subscribe form-control" placeholder="Enter Your Email...">
+                        <button type="submit" class="submit-icon">
+                            <i class="fa fa-paper-plane fa-lg"></i>
+                        </button>
+                        <span id="subscribed" style="width:100px"></span>
+                    </div>
+                </form>
 
-						<div class="footer-social">
-							<ul>
-								<li class="wow animated zoomIn"><a href="https://www.facebook.com/VrGeekz/" target="_blank"><i class="fa fa-facebook fa-3x"></i></a></li>
-								<li class="wow animated zoomIn" data-wow-delay="0.3s"><a href="https://www.instagram.com/vrgeekz/" target="_blank"><i class="fa fa-instagram fa-3x"></i></a></li>
-                                <li class="wow animated zoomIn" data-wow-delay="0.6s"><a href="https://www.youtube.com/channel/UCNy54QG09WBP7ZU8eOSRntQ/videos" target="_blank"><i class="fa fa-youtube-play fa-3x"></i></a></li>
-                                <li class="wow animated zoomIn" data-wow-delay="0.9s"><a href="https://twitter.com/VrGeekz" target="_blank"><i class="fa fa-twitter fa-3x"></i></a></li>
-                                <!-- <li class="wow animated zoomIn" data-wow-delay="0.9s"><a href="https://thegeekstudio.wordpress.com/" target="_blank"><i class="fa fa-rss fa-3x"></i></a></li> -->
-							</ul>
-						</div>
-						
-						<p>Copyright &copy; 2020 by Geekz. All rights reserved.</p>
-					</div>
-				</div>
-			</div>
-		</footer>
-		
-		<!-- Essential jQuery Plugins
-		================================================== -->
-		<!-- Main jQuery -->
-        <script src="{% static 'js/jquery-1.11.1.min.js' %}"></script>
-		<!-- Twitter Bootstrap -->
-        <script src="{% static 'js/bootstrap.min.js' %}"></script>
-		<!-- Single Page Nav -->
-        <script src="{% static 'js/jquery.singlePageNav.min.js' %}"></script>
-		<!-- jquery.fancybox.pack -->
-        <script src="{% static 'js/jquery.fancybox.pack.js' %}"></script>
-		<!-- Owl Carousel -->
-        <script src="{% static 'js/owl.carousel.min.js' %}"></script>
-        <!-- jquery easing -->
-        <script src="{% static 'js/jquery.easing.min.js' %}"></script>
-        <!-- Fullscreen slider -->
-        <script src="{% static 'js/jquery.slitslider.js' %}"></script>
-        <script src="{% static 'js/jquery.ba-cond.min.js' %}"></script>
-		<!-- onscroll animation -->
-        <script src="{% static 'js/wow.min.js' %}"></script>
-		<!-- Custom Functions -->
-        <script src="{% static 'js/main.js' %}"></script>
-    </body>
-</html>
+                <div class="footer-social">
+                    <ul>
+                        <li class="wow animated zoomIn"><a href="https://www.facebook.com/VrGeekz/" target="_blank"><i class="fa fa-facebook fa-3x"></i></a></li>
+                        <li class="wow animated zoomIn" data-wow-delay="0.3s"><a href="https://www.instagram.com/vrgeekz/" target="_blank"><i class="fa fa-instagram fa-3x"></i></a></li>
+                        <li class="wow animated zoomIn" data-wow-delay="0.6s"><a href="https://www.youtube.com/channel/UCNy54QG09WBP7ZU8eOSRntQ/videos" target="_blank"><i class="fa fa-youtube-play fa-3x"></i></a></li>
+                        <li class="wow animated zoomIn" data-wow-delay="0.9s"><a href="https://twitter.com/VrGeekz" target="_blank"><i class="fa fa-twitter fa-3x"></i></a></li>
+                        <!-- <li class="wow animated zoomIn" data-wow-delay="0.9s"><a href="https://thegeekstudio.wordpress.com/" target="_blank"><i class="fa fa-rss fa-3x"></i></a></li> -->
+                    </ul>
+                </div>
+                
+                <p>Copyright &copy; 2020 by Geekz. All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+{% endblock footer %}
