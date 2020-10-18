@@ -53,11 +53,11 @@
         {% csrf_token %}
 
             <div class="input-field" style="width: 100%;">
-                <input type="text" name="fullname" class="form-control" style="width: 100%;" value="{{account.extra_data.name}}" required readonly />
+                <input type="text" name="fullname" class="form-control" style="width: 100%;" value="{{account.extra_data.name}}" required />
             </div>
 
             <div class="input-field" style="width: 100%;">
-                <input type="email" name="email" class="form-control" style="width: 100%;" value="{{account.extra_data.email}}" required readonly />
+                <input type="email" name="email" class="form-control" style="width: 100%;" value="{{account.extra_data.email}}" required />
             </div>
 
             <div class="input-field" style="width: 100%;">
