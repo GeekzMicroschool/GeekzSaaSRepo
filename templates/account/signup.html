@@ -4,12 +4,12 @@
 {% load i18n %}
 
 {% block title %} 
-  Log in
+  Sign up
 {% endblock title %}
 
 
 {% block content %}
-  <h1>Log in</h1>
+  <h1>Sign up</h1>
   {% block messages %}
   {% if form.errors %}
     {% for field in form %}
@@ -26,15 +26,27 @@
     {% endfor %}
   {% endif %}
   {% endblock messages %}
-  <form id="login_form" method="POST" action="{% url 'account_login' %}">
+  <form id="login_form" method="POST" action="{% url 'account_signup' %}">
     {% csrf_token %}
-    
     <div class="input-field">
-    {{form.login}}
+      {{form.email}}
     </div>
 
     <div class="input-field">
-    {{form.password}}
+      {{form.fullname}}
+    </div>
+
+    <div class="input-field">
+      {{form.phone_no}}
+    </div>
+
+    <div class="input-field">
+      Get Important Notifications <br> On WhatsApp
+      {{form.sameasphone}}
+    </div>
+
+    <div class="input-field">
+      {{form.password1}}
     </div>
   
     {% if redirect_field_value %}
@@ -42,10 +54,10 @@
       <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
     
     {% endif %}
+    
     <div class="input-field">
-      <button  class="btn btn-blue-affiliatewrap btn-effect" type="submit">{% trans "Log in" %}</button>
+      <button  class="btn btn-blue-affiliatewrap btn-effect" type="submit">{% trans "Sign up" %}</button>
     </div>
-    <a href="{% url 'account_reset_password' %}">{% trans "Forgot Password ?" %}</a>  
-  
+    <p class="exist_account_info">{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">Log in</a>.{% endblocktrans %}</p>
   </form>
 {% endblock content %}

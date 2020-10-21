@@ -65,6 +65,7 @@
 			    display: block;
 			}
         </style>
+    </head>
         <body id="body">
             {% block preloader %}
             {% endblock preloader %}
@@ -183,7 +184,7 @@
                                         </div>
 
                                         <div class="input-field" style="width: 100%; margin-top: 10px; text-align:center;">
-                                            <a href data-dismiss="modal" data-toggle="modal" data-target="#emaillogin">
+                                            <a href="/accounts/login">
                                             Continue with Email
                                             </a>
                                         </div>
@@ -272,7 +273,7 @@
                                         </div>
     
                                         <div class="input-field" style="width: 100%; margin-top: 10px; text-align:center;">
-                                            <a href data-dismiss="modal" data-toggle="modal" data-target="#emailsignup">
+                                            <a href="accounts/signup">
                                                 Continue with Email
                                             </a>
                                         </div>
@@ -332,7 +333,7 @@
                                             </script>
     
                                             <div class="input-field" style="width: 100%;">
-                                                <input type="text" id="demo" name="phone_no" id="telephone" class="form-control" style="width: 100%;" placeholder="Phone number" required />
+                                                <input type="phone" name="phone_no"  class="form-control" style="width: 100%;" maxlength="10" placeholder="Phone number" required />
                                             </div>
     
                                             <div class="input-field col-sm-9 mt-5" style="width: 100%;">

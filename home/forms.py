@@ -13,11 +13,10 @@ from django.conf import settings
 
 
 class SimpleSignupForm(SignupForm):
-    email = forms.EmailField(max_length=255)
-    fullname = forms.CharField(max_length=200)
-    phone_no = forms.IntegerField()
-    sameasphone = forms.BooleanField(required=False)
-    whatsapp_no = forms.IntegerField(required=False)
+    email = forms.EmailField(max_length=255, widget=forms.EmailInput(attrs={'class':'input-field', 'placeholder':'Email'}))
+    fullname = forms.CharField(max_length=200, widget=forms.TextInput(attrs={'class':'input-field', 'placeholder':'Full Name'}))
+    phone_no = forms.IntegerField(widget=forms.TextInput(attrs={'class':'input-field', 'placeholder':'Phone Number'}))
+    sameasphone = forms.BooleanField(label=("Get Important Notifications On WhatsApp"), required=False, initial=True)
 
     def save(self, request):
     	# first call save of parent class
@@ -26,10 +25,7 @@ class SimpleSignupForm(SignupForm):
         if self.cleaned_data['sameasphone'] == True:
             whatsapp_no = self.cleaned_data['phone_no']
         else:
-            try:
-                whatsapp_no = self.cleaned_data['whatsapp_no']
-            except:
-                whatsapp_no = ''
+           whatsapp_no = ''
 
         # Now create new models
         UserDetails.objects.create(email = user.email, fullname = self.cleaned_data['fullname'], phone_no = self.cleaned_data['phone_no'], whatsapp_no = whatsapp_no)
@@ -39,19 +35,14 @@ class SimpleSignupForm(SignupForm):
 class CustomSocialSignupForm(SocialSignupForm):
     phone_no = forms.IntegerField()
     sameasphone = forms.BooleanField(required=False)
-    whatsapp_no = forms.IntegerField(required=False)
 
     def save(self, request):
         user = super(CustomSocialSignupForm, self).save(request)
-        print("uuuus",user.email)
 
         if self.cleaned_data['sameasphone'] == True:
             whatsapp_no = self.cleaned_data['phone_no']
         else:
-            try:
-                whatsapp_no = self.cleaned_data['whatsapp_no']
-            except:
-                whatsapp_no = ''
+            whatsapp_no = ''
         fullname = user.first_name+" "+user.last_name
         UserDetails.objects.create(email = user.email, fullname = fullname, phone_no = self.cleaned_data['phone_no'], whatsapp_no = whatsapp_no)
 
