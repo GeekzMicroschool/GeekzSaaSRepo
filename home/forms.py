@@ -11,30 +11,36 @@ from django.template.loader import render_to_string
 from django.core.mail import EmailMessage
 from django.conf import settings
 
+from django.forms.widgets import Input
+    
+class TelInput(Input):
+    input_type = 'tel'
 
 class SimpleSignupForm(SignupForm):
     email = forms.EmailField(max_length=255, widget=forms.EmailInput(attrs={'class':'input-field', 'placeholder':'Email'}))
     fullname = forms.CharField(max_length=200, widget=forms.TextInput(attrs={'class':'input-field', 'placeholder':'Full Name'}))
-    phone_no = forms.IntegerField(widget=forms.TextInput(attrs={'class':'input-field', 'placeholder':'Phone Number'}))
+    phone_no = forms.CharField(widget=TelInput(attrs={'placeholder':'Phone...', 'autocomplete':'off', 'maxlength':'10', 'pattern':'[0-9]{10}'}))
     sameasphone = forms.BooleanField(label=("Get Important Notifications On WhatsApp"), required=False, initial=True)
 
     def save(self, request):
     	# first call save of parent class
         user = super(SimpleSignupForm, self).save(request)
-        
+        country_code = request.POST['countrycode']
+        phoneno=self.cleaned_data['phone_no']
+        phone_no="+"+country_code+phoneno
         if self.cleaned_data['sameasphone'] == True:
-            whatsapp_no = self.cleaned_data['phone_no']
+            whatsapp_no = phone_no
         else:
            whatsapp_no = ''
 
         # Now create new models
-        UserDetails.objects.create(email = user.email, fullname = self.cleaned_data['fullname'], phone_no = self.cleaned_data['phone_no'], whatsapp_no = whatsapp_no)
+        UserDetails.objects.create(email = user.email, fullname = self.cleaned_data['fullname'], phone_no = phone_no, whatsapp_no = whatsapp_no)
         return user
 
 
 class CustomSocialSignupForm(SocialSignupForm):
-    phone_no = forms.IntegerField()
-    sameasphone = forms.BooleanField(required=False)
+    phone_no = forms.CharField(widget=TelInput(attrs={'placeholder':'Phone...', 'autocomplete':'off', 'maxlength':'10', 'pattern':'[0-9]{10}'}))
+    sameasphone = forms.BooleanField(label=("Get Important Notifications On WhatsApp"), required=False, initial=True)
 
     def save(self, request):
         user = super(CustomSocialSignupForm, self).save(request)

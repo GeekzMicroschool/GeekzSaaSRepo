@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load socialaccount %}
 {% block title %}Affiliate Your School | Geekz{% endblock title %}
 
 {% block navbar %}
@@ -41,7 +42,249 @@
         <!-- /main nav -->
         
     </div></td>
-    <td><a href="#contact" class="btn btn-blue-affiliatewrap btn-effect">Start Your Journey</a></td></table>
+    <td><a href="#contact" class="btn btn-blue-affiliatewrap btn-effect">Book a Free Quest Trial</a></td>
+    <td>
+        <!--03-10-2020 start login and signup popup modal-->
+        {% if user.is_authenticated %}
+            {% if user.socialaccount_set.all %}
+                {% for account in user.socialaccount_set.all %}
+                    <td style="padding: 20px;">
+                        <div class="dropdown">
+                            <img src="{{account.extra_data.picture}}" height="40" width="40" style="border-radius: 50%;">
+                            <div class="dropdown-content">
+                            <p><a href="/logout" class="btn btn-blue-affiliatewrap btn-effect">Logout</a></p>
+                            </div>
+                        </div>
+                    </td>
+                {% endfor %}
+                {% else %}
+                    <!--simple user-->
+                    <td style="padding: 20px;">
+                        <div class="dropdown">
+                            <a href style="color: grey; text-decoration: none;" class="fa fa-user fa-3x"></a>
+                            <div class="dropdown-content">
+                            <p><a href="/logout" class="btn btn-blue-affiliatewrap btn-effect">Logout</a></p>
+                            </div>
+                        </div>
+                    </td>
+                    <!--/simple user-->
+                {% endif %}
+        {% else %}
+            <a href style="color: grey; text-decoration: none; padding:20px" class="fa fa-user fa-3x" data-toggle="modal" data-target="#login" style="padding: 10px;"></a>
+        {% endif %}
+
+        <!--login popup modal-->
+        <div id="login" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content" style="background-color: white; width: 400px; height: 300px">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title" style="text-align: center;">Log in</h4>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="input-field" style="width: 100%;">
+                            <a href="{% provider_login_url "google" %}" class="btn btn-blue-affiliatewrap btn-effect" style="width: 100%;">
+                                <span>
+                                    <i class="fa fa-google"></i>
+                                </span>
+                                Continue with Google
+                            </a>
+                        </div>
+                                    
+                        <div class="input-field" style="width: 100%; margin-top: 10px;">
+                            <a href="{% provider_login_url "facebook" method="oauth2" %}" class="btn btn-blue-affiliatewrap btn-effect" style="width: 100%;">
+                                <span>
+                                    <i class="fa fa-facebook"></i>
+                                </span>
+                                Continue with Facebook
+                            </a>
+                        </div>
+                        
+                        <div class="input-field" style="width: 100%; margin-top: 10px; text-align:center;">
+                            Don’t have an account?
+                            <a href data-dismiss="modal" data-toggle="modal" data-target="#signup">Sign up</a>
+                        </div>
+
+                        <div class="input-field" style="width: 100%; margin-top: 10px; text-align:center;">
+                            <a href="/accounts/login">
+                            Continue with Email
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <!--end login popup modal-->
+
+        <!--start email login popup modal-->
+        <div id="emaillogin" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content" style="background-color: white; width: 400px; height: 400px">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title" style="text-align: center;">Continue with Email</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/accounts/login/" method="POST">
+                            {% csrf_token %}
+                            <div class="input-field" style="width: 100%;">
+                                <input type="email" name="login" class="form-control" style="width: 100%;" placeholder="Email" required />
+                            </div>
+
+                            <div class="input-field" style="width: 100%;">
+                                <input type="password" name="password" class="form-control" style="width: 100%;" placeholder="Password" required />
+                            </div>
+
+                            <div class="input-field" style="width: 100%; margin-top: 10px;">
+                                <input type="submit" class="btn btn-blue-affiliatewrap btn-effect" style="width: 100%;" value="Log in" />
+                            </div>
+                        </form>
+
+                        <div class="col-sm-9 mt-2" style="width: 100%; margin-top: 10px; text-align:center;">
+                            <a href="{% url 'account_reset_password' %}">Forgotten your password?</a>
+                        </div>
+                        
+                        <div class="col-sm-9 mt-2" style="width: 100%; margin-top: 10px; text-align:center;">
+                            <a href data-dismiss="modal" data-toggle="modal" data-target="#login">More login options</a>
+                        </div>
+
+                        <div class="col-sm-9 mt-2" style="width: 100%; margin-top: 10px; text-align:center;">
+                            Don’t have an account? <a href data-dismiss="modal" data-toggle="modal" data-target="#signup" >Sign up</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <!--end email login popup modal-->
+
+        <!--start signup popup modal-->
+        <div id="signup" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content" style="background-color: white; width: 400px; height: 300px">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title" style="text-align: center;">Sign up</h4>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="input-field" style="width: 100%;">
+                            <a href="{% provider_login_url "google" %}" class="btn btn-blue-affiliatewrap btn-effect" style="width: 100%;">
+                                <span>
+                                    <i class="fa fa-google"></i>
+                                </span>
+                                Continue with Google
+                            </a>
+                        </div>
+                                
+                        <div class="input-field" style="width: 100%; margin-top: 10px;">
+                            <a href="{% provider_login_url "facebook" method="oauth2" %}" class="btn btn-blue-affiliatewrap btn-effect" style="width: 100%;">
+                                <span>
+                                    <i class="fa fa-facebook"></i>
+                                </span>
+                                Continue with Facebook
+                            </a>
+                        </div>
+
+                        <div class="input-field" style="width: 100%; margin-top: 10px; text-align:center;">
+                            Already have an account?
+                            <a href data-dismiss="modal" data-toggle="modal" data-target="#login">Log in</a>
+                        </div>
+
+                        <div class="input-field" style="width: 100%; margin-top: 10px; text-align:center;">
+                            <a href="accounts/signup">
+                                Continue with Email
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--end signup popup modal-->
+
+        <!--start email signup popup modal-->
+        <div id="emailsignup" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+        
+                <!-- Modal content-->
+                <div class="modal-content" style="background-color: white; width: 400px; height: 500px">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title" style="text-align: center;">Continue with Email</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/accounts/signup/" method="POST">
+                            {% csrf_token %}
+                            <div class="input-field" style="width: 100%;">
+                                <input type="text" name="fullname" class="form-control" style="width: 100%;" placeholder="Full Name" required />
+                            </div>
+
+                            <div class="input-field" style="width: 100%;">
+                                <input type="email" name="email" class="form-control" style="width: 100%;" placeholder="Email" required />
+                            </div>
+
+                            <div class="input-field" style="width: 100%;">	
+                                <input type="password" name="password1" id="password1" class="form-control" style="width: 100%;" placeholder="Password" required />
+                                <span class="eye" style="position:fixed; right:123px; top:209px; cursor: pointer;" onclick="ShowPassword()">
+                                    <i id="hide1" style="display: block;" class="fa fa-eye"></i>
+                                    <i id="hide2" style="display: none;" class="fa fa-eye-slash"></i>
+                                </span>
+                            </div>
+
+                            <!--script for show/hide password-->
+                            <script>
+                                function ShowPassword(){
+                                    var x = document.getElementById("password1");
+                                    var y = document.getElementById("hide1");
+                                    var z = document.getElementById("hide2");
+                            
+                                    if(x.type=='password'){
+                                        x.type="text";
+                                        y.style.display="none";
+                                        z.style.display="block";
+                                    }
+                                    else{
+                                        x.type="password";
+                                        y.style.display="block";
+                                        z.style.display="none";
+                                    }
+                                }
+                            </script>
+
+                            <div class="input-field" style="width: 100%;">
+                                <input type="phone" name="phone_no"  class="form-control" style="width: 100%;" maxlength="10" placeholder="Phone number" required />
+                            </div>
+
+                            <div class="input-field col-sm-9 mt-5" style="width: 100%;">
+                                <input type="checkbox" name="sameasphone" value="True" checked /> Get Important Notifications On WhatsApp
+                            </div>
+
+                            <div class="input-field" style="width: 100%; margin-top: 10px;">
+                                <input type="submit" class="btn btn-blue-affiliatewrap btn-effect" style="width: 100%;" value="SIGN UP" />
+                            </div>
+
+                            <div class="col-sm-9 mt-2" style="width: 100%; margin-top: 10px; text-align:center;">
+                                <a href data-dismiss="modal" data-toggle="modal" data-target="#signup">More Signup Options</a>
+                            </div>
+
+                            <div class="input-field" style="width: 100%; margin-top: 10px; text-align:center;">
+                                Already have an account?
+                                <a href data-dismiss="modal" data-toggle="modal" data-target="#login">Log in</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--end email signup popup modal-->
+        <!--end login and signup popup modal-->
+    </td>
+</table>
 </header>
 
     
@@ -79,8 +322,8 @@
                     <div class="slide-caption">
                         <div class="caption-content">
                             <h2 class="animated fadeInDown"><b style="color:#FF0000">School as</b> a Service</h2>
-                            <span class="animated fadeInDown"><b style="color:#FF0000">Launch Your Own Microschool |</b> Double Your School Admissions<b style="color:#FF0000"> | Homeschool</b></span>
-                            <a href="/homeschool" class="btn btn-blue btn-effect">Homeschool</a>
+                            <span class="animated fadeInDown"><b style="color:#FF0000">Launch Your Own Microschool |</b> Double Your School Admissions</span>
+                            <a href="/schoolasaservice" class="btn btn-blue btn-effect">Become a Microschool</a>
                         </div>
                     </div>
                     
@@ -141,34 +384,34 @@
                         <h2 class="wow animated bounceInLeft">Why Affiliate To Geekz?</h2>
                         <p class="wow animated bounceInRight">Launching your reimagined school made simple.</p>
                     </div>
+
+                    <div class="col-md-4 col-sm-6 col-xs-12 text-center wow animated zoomIn" data-wow-delay="0.3s" style="height: 340px;">
+                        <div class="service-item">
+                            <div class="service-icon">
+                                <i class="fa fa-university fa-3x"></i>
+                            </div>
+                            <h3>MICROSCHOOL</h3>
+                            <p align="justify">You have a dream to become Edupreneur & reimagine education? Launch your own successful Microschool brand with 5 to 7 students in your community,     from the comfort of your home or a rented space. Preschool founders can add Elementary Studio (Grade 1 to 5) to your existing school at zero investment. Retain kindergarteners till grade 5, double the admissions & increase your revenue by minimum of INR 25L.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-sm-6 col-xs-12 text-center wow animated zoomIn" data-wow-delay="0.6s" style="height: 340px;">
+                        <div class="service-item">
+                            <div class="service-icon">
+                                <i class="fa fa-home fa-3x"></i>
+                            </div>
+                            <h3>KINDERGARTEN STUDIO</h3>
+                            <p align="justify">Hate one-size-fits-all factory education model in current school system? Love to homeschool your kid but hesitant due to time consumption, unstructured curriculum & affiliation? We package school-as-a-service (SaaS) & deliver on-demand with international US affiliation accepted across the globe. Stress-free school on-demand!    KS is to empower kids aged up to 4.5. Geekz integrates real life scenarios in KS curriculum & simulate it in the studio as Quests with ZERO Screen Time, to learn life-skills. Our trans-disciplinary learning includes US & Australian Phonics, English Language Arts, Math, Art & Craft, Dance & Quest (STEM).</p>
+                        </div>
+                    </div>
                     
                     <div class="col-md-4 col-sm-6 col-xs-12 text-center wow animated zoomIn" style="height: 340px;">
                         <div class="service-item">
                             <div class="service-icon">
                                 <i class="fa fa-group fa-3x"></i>
                             </div>
-                            <h3>Elementary</h3>
-                            <p align="justify">Preschool founders can add Elementary Studio (Grade 1 to 5) to your existing school at zero investment. Retain kindergarteners till grade 5, double the admissions & increase your revenue by minimum of INR 25L.</p>
-                        </div>
-                    </div>
-                
-                    <div class="col-md-4 col-sm-6 col-xs-12 text-center wow animated zoomIn" data-wow-delay="0.3s" style="height: 340px;">
-                        <div class="service-item">
-                            <div class="service-icon">
-                                <i class="fa fa-university fa-3x"></i>
-                            </div>
-                            <h3>Microschool</h3>
-                            <p align="justify">You have a dream to become Edupreneur & reimagine education? Launch your own successful Microschool brand with 5 to 7 students in your community, from anywhere in the world such as your home, office conference room or a rented space. We also welcome existing schools to affiliate with Geekz!</p>
-                        </div>
-                    </div>
-                
-                    <div class="col-md-4 col-sm-6 col-xs-12 text-center wow animated zoomIn" data-wow-delay="0.6s" style="height: 340px;">
-                        <div class="service-item">
-                            <div class="service-icon">
-                                <i class="fa fa-home fa-3x"></i>
-                            </div>
-                            <h3>Homeschool</h3>
-                            <p align="justify">Hate one-size-fits-all factory education model in current school system? Love to homeschool your kid but hesitant due to time consumption, unstructured curriculum & affiliation? We package school-as-a-service (SaaS) & deliver on-demand with international US affiliation accepted across the globe. Stress-free school on-demand!</p>
+                            <h3>ELEMENTARY STUDIO</h3>
+                            <p align="justify">ES is to empower kids aged 4.5 to 10. Geekz integrates real world career in ES curriculum & simulate it in the studio as Quests, to get kids ready for the world in 2040. Our trans-disciplinary learning includes Language Arts English, Spanish, Elective Hindi/Tamil, Math, Civilization (History & Geo), Art & Craft, Dance & Quest (STEM).</p>
                         </div>
                     </div>
                 
@@ -176,14 +419,85 @@
             </div>
             
 <!--Sign up-->
-        <br><br><div class="sec-title text-center">
+        <br><br><br><br><br><br><br><br><div class="sec-title text-center">
             <a href="https://www.youtube.com/channel/UCNy54QG09WBP7ZU8eOSRntQ/videos" target="_blank" class="btn btn-blue btn-effect wow animated bounceInLeft">Geekz Sample Quests</a>    
         </div>
         </section>
         <!-- end Why Affiliate section -->
+
+        <!-- Price section -->
+
+        <section id="price" style="background-color:#f8f8f8;">
+            <div class="container">
+                <div class="row">
+                
+                    <div class="sec-title text-center wow animated fadeInDown">
+                        <h2>How Much You Need To Invest?</h2>
+                        <p>Zero investment. Zero affiliate fee. Zero listing fee.</p>
+                    </div>
+                    
+                    <div class="col-md-6 wow animated fadeInUp">
+                        <div class="price-table featured text-center">
+                            <span>Kindergarten</span>
+                            <div class="value">
+                                <span><i class="fa fa-inr"></i></span>
+                                <span>500</span><br>
+                                <span>month</span>
+                            </div>
+                            <ul>
+                                <li>Pay Per Kid</li>
+                                <li>Pay On Enrollment</li>
+                                <li>Billed Annually</li>
+                                <li>Zero Upfront Cost</li>
+                                <li><a href="/schoolasaservice">sign up</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 wow animated fadeInUp" data-wow-delay="0.4s">
+                        <div class="price-table text-center">
+                            <span>Elementary</span>
+                            <div class="value">
+                                <span><i class="fa fa-inr"></i></span>
+                                <span>500</span><br>
+                                <span>month</span>
+                            </div>
+                            <ul>
+                                <li>Pay Per Kid</li>
+                                <li>Pay On Enrollment</li>
+                                <li>Billed Annually</li>
+                                <li>Zero Upfront Cost</li>
+                                <li style="background-color: #DDDCD2;"><a href="/schoolasaservice" style="color:#434C45;">sign up</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!--<div class="col-md-4 wow animated fadeInUp" data-wow-delay="0.8s">
+                        <div class="price-table featured text-center">
+                            <span>Homeschooling</span>
+                            <div class="value">
+                                <span></span>
+                                <span>Let's Talk</span><br>
+                                <span></span>
+                            </div>
+                            <ul>
+                                <li style="color:#FFFFFF;"> .</li>
+                                <li style="color:#FFFFFF;">.</li>
+                                <li style="color:#FFFFFF;">.</li>
+                                <li style="color:#FFFFFF;">.</li>
+                                <li><a href="/homeschool">sign up</a></li>
+                            </ul>
+                        </div>
+                    </div>-->
+    
+                </div>
+            </div>
+        </section>
+
+        <!-- end Price section -->
         
         <!-- Your School Your Rules section -->
-        <section id="rules"  style="background-color:#f8f8f8;">
+        <section id="rules"  style="background-color:#ffffff;">
             <div class="container">
                 <div class="row">
                 
@@ -266,7 +580,7 @@
         
         
         <!-- Service section -->
-        <section id="service">
+        <section id="service" style="background-color:#f8f8f8;">
             <div class="container">
                 <div class="row" style="height:480px;">
                 
@@ -379,76 +693,7 @@
         </section>
         <!-- end Service section -->
         
-        <!-- Price section -->
-
-        <section id="price" style="background-color:#f8f8f8;">
-            <div class="container">
-                <div class="row">
-                
-                    <div class="sec-title text-center wow animated fadeInDown">
-                        <h2>How Much You Need To Invest?</h2>
-                        <p>Zero investment. Zero affiliate fee. Zero listing fee.</p>
-                    </div>
-                    
-                    <div class="col-md-4 wow animated fadeInUp">
-                        <div class="price-table featured text-center">
-                            <span>Kindergarten</span>
-                            <div class="value">
-                                <span><i class="fa fa-inr"></i></span>
-                                <span>350</span><br>
-                                <span>month</span>
-                            </div>
-                            <ul>
-                                <li>Pay Per Kid</li>
-                                <li>Pay On Enrollment</li>
-                                <li>Billed Annually</li>
-                                <li>Zero Upfront Cost</li>
-                                <li><a href="#contact">sign up</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="col-md-4 wow animated fadeInUp" data-wow-delay="0.4s">
-                        <div class="price-table text-center">
-                            <span>Elementary</span>
-                            <div class="value">
-                                <span><i class="fa fa-inr"></i></span>
-                                <span>500</span><br>
-                                <span>month</span>
-                            </div>
-                            <ul>
-                                <li>Pay Per Kid</li>
-                                <li>Pay On Enrollment</li>
-                                <li>Billed Annually</li>
-                                <li>Zero Upfront Cost</li>
-                                <li style="background-color: #DDDCD2;"><a href="#contact" style="color:#434C45;">sign up</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="col-md-4 wow animated fadeInUp" data-wow-delay="0.8s">
-                        <div class="price-table featured text-center">
-                            <span>Homeschooling</span>
-                            <div class="value">
-                                <span></span>
-                                <span>Let's Talk</span><br>
-                                <span></span>
-                            </div>
-                            <ul>
-                                <li style="color:#FFFFFF;"> .</li>
-                                <li style="color:#FFFFFF;">.</li>
-                                <li style="color:#FFFFFF;">.</li>
-                                <li style="color:#FFFFFF;">.</li>
-                                <li><a href="/homeschool">sign up</a></li>
-                            </ul>
-                        </div>
-                    </div>
-    
-                </div>
-            </div>
-        </section>
-
-        <!-- end Price section -->
+        
         
 
         <!-- Workflow section -->
@@ -564,6 +809,31 @@
             
         </section>
         <!-- end Workflow section -->
+
+
+        <!-- Social section -->
+        <section id="social" class="parallax">
+            <div class="overlay">
+                <div class="container">
+                    <div class="row">
+                    
+                        <div class="sec-title text-center white wow animated fadeInDown">
+                            <h2>FOLLOW US</h2>
+                            <p>Dream with us and make dreams a reality.</p>
+                        </div>
+<!--                            <iframe src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2FVrGeekz%2F%3Ffref%3Dts&width=20&layout=button&action=like&size=small&show_faces=true&share=false&height=65&appId" width="200" height="65" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>-->
+                        
+                        <ul class="social-button">
+                            <li class="wow animated zoomIn"><a href="https://www.facebook.com/VrGeekz/" style="background-color: inherit; color:white;" target="_blank"><i class="fa fa-facebook fa-2x"></i></a></li>
+                            <li class="wow animated zoomIn" data-wow-delay="0.3s"><a href="https://www.instagram.com/VrGeekz/" target="_blank" style="background-color: inherit; color:white;"><i class="fa fa-instagram fa-2x"></i></a></li>
+                            <li class="wow animated zoomIn" data-wow-delay="0.6s"><a href="https://www.youtube.com/channel/UCNy54QG09WBP7ZU8eOSRntQ/videos" target="_blank" style="background-color: inherit; color:white;"><i class="fa fa-youtube-play fa-2x"></i></a></li>							
+                        </ul>
+                        
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- end Social section -->
         
 
         <!-- Your Process section -->
@@ -681,33 +951,11 @@
 <!-- end FAQ section -->
       
         
-        <!-- Social section -->
-        <section id="social" class="parallax">
-            <div class="overlay">
-                <div class="container">
-                    <div class="row">
-                    
-                        <div class="sec-title text-center white wow animated fadeInDown">
-                            <h2>FOLLOW US</h2>
-                            <p>Dream with us and make dreams a reality.</p>
-                        </div>
-<!--                            <iframe src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2FVrGeekz%2F%3Ffref%3Dts&width=20&layout=button&action=like&size=small&show_faces=true&share=false&height=65&appId" width="200" height="65" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>-->
-                        
-                        <ul class="social-button">
-                            <li class="wow animated zoomIn"><a href="https://www.facebook.com/VrGeekz/" target="_blank"><i class="fa fa-facebook fa-2x"></i></a></li>
-                            <li class="wow animated zoomIn" data-wow-delay="0.3s"><a href="https://www.instagram.com/VrGeekz/" target="_blank"><i class="fa fa-instagram fa-2x"></i></a></li>
-                            <li class="wow animated zoomIn" data-wow-delay="0.6s"><a href="https://www.youtube.com/channel/UCNy54QG09WBP7ZU8eOSRntQ/videos" target="_blank"><i class="fa fa-youtube-play fa-2x"></i></a></li>							
-                        </ul>
-                        
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- end Social section -->
+        
         
         
         <!-- Affiliate section -->
-        <section id="contact" >
+        <!--<section id="contact" >
             <div class="container">
                 <div class="row">
                     
@@ -788,7 +1036,7 @@
                         <address class="contact-details">
                             <h3>Contact Us</h3>						
 <!--								<p><i class="fa fa-pencil"></i>Phoenix Inc.<span>PO Box 345678</span> <span>Little Lonsdale St, Melbourne </span><span>Australia</span></p><br>-->
-                            <p><i class="fa fa-pencil"></i>Door No 21 Plot No 196<span>4th Street Murugu Nagar</span><span>Velachery Chennai</span></p><br>
+                           <!-- <p><i class="fa fa-pencil"></i>Door No 21 Plot No 196<span>4th Street Murugu Nagar</span><span>Velachery Chennai</span></p><br>
                             <p><i class="fa fa-phone"></i>Phone: +91 98842 GEEKZ<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+91 98842 43359</span></p>
                             <p><i class="fa fa-envelope"></i>hello@geekz.school</p>
                         </address>
@@ -796,7 +1044,7 @@
         
                 </div>
             </div>
-        </section>
+        </section>-->
         <!-- end Affiliate section -->
         
         
@@ -813,11 +1061,16 @@
                 
                 <div class="footer-social">
                     <ul>
-                        <li class="wow animated zoomIn"><a href="https://www.facebook.com/VrGeekz/" target="_blank"><i class="fa fa-facebook fa-3x"></i></a></li>
-                        <li class="wow animated zoomIn" data-wow-delay="0.3s"><a href="https://www.instagram.com/vrgeekz/" target="_blank"><i class="fa fa-instagram fa-3x"></i></a></li>
-                        <li class="wow animated zoomIn" data-wow-delay="0.6s"><a href="https://www.youtube.com/channel/UCNy54QG09WBP7ZU8eOSRntQ/videos" target="_blank"><i class="fa fa-youtube-play fa-3x"></i></a></li>
-                        <li class="wow animated zoomIn" data-wow-delay="0.9s"><a href="https://twitter.com/VrGeekz" target="_blank"><i class="fa fa-twitter fa-3x"></i></a></li>
-                        <!-- <li class="wow animated zoomIn" data-wow-delay="0.9s"><a href="https://thegeekstudio.wordpress.com/" target="_blank"><i class="fa fa-rss fa-3x"></i></a></li> -->
+                        <style>
+                            .footer-social ul li a:hover {
+                                color: white;
+                            }
+                        </style>
+                        <li class="wow animated zoomIn"><a href="https://www.facebook.com/VrGeekz/" target="_blank" style="background-color: inherit;"><i class="fa fa-facebook fa-3x"></i></a></li>
+                        <li class="wow animated zoomIn" data-wow-delay="0.3s"><a href="https://www.instagram.com/vrgeekz/" target="_blank" style="background-color: inherit;"><i class="fa fa-instagram fa-3x"></i></a></li>
+                        <li class="wow animated zoomIn" data-wow-delay="0.6s"><a href="https://www.youtube.com/channel/UCNy54QG09WBP7ZU8eOSRntQ/videos" target="_blank" style="background-color: inherit;"><i class="fa fa-youtube-play fa-3x"></i></a></li>
+                        <li class="wow animated zoomIn" data-wow-delay="0.9s"><a href="https://twitter.com/VrGeekz" target="_blank" style="background-color: inherit;"><i class="fa fa-twitter fa-3x"></i></a></li>
+                        <!-- <li class="wow animated zoomIn" data-wow-delay="0.9s"><a href="https://thegeekstudio.wordpress.com/" target="_blank" style="background-color: inherit;"><i class="fa fa-rss fa-3x"></i></a></li> -->
                     </ul>
                 </div>
                 

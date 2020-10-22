@@ -211,4 +211,4 @@ SOCIALACCOUNT_FORMS = {
 
 SOCIALACCOUNT_AUTO_SIGNUP = False
 
-SOCIALACCOUNT_ADAPTER = 'home.adapter.SocialAccountAdapter'
+#SOCIALACCOUNT_ADAPTER = 'home.adapter.SocialAccountAdapter'
