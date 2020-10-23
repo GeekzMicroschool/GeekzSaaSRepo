@@ -317,13 +317,79 @@
                 
                 <div class="sl-slide" data-orientation="horizontal" data-slice1-rotation="-25" data-slice2-rotation="-25" data-slice1-scale="2" data-slice2-scale="2">
 
-                    <div class="bg-img bg-img-1"></div>
+                    <div class="bg-img bg-img-1">
+                    </div>
 
                     <div class="slide-caption">
                         <div class="caption-content">
                             <h2 class="animated fadeInDown"><b style="color:#FF0000">School as</b> a Service</h2>
                             <span class="animated fadeInDown"><b style="color:#FF0000">Launch Your Own Microschool |</b> Double Your School Admissions</span>
-                            <a href="/schoolasaservice" class="btn btn-blue btn-effect">Become a Microschool</a>
+                            {% if user.is_authenticated %}
+                                <a href="/" class="btn btn-blue btn-effect">Become a Microschool</a>
+                            {% else %}
+                                <a href class="btn btn-blue btn-effect" data-toggle="modal" data-target="#loginms">Become a Microschool</a>
+                            {% endif %}
+
+                            <!--login popup modal-->
+                            <div id="loginms" class="modal fade" role="dialog">
+                                <div class="modal-dialog">
+                                    <!-- Modal content-->
+                                    <div class="modal-content" style="background-color: white; width: 400px; height: 200px">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <h4 class="modal-title" style="text-align: center;">Log in</h4>
+                                        </div>
+        
+                                        <div class="modal-body">
+                                            <div class="input-field" style="width: 100%;">
+                                                <a href="{% provider_login_url "google" %}" class="btn btn-blue-affiliatewrap btn-effect" style="width: 100%;">
+                                                    <span>
+                                                        <i class="fa fa-google"></i>
+                                                    </span>
+                                                    Continue with Google
+                                                </a>
+                                            </div>
+                                            
+                                            <div class="input-field" style="width: 100%; margin-top: 10px; text-align:center; color:black;">
+                                                Don’t have an account?
+                                                <a href data-dismiss="modal" data-toggle="modal" data-target="#signupms">Sign up</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end login popup modal-->
+
+                            <!--start signup popup modal-->
+                            <div id="signupms" class="modal fade" role="dialog">
+                                <div class="modal-dialog">
+                                    <!-- Modal content-->
+                                    <div class="modal-content" style="background-color: white; width: 400px; height: 200px">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <h4 class="modal-title" style="text-align: center;">Sign up</h4>
+                                        </div>
+        
+                                        <div class="modal-body">
+                                            <div class="input-field" style="width: 100%;">
+                                                <a href="{% provider_login_url "google" %}" class="btn btn-blue-affiliatewrap btn-effect" style="width: 100%;">
+                                                    <span>
+                                                        <i class="fa fa-google"></i>
+                                                    </span>
+                                                    Continue with Google
+                                                </a>
+                                            </div>
+        
+                                            <div class="input-field" style="width: 100%; margin-top: 10px; text-align:center; color:black;">
+                                                Already have an account?
+                                                <a href data-dismiss="modal" data-toggle="modal" data-target="#loginms">Log in</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end signup popup modal-->
+
                         </div>
                     </div>
                     
@@ -449,7 +515,13 @@
                                 <li>Pay On Enrollment</li>
                                 <li>Billed Annually</li>
                                 <li>Zero Upfront Cost</li>
-                                <li><a href="/schoolasaservice">sign up</a></li>
+                                <li>
+                                    {% if user.is_authenticated %}
+                                        <a href="/">sign up</a>
+                                    {% else %}
+                                        <a href data-toggle="modal" data-target="#loginms">sign up</a>
+                                    {% endif %}
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -467,7 +539,13 @@
                                 <li>Pay On Enrollment</li>
                                 <li>Billed Annually</li>
                                 <li>Zero Upfront Cost</li>
-                                <li style="background-color: #DDDCD2;"><a href="/schoolasaservice" style="color:#434C45;">sign up</a></li>
+                                <li style="background-color: #DDDCD2;">
+                                    {% if user.is_authenticated %}
+                                        <a href="/">sign up</a>
+                                    {% else %}
+                                        <a href data-toggle="modal" data-target="#loginms">sign up</a>
+                                    {% endif %}
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -572,8 +650,15 @@
 -->
                         </div>
                     </div>
-                                            
+                                    
                 </div>
+            </div>
+            <div class="sec-title text-center">
+                {% if user.is_authenticated %}
+                    <a href="/" class="btn btn-blue btn-effect">Become a Microschool</a>
+                {% else %}
+                    <a href class="btn btn-blue btn-effect" data-toggle="modal" data-target="#loginms">Become a Microschool</a>
+                {% endif %}
             </div>
         </section>
         <!-- end Your School Your Rules section -->
@@ -914,8 +999,17 @@
 -->
                         </div>
                     </div>
+                    
                                             
                 </div>
+                
+            </div>
+            <div class="sec-title text-center">
+                {% if user.is_authenticated %}
+                    <a href="/" class="btn btn-blue btn-effect">Become a Microschool</a>
+                {% else %}
+                    <a href class="btn btn-blue btn-effect" data-toggle="modal" data-target="#loginms">Become a Microschool</a>
+                {% endif %}
             </div>
         </section>
         <!-- end Process section -->
