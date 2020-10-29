@@ -369,23 +369,23 @@
                     </style>
 
                 
-                <div class="col-md-6 contact-form wow animated fadeInLeft" style="margin-left:250px;">
-                    <form action="" id="SaaSApplication" method="POST">
+                <div class="col-md-6 contact-form wow animated fadeInLeft" style="margin-left:300px;">
+                    <form action="/saasapplication" id="SaaSApplication" method="POST">
                         {% csrf_token %}
                         <div class="tabb">
                             <h3><b>Personal Information</b></h3>
                             <div class="input-field">
-                                <input type="text" id="SaaSName" class="form-control" placeholder="Your Name..." required>
+                                <input type="text" id="SaaSName" name="SaaSName" value="{{fullname}}" readonly class="form-control" placeholder="Your Name..." required>
                             </div>
                             <div class="input-field">
-                                <input type="text" id="SaaSDOB" class="form-control" placeholder="Date of Birth..." onfocus="(this.type='date')" required>
+                                <input type="text" id="SaaSDOB" name="SaaSDOB" class="form-control" placeholder="Date of Birth..." onfocus="(this.type='date')" required>
                             </div>
                             <div class="input-field">
-                                <input type="email" id="SaaSEmail" class="form-control" placeholder="Email..." required>
+                                <input type="email" id="SaaSEmail" name="SaaSEmail" value="{{email}}" readonly class="form-control" placeholder="Email..." required>
                             </div>
                             <div class="input-field">
-                                <select name="countrycode" id="SaaSCountryCode" class="form-control" style="width:21%">
-                                    <option data-countryCode="IN" value="91">India (+91)</option>
+                                <select id="SaaSCountryCode" name="SaaSCountryCode" class="form-control" style="width:21%">
+                                    <option data-countryCode="IN" value="91" selected>India (+91)</option>
                                     <optgroup label="Other countries">
                                     <option data-countryCode="DZ" value="213">Algeria (+213)</option>
                                     <option data-countryCode="AD" value="376">Andorra (+376)</option>
@@ -604,7 +604,23 @@
                                     </optgroup>
                                 </select>
                             
-                                <input type="tel" id="SaaSPhone" class="form-control" style="width:78%;" placeholder="Phone..." required>
+                                <input type="tel" id="SaaSPhone" name="SaaSPhone" class="form-control" style="width:78%;" placeholder="Phone..." onchange="PhoneValidation()" required>
+                                <script>
+                                    function PhoneValidation()
+                                    {
+                                        var ph_no=document.getElementById("SaaSPhone").value;
+                                        if(isNaN(ph_no))
+                                        {
+                                            alert("Enter a valid Phone Number");
+                                            return false;
+                                        }
+                                        if((ph_no.length<10)||(ph_no.lenght>15))
+                                        {
+                                            alert("Enter a valid Phone Number");
+                                            return false;
+                                        }
+                                    }
+                                </script>
                             </div>
                             <style>
                                 .form-control {
@@ -616,7 +632,7 @@
                         <div class="tabb">
                            <h3><b>Affiliate Information</b></h3>
                            <div class="input-field">
-                                <select id="SaaSLTB" class="form-control" required>
+                                <select id="SaaSLTB" name="SaaSLTB" class="form-control" required>
                                     <option value="">Love To Become...</option>
                                     <option value="Questschool">Questschool</option>
                                     <option value="Microschool">Microschool</option>
@@ -625,7 +641,7 @@
                             </div>
 
                             <div class="input-field">
-                                <select id="SaaSSchoolMode" class="form-control" required>
+                                <select id="SaaSSchoolMode" name="SaaSSchoolMode" class="form-control" required>
                                     <option value="">School Mode Of Operation...</option>
                                     <option value="Online">Online</option>
                                     <option value="In-Person (Post Covid)">In-Person (Post Covid)</option>
@@ -634,7 +650,7 @@
                             </div>
 
                             <div class="input-field">
-                                <select id="SaaSSOperate" class="form-control" required>
+                                <select id="SaaSSOperate" name="SaaSSOperate" class="form-control" required>
                                     <option value="">Operate From...</option>
                                     <option value="Home">Home</option>
                                     <option value="Rented Space">Rented Space</option>
@@ -644,16 +660,16 @@
                             </div>
 
                             <div class="input-field">
-                                <input type="text" id="SaaSSchoolArea" class="form-control" placeholder="School Launching Locality/Area..." required>
+                                <input type="text" id="SaaSSchoolArea" name="SaaSSchoolArea" class="form-control" placeholder="School Launching Locality/Area..." required>
                             </div>
 
                             <div class="input-field">
-                                <input type="text" id="SaaSSchoolCity" class="form-control" placeholder="School Launching City..." required>
+                                <input type="text" id="SaaSSchoolCity" name="SaaSSchoolCity" class="form-control" placeholder="School Launching City..." required>
                             </div>
 
 
                             <div class="input-field">
-                                <select id="SaaSBusiness" class="form-control" required>
+                                <select id="SaaSBusiness" name="SaaSBusiness" class="form-control" required>
                                     <option value="">Own Or Represent School/Education Business...</option>
                                     <option value="K-5 School">K-5 School</option>
                                     <option value="K-12 School">K-12 School</option>
@@ -664,13 +680,13 @@
                             
                             <div style="display: none;" id="SchoolDetailss">
                                 <div class="input-field">
-                                    <input type="text" id="SaaSSchoolName" class="form-control" placeholder="School Name...">
+                                    <input type="text" id="SaaSSchoolName" name="SaaSSchoolName" class="form-control" placeholder="School Name...">
                                 </div>
                                 <div class="input-field">
-                                    <input type="text" id="SaaSSchoolWebsite" class="form-control" placeholder="School Website (No Website? Type 'Not Applicable')…">
+                                    <input type="text" id="SaaSSchoolWebsite" name="SaaSSchoolWebsite" class="form-control" placeholder="School Website (No Website? Type 'Not Applicable')…">
                                 </div>
                                 <div class="input-field">
-                                    <input type="url" id="SaaSSchoolFB" class="form-control" placeholder="School Facebook...">
+                                    <input type="url" id="SaaSSchoolFB" name="SaaSSchoolFB" class="form-control" placeholder="School Facebook...">
                                 </div>
                             </div>
                         </div>
@@ -679,19 +695,19 @@
                            <h3><b>Portfolio Information</b></h3>
 
                             <div class="input-field">
-                                <input type="url" id="SaaSLinkedin" class="form-control" placeholder="Your LinkedIn..." required>
+                                <input type="url" id="SaaSLinkedin" name="SaaSLinkedin" class="form-control" placeholder="Your LinkedIn..." required>
                             </div>
 
                             <div class="input-field">
-                                <input type="text" id="SaaSOccupation" class="form-control" placeholder="Occupation..." required>
+                                <input type="text" id="SaaSOccupation" name="SaaSOccupation" class="form-control" placeholder="Occupation..." required>
                             </div>
 
                             <div class="input-field">
-                                <textarea id="SaaSPassion" class="form-control" placeholder="Passion & Skills (Entrepreneurship, Coding, Photo/Video Editing, Art)…" required></textarea>
+                                <textarea id="SaaSPassion" name="SaaSPassion" class="form-control" placeholder="Passion & Skills (Entrepreneurship, Coding, Photo/Video Editing, Art)…" required></textarea>
                             </div>
 
                             <div class="input-field">
-                                <textarea id="SaaSWhyAffiliate" class="form-control" placeholder="Why Do You Want to Affiliate With Geekz..." required></textarea>
+                                <textarea id="SaaSWhyAffiliate" name="SaaSWhyAffiliate" class="form-control" placeholder="Why Do You Want to Affiliate With Geekz..." required></textarea>
                             </div>
                         </div>
 

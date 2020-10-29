@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
 
     'home.apps.HomeConfig',
+    'schoolasaservice.apps.SchoolasaserviceConfig',
 
     'django_inlinecss',
 ]
@@ -69,6 +70,7 @@ ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 5
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 7
 ACCOUNT_SIGNUP_PASSWORD_VERIFICATION = False
@@ -107,10 +109,10 @@ WSGI_APPLICATION = 'Geekz_Microschool.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
+        'NAME': 'GeekzSaaS',
         'USER': 'postgres',
-        'HOST': 'db',
-        'PASSWORD': 'postgres'
+        'HOST': 'localhost',
+        'PASSWORD': '1234'
     }
 }
 
@@ -159,7 +161,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
 
 #after social authentication
 SITE_ID = 1
-LOGIN_REDIRECT_URL = "/"
+LOGIN_REDIRECT_URL = "/apply"
 
 SOCIALACCOUNT_PROVIDERS = {
     'google' : {
@@ -203,12 +205,3 @@ EMAIL_HOST_USER='email'
 EMAIL_HOST_PASSWORD='password'
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
-ACCOUNT_FORMS = {'signup': 'home.forms.SimpleSignupForm'}
-
-SOCIALACCOUNT_FORMS = {
-    'signup': 'home.forms.CustomSocialSignupForm',
-}
-
-SOCIALACCOUNT_AUTO_SIGNUP = False
-
-#SOCIALACCOUNT_ADAPTER = 'home.adapter.SocialAccountAdapter'

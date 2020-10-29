@@ -3,4 +3,4 @@ from django.contrib.auth.models import Group
 from .models import *
 
 # Register your models here.
-admin.site.register(UserDetails)
+admin.site.register(USER_DETAILS)
