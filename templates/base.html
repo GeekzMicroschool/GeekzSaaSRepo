@@ -146,8 +146,70 @@
                                     <!--/simple user-->
                                 {% endif %}
                         {% else %}
-                            <a href style="color: grey; text-decoration: none; padding:20px" class="fa fa-user fa-3x" data-toggle="modal" data-target="#login" style="padding: 10px;"></a>
+                            <a href style="color: grey; text-decoration: none; padding:20px" class="fa fa-user fa-3x" data-toggle="modal" data-target="#loginms" style="padding: 10px;"></a>
                         {% endif %}
+
+                        <!--only continue with google popup modal-->
+                                    <!--login popup modal-->
+                            <div id="loginms" class="modal fade" role="dialog">
+                                <div class="modal-dialog">
+                                    <!-- Modal content-->
+                                    <div class="modal-content" style="background-color: white; width: 400px; height: 200px">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <h4 class="modal-title" style="text-align: center;">Log in</h4>
+                                        </div>
+        
+                                        <div class="modal-body">
+                                            <div class="input-field" style="width: 100%;">
+                                                <a href="{% provider_login_url "google" %}" class="btn btn-blue-affiliatewrap btn-effect" style="width: 100%;">
+                                                    <span>
+                                                        <i class="fa fa-google"></i>
+                                                    </span>
+                                                    Continue with Google
+                                                </a>
+                                            </div>
+                                            
+                                            <div class="input-field" style="width: 100%; margin-top: 10px; text-align:center; color:black;">
+                                                Don’t have an account?
+                                                <a href data-dismiss="modal" data-toggle="modal" data-target="#signupms">Sign up</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end login popup modal-->
+
+                            <!--start signup popup modal-->
+                            <div id="signupms" class="modal fade" role="dialog">
+                                <div class="modal-dialog">
+                                    <!-- Modal content-->
+                                    <div class="modal-content" style="background-color: white; width: 400px; height: 200px">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <h4 class="modal-title" style="text-align: center;">Sign up</h4>
+                                        </div>
+        
+                                        <div class="modal-body">
+                                            <div class="input-field" style="width: 100%;">
+                                                <a href="{% provider_login_url "google" %}" class="btn btn-blue-affiliatewrap btn-effect" style="width: 100%;">
+                                                    <span>
+                                                        <i class="fa fa-google"></i>
+                                                    </span>
+                                                    Continue with Google
+                                                </a>
+                                            </div>
+        
+                                            <div class="input-field" style="width: 100%; margin-top: 10px; text-align:center; color:black;">
+                                                Already have an account?
+                                                <a href data-dismiss="modal" data-toggle="modal" data-target="#loginms">Log in</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end signup popup modal-->
+                        <!--end continue with google popup modal-->
     
                         <!--login popup modal-->
                         <div id="login" class="modal fade" role="dialog">

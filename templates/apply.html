@@ -80,8 +80,70 @@
                     <!--/simple user-->
                 {% endif %}
         {% else %}
-            <a href style="color: grey; text-decoration: none; padding:20px" class="fa fa-user fa-3x" data-toggle="modal" data-target="#login" style="padding: 10px;"></a>
+            <a href style="color: grey; text-decoration: none; padding:20px" class="fa fa-user fa-3x" data-toggle="modal" data-target="#loginms" style="padding: 10px;"></a>
         {% endif %}
+
+        <!--only continue with google popup modal-->
+                                    <!--login popup modal-->
+                                    <div id="loginms" class="modal fade" role="dialog">
+                                        <div class="modal-dialog">
+                                            <!-- Modal content-->
+                                            <div class="modal-content" style="background-color: white; width: 400px; height: 200px">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title" style="text-align: center;">Log in</h4>
+                                                </div>
+                
+                                                <div class="modal-body">
+                                                    <div class="input-field" style="width: 100%;">
+                                                        <a href="{% provider_login_url "google" %}" class="btn btn-blue-affiliatewrap btn-effect" style="width: 100%;">
+                                                            <span>
+                                                                <i class="fa fa-google"></i>
+                                                            </span>
+                                                            Continue with Google
+                                                        </a>
+                                                    </div>
+                                                    
+                                                    <div class="input-field" style="width: 100%; margin-top: 10px; text-align:center; color:black;">
+                                                        Don’t have an account?
+                                                        <a href data-dismiss="modal" data-toggle="modal" data-target="#signupms">Sign up</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--end login popup modal-->
+        
+                                    <!--start signup popup modal-->
+                                    <div id="signupms" class="modal fade" role="dialog">
+                                        <div class="modal-dialog">
+                                            <!-- Modal content-->
+                                            <div class="modal-content" style="background-color: white; width: 400px; height: 200px">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title" style="text-align: center;">Sign up</h4>
+                                                </div>
+                
+                                                <div class="modal-body">
+                                                    <div class="input-field" style="width: 100%;">
+                                                        <a href="{% provider_login_url "google" %}" class="btn btn-blue-affiliatewrap btn-effect" style="width: 100%;">
+                                                            <span>
+                                                                <i class="fa fa-google"></i>
+                                                            </span>
+                                                            Continue with Google
+                                                        </a>
+                                                    </div>
+                
+                                                    <div class="input-field" style="width: 100%; margin-top: 10px; text-align:center; color:black;">
+                                                        Already have an account?
+                                                        <a href data-dismiss="modal" data-toggle="modal" data-target="#loginms">Log in</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--end signup popup modal-->
+                                <!--end continue with google popup modal-->
 
         <!--login popup modal-->
         <div id="login" class="modal fade" role="dialog">
@@ -329,11 +391,11 @@
             
                     /* Mark input boxes that gets an error on validation: */
                     input.invalid {
-                        border: 2px solid rgba(0,158,227, 0.78);
+                        background-color:#ffdddd;
                     }
 
                     select.invalid {
-                        border: 2px solid rgba(0,158,227, 0.78);
+                        background-color:#ffdddd;
                     }
 
                     
@@ -369,7 +431,7 @@
                     </style>
 
                 
-                <div class="col-md-6 contact-form wow animated fadeInLeft" style="margin-left:300px;">
+                <div class="col-md-6 contact-form wow animated fadeInLeft">
                     <form action="/saasapplication" id="SaaSApplication" method="POST">
                         {% csrf_token %}
                         <div class="tabb">
@@ -379,6 +441,9 @@
                             </div>
                             <div class="input-field">
                                 <input type="text" id="SaaSDOB" name="SaaSDOB" class="form-control" placeholder="Date of Birth..." onfocus="(this.type='date')" required>
+                            </div>
+                            <div style="display: none;" id="errmsgdob">
+                                <p style="color: red;">Please fill out this field.</p>
                             </div>
                             <div class="input-field">
                                 <input type="email" id="SaaSEmail" name="SaaSEmail" value="{{email}}" readonly class="form-control" placeholder="Email..." required>
@@ -604,14 +669,18 @@
                                     </optgroup>
                                 </select>
                             
-                                <input type="tel" id="SaaSPhone" name="SaaSPhone" class="form-control" style="width:78%;" placeholder="Phone..." onchange="PhoneValidation()" required>
-                                <script>
+                                <input type="tel" id="SaaSPhone" name="SaaSPhone" class="form-control" style="width:78%;" placeholder="Phone..."  required>
+                                <div style="display: none;" id="errmsgph">
+                                    <p style="color: red;">Please fill out this field.</p>
+                                </div>
+                                <!--<script>
                                     function PhoneValidation()
                                     {
                                         var ph_no=document.getElementById("SaaSPhone").value;
                                         if(isNaN(ph_no))
                                         {
                                             alert("Enter a valid Phone Number");
+                                            ph_no.setCustomValidity("Error");
                                             return false;
                                         }
                                         if((ph_no.length<10)||(ph_no.lenght>15))
@@ -620,7 +689,19 @@
                                             return false;
                                         }
                                     }
-                                </script>
+                                </script>-->
+                                <!--<script>
+                                    alert("inside sc");
+                                    const ph=document.getElementById("SaaSPhone")
+                                    alert("ph:"+ph);
+                                    ph.addEventListener("input",function (event){
+                                        if(ph.validity.typeMismatch){
+                                            ph.setCustomValidity("Please fill out this field");
+                                        }else{
+                                            ph.setCustomValidity("");
+                                        }
+                                    });
+                                </script>-->
                             </div>
                             <style>
                                 .form-control {
@@ -639,6 +720,9 @@
                                     <option value="Both">Both</option>
                                 </select>
                             </div>
+                            <div style="display: none;" id="errmsgltb">
+                                <p style="color: red;">Please select an item in the list.</p>
+                            </div>
 
                             <div class="input-field">
                                 <select id="SaaSSchoolMode" name="SaaSSchoolMode" class="form-control" required>
@@ -647,6 +731,9 @@
                                     <option value="In-Person (Post Covid)">In-Person (Post Covid)</option>
                                     <option value="Both">Both</option>
                                 </select>
+                            </div>
+                            <div style="display: none;" id="errmsgsm">
+                                <p style="color: red;">Please select an item in the list.</p>
                             </div>
 
                             <div class="input-field">
@@ -658,13 +745,22 @@
                                     <option value="Education Center">Education Center</option>
                                 </select>
                             </div>
+                            <div style="display: none;" id="errmsgop">
+                                <p style="color: red;">Please select an item in the list.</p>
+                            </div>
 
                             <div class="input-field">
                                 <input type="text" id="SaaSSchoolArea" name="SaaSSchoolArea" class="form-control" placeholder="School Launching Locality/Area..." required>
                             </div>
+                            <div style="display: none;" id="errmsgsa">
+                                <p style="color: red;">Please fill out this field.</p>
+                            </div>
 
                             <div class="input-field">
                                 <input type="text" id="SaaSSchoolCity" name="SaaSSchoolCity" class="form-control" placeholder="School Launching City..." required>
+                            </div>
+                            <div style="display: none;" id="errmsgsc">
+                                <p style="color: red;">Please fill out this field.</p>
                             </div>
 
 
@@ -677,16 +773,28 @@
                                     <option value="No">No</option>
                                 </select>
                             </div>
+                            <div style="display: none;" id="errmsgbus">
+                                <p style="color: red;">Please select an item in the list.</p>
+                            </div>
                             
                             <div style="display: none;" id="SchoolDetailss">
                                 <div class="input-field">
                                     <input type="text" id="SaaSSchoolName" name="SaaSSchoolName" class="form-control" placeholder="School Name...">
                                 </div>
+                                <div style="display: none;" id="errmsgsn">
+                                    <p style="color: red;">Please fill out this field.</p>
+                                </div>
                                 <div class="input-field">
                                     <input type="text" id="SaaSSchoolWebsite" name="SaaSSchoolWebsite" class="form-control" placeholder="School Website (No Website? Type 'Not Applicable')…">
                                 </div>
+                                <div style="display: none;" id="errmsgsw">
+                                    <p style="color: red;">Please fill out this field.</p>
+                                </div>
                                 <div class="input-field">
                                     <input type="url" id="SaaSSchoolFB" name="SaaSSchoolFB" class="form-control" placeholder="School Facebook...">
+                                </div>
+                                <div style="display: none;" id="errmsgsfb">
+                                    <p style="color: red;">Please fill out this field.</p>
                                 </div>
                             </div>
                         </div>
@@ -697,17 +805,29 @@
                             <div class="input-field">
                                 <input type="url" id="SaaSLinkedin" name="SaaSLinkedin" class="form-control" placeholder="Your LinkedIn..." required>
                             </div>
+                            <div style="display: none;" id="errmsgslin">
+                                <p style="color: red;">Please fill out this field.</p>
+                            </div>
 
                             <div class="input-field">
                                 <input type="text" id="SaaSOccupation" name="SaaSOccupation" class="form-control" placeholder="Occupation..." required>
+                            </div>
+                            <div style="display: none;" id="errmsgocc">
+                                <p style="color: red;">Please fill out this field.</p>
                             </div>
 
                             <div class="input-field">
                                 <textarea id="SaaSPassion" name="SaaSPassion" class="form-control" placeholder="Passion & Skills (Entrepreneurship, Coding, Photo/Video Editing, Art)…" required></textarea>
                             </div>
+                            <div style="display: none;" id="errmsgpass">
+                                <p style="color: red;">Please fill out this field.</p>
+                            </div>
 
                             <div class="input-field">
                                 <textarea id="SaaSWhyAffiliate" name="SaaSWhyAffiliate" class="form-control" placeholder="Why Do You Want to Affiliate With Geekz..." required></textarea>
+                            </div>
+                            <div style="display: none;" id="errmsgwaff">
+                                <p style="color: red;">Please fill out this field.</p>
                             </div>
                         </div>
 
@@ -756,7 +876,12 @@
                             </div>-->
                     </form>
                 </div>
-    
+                <div id="tips" class="col-md-4 wow animated fadeInRight" style="float:right;">
+                    <address class="contact-details">
+                        <h3>Getting To Know</h3>
+                        <p>Please be as specific as possible so we can start to understand your thoughts, hopes, and dreams on reimagining education.</p>
+                    </address>
+                </div>
             </div>
         </div>
     </section>

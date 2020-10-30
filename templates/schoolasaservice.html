@@ -70,7 +70,7 @@
                     <!--/simple user-->
                 {% endif %}
         {% else %}
-            <a href style="color: grey; text-decoration: none; padding:20px" class="fa fa-user fa-3x" data-toggle="modal" data-target="#login" style="padding: 10px;"></a>
+            <a href style="color: grey; text-decoration: none; padding:20px" class="fa fa-user fa-3x" data-toggle="modal" data-target="#loginms" style="padding: 10px;"></a>
         {% endif %}
 
         <!--login popup modal-->
@@ -517,7 +517,7 @@
                                 <li>Zero Upfront Cost</li>
                                 <li>
                                     {% if user.is_authenticated %}
-                                        <a href="/">sign up</a>
+                                        <a href="/apply">sign up</a>
                                     {% else %}
                                         <a href data-toggle="modal" data-target="#loginms">sign up</a>
                                     {% endif %}
@@ -541,7 +541,7 @@
                                 <li>Zero Upfront Cost</li>
                                 <li style="background-color: #DDDCD2;">
                                     {% if user.is_authenticated %}
-                                        <a href="/">sign up</a>
+                                        <a href="/apply">sign up</a>
                                     {% else %}
                                         <a href data-toggle="modal" data-target="#loginms">sign up</a>
                                     {% endif %}
@@ -655,7 +655,7 @@
             </div>
             <div class="sec-title text-center">
                 {% if user.is_authenticated %}
-                    <a href="/" class="btn btn-blue btn-effect">Become a Microschool</a>
+                    <a href="/apply" class="btn btn-blue btn-effect">Become a Microschool</a>
                 {% else %}
                     <a href class="btn btn-blue btn-effect" data-toggle="modal" data-target="#loginms">Become a Microschool</a>
                 {% endif %}
@@ -1006,7 +1006,7 @@
             </div>
             <div class="sec-title text-center">
                 {% if user.is_authenticated %}
-                    <a href="/" class="btn btn-blue btn-effect">Become a Microschool</a>
+                    <a href="/apply" class="btn btn-blue btn-effect">Become a Microschool</a>
                 {% else %}
                     <a href class="btn btn-blue btn-effect" data-toggle="modal" data-target="#loginms">Become a Microschool</a>
                 {% endif %}

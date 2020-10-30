@@ -557,6 +557,7 @@ function validateForm() {
     x = document.getElementsByClassName("tabb");
     y = x[currentTab].getElementsByTagName("input");
     z = x[currentTab].getElementsByTagName("select");
+    ta = x[currentTab].getElementsByTagName("textarea");
     // A loop that checks every input field in the current tab:
     for (i = 0; i < y.length; i++) {
         //validation for 3 fields on the basis of dropdown
@@ -568,6 +569,15 @@ function validateForm() {
                 {
                     // add an "invalid" class to the field:
                     y[i].className += " invalid";
+                    if(y[i].id=="SaaSSchoolName"){
+                        $("#errmsgsn").show();
+                    }
+                    if(y[i].id=="SaaSSchoolWebsite"){
+                        $("#errmsgsw").show();
+                    }
+                    if(y[i].id=="SaaSSchoolFB"){
+                        $("#errmsgsfb").show();
+                    }
                     // and set the current valid status to false
                     valid = false;
                     continue;
@@ -575,6 +585,16 @@ function validateForm() {
             }
             else
             {
+                y[i].className += " invalid";
+                if(y[i].id=="SaaSSchoolName"){
+                    $("#errmsgsn").hide();
+                }
+                if(y[i].id=="SaaSSchoolWebsite"){
+                    $("#errmsgsw").hide();
+                }
+                if(y[i].id=="SaaSSchoolFB"){
+                    $("#errmsgsfb").hide();
+                }
                 continue;
             }
         }
@@ -583,8 +603,57 @@ function validateForm() {
         {
             // add an "invalid" class to the field:
             y[i].className += " invalid";
+            //check all the id one by one if any field is empty then show the error msg below field
+            if(y[i].id=="SaaSDOB"){
+                $("#errmsgdob").show();
+            }
+            if(y[i].id=="SaaSPhone"){
+                $("#errmsgph").show();
+            }
+            if(y[i].id=="SaaSSchoolArea"){
+                $("#errmsgsa").show();
+            }
+            if(y[i].id=="SaaSSchoolCity"){
+                $("#errmsgsc").show();
+            }
+            if(y[i].id=="SaaSLinkedin"){
+                $("#errmsgslin").show();
+            }
+            if(y[i].id=="SaaSOccupation"){
+                $("#errmsgocc").show();
+            }
+            
+            
+            /*y[i].validationMessage;
+            alert(y[i].validationMessage);*/
+            /*alert(y[i].setCustomValidity("Please fill out this field."));
+            y[i].setCustomValidity("Please fill out this field.");*/
             // and set the current valid status to false
             valid = false;
+        }
+        else
+        {
+            if(y[i].id=="SaaSDOB"){
+                $("#errmsgdob").hide();
+            }
+            if(y[i].id=="SaaSPhone"){
+                $("#errmsgph").hide();
+            }
+            if(y[i].id=="SaaSLTB"){
+                $("#errmsgltb").hide();
+            }
+            if(y[i].id=="SaaSSchoolArea"){
+                $("#errmsgsa").hide();
+            }
+            if(y[i].id=="SaaSSchoolCity"){
+                $("#errmsgsc").hide();
+            }
+            if(y[i].id=="SaaSLinkedin"){
+                $("#errmsgslin").hide();
+            }
+            if(y[i].id=="SaaSOccupation"){
+                $("#errmsgocc").hide();
+            }
         }
     }
     for (i = 0; i < z.length; i++) {
@@ -592,10 +661,59 @@ function validateForm() {
         if (z[i].value == "") {
             // add an "invalid" class to the field:
             z[i].className += " invalid";
+            if(z[i].id=="SaaSLTB"){
+                $("#errmsgltb").show();
+            }
+            if(z[i].id=="SaaSSchoolMode"){
+                $("#errmsgsm").show();
+            }
+            if(z[i].id=="SaaSSOperate"){
+                $("#errmsgop").show();
+            }
+            if(z[i].id=="SaaSBusiness"){
+                $("#errmsgbus").show();
+            }
             // and set the current valid status to false
             valid = false;
         }
+        else{
+            if(z[i].id=="SaaSLTB"){
+                $("#errmsgltb").hide();
+            }
+            if(z[i].id=="SaaSSchoolMode"){
+                $("#errmsgsm").hide();
+            }
+            if(z[i].id=="SaaSSOperate"){
+                $("#errmsgop").hide();
+            }
+            if(z[i].id=="SaaSBusiness"){
+                $("#errmsgbus").hide();
+            }
         }
+    }
+    for (i = 0; i < ta.length; i++) {
+        // If a field is empty...
+        if (ta[i].value == "") {
+            // add an "invalid" class to the field:
+            ta[i].className += " invalid";
+            if(ta[i].id=="SaaSPassion"){
+                $("#errmsgpass").show();
+            }
+            if(ta[i].id=="SaaSWhyAffiliate"){
+                $("#errmsgwaff").show();
+            }
+            // and set the current valid status to false
+            valid = false;
+        }
+        else{
+            if(ta[i].id=="SaaSPassion"){
+                $("#errmsgpass").hide();
+            }
+            if(ta[i].id=="SaaSWhyAffiliate"){
+                $("#errmsgwaff").hide();
+            }
+        }
+    }
     // If the valid status is true, mark the step as finished and valid:
     if (valid) {
     document.getElementsByClassName("step")[currentTab].className += " finish";
@@ -613,3 +731,4 @@ function fixStepIndicator(n) {
     x[n].className += " active";
 }
 //end Script for swiping multiple forms 
+
