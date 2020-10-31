@@ -21,12 +21,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '13b5^8^@dy0ju6wi)-%j--djhpavg1$m%ncynv!cp^i1$-55sz'
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = int(os.environ.get("DEBUG", default=0))
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
 
 
 # Application definition
@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
 
     'home.apps.HomeConfig',
-    'schoolasaservice.apps.SchoolasaserviceConfig',
+	'schoolasaservice.apps.SchoolasaserviceConfig',
 
     'django_inlinecss',
 ]
@@ -107,15 +107,15 @@ WSGI_APPLICATION = 'Geekz_Microschool.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'GeekzSaaS',
-        'USER': 'postgres',
-        'HOST': 'localhost',
-        'PASSWORD': '1234'
+    "default": {
+        "ENGINE": os.environ.get("SQL_ENGINE", "django.db.backends.sqlite3"),
+        "NAME": os.environ.get("SQL_DATABASE", os.path.join(BASE_DIR, "db.sqlite3")),
+        "USER": os.environ.get("SQL_USER", "user"),
+        "PASSWORD": os.environ.get("SQL_PASSWORD", "password"),
+        "HOST": os.environ.get("SQL_HOST", "localhost"),
+        "PORT": os.environ.get("SQL_PORT", "5432"),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -194,6 +194,15 @@ SOCIALACCOUNT_PROVIDERS = {
         'EXCHANGE_TOKEN': True,
         'VERIFIED_EMAIL': False,
         'VERSION': 'v7.0',
+    },
+	'google' : {
+        'SCOPE' : [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS' : {
+            'access_type' : 'online',
+        }
     }
 }
 
@@ -201,7 +210,14 @@ SOCIALACCOUNT_PROVIDERS = {
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER='email'
+EMAIL_HOST_USER='unknownmailleruser@gmail.com'
 EMAIL_HOST_PASSWORD='password'
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
+#ACCOUNT_FORMS = {'signup': 'home.forms.SimpleSignupForm'}
+
+#SOCIALACCOUNT_FORMS = {
+#    'signup': 'home.forms.CustomSocialSignupForm',
+#}
+
+#SOCIALACCOUNT_AUTO_SIGNUP = False
