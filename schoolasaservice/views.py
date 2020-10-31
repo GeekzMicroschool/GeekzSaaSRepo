@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import MICRO_APPLN, QUEST_APPLN
+from .models import MICRO_APPLN, QUEST_APPLN, MICRO_AUDN, QUEST_AUDN
 from home.models import USER_DETAILS
 from django.contrib.auth.models import User,auth
 from allauth.socialaccount.models import SocialAccount
@@ -330,7 +330,7 @@ def saasapplication(request):
         message=EmailMessage(subject, html_message, settings.EMAIL_HOST_USER, [to_email])
         message.content_subtype='html'
         message.send()
-        return render(request, 'audition.html')
+        return redirect('audition')
 
 @login_required
 def audition(request):
@@ -339,7 +339,123 @@ def audition(request):
     user_details=USER_DETAILS.objects.get(USER_EMAIL=user.email)
     if user_details.IS_MICROSCHOOL=="Y" or user_details.IS_QUESTSCHOOL=="Y":
         #only show audition form if one of the application is submitted
-        return render(request, 'audition.html')
+        if user_details.IS_MICROSCHOOL=="Y":
+            #ask for financial field in form because it is microschool
+            return render(request, 'audition.html',{'financial':'yes'})
+        elif user_details.IS_MICROSCHOOL=="Y" and user_details.IS_QUESTSCHOOL=="Y":
+            #ask for financial field in form because it is both microschool and questschool
+            return render(request, 'audition.html',{'financial':'yes'})
+        else:
+            #it is a questschool so don't ask for financial field
+            return render(request, 'audition.html')
     else:
         #show application form
         return redirect('apply')
+
+@login_required
+def saasaudition(request):
+    if request.method == "POST":
+        user_id=request.session['user_id']
+        user=User.objects.get(id=user_id)
+        user_details=USER_DETAILS.objects.get(USER_EMAIL=user.email)
+
+        SaaSESF=request.POST['SaaSESF']
+        SaaSCodingSkill=request.POST['SaaSCodingSkill']
+        SaaSPhotoSkill=request.POST['SaaSPhotoSkill']
+        SaaSVideoSkill=request.POST['SaaSVideoSkill']
+        SaaSPassionToLearn=request.POST['SaaSPassionToLearn']
+        SaaSHDWC=request.POST['SaaSHDWC']
+        SaaSModeInternet=request.POST['SaaSModeInternet']
+        SaaSSpeed=request.POST['SaaSSpeed']
+        SaaSYoutubeLink=request.POST['SaaSYoutubeLink']
+        SaaSNoOfStu=request.POST['SaaSNoOfStu']
+        SaaSQuestions=request.POST['SaaSQuestions']
+
+        if user_details.IS_MICROSCHOOL=="Y":
+            #store in MICRO_AUDN table only
+            SaaSFinancial=request.POST['SaaSFinancial']
+            SaaSFromWhere=request.POST['SaaSFromWhere']
+            new_maudition=MICRO_AUDN(
+                            uid=user_details.uid,
+                            IS_COMPLETE="Y",
+                            ENGLISH_FLUENCY=SaaSESF,
+                            CODING_SKILL=SaaSCodingSkill,
+                            PHOTO_EDITING=SaaSPhotoSkill,
+                            VIDEO_EDITING=SaaSVideoSkill,
+                            PASSION_TO_LEARN=SaaSPassionToLearn,
+                            FINANCIAL_MONEY_REQUIRED=SaaSFinancial,
+                            MONEY_COME_FROM=SaaSFromWhere,
+                            HD_WEBCAM=SaaSHDWC,
+                            INTERNET_MODE=SaaSModeInternet,
+                            INTERNET_SPEED=SaaSSpeed,
+                            YOUTUBE_VIDEO=SaaSYoutubeLink,
+                            NO_OF_STUDENTS=SaaSNoOfStu,
+                            QUESTIONS=SaaSQuestions
+                          )
+            new_maudition.save()
+        elif user_details.IS_QUESTSCHOOL=="Y":
+            #store in QUEST_AUDN table only
+            new_qaudition=MICRO_AUDN(
+                            uid=user_details.uid,
+                            IS_COMPLETE="Y",
+                            ENGLISH_FLUENCY=SaaSESF,
+                            CODING_SKILL=SaaSCodingSkill,
+                            PHOTO_EDITING=SaaSPhotoSkill,
+                            VIDEO_EDITING=SaaSVideoSkill,
+                            PASSION_TO_LEARN=SaaSPassionToLearn,
+                            HD_WEBCAM=SaaSHDWC,
+                            INTERNET_MODE=SaaSModeInternet,
+                            INTERNET_SPEED=SaaSSpeed,
+                            YOUTUBE_VIDEO=SaaSYoutubeLink,
+                            NO_OF_STUDENTS=SaaSNoOfStu,
+                            QUESTIONS=SaaSQuestions
+                          )
+            new_qaudition.save()
+        elif user_details.IS_MICROSCHOOL=="Y" and user_details.IS_QUESTSCHOOL=="Y":
+            #store in both MICRO_AUDN and QUEST_AUDN table
+            SaaSFinancial=request.POST['SaaSFinancial']
+            SaaSFromWhere=request.POST['SaaSFromWhere']
+            new_maudition=MICRO_AUDN(
+                            uid=user_details.uid,
+                            IS_COMPLETE="Y",
+                            ENGLISH_FLUENCY=SaaSESF,
+                            CODING_SKILL=SaaSCodingSkill,
+                            PHOTO_EDITING=SaaSPhotoSkill,
+                            VIDEO_EDITING=SaaSVideoSkill,
+                            PASSION_TO_LEARN=SaaSPassionToLearn,
+                            FINANCIAL_MONEY_REQUIRED=SaaSFinancial,
+                            MONEY_COME_FROM=SaaSFromWhere,
+                            HD_WEBCAM=SaaSHDWC,
+                            INTERNET_MODE=SaaSModeInternet,
+                            INTERNET_SPEED=SaaSSpeed,
+                            YOUTUBE_VIDEO=SaaSYoutubeLink,
+                            NO_OF_STUDENTS=SaaSNoOfStu,
+                            QUESTIONS=SaaSQuestions
+                          )
+            new_maudition.save()
+
+            new_qaudition=MICRO_AUDN(
+                            uid=user_details.uid,
+                            IS_COMPLETE="Y",
+                            ENGLISH_FLUENCY=SaaSESF,
+                            CODING_SKILL=SaaSCodingSkill,
+                            PHOTO_EDITING=SaaSPhotoSkill,
+                            VIDEO_EDITING=SaaSVideoSkill,
+                            PASSION_TO_LEARN=SaaSPassionToLearn,
+                            HD_WEBCAM=SaaSHDWC,
+                            INTERNET_MODE=SaaSModeInternet,
+                            INTERNET_SPEED=SaaSSpeed,
+                            YOUTUBE_VIDEO=SaaSYoutubeLink,
+                            NO_OF_STUDENTS=SaaSNoOfStu,
+                            QUESTIONS=SaaSQuestions
+                          )
+            new_qaudition.save()
+        #send email of audition received
+        subject='Geekz SaaS Audition Completed!'
+        html_template='socialaccount/email/audition_completed_email.html'
+        html_message=render_to_string(html_template)
+        to_email=user.email
+        message=EmailMessage(subject, html_message, settings.EMAIL_HOST_USER, [to_email])
+        message.content_subtype='html'
+        message.send()
+        return render(request, 'auditiondone.html')

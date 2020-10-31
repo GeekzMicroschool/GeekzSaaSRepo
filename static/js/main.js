@@ -182,6 +182,7 @@ $(document).ready(function(){
             $("#SchoolDetailss").show();
         }
     });
+    window.onload(checkfinancialvalue())
 });
 
 
@@ -561,7 +562,7 @@ function validateForm() {
     // A loop that checks every input field in the current tab:
     for (i = 0; i < y.length; i++) {
         //validation for 3 fields on the basis of dropdown
-        if (y[i].id == "SaaSSchoolName" || y[i].id == "SaaSSchoolWebsite" || y[i].id == "SaaSSchoolFB") 
+        if (y[i].id == "SaaSSchoolName" || y[i].id == "SaaSSchoolWebsite" || y[i].id == "SaaSSchoolFB" || y[i].id == "SaaSFromWhere") 
         {
             if (y[i].required)
             {
@@ -578,23 +579,39 @@ function validateForm() {
                     if(y[i].id=="SaaSSchoolFB"){
                         $("#errmsgsfb").show();
                     }
+                    if(y[i].id=="SaaSFromWhere"){
+                        $("#errmsgfromwhere").show();
+                    }
                     // and set the current valid status to false
                     valid = false;
                     continue;
                 }
+                else
+                {
+                    y[i].className += " valid";
+                    if(y[i].id=="SaaSSchoolName"){
+                        $("#errmsgsn").hide();
+                    }
+                    if(y[i].id=="SaaSSchoolWebsite"){
+                        $("#errmsgsw").hide();
+                    }
+                    if(y[i].id=="SaaSSchoolFB"){
+                        $("#errmsgsfb").hide();
+                        if(isValidURL(y[i].value)){
+                            $("#errmsgvalsfb").hide();
+                        }else{
+                            $("#errmsgvalsfb").show();
+                            valid = false;
+                        }
+                    }
+                    if(y[i].id=="SaaSFromWhere"){
+                        $("#errmsgfromwhere").hide();
+                    }
+                    continue; 
+                }
             }
             else
             {
-                y[i].className += " invalid";
-                if(y[i].id=="SaaSSchoolName"){
-                    $("#errmsgsn").hide();
-                }
-                if(y[i].id=="SaaSSchoolWebsite"){
-                    $("#errmsgsw").hide();
-                }
-                if(y[i].id=="SaaSSchoolFB"){
-                    $("#errmsgsfb").hide();
-                }
                 continue;
             }
         }
@@ -622,8 +639,17 @@ function validateForm() {
             if(y[i].id=="SaaSOccupation"){
                 $("#errmsgocc").show();
             }
-            
-            
+            if(y[i].id=="SaaSYoutubeLink"){
+                $("#errmsgytubelink").show();
+            }
+            if(y[i].id=="SaaSNoOfStu"){
+                if(isNaN(y[i].value)){
+                    //if not a number or length is not equal to 10
+                    $("#errmsgvalnoofstudent").show()
+                }else{
+                $("#errmsgnoofstudent").show();
+                }
+            }
             /*y[i].validationMessage;
             alert(y[i].validationMessage);*/
             /*alert(y[i].setCustomValidity("Please fill out this field."));
@@ -633,11 +659,19 @@ function validateForm() {
         }
         else
         {
+            y[i].className += " valid";
             if(y[i].id=="SaaSDOB"){
                 $("#errmsgdob").hide();
             }
             if(y[i].id=="SaaSPhone"){
                 $("#errmsgph").hide();
+                if( (isNaN(y[i].value)) || (y[i].value.length!=10) ){
+                    //if not a number or length is not equal to 10
+                    $("#errmsgvalph").show()
+                    valid = false;
+                }else{
+                    $("#errmsgvalph").hide()
+                }
             }
             if(y[i].id=="SaaSLTB"){
                 $("#errmsgltb").hide();
@@ -650,9 +684,34 @@ function validateForm() {
             }
             if(y[i].id=="SaaSLinkedin"){
                 $("#errmsgslin").hide();
+                if(isValidURL(y[i].value)){
+                    $("#errmsgvalslin").hide();
+                }else{
+                    $("#errmsgvalslin").show();
+                    valid = false;
+                }
             }
             if(y[i].id=="SaaSOccupation"){
                 $("#errmsgocc").hide();
+            }
+            if(y[i].id=="SaaSYoutubeLink"){
+                $("#errmsgytubelink").hide();
+                if(isValidURL(y[i].value)){
+                    $("#errmsgvalytubelink").hide();
+                }else{
+                    $("#errmsgvalytubelink").show();
+                    valid = false;
+                }
+            }
+            if(y[i].id=="SaaSNoOfStu"){
+                $("#errmsgnoofstudent").hide();
+                if(isNaN(y[i].value)){
+                    //if not a number or length is not equal to 10
+                    $("#errmsgvalnoofstudent").show()
+                    valid = false;
+                }else{
+                    $("#errmsgvalnoofstudent").hide()
+                }
             }
         }
     }
@@ -673,10 +732,35 @@ function validateForm() {
             if(z[i].id=="SaaSBusiness"){
                 $("#errmsgbus").show();
             }
+            if(z[i].id=="SaaSESF"){
+                $("#errmsgesf").show();
+            }
+            if(z[i].id=="SaaSCodingSkill"){
+                $("#errmsgcodskill").show();
+            }
+            if(z[i].id=="SaaSPhotoSkill"){
+                $("#errmsgphotoskill").show();
+            }
+            if(z[i].id=="SaaSVideoSkill"){
+                $("#errmsgvideoskill").show();
+            }
+            if(z[i].id=="SaaSPassionToLearn"){
+                $("#errmsgpassiontolearn").show();
+            }
+            if(z[i].id=="SaaSHDWC"){
+                $("#errmsghdwc").show();
+            }
+            if(z[i].id=="SaaSModeInternet"){
+                $("#errmsgmodeinternet").show();
+            }
+            if(z[i].id=="SaaSSpeed"){
+                $("#errmsgintspeed").show();
+            }
             // and set the current valid status to false
             valid = false;
         }
         else{
+            z[i].className += " valid";
             if(z[i].id=="SaaSLTB"){
                 $("#errmsgltb").hide();
             }
@@ -689,9 +773,62 @@ function validateForm() {
             if(z[i].id=="SaaSBusiness"){
                 $("#errmsgbus").hide();
             }
+            if(z[i].id=="SaaSESF"){
+                $("#errmsgesf").hide();
+            }
+            if(z[i].id=="SaaSCodingSkill"){
+                $("#errmsgcodskill").hide();
+            }
+            if(z[i].id=="SaaSPhotoSkill"){
+                $("#errmsgphotoskill").hide();
+            }
+            if(z[i].id=="SaaSVideoSkill"){
+                $("#errmsgvideoskill").hide();
+            }
+            if(z[i].id=="SaaSPassionToLearn"){
+                $("#errmsgpassiontolearn").hide();
+            }
+            if(z[i].id=="SaaSHDWC"){
+                $("#errmsghdwc").hide();
+            }
+            if(z[i].id=="SaaSModeInternet"){
+                $("#errmsgmodeinternet").hide();
+            }
+            if(z[i].id=="SaaSSpeed"){
+                $("#errmsgintspeed").hide();
+            }
         }
     }
     for (i = 0; i < ta.length; i++) {
+        if (ta[i].id == "SaaSFinancial") 
+        {
+            if (ta[i].required)
+            {
+                if (ta[i].value == "") 
+                {
+                    // add an "invalid" class to the field:
+                    ta[i].className += " invalid";
+                    if(ta[i].id=="SaaSFinancial"){
+                        $("#errmsgfinancialmoney").show();
+                    }
+                    // and set the current valid status to false
+                    valid = false;
+                    continue;
+                }
+                else
+                {
+                    ta[i].className += " valid";
+                    if(ta[i].id=="SaaSFinancial"){
+                        $("#errmsgfinancialmoney").hide();
+                    }
+                    continue; 
+                }
+            }
+            else
+            {
+                continue;
+            }
+        }
         // If a field is empty...
         if (ta[i].value == "") {
             // add an "invalid" class to the field:
@@ -702,15 +839,22 @@ function validateForm() {
             if(ta[i].id=="SaaSWhyAffiliate"){
                 $("#errmsgwaff").show();
             }
+            if(ta[i].id=="SaaSQuestions"){
+                $("#errmsgquestions").show();
+            }
             // and set the current valid status to false
             valid = false;
         }
         else{
+            ta[i].className += " valid";
             if(ta[i].id=="SaaSPassion"){
                 $("#errmsgpass").hide();
             }
             if(ta[i].id=="SaaSWhyAffiliate"){
                 $("#errmsgwaff").hide();
+            }
+            if(ta[i].id=="SaaSQuestions"){
+                $("#errmsgquestions").hide();
             }
         }
     }
@@ -732,3 +876,23 @@ function fixStepIndicator(n) {
 }
 //end Script for swiping multiple forms 
 
+//to check if a URL is valid or not
+function isValidURL(url){
+    var urlPattern = "(https?|ftp)://(www\\.)?(((([a-zA-Z0-9.-]+\\.){1,}[a-zA-Z]{2,4}|localhost))|((\\d{1,3}\\.){3}(\\d{1,3})))(:(\\d+))?(/([a-zA-Z0-9-._~!$&'()*+,;=:@/]|%[0-9A-F]{2})*)?(\\?([a-zA-Z0-9-._~!$&'()*+,;=:/?@]|%[0-9A-F]{2})*)?(#([a-zA-Z0-9._-]|%[0-9A-F]{2})*)?";
+    urlPattern = "^" + urlPattern + "$";
+    var regex = new RegExp(urlPattern);
+    return regex.test(url);
+}
+
+//check financial value to show financial field
+function checkfinancialvalue(){
+    var fvalue=document.getElementById("financialvalue");
+    var showfinfo=document.getElementById("showfinancialinfo");
+    var fmoney=document.getElementById("SaaSFinancial");
+    var fromwhere=document.getElementById("SaaSFromWhere");
+    if(fvalue.value=="yes"){
+        showfinfo.style['display']='block';
+        fmoney.required="true";
+        fromwhere.required="true";
+    }
+}

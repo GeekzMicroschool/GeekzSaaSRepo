@@ -2,6 +2,12 @@
 {% load static %}
 {% load socialaccount %}
 {% block title %}Apply | Geekz School-as-a-Service{% endblock title %}
+{% block metadescription %}
+    <meta name="description" content="Geekz School-As-A-Service Application.">
+{% endblock metadescription %}
+{% block metakeywords %}
+    <meta name="keywords" content="geekz, geeks, school, reimagined school, alternate school, international, velachery, chennai, india, personalized, curriculum, self paced, learning, mastery, khan academy, duolingo, Microsoft, Program Manager, application, apply, micro-school, microschool, micro school, micro, School As A Service, SaaS, Affiliation, Quest, Questschool, Quest School, Work From Home, WFH, Part Time Job, Jobs">
+{% endblock metakeywords %}
 
 {% block navbar %}
 <header id="navigation" class="navbar-inverse navbar-fixed-top animated-header">
@@ -379,57 +385,72 @@
                     <p id="geekzapply">Get affiliated. Welcome your first geek.</p>
                 </div>
 
-                <!--style for swipe multiple forms-->
                 <style>
+                    /*style for multiple step form*/
                     * {
-                      box-sizing: border-box;
+                        box-sizing: border-box;
                     }
-      
+
                     h1 {
-                      text-align: center;  
+                        text-align: center;  
                     }
-            
+
                     /* Mark input boxes that gets an error on validation: */
                     input.invalid {
                         background-color:#ffdddd;
+                    }
+
+                    input.valid {
+                        background-color:white;
                     }
 
                     select.invalid {
                         background-color:#ffdddd;
                     }
 
-                    
+                    select.valid {
+                        background-color: white;
+                    }
+
+                    textarea.invalid {
+                        background-color:#ffdddd;
+                    }
+
+                    textarea.valid {
+                        background-color:white;
+                    }
+
+
                     /* Hide all steps by default: */
                     .tabb {
-                      display: none;
+                        display: none;
                     }
-                    
+
                     #prevBtn {
-                      background-color: #bbbbbb;
+                        background-color: #bbbbbb;
                     }
-                    
+
                     /* Make circles that indicate the steps of the form: */
                     .step {
-                      height: 15px;
-                      width: 15px;
-                      margin: 0 2px;
-                      background-color: #bbbbbb;
-                      border: none;  
-                      border-radius: 50%;
-                      display: inline-block;
-                      opacity: 0.5;
+                        height: 15px;
+                        width: 15px;
+                        margin: 0 2px;
+                        background-color: #bbbbbb;
+                        border: none;  
+                        border-radius: 50%;
+                        display: inline-block;
+                        opacity: 0.5;
                     }
-                    
+
                     .step.active {
-                      opacity: 1;
+                        opacity: 1;
                     }
-                    
+
                     /* Mark the steps that are finished and valid: */
                     .step.finish {
-                      background-color: rgba(0,158,227, 0.78);
+                        background-color: rgba(0,158,227, 0.78);
                     }
-                    </style>
-
+                </style>
                 
                 <div class="col-md-6 contact-form wow animated fadeInLeft">
                     <form action="/saasapplication" id="SaaSApplication" method="POST">
@@ -441,9 +462,9 @@
                             </div>
                             <div class="input-field">
                                 <input type="text" id="SaaSDOB" name="SaaSDOB" class="form-control" placeholder="Date of Birth..." onfocus="(this.type='date')" required>
-                            </div>
-                            <div style="display: none;" id="errmsgdob">
-                                <p style="color: red;">Please fill out this field.</p>
+                                <div style="display: none;" id="errmsgdob">
+                                    <p style="color: red; font-size:10px;">Please fill out this field.</p>
+                                </div>
                             </div>
                             <div class="input-field">
                                 <input type="email" id="SaaSEmail" name="SaaSEmail" value="{{email}}" readonly class="form-control" placeholder="Email..." required>
@@ -671,37 +692,11 @@
                             
                                 <input type="tel" id="SaaSPhone" name="SaaSPhone" class="form-control" style="width:78%;" placeholder="Phone..."  required>
                                 <div style="display: none;" id="errmsgph">
-                                    <p style="color: red;">Please fill out this field.</p>
+                                    <p style="color: red; font-size:10px;">Please fill out this field.</p>
                                 </div>
-                                <!--<script>
-                                    function PhoneValidation()
-                                    {
-                                        var ph_no=document.getElementById("SaaSPhone").value;
-                                        if(isNaN(ph_no))
-                                        {
-                                            alert("Enter a valid Phone Number");
-                                            ph_no.setCustomValidity("Error");
-                                            return false;
-                                        }
-                                        if((ph_no.length<10)||(ph_no.lenght>15))
-                                        {
-                                            alert("Enter a valid Phone Number");
-                                            return false;
-                                        }
-                                    }
-                                </script>-->
-                                <!--<script>
-                                    alert("inside sc");
-                                    const ph=document.getElementById("SaaSPhone")
-                                    alert("ph:"+ph);
-                                    ph.addEventListener("input",function (event){
-                                        if(ph.validity.typeMismatch){
-                                            ph.setCustomValidity("Please fill out this field");
-                                        }else{
-                                            ph.setCustomValidity("");
-                                        }
-                                    });
-                                </script>-->
+                                <div style="display: none;" id="errmsgvalph">
+                                    <p style="color: red; font-size:10px;">Please enter a valid number.</p>
+                                </div>
                             </div>
                             <style>
                                 .form-control {
@@ -719,9 +714,9 @@
                                     <option value="Microschool">Microschool</option>
                                     <option value="Both">Both</option>
                                 </select>
-                            </div>
-                            <div style="display: none;" id="errmsgltb">
-                                <p style="color: red;">Please select an item in the list.</p>
+                                <div style="display: none;" id="errmsgltb">
+                                    <p style="color: red; font-size:10px;">Please select an item in the list.</p>
+                                </div>
                             </div>
 
                             <div class="input-field">
@@ -731,9 +726,9 @@
                                     <option value="In-Person (Post Covid)">In-Person (Post Covid)</option>
                                     <option value="Both">Both</option>
                                 </select>
-                            </div>
-                            <div style="display: none;" id="errmsgsm">
-                                <p style="color: red;">Please select an item in the list.</p>
+                                <div style="display: none;" id="errmsgsm">
+                                    <p style="color: red; font-size:10px;">Please select an item in the list.</p>
+                                </div>
                             </div>
 
                             <div class="input-field">
@@ -744,25 +739,27 @@
                                     <option value="Existing School">Existing School</option>
                                     <option value="Education Center">Education Center</option>
                                 </select>
+                                <div style="display: none;" id="errmsgop">
+                                    <p style="color: red; font-size:10px;">Please select an item in the list.</p>
+                                </div>
                             </div>
-                            <div style="display: none;" id="errmsgop">
-                                <p style="color: red;">Please select an item in the list.</p>
-                            </div>
+                            
 
                             <div class="input-field">
                                 <input type="text" id="SaaSSchoolArea" name="SaaSSchoolArea" class="form-control" placeholder="School Launching Locality/Area..." required>
+                                <div style="display: none;" id="errmsgsa">
+                                    <p style="color: red; font-size:10px;">Please fill out this field.</p>
+                                </div>
                             </div>
-                            <div style="display: none;" id="errmsgsa">
-                                <p style="color: red;">Please fill out this field.</p>
-                            </div>
+                            
 
                             <div class="input-field">
                                 <input type="text" id="SaaSSchoolCity" name="SaaSSchoolCity" class="form-control" placeholder="School Launching City..." required>
+                                <div style="display: none;" id="errmsgsc">
+                                    <p style="color: red; font-size:10px;">Please fill out this field.</p>
+                                </div>
                             </div>
-                            <div style="display: none;" id="errmsgsc">
-                                <p style="color: red;">Please fill out this field.</p>
-                            </div>
-
+                            
 
                             <div class="input-field">
                                 <select id="SaaSBusiness" name="SaaSBusiness" class="form-control" required>
@@ -772,29 +769,35 @@
                                     <option value="Afterschool, Tuition or Education Centers">Afterschool, Tuition or Education Centers</option>
                                     <option value="No">No</option>
                                 </select>
+                                <div style="display: none;" id="errmsgbus">
+                                    <p style="color: red; font-size:10px;">Please select an item in the list.</p>
+                                </div>
                             </div>
-                            <div style="display: none;" id="errmsgbus">
-                                <p style="color: red;">Please select an item in the list.</p>
-                            </div>
+                            
                             
                             <div style="display: none;" id="SchoolDetailss">
                                 <div class="input-field">
                                     <input type="text" id="SaaSSchoolName" name="SaaSSchoolName" class="form-control" placeholder="School Name...">
+                                    <div style="display: none;" id="errmsgsn">
+                                        <p style="color: red; font-size:10px;">Please fill out this field.</p>
+                                    </div>
                                 </div>
-                                <div style="display: none;" id="errmsgsn">
-                                    <p style="color: red;">Please fill out this field.</p>
-                                </div>
+                                
                                 <div class="input-field">
                                     <input type="text" id="SaaSSchoolWebsite" name="SaaSSchoolWebsite" class="form-control" placeholder="School Website (No Website? Type 'Not Applicable')…">
+                                    <div style="display: none;" id="errmsgsw">
+                                        <p style="color: red; font-size:10px;">Please fill out this field.</p>
+                                    </div>
                                 </div>
-                                <div style="display: none;" id="errmsgsw">
-                                    <p style="color: red;">Please fill out this field.</p>
-                                </div>
+                                
                                 <div class="input-field">
                                     <input type="url" id="SaaSSchoolFB" name="SaaSSchoolFB" class="form-control" placeholder="School Facebook...">
-                                </div>
-                                <div style="display: none;" id="errmsgsfb">
-                                    <p style="color: red;">Please fill out this field.</p>
+                                    <div style="display: none;" id="errmsgsfb">
+                                        <p style="color: red; font-size:10px;">Please fill out this field.</p>
+                                    </div>
+                                    <div style="display: none;" id="errmsgvalsfb">
+                                        <p style="color: red; font-size:10px;">Please enter a URL.</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -804,35 +807,40 @@
 
                             <div class="input-field">
                                 <input type="url" id="SaaSLinkedin" name="SaaSLinkedin" class="form-control" placeholder="Your LinkedIn..." required>
-                            </div>
-                            <div style="display: none;" id="errmsgslin">
-                                <p style="color: red;">Please fill out this field.</p>
+                                <div style="display: none;" id="errmsgslin">
+                                    <p style="color: red; font-size:10px;">Please fill out this field.</p>
+                                </div>
+                                <div style="display: none;" id="errmsgvalslin">
+                                    <p style="color: red; font-size:10px;">Please enter a URL.</p>
+                                </div>
                             </div>
 
                             <div class="input-field">
                                 <input type="text" id="SaaSOccupation" name="SaaSOccupation" class="form-control" placeholder="Occupation..." required>
+                                <div style="display: none;" id="errmsgocc">
+                                    <p style="color: red; font-size:10px;">Please fill out this field.</p>
+                                </div>
                             </div>
-                            <div style="display: none;" id="errmsgocc">
-                                <p style="color: red;">Please fill out this field.</p>
-                            </div>
+                            
 
                             <div class="input-field">
                                 <textarea id="SaaSPassion" name="SaaSPassion" class="form-control" placeholder="Passion & Skills (Entrepreneurship, Coding, Photo/Video Editing, Art)…" required></textarea>
+                                <div style="display: none;" id="errmsgpass">
+                                    <p style="color: red; font-size:10px;">Please fill out this field.</p>
+                                </div>
                             </div>
-                            <div style="display: none;" id="errmsgpass">
-                                <p style="color: red;">Please fill out this field.</p>
-                            </div>
+                            
 
                             <div class="input-field">
                                 <textarea id="SaaSWhyAffiliate" name="SaaSWhyAffiliate" class="form-control" placeholder="Why Do You Want to Affiliate With Geekz..." required></textarea>
-                            </div>
-                            <div style="display: none;" id="errmsgwaff">
-                                <p style="color: red;">Please fill out this field.</p>
+                                <div style="display: none;" id="errmsgwaff">
+                                    <p style="color: red; font-size:10px;">Please fill out this field.</p>
+                                </div>
                             </div>
                         </div>
 
                         <div>
-                            <button type="button" id="prevBtn" onclick="nextPrev(-1)" class="btn btn-blue btn-effect">Prev</button>
+                            <button type="button" id="prevBtn" onclick="nextPrev(-1)" class="btn btn-blue">Prev</button>
                             <button type="button" id="nextBtn" onclick="nextPrev(1)" class="btn btn-blue btn-effect">Next</button>
                         </div>
 
@@ -841,39 +849,6 @@
                             <span class="step"></span>
                             <span class="step"></span>
                         </div>
-
-
-
-                            <!--Audition fields  
-                                <div class="input-field">
-                                <select id="SaaSESF" class="form-control" required>
-                                    <option value="" selected>English Speaking Fluency...</option>
-                                    <option value="Basic">Basic</option>
-                                    <option value="Intermediate">Intermediate</option>
-                                    <option value="Pro">Pro</option>
-                                    <option value="No">No</option>
-                                </select>
-                            </div>
-
-                            <div class="input-field">
-                                <select id="SaaSCodingSkill" class="form-control" required>
-                                    <option value="" selected>Coding Skill...</option>
-                                    <option value="Basic">Basic</option>
-                                    <option value="Intermediate">Intermediate</option>
-                                    <option value="Pro">Pro</option>
-                                    <option value="No">No</option>
-                                </select>
-                            </div>
-
-                            <div class="input-field">
-                                <select id="SaaSCodingSkill" class="form-control" required>
-                                    <option value="" selected>Photo/Video Editing...</option>
-                                    <option value="Basic">Basic</option>
-                                    <option value="Intermediate">Intermediate</option>
-                                    <option value="Pro">Pro</option>
-                                    <option value="No">No</option>
-                                </select>
-                            </div>-->
                     </form>
                 </div>
                 <div id="tips" class="col-md-4 wow animated fadeInRight" style="float:right;">
