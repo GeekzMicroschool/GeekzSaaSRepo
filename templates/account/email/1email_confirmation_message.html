@@ -1,0 +1,21 @@
+{% load static %}
+{% load account %}
+<html>
+    <head>
+    </head>
+    <body>
+        <img src="{% static 'img/Geekz%20Logo.png' %}" height="70" style="position:relative;bottom:0px;" title="Geekz Microschool" alt="Geekz Microschool">
+        <p>Hi {{ user_display }},</p>
+        <p>Welcome to Geekz Microschool! In order to get started, you need to confirm your email address.</p>
+        <a href="{{ activate_url }}" class="btn btn-blue-affiliatewrap btn-effect">Confirm Email</a>
+        <div class="footer-social">
+            <ul>
+                <li class="wow animated zoomIn"><a href="https://www.facebook.com/VrGeekz/" target="_blank"><i class="fa fa-facebook fa-3x"></i></a></li>
+                <li class="wow animated zoomIn" data-wow-delay="0.3s"><a href="https://www.instagram.com/vrgeekz/" target="_blank"><i class="fa fa-instagram fa-3x"></i></a></li>
+                <li class="wow animated zoomIn" data-wow-delay="0.6s"><a href="https://www.youtube.com/channel/UCNy54QG09WBP7ZU8eOSRntQ/videos" target="_blank"><i class="fa fa-youtube-play fa-3x"></i></a></li>
+                <li class="wow animated zoomIn" data-wow-delay="0.9s"><a href="https://twitter.com/VrGeekz" target="_blank"><i class="fa fa-twitter fa-3x"></i></a></li>
+                <!-- <li class="wow animated zoomIn" data-wow-delay="0.9s"><a href="https://thegeekstudio.wordpress.com/" target="_blank"><i class="fa fa-rss fa-3x"></i></a></li> -->
+            </ul>
+        </div>
+    </body>
+</html>

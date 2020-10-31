@@ -1,0 +1,19 @@
+{% load account %}
+{% user_display user as user_display %}
+{% load i18n %}
+{% load inlinecss %}
+{% inlinecss "account/Css/Email-Styles.css" %}
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width">
+  <title>Confirm your email address.</title>
+</head>
+
+<body>
+	<h1>Hi {{ user_display }}!</h1>
+	<p>Welcome to Geekz Microschool!</p>
+	<p>In order to get started, you need to confirm your email address.</p>
+	<a class="button" href="{{ activate_url }}" style="background: #204dd5; border: 1px solid #000; border-radius: 3px; box-sizing: border-box; color: white; display: block; font-size: 1rem; font-weight: 600; padding: 12px 20px; text-align: center; text-decoration: none; width: 100%;" target="_blank">Confirm Email</a>
+</body>
+{% endinlinecss %}

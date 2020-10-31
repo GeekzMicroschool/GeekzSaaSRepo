@@ -1,0 +1,39 @@
+{% extends "account/base.html" %}
+{% load static %}
+{% load socialaccount %}
+{% load i18n %}
+
+{% block title %} 
+  Sign up
+{% endblock title %}
+
+
+{% block content %}
+  <h1>Sign up</h1>
+  {% block messages %}
+  {% if form.errors %}
+    {% for field in form %}
+        {% for error in field.errors %}
+            <div class="alert alert-error">
+                <strong>{{ error|escape }}</strong>
+            </div>
+        {% endfor %}
+    {% endfor %}
+    {% for error in form.non_field_errors %}
+        <div class="alert alert-error">
+            <strong>{{ error|escape }}</strong>
+        </div>
+    {% endfor %}
+  {% endif %}
+  {% endblock messages %}
+  <div>
+    <div class="input-field" style="margin-top:60px;">
+        <a href="{% provider_login_url "google" %}" class="btn btn-blue-affiliatewrap btn-effect" style="width: 100%;">
+            <span>
+                <i class="fa fa-google"></i>
+            </span>
+            Continue with Google
+        </a>
+    </div> 
+  </div>
+{% endblock content %}

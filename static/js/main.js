@@ -3,7 +3,7 @@
 /* ========================================================================= */
 
 jQuery(window).load(function(){
-
+   
 	$("#preloader").fadeOut("slow");
 
 });
@@ -79,10 +79,9 @@ $(function() {
 
 });
 
-
+var currentTab = 0; // Current tab is set to be the first tab (0) (for multiple forms in one page)
 
 $(document).ready(function(){
-
 	/* ========================================================================= */
 	/*	Menu item highlighting
 	/* ========================================================================= */
@@ -167,8 +166,22 @@ $(document).ready(function(){
 				}
 			}
 		}
-	});
-	
+    });
+    showTab(currentTab); // Display the current tab (for multiple forms in one page)
+
+    $('#SaaSBusiness').on('change', function(){
+        if (this.value == 'No')
+        {
+            $("#SchoolDetailss").hide();
+        }
+        else
+        {
+            document.getElementById("SaaSSchoolName").required="true";
+            document.getElementById("SaaSSchoolWebsite").required="true";
+            document.getElementById("SaaSSchoolFB").required="true";
+            $("#SchoolDetailss").show();
+        }
+    });
 });
 
 
@@ -496,3 +509,226 @@ window.onclick = function(event) {
         modal.style.display = "none";
     }
 }
+
+
+//Start Script for Geekz Saas-Become A Microschool application-multi step forms
+
+function showTab(n) {
+    // This function will display the specified tab of the form...
+    var x = document.getElementsByClassName("tabb");
+    x[n].style.display = "block";
+    //... and fix the Previous/Next buttons:
+    if (n == 0) {
+    document.getElementById("prevBtn").style.display = "none";
+    } else {
+    document.getElementById("prevBtn").style.display = "inline";
+    }
+    if (n == (x.length - 1)) {
+    document.getElementById("nextBtn").innerHTML = "Submit";
+    } else {
+    document.getElementById("nextBtn").innerHTML = "Next";
+    }
+    //... and run a function that will display the correct step indicator:
+    fixStepIndicator(n)
+}
+
+function nextPrev(n) {
+    // This function will figure out which tab to display
+    var x = document.getElementsByClassName("tabb");
+    // Exit the function if any field in the current tab is invalid:
+    if (n == 1 && !validateForm()) return false;
+    // Hide the current tab:
+    x[currentTab].style.display = "none";
+    // Increase or decrease the current tab by 1:
+    currentTab = currentTab + n;
+    // if you have reached the end of the form...
+    if (currentTab >= x.length) {
+    // ... the form gets submitted:
+    document.getElementById("SaaSApplication").submit();
+    return false;
+    }
+    // Otherwise, display the correct tab:
+    showTab(currentTab);
+}
+
+function validateForm() {
+    // This function deals with validation of the form fields
+    var x, y, z, i, valid = true;
+    x = document.getElementsByClassName("tabb");
+    y = x[currentTab].getElementsByTagName("input");
+    z = x[currentTab].getElementsByTagName("select");
+    ta = x[currentTab].getElementsByTagName("textarea");
+    // A loop that checks every input field in the current tab:
+    for (i = 0; i < y.length; i++) {
+        //validation for 3 fields on the basis of dropdown
+        if (y[i].id == "SaaSSchoolName" || y[i].id == "SaaSSchoolWebsite" || y[i].id == "SaaSSchoolFB") 
+        {
+            if (y[i].required)
+            {
+                if (y[i].value == "") 
+                {
+                    // add an "invalid" class to the field:
+                    y[i].className += " invalid";
+                    if(y[i].id=="SaaSSchoolName"){
+                        $("#errmsgsn").show();
+                    }
+                    if(y[i].id=="SaaSSchoolWebsite"){
+                        $("#errmsgsw").show();
+                    }
+                    if(y[i].id=="SaaSSchoolFB"){
+                        $("#errmsgsfb").show();
+                    }
+                    // and set the current valid status to false
+                    valid = false;
+                    continue;
+                }
+            }
+            else
+            {
+                y[i].className += " invalid";
+                if(y[i].id=="SaaSSchoolName"){
+                    $("#errmsgsn").hide();
+                }
+                if(y[i].id=="SaaSSchoolWebsite"){
+                    $("#errmsgsw").hide();
+                }
+                if(y[i].id=="SaaSSchoolFB"){
+                    $("#errmsgsfb").hide();
+                }
+                continue;
+            }
+        }
+        // If a field is empty...
+        if (y[i].value == "") 
+        {
+            // add an "invalid" class to the field:
+            y[i].className += " invalid";
+            //check all the id one by one if any field is empty then show the error msg below field
+            if(y[i].id=="SaaSDOB"){
+                $("#errmsgdob").show();
+            }
+            if(y[i].id=="SaaSPhone"){
+                $("#errmsgph").show();
+            }
+            if(y[i].id=="SaaSSchoolArea"){
+                $("#errmsgsa").show();
+            }
+            if(y[i].id=="SaaSSchoolCity"){
+                $("#errmsgsc").show();
+            }
+            if(y[i].id=="SaaSLinkedin"){
+                $("#errmsgslin").show();
+            }
+            if(y[i].id=="SaaSOccupation"){
+                $("#errmsgocc").show();
+            }
+            
+            
+            /*y[i].validationMessage;
+            alert(y[i].validationMessage);*/
+            /*alert(y[i].setCustomValidity("Please fill out this field."));
+            y[i].setCustomValidity("Please fill out this field.");*/
+            // and set the current valid status to false
+            valid = false;
+        }
+        else
+        {
+            if(y[i].id=="SaaSDOB"){
+                $("#errmsgdob").hide();
+            }
+            if(y[i].id=="SaaSPhone"){
+                $("#errmsgph").hide();
+            }
+            if(y[i].id=="SaaSLTB"){
+                $("#errmsgltb").hide();
+            }
+            if(y[i].id=="SaaSSchoolArea"){
+                $("#errmsgsa").hide();
+            }
+            if(y[i].id=="SaaSSchoolCity"){
+                $("#errmsgsc").hide();
+            }
+            if(y[i].id=="SaaSLinkedin"){
+                $("#errmsgslin").hide();
+            }
+            if(y[i].id=="SaaSOccupation"){
+                $("#errmsgocc").hide();
+            }
+        }
+    }
+    for (i = 0; i < z.length; i++) {
+        // If a field is empty...
+        if (z[i].value == "") {
+            // add an "invalid" class to the field:
+            z[i].className += " invalid";
+            if(z[i].id=="SaaSLTB"){
+                $("#errmsgltb").show();
+            }
+            if(z[i].id=="SaaSSchoolMode"){
+                $("#errmsgsm").show();
+            }
+            if(z[i].id=="SaaSSOperate"){
+                $("#errmsgop").show();
+            }
+            if(z[i].id=="SaaSBusiness"){
+                $("#errmsgbus").show();
+            }
+            // and set the current valid status to false
+            valid = false;
+        }
+        else{
+            if(z[i].id=="SaaSLTB"){
+                $("#errmsgltb").hide();
+            }
+            if(z[i].id=="SaaSSchoolMode"){
+                $("#errmsgsm").hide();
+            }
+            if(z[i].id=="SaaSSOperate"){
+                $("#errmsgop").hide();
+            }
+            if(z[i].id=="SaaSBusiness"){
+                $("#errmsgbus").hide();
+            }
+        }
+    }
+    for (i = 0; i < ta.length; i++) {
+        // If a field is empty...
+        if (ta[i].value == "") {
+            // add an "invalid" class to the field:
+            ta[i].className += " invalid";
+            if(ta[i].id=="SaaSPassion"){
+                $("#errmsgpass").show();
+            }
+            if(ta[i].id=="SaaSWhyAffiliate"){
+                $("#errmsgwaff").show();
+            }
+            // and set the current valid status to false
+            valid = false;
+        }
+        else{
+            if(ta[i].id=="SaaSPassion"){
+                $("#errmsgpass").hide();
+            }
+            if(ta[i].id=="SaaSWhyAffiliate"){
+                $("#errmsgwaff").hide();
+            }
+        }
+    }
+    // If the valid status is true, mark the step as finished and valid:
+    if (valid) {
+    document.getElementsByClassName("step")[currentTab].className += " finish";
+    }
+    return valid; // return the valid status
+}
+
+function fixStepIndicator(n) {
+    // This function removes the "active" class of all steps...
+    var i, x = document.getElementsByClassName("step");
+    for (i = 0; i < x.length; i++) {
+    x[i].className = x[i].className.replace(" active", "");
+    }
+    //... and adds the "active" class on the current step:
+    x[n].className += " active";
+}
+//end Script for swiping multiple forms 
+
