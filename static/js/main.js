@@ -553,6 +553,7 @@ function nextPrev(n) {
     }
     try{
         document.getElementById("SaaSAudition").submit();
+        thankyoumsg();
     }
     catch(err){
         
@@ -906,4 +907,14 @@ function checkfinancialvalue(){
         fmoney.required="true";
         fromwhere.required="true";
     }
+}
+
+
+//thankyou message after audition submission
+function thankyoumsg(){
+    var showtymsg=document.getElementById('thankyoumsg');
+    showtymsg.style['display']='block';
+    document.getElementById('prevBtn').style['display']='none';
+    document.getElementById('nextBtn').style['display']='none';
+    document.getElementById('stepsofform').style['display']='none';
 }
