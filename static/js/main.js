@@ -545,7 +545,18 @@ function nextPrev(n) {
     // if you have reached the end of the form...
     if (currentTab >= x.length) {
     // ... the form gets submitted:
-    document.getElementById("SaaSApplication").submit();
+    try{
+        document.getElementById("SaaSApplication").submit();
+    }
+    catch(err){
+
+    }
+    try{
+        document.getElementById("SaaSAudition").submit();
+    }
+    catch(err){
+        
+    }
     return false;
     }
     // Otherwise, display the correct tab:

@@ -341,13 +341,25 @@ def audition(request):
         #only show audition form if one of the application is submitted
         if user_details.IS_MICROSCHOOL=="Y":
             #ask for financial field in form because it is microschool
-            return render(request, 'audition.html',{'financial':'yes'})
+            if MICRO_AUDN.objects.filter(uid=user_details.uid):
+                #check if user has already submitted audition
+                return render(request, 'auditiondone.html')
+            else:
+                return render(request, 'audition.html',{'financial':'yes'})
         elif user_details.IS_MICROSCHOOL=="Y" and user_details.IS_QUESTSCHOOL=="Y":
             #ask for financial field in form because it is both microschool and questschool
-            return render(request, 'audition.html',{'financial':'yes'})
+            if MICRO_AUDN.objects.filter(uid=user_details.uid) and QUEST_AUDN.objects.filter(uid=user_details.uid):
+                #check if user has already submitted audition
+                return render(request, 'auditiondone.html')
+            else:
+                return render(request, 'audition.html',{'financial':'yes'})
         else:
             #it is a questschool so don't ask for financial field
-            return render(request, 'audition.html')
+            if QUEST_AUDN.objects.filter(uid=user_details.uid):
+                #check if user has already submitted audition
+                return render(request, 'auditiondone.html')
+            else:
+                return render(request, 'audition.html',{'financial':'no'})
     else:
         #show application form
         return redirect('apply')
@@ -395,7 +407,7 @@ def saasaudition(request):
             new_maudition.save()
         elif user_details.IS_QUESTSCHOOL=="Y":
             #store in QUEST_AUDN table only
-            new_qaudition=MICRO_AUDN(
+            new_qaudition=QUEST_AUDN(
                             uid=user_details.uid,
                             IS_COMPLETE="Y",
                             ENGLISH_FLUENCY=SaaSESF,
@@ -434,7 +446,7 @@ def saasaudition(request):
                           )
             new_maudition.save()
 
-            new_qaudition=MICRO_AUDN(
+            new_qaudition=QUEST_AUDN(
                             uid=user_details.uid,
                             IS_COMPLETE="Y",
                             ENGLISH_FLUENCY=SaaSESF,
