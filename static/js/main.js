@@ -173,6 +173,9 @@ $(document).ready(function(){
         if (this.value == 'No')
         {
             $("#SchoolDetailss").hide();
+            document.getElementById("SaaSSchoolName").removeAttribute("required");
+            document.getElementById("SaaSSchoolWebsite").removeAttribute("required");
+            document.getElementById("SaaSSchoolFB").removeAttribute("required");
         }
         else
         {
@@ -902,8 +905,12 @@ function checkfinancialvalue(){
     var showfinfo=document.getElementById("showfinancialinfo");
     var fmoney=document.getElementById("SaaSFinancial");
     var fromwhere=document.getElementById("SaaSFromWhere");
+    var showfstep=document.getElementById("showfinancialinfostep");
     if(fvalue.value=="yes"){
-        showfinfo.style['display']='block';
+        showfinfo.style['display']='';
+        showfinfo.className+="tabb";
+        showfstep.style['display']='';
+        showfstep.className+="step";
         fmoney.required="true";
         fromwhere.required="true";
     }

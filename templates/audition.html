@@ -6,367 +6,10 @@
     <meta name="description" content="Geekz School-As-A-Service Audition.">
 {% endblock metadescription %}
 {% block metakeywords %}
-    <meta name="keywords" content="geekz, geeks, school, reimagined school, alternate school, international, velachery, chennai, india, personalized, curriculum, self paced, learning, mastery, khan academy, duolingo, Microsoft, Program Manager, application, apply, micro-school, microschool, micro school, micro, School As A Service, SaaS, Affiliation, Quest, Questschool, Quest School, Work From Home, WFH, Part Time Job, Jobs">
+    <meta name="keywords" content="geekz, geeks, school, reimagined school, alternate school, international, velachery, chennai, india, personalized, curriculum, self paced, learning, mastery, khan academy, duolingo, Microsoft, Program Manager, application, apply, micro-school, microschool, micro school, micro, School As A Service, SaaS, Affiliation, Quest, Questschool, Quest School, Work From Home, WFH, Part Time Job, Jobs, Audition">
 {% endblock metakeywords %}
 
-{% block navbar %}
-<header id="navigation" class="navbar-inverse navbar-fixed-top animated-header">
-    <table style="width:100%" align="center"><td width="80%">
-    <div class="container" style="width:80%">
-        <div class="navbar-header">
-            <!-- responsive nav button -->
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <!-- /responsive nav button -->
-            
-            <!-- logo -->
-            <h1 class="navbar-logo">
-                <a href="/" style="color:#fff;">
-                    <img src="{% static 'img/Geekz%20Logo.png' %}" height="70" style="position:relative;bottom:0px;" title="Geekz Microschool" alt="Geekz Microschool"><span style="position:relative;top:11px;" title="Geekz Microschool"></span>
-                </a>
-            </h1>
-            <!-- /logo -->
-        </div>
 
-
-        <!-- main nav -->
-        <nav class="collapse navbar-collapse navbar-right" role="navigation">
-            <ul id="nav" class= "nav navbar-tabs">
-<!--                        <li><a href="#body">Home</a></li>-->
-                <li><a href="">Quest</a></li>
-                <li><a href="">Homeschool</a></li>
-                <li><a href="#service">Education</a></li>
-                <li><a href="#admissions">Admissions</a></li>
-                <li><a href="">Become a Questschool</a></li>
-                <!--<li><a href="#portfolio">Gala</a></li>
-                <li><a href="#testimonials">About</a></li>
-                <li><a href="#job">Careers</a></li>
-                <li><a href="#contact">Contact</a></li>-->
-                
-                
-                <!--<li><a href="Affiliate.html" class="btn btn-blue btn-effect">Launch Your Own Geekz</a></li>
-<!--                        <li><a href="https://thegeekstudio.wordpress.com/" target="_blank">Blog</a></li>-->
-                
-            </ul>
-        </nav>
-        
-        
-        <!-- /main nav -->
-        
-    </div></td>
-    <td><a href="#contact" class="btn btn-blue-affiliatewrap btn-effect">Book a Free Quest Trial</a></td>
-    <td>
-        <!--03-10-2020 start login and signup popup modal-->
-        {% if user.is_authenticated %}
-            {% if user.socialaccount_set.all %}
-                {% for account in user.socialaccount_set.all %}
-                    <td style="padding: 20px;">
-                        <div class="dropdown">
-                            <img src="{{account.extra_data.picture}}" height="40" width="40" style="border-radius: 50%;">
-                            <div class="dropdown-content">
-                            <p><a href="/logout" class="btn btn-blue-affiliatewrap btn-effect">Logout</a></p>
-                            </div>
-                        </div>
-                    </td>
-                {% endfor %}
-                {% else %}
-                    <!--simple user-->
-                    <td style="padding: 20px;">
-                        <div class="dropdown">
-                            <a href style="color: grey; text-decoration: none;" class="fa fa-user fa-3x"></a>
-                            <div class="dropdown-content">
-                            <p><a href="/logout" class="btn btn-blue-affiliatewrap btn-effect">Logout</a></p>
-                            </div>
-                        </div>
-                    </td>
-                    <!--/simple user-->
-                {% endif %}
-        {% else %}
-            <a href style="color: grey; text-decoration: none; padding:20px" class="fa fa-user fa-3x" data-toggle="modal" data-target="#loginms" style="padding: 10px;"></a>
-        {% endif %}
-
-        <!--only continue with google popup modal-->
-                                    <!--login popup modal-->
-                                    <div id="loginms" class="modal fade" role="dialog">
-                                        <div class="modal-dialog">
-                                            <!-- Modal content-->
-                                            <div class="modal-content" style="background-color: white; width: 400px; height: 200px">
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                    <h4 class="modal-title" style="text-align: center;">Log in</h4>
-                                                </div>
-                
-                                                <div class="modal-body">
-                                                    <div class="input-field" style="width: 100%;">
-                                                        <a href="{% provider_login_url "google" %}" class="btn btn-blue-affiliatewrap btn-effect" style="width: 100%;">
-                                                            <span>
-                                                                <i class="fa fa-google"></i>
-                                                            </span>
-                                                            Continue with Google
-                                                        </a>
-                                                    </div>
-                                                    
-                                                    <div class="input-field" style="width: 100%; margin-top: 10px; text-align:center; color:black;">
-                                                        Don’t have an account?
-                                                        <a href data-dismiss="modal" data-toggle="modal" data-target="#signupms">Sign up</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!--end login popup modal-->
-        
-                                    <!--start signup popup modal-->
-                                    <div id="signupms" class="modal fade" role="dialog">
-                                        <div class="modal-dialog">
-                                            <!-- Modal content-->
-                                            <div class="modal-content" style="background-color: white; width: 400px; height: 200px">
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                    <h4 class="modal-title" style="text-align: center;">Sign up</h4>
-                                                </div>
-                
-                                                <div class="modal-body">
-                                                    <div class="input-field" style="width: 100%;">
-                                                        <a href="{% provider_login_url "google" %}" class="btn btn-blue-affiliatewrap btn-effect" style="width: 100%;">
-                                                            <span>
-                                                                <i class="fa fa-google"></i>
-                                                            </span>
-                                                            Continue with Google
-                                                        </a>
-                                                    </div>
-                
-                                                    <div class="input-field" style="width: 100%; margin-top: 10px; text-align:center; color:black;">
-                                                        Already have an account?
-                                                        <a href data-dismiss="modal" data-toggle="modal" data-target="#loginms">Log in</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!--end signup popup modal-->
-                                <!--end continue with google popup modal-->
-
-        <!--login popup modal-->
-        <div id="login" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-                <!-- Modal content-->
-                <div class="modal-content" style="background-color: white; width: 400px; height: 300px">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title" style="text-align: center;">Log in</h4>
-                    </div>
-
-                    <div class="modal-body">
-                        <div class="input-field" style="width: 100%;">
-                            <a href="{% provider_login_url "google" %}" class="btn btn-blue-affiliatewrap btn-effect" style="width: 100%;">
-                                <span>
-                                    <i class="fa fa-google"></i>
-                                </span>
-                                Continue with Google
-                            </a>
-                        </div>
-                                    
-                        <div class="input-field" style="width: 100%; margin-top: 10px;">
-                            <a href="{% provider_login_url "facebook" method="oauth2" %}" class="btn btn-blue-affiliatewrap btn-effect" style="width: 100%;">
-                                <span>
-                                    <i class="fa fa-facebook"></i>
-                                </span>
-                                Continue with Facebook
-                            </a>
-                        </div>
-                        
-                        <div class="input-field" style="width: 100%; margin-top: 10px; text-align:center;">
-                            Don’t have an account?
-                            <a href data-dismiss="modal" data-toggle="modal" data-target="#signup">Sign up</a>
-                        </div>
-
-                        <div class="input-field" style="width: 100%; margin-top: 10px; text-align:center;">
-                            <a href="/accounts/login">
-                            Continue with Email
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    
-        <!--end login popup modal-->
-
-        <!--start email login popup modal-->
-        <div id="emaillogin" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-                <!-- Modal content-->
-                <div class="modal-content" style="background-color: white; width: 400px; height: 400px">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title" style="text-align: center;">Continue with Email</h4>
-                    </div>
-                    <div class="modal-body">
-                        <form action="/accounts/login/" method="POST">
-                            {% csrf_token %}
-                            <div class="input-field" style="width: 100%;">
-                                <input type="email" name="login" class="form-control" style="width: 100%;" placeholder="Email" required />
-                            </div>
-
-                            <div class="input-field" style="width: 100%;">
-                                <input type="password" name="password" class="form-control" style="width: 100%;" placeholder="Password" required />
-                            </div>
-
-                            <div class="input-field" style="width: 100%; margin-top: 10px;">
-                                <input type="submit" class="btn btn-blue-affiliatewrap btn-effect" style="width: 100%;" value="Log in" />
-                            </div>
-                        </form>
-
-                        <div class="col-sm-9 mt-2" style="width: 100%; margin-top: 10px; text-align:center;">
-                            <a href="{% url 'account_reset_password' %}">Forgotten your password?</a>
-                        </div>
-                        
-                        <div class="col-sm-9 mt-2" style="width: 100%; margin-top: 10px; text-align:center;">
-                            <a href data-dismiss="modal" data-toggle="modal" data-target="#login">More login options</a>
-                        </div>
-
-                        <div class="col-sm-9 mt-2" style="width: 100%; margin-top: 10px; text-align:center;">
-                            Don’t have an account? <a href data-dismiss="modal" data-toggle="modal" data-target="#signup" >Sign up</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    
-        <!--end email login popup modal-->
-
-        <!--start signup popup modal-->
-        <div id="signup" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-                <!-- Modal content-->
-                <div class="modal-content" style="background-color: white; width: 400px; height: 300px">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title" style="text-align: center;">Sign up</h4>
-                    </div>
-
-                    <div class="modal-body">
-                        <div class="input-field" style="width: 100%;">
-                            <a href="{% provider_login_url "google" %}" class="btn btn-blue-affiliatewrap btn-effect" style="width: 100%;">
-                                <span>
-                                    <i class="fa fa-google"></i>
-                                </span>
-                                Continue with Google
-                            </a>
-                        </div>
-                                
-                        <div class="input-field" style="width: 100%; margin-top: 10px;">
-                            <a href="{% provider_login_url "facebook" method="oauth2" %}" class="btn btn-blue-affiliatewrap btn-effect" style="width: 100%;">
-                                <span>
-                                    <i class="fa fa-facebook"></i>
-                                </span>
-                                Continue with Facebook
-                            </a>
-                        </div>
-
-                        <div class="input-field" style="width: 100%; margin-top: 10px; text-align:center;">
-                            Already have an account?
-                            <a href data-dismiss="modal" data-toggle="modal" data-target="#login">Log in</a>
-                        </div>
-
-                        <div class="input-field" style="width: 100%; margin-top: 10px; text-align:center;">
-                            <a href="accounts/signup">
-                                Continue with Email
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--end signup popup modal-->
-
-        <!--start email signup popup modal-->
-        <div id="emailsignup" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-        
-                <!-- Modal content-->
-                <div class="modal-content" style="background-color: white; width: 400px; height: 500px">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title" style="text-align: center;">Continue with Email</h4>
-                    </div>
-                    <div class="modal-body">
-                        <form action="/accounts/signup/" method="POST">
-                            {% csrf_token %}
-                            <div class="input-field" style="width: 100%;">
-                                <input type="text" name="fullname" class="form-control" style="width: 100%;" placeholder="Full Name" required />
-                            </div>
-
-                            <div class="input-field" style="width: 100%;">
-                                <input type="email" name="email" class="form-control" style="width: 100%;" placeholder="Email" required />
-                            </div>
-
-                            <div class="input-field" style="width: 100%;">	
-                                <input type="password" name="password1" id="password1" class="form-control" style="width: 100%;" placeholder="Password" required />
-                                <span class="eye" style="position:fixed; right:123px; top:209px; cursor: pointer;" onclick="ShowPassword()">
-                                    <i id="hide1" style="display: block;" class="fa fa-eye"></i>
-                                    <i id="hide2" style="display: none;" class="fa fa-eye-slash"></i>
-                                </span>
-                            </div>
-
-                            <!--script for show/hide password-->
-                            <script>
-                                function ShowPassword(){
-                                    var x = document.getElementById("password1");
-                                    var y = document.getElementById("hide1");
-                                    var z = document.getElementById("hide2");
-                            
-                                    if(x.type=='password'){
-                                        x.type="text";
-                                        y.style.display="none";
-                                        z.style.display="block";
-                                    }
-                                    else{
-                                        x.type="password";
-                                        y.style.display="block";
-                                        z.style.display="none";
-                                    }
-                                }
-                            </script>
-
-                            <div class="input-field" style="width: 100%;">
-                                <input type="phone" name="phone_no"  class="form-control" style="width: 100%;" maxlength="10" placeholder="Phone number" required />
-                            </div>
-
-                            <div class="input-field col-sm-9 mt-5" style="width: 100%;">
-                                <input type="checkbox" name="sameasphone" value="True" checked /> Get Important Notifications On WhatsApp
-                            </div>
-
-                            <div class="input-field" style="width: 100%; margin-top: 10px;">
-                                <input type="submit" class="btn btn-blue-affiliatewrap btn-effect" style="width: 100%;" value="SIGN UP" />
-                            </div>
-
-                            <div class="col-sm-9 mt-2" style="width: 100%; margin-top: 10px; text-align:center;">
-                                <a href data-dismiss="modal" data-toggle="modal" data-target="#signup">More Signup Options</a>
-                            </div>
-
-                            <div class="input-field" style="width: 100%; margin-top: 10px; text-align:center;">
-                                Already have an account?
-                                <a href data-dismiss="modal" data-toggle="modal" data-target="#login">Log in</a>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--end email signup popup modal-->
-        <!--end login and signup popup modal-->
-    </td>
-</table>
-</header>
-
-    
-{% endblock navbar %}
 
 {% block content %}
 <main class="site-content" role="main">
@@ -498,15 +141,19 @@
                     }
                     </style>
 
-                
                 <div class="col-md-6 contact-form wow animated fadeInLeft">
+                {% if audition_done %}
+                    <div>
+                        Your application’s on its way. Geekz team will be in touch with you shortly. Good luck!
+                    </div>
+                {% else %}
                     <form action="/saasaudition" id="SaaSAudition" method="POST">
                         {% csrf_token %}
                         <div class="tabb">
                             <h3><b>Portfolio Information</b></h3>
                             <div class="input-field">
                                 <select id="SaaSESF" name="SaaSESF" class="form-control" required>
-                                    <option value="" selected>English Speaking Fluency...</option>
+                                    <option value="" selected disabled>English Speaking Fluency...</option>
                                     <option value="Basic">Basic</option>
                                     <option value="Intermediate">Intermediate</option>
                                     <option value="Pro">Pro</option>
@@ -519,7 +166,7 @@
 
                             <div class="input-field">
                                 <select id="SaaSCodingSkill" name="SaaSCodingSkill" class="form-control" required>
-                                    <option value="" selected>Coding Skill...</option>
+                                    <option value="" selected disabled>Coding Skill...</option>
                                     <option value="Basic">Basic</option>
                                     <option value="Intermediate">Intermediate</option>
                                     <option value="Pro">Pro</option>
@@ -532,7 +179,7 @@
 
                             <div class="input-field">
                                 <select id="SaaSPhotoSkill" name="SaaSPhotoSkill" class="form-control" required>
-                                    <option value="" selected>Photo Editing...</option>
+                                    <option value="" selected disabled>Photo Editing...</option>
                                     <option value="Basic">Basic</option>
                                     <option value="Intermediate">Intermediate</option>
                                     <option value="Pro">Pro</option>
@@ -545,7 +192,7 @@
 
                             <div class="input-field">
                                 <select id="SaaSVideoSkill" name="SaaSVideoSkill" class="form-control" required>
-                                    <option value="" selected>Video Editing...</option>
+                                    <option value="" selected disabled>Video Editing...</option>
                                     <option value="Basic">Basic</option>
                                     <option value="Intermediate">Intermediate</option>
                                     <option value="Pro">Pro</option>
@@ -558,7 +205,7 @@
 
                             <div class="input-field">
                                 <select id="SaaSPassionToLearn" name="SaaSPassionToLearn" class="form-control" required>
-                                    <option value="" selected>Passion To Learn New Skills (Ex: Coding/Editing)...</option>
+                                    <option value="" selected disabled>Passion To Learn New Skills (Ex: Coding/Editing)...</option>
                                     <option value="High">High</option>
                                     <option value="Low">Low</option>
                                     <option value="No">No</option>
@@ -569,33 +216,33 @@
                             </div>
                         </div>
 
-                        <div class="tabb">
+                        <div style="display: none;" id="showfinancialinfo">
                             <!--get the value to show the financial fields-->
                             <div style="display: none;">
                                 <input type="text" id="financialvalue" value="{{financial}}" readonly>
                             </div>
 
-                            <div style="display: none;" id="showfinancialinfo">
-                                <h3><b>Financial Information</b></h3>
-                                <div class="input-field">
-                                    <textarea id="SaaSFinancial" name="SaaSFinancial" class="form-control" placeholder="How Much Money Required To Launch (Please Be As Specific As Possible)… "></textarea>
-                                    <div style="display: none;" id="errmsgfinancialmoney">
-                                        <p style="color: red; font-size:10px;">Please fill out this field.</p>
-                                    </div>
-                                </div>
-
-                                <div class="input-field">
-                                    <input type="text" id="SaaSFromWhere" name="SaaSFromWhere" class="form-control" placeholder="Where Will It Come From..">
-                                    <div style="display: none;" id="errmsgfromwhere">
-                                        <p style="color: red; font-size:10px;">Please fill out this field.</p>
-                                    </div>
+                            <h3><b>Financial Information</b></h3>
+                            <div class="input-field">
+                                <textarea id="SaaSFinancial" name="SaaSFinancial" class="form-control" placeholder="How Much Money Required To Launch (Please Be As Specific As Possible)… "></textarea>
+                                <div style="display: none;" id="errmsgfinancialmoney">
+                                    <p style="color: red; font-size:10px;">Please fill out this field.</p>
                                 </div>
                             </div>
 
+                            <div class="input-field">
+                                <input type="text" id="SaaSFromWhere" name="SaaSFromWhere" class="form-control" placeholder="Where Will It Come From..">
+                                <div style="display: none;" id="errmsgfromwhere">
+                                    <p style="color: red; font-size:10px;">Please fill out this field.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tabb">
                             <h3><b>Infra Information</b></h3>
                             <div class="input-field">
                                 <select id="SaaSHDWC" name="SaaSHDWC" class="form-control" required>
-                                    <option value="">Own Device With HD Webcam...</option>
+                                    <option value="" selected disabled>Own Device With HD Webcam...</option>
                                     <option value="Yes">Yes</option>
                                     <option value="No">No</option>
                                 </select>
@@ -606,7 +253,7 @@
 
                             <div class="input-field">
                                 <select id="SaaSModeInternet" name="SaaSModeInternet" class="form-control" required>
-                                    <option value="">Mode Of Internet Connection...</option>
+                                    <option value="" selected disabled>Mode Of Internet Connection...</option>
                                     <option value="Broadband">Broadband</option>
                                     <option value="Internet Dongle">Internet Dongle</option>
                                     <option value="Mobile Hotspot">Mobile Hotspot</option>
@@ -618,7 +265,7 @@
 
                             <div class="input-field">
                                 <select id="SaaSSpeed" name="SaaSSpeed" class="form-control" required>
-                                    <option value="">20+ Mbps Internet Speed...</option>
+                                    <option value="" selected disabled>20+ Mbps Internet Speed...</option>
                                     <option value="Yes">Yes</option>
                                     <option value="No">No</option>
                                 </select>
@@ -660,18 +307,18 @@
 
                         <div class="tabb">
                             <h3><b>Terms & Conditions</b></h3>
-                            <ul>
-                                <li>Promise To Uphold Geekz Vision, Brand Value, Beliefs & Content</li>
-                                <li>Maintain World Class High Quality Education</li> 
-                                <li>Well Lit Bright Space & Ventilation To Conduct Classes</li> 
-                                <li>Nice Background To Conduct Online Calls</li> 
-                                <li>Own A HD Webcam Enabled Latest Device</li> 
-                                <li>Have A WiFi Connection With 20+ Mbps Speed</li> 
-                                <li>Your Rating Not Less Than 4.5/5.0</li> 
-                                <li>Our Customers Are God. They're Always Correct. Kindly Listen To Them & Help Politely</li> 
-                                <li>Consent To Receive Calls From Geekz Executives</li> 
+                            <ol>
+                                <li>Promise To Uphold Geekz Vision, Brand Value, Beliefs & Content.</li>
+                                <li>Maintain World Class High Quality Education.</li> 
+                                <li>Well Lit Bright Space & Ventilation To Conduct Classes.</li> 
+                                <li>Nice Background To Conduct Online Calls.</li> 
+                                <li>Own A HD Webcam Enabled Latest Device.</li> 
+                                <li>Have A WiFi Connection With 20+ Mbps Speed.</li> 
+                                <li>Your Rating Not Less Than 4.5/5.0.</li> 
+                                <li>Our Customers Are God. They're Always Correct. Kindly Listen To Them & Help Politely.</li> 
+                                <li>Consent To Receive Calls From Geekz Executives.</li> 
                                 <li>Ready To Complete Geekz Screening & Training To Become a Microschool/Questchool.</li>
-                            </ul> 
+                            </ol> 
                         </div>
 
                         <div id="thankyoumsg" style="display: none;">
@@ -685,11 +332,13 @@
 
                         <div style="text-align:center;margin-top:40px;" id="stepsofform">
                             <span class="step"></span>
+                            <span style="display: none;" id="showfinancialinfostep"></span>
                             <span class="step"></span>
                             <span class="step"></span>
                             <span class="step"></span>
                         </div>
                     </form>
+                {% endif %}
                 </div>
                 <div id="tips" class="col-md-4 wow animated fadeInRight" style="float:right;">
                     <address class="contact-details">

@@ -336,32 +336,38 @@ def saasapplication(request):
 def audition(request):
     user_id=request.session['user_id']
     user=User.objects.get(id=user_id)
-    user_details=USER_DETAILS.objects.get(USER_EMAIL=user.email)
-    if user_details.IS_MICROSCHOOL=="Y" or user_details.IS_QUESTSCHOOL=="Y":
-        #only show audition form if one of the application is submitted
-        if user_details.IS_MICROSCHOOL=="Y":
-            #ask for financial field in form because it is microschool
-            if MICRO_AUDN.objects.filter(uid=user_details.uid):
-                #check if user has already submitted audition
-                return render(request, 'auditiondone.html')
+    if USER_DETAILS.objects.filter(USER_EMAIL=user.email):
+        user_details=USER_DETAILS.objects.get(USER_EMAIL=user.email)
+        if user_details.IS_MICROSCHOOL=="Y" or user_details.IS_QUESTSCHOOL=="Y":
+            #only show audition form if one of the application is submitted
+            if user_details.IS_MICROSCHOOL=="Y":
+                #ask for financial field in form because it is microschool
+                if MICRO_AUDN.objects.filter(uid=user_details.uid):
+                    #check if user has already submitted audition
+                    #pass a variable with done so that it can be used in frontend to show message that this user is already registered
+                    return render(request, 'audition.html',{'audition_done':'done'})
+                else:
+                    return render(request, 'audition.html',{'financial':'yes'})
+            elif user_details.IS_MICROSCHOOL=="Y" and user_details.IS_QUESTSCHOOL=="Y":
+                #ask for financial field in form because it is both microschool and questschool
+                if MICRO_AUDN.objects.filter(uid=user_details.uid) and QUEST_AUDN.objects.filter(uid=user_details.uid):
+                    #check if user has already submitted audition
+                    #pass a variable with done so that it can be used in frontend to show message that this user is already registered
+                    return render(request, 'audition.html',{'audition_done':'done'})
+                else:
+                    return render(request, 'audition.html',{'financial':'yes'})
             else:
-                return render(request, 'audition.html',{'financial':'yes'})
-        elif user_details.IS_MICROSCHOOL=="Y" and user_details.IS_QUESTSCHOOL=="Y":
-            #ask for financial field in form because it is both microschool and questschool
-            if MICRO_AUDN.objects.filter(uid=user_details.uid) and QUEST_AUDN.objects.filter(uid=user_details.uid):
-                #check if user has already submitted audition
-                return render(request, 'auditiondone.html')
-            else:
-                return render(request, 'audition.html',{'financial':'yes'})
+                #it is a questschool so don't ask for financial field
+                if QUEST_AUDN.objects.filter(uid=user_details.uid):
+                    #check if user has already submitted audition
+                    #pass a variable with done so that it can be used in frontend to show message that this user is already registered
+                    return render(request, 'audition.html',{'audition_done':'done'})
+                else:
+                    return render(request, 'audition.html',{'financial':'no'})
         else:
-            #it is a questschool so don't ask for financial field
-            if QUEST_AUDN.objects.filter(uid=user_details.uid):
-                #check if user has already submitted audition
-                return render(request, 'auditiondone.html')
-            else:
-                return render(request, 'audition.html',{'financial':'no'})
+            #show application form
+            return redirect('apply')
     else:
-        #show application form
         return redirect('apply')
 
 @login_required
@@ -383,7 +389,7 @@ def saasaudition(request):
         SaaSNoOfStu=request.POST['SaaSNoOfStu']
         SaaSQuestions=request.POST['SaaSQuestions']
 
-        if user_details.IS_MICROSCHOOL=="Y":
+        if user_details.IS_MICROSCHOOL=="Y" and user_details.IS_QUESTSCHOOL=="N":
             #store in MICRO_AUDN table only
             SaaSFinancial=request.POST['SaaSFinancial']
             SaaSFromWhere=request.POST['SaaSFromWhere']
@@ -405,7 +411,7 @@ def saasaudition(request):
                             QUESTIONS=SaaSQuestions
                           )
             new_maudition.save()
-        elif user_details.IS_QUESTSCHOOL=="Y":
+        elif user_details.IS_QUESTSCHOOL=="Y" and user_details.IS_MICROSCHOOL=="N":
             #store in QUEST_AUDN table only
             new_qaudition=QUEST_AUDN(
                             uid=user_details.uid,
@@ -425,6 +431,7 @@ def saasaudition(request):
             new_qaudition.save()
         elif user_details.IS_MICROSCHOOL=="Y" and user_details.IS_QUESTSCHOOL=="Y":
             #store in both MICRO_AUDN and QUEST_AUDN table
+            print("bothhhhhhhhhhh")
             SaaSFinancial=request.POST['SaaSFinancial']
             SaaSFromWhere=request.POST['SaaSFromWhere']
             new_maudition=MICRO_AUDN(
@@ -470,4 +477,4 @@ def saasaudition(request):
         message=EmailMessage(subject, html_message, settings.EMAIL_HOST_USER, [to_email])
         message.content_subtype='html'
         message.send()
-        return render(request, 'auditiondone.html')
+        return redirect('index')
