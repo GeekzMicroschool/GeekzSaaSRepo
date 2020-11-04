@@ -24,14 +24,14 @@ from allauth.socialaccount.signals import pre_social_login'''
 def index(request):
     return render(request, 'index.html')
 
-
 def schoolasaservice(request):
     return render(request, 'schoolasaservice.html')
 
+def questschool(request):
+    return render(request, 'questschool.html')
 
 def homeschool(request):
     return render(request, 'homeschool.html')
-
 
 def jobs(request):
     return render(request, 'jobs.html')
