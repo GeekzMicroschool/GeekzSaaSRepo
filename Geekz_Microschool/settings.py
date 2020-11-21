@@ -109,10 +109,10 @@ WSGI_APPLICATION = 'Geekz_Microschool.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'GeekzSaaS',
+        'NAME': 'postgres',
         'USER': 'postgres',
         'HOST': 'localhost',
-        'PASSWORD': '1234'
+        'PASSWORD': 'geekz'
     }
 }
 

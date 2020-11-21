@@ -12,4 +12,6 @@ urlpatterns = [
     #path('glogin', views.glogin, name="glogin"),
     #path('login', views.login, name="login"),
     #path('signup', views.signup, name="signup"),
+    path('serachbar',views.searchbar,name="searchbar"),
+
 ]

@@ -81,3 +81,28 @@ class QUEST_AUDN(models.Model):
     YOUTUBE_VIDEO=models.URLField(max_length=300)
     NO_OF_STUDENTS=models.IntegerField()
     QUESTIONS=models.CharField(max_length=10000)
+
+
+
+class MICRO_APPLY(models.Model):
+    uid=models.CharField(max_length=50, primary_key=True)
+    IS_COMPLETE=models.CharField(max_length=1, default="N")
+    NAME=models.CharField(max_length=100)
+    DOB=models.DateField()
+    EMAIL=models.EmailField(max_length=254)
+    COUNTRY_CODE=models.IntegerField()
+    PHONE=models.BigIntegerField()
+    LOVE_TO_BE=models.CharField(max_length=15)
+    SCHOOL_MODE=models.CharField(max_length=25)
+    SCHOOL_OPERATE=models.CharField(max_length=25)
+    SCHOOL_LOCALITY=models.CharField(max_length=500)
+    LATITUDE=models.FloatField()
+    LONGITUDE=models.FloatField()
+    BUSINESS=models.CharField(max_length=50)
+    SCHOOL_NAME=models.CharField(max_length=200, blank=True, null=True)
+    SCHOOL_WEBSITE=models.CharField(max_length=300, blank=True, null=True)
+    SCHOOL_FB=models.URLField(max_length=300, blank=True, null=True)
+    LINKEDIN=models.URLField(max_length=300)
+    OCCUPATION=models.CharField(max_length=100)
+    PASSION=models.CharField(max_length=10000)
+    WHY_AFFILIATE=models.CharField(max_length=10000)

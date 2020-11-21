@@ -11,6 +11,8 @@ from django.core.mail import EmailMessage
 from django.conf import settings
 
 # Create your views here.
+def searchbar(request):
+    return render(request,'searchbar.html')
 @login_required
 def apply(request):
     user_id=request.session['user_id']

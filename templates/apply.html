@@ -386,20 +386,48 @@
                             </div>
                             
 
-                            <div class="input-field">
-                                <input type="text" id="SaaSSchoolArea" name="SaaSSchoolArea" class="form-control" placeholder="School Launching Locality/Area..." required>
-                                <div style="display: none;" id="errmsgsa">
-                                    <p style="color: red; font-size:10px;">Please fill out this field.</p>
-                                </div>
-                            </div>
-                            
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-                            <div class="input-field">
-                                <input type="text" id="SaaSSchoolCity" name="SaaSSchoolCity" class="form-control" placeholder="School Launching City..." required>
-                                <div style="display: none;" id="errmsgsc">
-                                    <p style="color: red; font-size:10px;">Please fill out this field.</p>
-                                </div>
-                            </div>
+<div class="form-group">
+  <input type="text" class="form-control" id="search_input" placeholder="School Locality...." />
+  <input type="hidden" id="loc_lat" />
+  <input type="hidden" id="loc_long" />
+</div>
+<!-- Remove powered by gogle -->
+<style>
+    .pac-container:after{
+        background-image: none!important;
+        height:0px;
+    }
+</style>
+
+<!-- google map places api js -->
+<script>
+  var searchInput = 'search_input';
+
+$(document).ready(function () {
+    var autocomplete;
+    autocomplete = new google.maps.places.Autocomplete((document.getElementById(searchInput)), {
+        types: ['geocode'],
+    });
+	
+    google.maps.event.addListener(autocomplete, 'place_changed', function () {
+        var near_place = autocomplete.getPlace();
+        document.getElementById('loc_lat').value = near_place.geometry.location.lat();
+        document.getElementById('loc_long').value = near_place.geometry.location.lng();
+		
+        document.getElementById('latitude_view').innerHTML = near_place.geometry.location.lat();
+        document.getElementById('longitude_view').innerHTML = near_place.geometry.location.lng();
+    });
+});
+$(document).on('change', '#'+searchInput, function () {
+    document.getElementById('latitude_input').value = '';
+    document.getElementById('longitude_input').value = '';
+	
+    document.getElementById('latitude_view').innerHTML = '';
+    document.getElementById('longitude_view').innerHTML = '';
+});
+</script>	
                             
 
                             <div class="input-field">

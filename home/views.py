@@ -20,6 +20,8 @@ from allauth.socialaccount.signals import pre_social_login'''
 
 
 # Create your views here.
+def searchbar(request):
+    return render(request,'serachbar.html')
 #@login_required
 def index(request):
     return render(request, 'index.html')
