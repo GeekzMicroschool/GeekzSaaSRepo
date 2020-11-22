@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import MICRO_APPLN, QUEST_APPLN, MICRO_AUDN, QUEST_AUDN
+from .models import MICRO_APPLN, QUEST_APPLN, MICRO_AUDN, QUEST_AUDN,MICRO_APPLY
 from home.models import USER_DETAILS
 from django.contrib.auth.models import User,auth
 from allauth.socialaccount.models import SocialAccount
@@ -46,13 +46,14 @@ def saasapplication(request):
         SaaSSchoolMode=request.POST['SaaSSchoolMode']
         SaaSSOperate=request.POST['SaaSSOperate']
         SaaSSchoolArea=request.POST['SaaSSchoolArea']
-        SaaSSchoolCity=request.POST['SaaSSchoolCity']
+        SaaSSchoolLatitude=request.POST['loc_lat'],
+        SaaSSchoolLongitude=request.POST['loc_lat'],
+        #SaaSSchoolCity=request.POST['SaaSSchoolCity']
         SaaSBusiness=request.POST['SaaSBusiness']
         SaaSLinkedin=request.POST['SaaSLinkedin']
         SaaSOccupation=request.POST['SaaSOccupation']
         SaaSPassion=request.POST['SaaSPassion']
         SaaSWhyAffiliate=request.POST['SaaSWhyAffiliate']
-
         if SaaSBusiness!="No":
             #other than No value then get following data and store in db
             SaaSSchoolName=request.POST['SaaSSchoolName']
@@ -98,7 +99,7 @@ def saasapplication(request):
                 new_user_details.save()
             elif SaaSLTB=="Microschool":
                 #store all the data in MICRO_APPLN table
-                new_mschool=MICRO_APPLN(
+                new_mschool=MICRO_APPLY(
                                 uid=social_data.uid,
                                 IS_COMPLETE="Y",
                                 NAME=SaaSName,
@@ -109,8 +110,10 @@ def saasapplication(request):
                                 LOVE_TO_BE=SaaSLTB,
                                 SCHOOL_MODE=SaaSSchoolMode,
                                 SCHOOL_OPERATE=SaaSSOperate,
-                                SCHOOL_AREA=SaaSSchoolArea,
-                                SCHOOL_CITY=SaaSSchoolCity,
+                                SCHOOL_LOCALITY=SaaSSchoolArea,
+                                LATITUDE=SaaSSchoolLatitude,
+                                LONGITUDE=SaaSSchoolLongitude,
+                                #SCHOOL_CITY=SaaSSchoolCity,
                                 BUSINESS=SaaSBusiness,
                                 SCHOOL_NAME=SaaSSchoolName,
                                 SCHOOL_WEBSITE=SaaSSchoolWebsite,
@@ -160,7 +163,7 @@ def saasapplication(request):
                             )
                 new_qschool.save()
 
-                new_mschool=MICRO_APPLN(
+                new_mschool=MICRO_APPLY(
                                 uid=social_data.uid,
                                 IS_COMPLETE="Y",
                                 NAME=SaaSName,
@@ -171,8 +174,10 @@ def saasapplication(request):
                                 LOVE_TO_BE=SaaSLTB,
                                 SCHOOL_MODE=SaaSSchoolMode,
                                 SCHOOL_OPERATE=SaaSSOperate,
-                                SCHOOL_AREA=SaaSSchoolArea,
-                                SCHOOL_CITY=SaaSSchoolCity,
+                                SCHOOL_LOCALITY=SaaSSchoolArea,
+                                LATITUDE=SaaSSchoolLatitude,
+                                LONGITUDE=SaaSSchoolLongitude,
+                                #SCHOOL_CITY=SaaSSchoolCity,
                                 BUSINESS=SaaSBusiness,
                                 SCHOOL_NAME=SaaSSchoolName,
                                 SCHOOL_WEBSITE=SaaSSchoolWebsite,
@@ -236,7 +241,7 @@ def saasapplication(request):
                 new_user_details.save()
             elif SaaSLTB=="Microschool":
                 #store all the data in MICRO_APPLN table
-                new_mschool=MICRO_APPLN(
+                new_mschool=MICRO_APPLY(
                                 uid=social_data.uid,
                                 IS_COMPLETE="Y",
                                 NAME=SaaSName,
@@ -247,8 +252,10 @@ def saasapplication(request):
                                 LOVE_TO_BE=SaaSLTB,
                                 SCHOOL_MODE=SaaSSchoolMode,
                                 SCHOOL_OPERATE=SaaSSOperate,
-                                SCHOOL_AREA=SaaSSchoolArea,
-                                SCHOOL_CITY=SaaSSchoolCity,
+                                SCHOOL_LOCALITY=SaaSSchoolArea,
+                                LATITUDE=SaaSSchoolLatitude,
+                                LONGITUDE=SaaSSchoolLongitude,
+                                #SCHOOL_CITY=SaaSSchoolCity,
                                 BUSINESS=SaaSBusiness,
                                 LINKEDIN=SaaSLinkedin,
                                 OCCUPATION=SaaSOccupation,
@@ -291,7 +298,7 @@ def saasapplication(request):
                             )
                 new_qschool.save()
 
-                new_mschool=MICRO_APPLN(
+                new_mschool=MICRO_APPLY(
                                 uid=social_data.uid,
                                 IS_COMPLETE="Y",
                                 NAME=SaaSName,
@@ -302,8 +309,10 @@ def saasapplication(request):
                                 LOVE_TO_BE=SaaSLTB,
                                 SCHOOL_MODE=SaaSSchoolMode,
                                 SCHOOL_OPERATE=SaaSSOperate,
-                                SCHOOL_AREA=SaaSSchoolArea,
-                                SCHOOL_CITY=SaaSSchoolCity,
+                                SCHOOL_LOCALITY=SaaSSchoolArea,
+                                LATITUDE=SaaSSchoolLatitude,
+                                LONGITUDE=SaaSSchoolLongitude,
+                                #SCHOOL_CITY=SaaSSchoolCity,
                                 BUSINESS=SaaSBusiness,
                                 LINKEDIN=SaaSLinkedin,
                                 OCCUPATION=SaaSOccupation,
