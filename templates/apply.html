@@ -390,8 +390,8 @@
 
 <div class="form-group">
   <input type="text" class="form-control" name="SaaSSchoolArea" id="SaaSSchoolArea" placeholder="School Locality...." />
-  <input type="text" name="loc_lat"  id="loc_lat" />
-  <input type="text" name="loc_lat" id="loc_long" />
+  <input type="hidden" name="loc_lat"  id="loc_lat" />
+  <input type="hidden" name="loc_long" id="loc_long" />
   
 </div>
 <!-- Remove powered by gogle -->
@@ -416,8 +416,8 @@ $(document).ready(function () {
         var near_place = autocomplete.getPlace();
         var lat =  document.getElementById('loc_lat').value = near_place.geometry.location.lat();
         var long = document.getElementById('loc_long').value = near_place.geometry.location.lng();
-	    document.getElementById("loc_lat").defaultValue=lat;
-        document.getElementById("loc_long").defaultValue=long;
+	    document.getElementById("loc_lat").defaultValue=float(lat);
+        document.getElementById("loc_long").defaultValue=float(long);
 		
         document.getElementById('latitude_view').innerHTML = near_place.geometry.location.lat();
         document.getElementById('longitude_view').innerHTML = near_place.geometry.location.lng();

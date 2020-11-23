@@ -9,6 +9,7 @@ from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.core.mail import EmailMessage
 from django.conf import settings
+from django.contrib.gis.geos import Point
 
 # Create your views here.
 def searchbar(request):
@@ -46,14 +47,18 @@ def saasapplication(request):
         SaaSSchoolMode=request.POST['SaaSSchoolMode']
         SaaSSOperate=request.POST['SaaSSOperate']
         SaaSSchoolArea=request.POST['SaaSSchoolArea']
-        SaaSSchoolLatitude=request.POST['loc_lat'],
-        SaaSSchoolLongitude=request.POST['loc_lat'],
+        SaaSSchoolLatitude=float(request.POST['loc_lat'])
+        SaaSSchoolLongitude=float(request.POST['loc_long'])
         #SaaSSchoolCity=request.POST['SaaSSchoolCity']
-        SaaSBusiness=request.POST['SaaSBusiness']
-        SaaSLinkedin=request.POST['SaaSLinkedin']
+        SaaSBusiness=(request.POST['SaaSBusiness'])
+        SaaSLinkedin=(request.POST['SaaSLinkedin'])
         SaaSOccupation=request.POST['SaaSOccupation']
         SaaSPassion=request.POST['SaaSPassion']
         SaaSWhyAffiliate=request.POST['SaaSWhyAffiliate']
+        print(type(SaaSSchoolLatitude))
+        print(type(SaaSSchoolLongitude))
+        print(SaaSSchoolLatitude)
+        print(SaaSSchoolLongitude)
         if SaaSBusiness!="No":
             #other than No value then get following data and store in db
             SaaSSchoolName=request.POST['SaaSSchoolName']
@@ -111,8 +116,7 @@ def saasapplication(request):
                                 SCHOOL_MODE=SaaSSchoolMode,
                                 SCHOOL_OPERATE=SaaSSOperate,
                                 SCHOOL_LOCALITY=SaaSSchoolArea,
-                                location=SaaSSchoolLatitude,
-                                location=SaaSSchoolLongitude,
+                                location=Point(SaaSSchoolLongitude, SaaSSchoolLatitude),
                                 #SCHOOL_CITY=SaaSSchoolCity,
                                 BUSINESS=SaaSBusiness,
                                 SCHOOL_NAME=SaaSSchoolName,
@@ -175,8 +179,7 @@ def saasapplication(request):
                                 SCHOOL_MODE=SaaSSchoolMode,
                                 SCHOOL_OPERATE=SaaSSOperate,
                                 SCHOOL_LOCALITY=SaaSSchoolArea,
-                                location=SaaSSchoolLatitude,
-                                location=SaaSSchoolLongitude,
+                                location=Point(SaaSSchoolLongitude, SaaSSchoolLatitude),
                                 #SCHOOL_CITY=SaaSSchoolCity,
                                 BUSINESS=SaaSBusiness,
                                 SCHOOL_NAME=SaaSSchoolName,
@@ -253,8 +256,7 @@ def saasapplication(request):
                                 SCHOOL_MODE=SaaSSchoolMode,
                                 SCHOOL_OPERATE=SaaSSOperate,
                                 SCHOOL_LOCALITY=SaaSSchoolArea,
-                                location=SaaSSchoolLatitude,
-                                location=SaaSSchoolLongitude,
+                                location=Point(SaaSSchoolLongitude, SaaSSchoolLatitude),
                                 #SCHOOL_CITY=SaaSSchoolCity,
                                 BUSINESS=SaaSBusiness,
                                 LINKEDIN=SaaSLinkedin,
@@ -310,8 +312,7 @@ def saasapplication(request):
                                 SCHOOL_MODE=SaaSSchoolMode,
                                 SCHOOL_OPERATE=SaaSSOperate,
                                 SCHOOL_LOCALITY=SaaSSchoolArea,
-                                location=SaaSSchoolLatitude,
-                                location=SaaSSchoolLongitude,
+                                location=Point(SaaSSchoolLongitude, SaaSSchoolLatitude),
                                 #SCHOOL_CITY=SaaSSchoolCity,
                                 BUSINESS=SaaSBusiness,
                                 LINKEDIN=SaaSLinkedin,
