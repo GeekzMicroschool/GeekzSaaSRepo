@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.gis.db import models
+from django.contrib.gis.geos import Point
 
 # Create your models here.
 class MICRO_APPLN(models.Model):
@@ -96,8 +98,7 @@ class MICRO_APPLY(models.Model):
     SCHOOL_MODE=models.CharField(max_length=25)
     SCHOOL_OPERATE=models.CharField(max_length=25)
     SCHOOL_LOCALITY=models.CharField(max_length=500)
-    LATITUDE=models.FloatField()
-    LONGITUDE=models.FloatField()
+    location = models.PointField(geography=True,default=Point(0.0,0.0))
     BUSINESS=models.CharField(max_length=50)
     SCHOOL_NAME=models.CharField(max_length=200, blank=True, null=True)
     SCHOOL_WEBSITE=models.CharField(max_length=300, blank=True, null=True)
