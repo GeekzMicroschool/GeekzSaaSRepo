@@ -1,17 +1,21 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User,auth
 from django.contrib import messages
+from schoolasaservice.models import MICRO_APPLN, QUEST_APPLN, MICRO_AUDN, QUEST_AUDN,MICRO_APPLY
 #from allauth.account.decorators import verified_email_required
 from django.contrib.auth.decorators import login_required
-
+from django.contrib.gis.db.models.functions import Distance
 from allauth.account.signals import user_logged_in, user_signed_up
 from django.dispatch import receiver
-
+from django.views import generic
 #for sending email
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.core.mail import EmailMessage
 from django.conf import settings
+from django.contrib.gis.measure import Distance
+from django.contrib.gis.geos import Point
+from django.db.models.query import QuerySet
 
 #from allauth.socialaccount.models import SocialAccount
 
@@ -20,8 +24,36 @@ from allauth.socialaccount.signals import pre_social_login'''
 
 
 # Create your views here.
+
+# search feature for user
 def searchbar(request):
+    if request.method == "POST":
+        print("ttttttttpppppppp")
+        SaaSLoc_lat=float(request.POST['loc_lat'])
+        SaaSLoc_long=float(request.POST['loc_long'])
+        user_location = Point( SaaSLoc_long,SaaSLoc_lat)
+        clients_within_radius = MICRO_APPLY.objects.filter(location=(user_location,Distance(m=5000)))
+        clients_within_radius = Queryset(clients_within_radius)
+        print("tttttttt")
+        print(type(clients_within_radius))
+        print('cr',clients_within_radius)
+        return render(request,'search_filter.html',{'clients_within_radius':clients_within_radius})    
     return render(request,'serachbar.html')
+
+'''class searchbar(generic.ListView):
+    if request.method == "POST":
+        print("ttttttttpppppppp")
+        SaaSLoc_lat=float(request.POST['loc_lat'])
+        SaaSLoc_long=float(request.POST['loc_long'])
+        model = MICRO_APPLY
+        context_object_name = 'clients_within_radius'
+        user_location = Point( SaaSLoc_long,SaaSLoc_lat)
+        queryset = MICRO_APPLY.objects.annotate(location=Distance('location',user_location)).order_by('distance')[0:6]
+        template_name = 'clients_within_radius/index.html'    '''
+
+def search_filter(request):
+     return render(request,'search_filter.html')
+
 #@login_required
 def index(request):
     return render(request, 'index.html')

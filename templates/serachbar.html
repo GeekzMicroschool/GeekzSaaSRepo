@@ -1,12 +1,15 @@
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyAhy_mC_xNa374iO1IAFuoioiNHYM9oYpw"></script>
+<form  method="POST">{% csrf_token %}
 <div class="form-group">
   <label>Location:</label>
-  <input type="text" class="form-control" id="search_input" placeholder="Type address..." />
-  <input type="hidden" id="loc_lat" />
-  <input type="hidden" id="loc_long" />
-  
+  <input type="text" class="form-control" name ="search_input" id="search_input" placeholder="Type address..." />
+  <input type="hidden" name="loc_lat"  id="loc_lat" />
+  <input type="hidden" name="loc_long" id="loc_long" />
+  <button  type ="submit" value = "Submit" class="btn btn-blue btn-effect"><i class="fas fa-search"></i></button>
 </div>
+</form>
 <!-- Remove powered by gogle -->
 <style>
     .pac-container:after{
@@ -31,8 +34,10 @@ $(document).ready(function () {
 	
     google.maps.event.addListener(autocomplete, 'place_changed', function () {
         var near_place = autocomplete.getPlace();
-        document.getElementById('loc_lat').value = near_place.geometry.location.lat();
-        document.getElementById('loc_long').value = near_place.geometry.location.lng();
+        var lat =  document.getElementById('loc_lat').value = near_place.geometry.location.lat();
+        var long = document.getElementById('loc_long').value = near_place.geometry.location.lng();
+	      document.getElementById("loc_lat").defaultValue=lat;
+        document.getElementById("loc_long").defaultValue=long;
 		
         document.getElementById('latitude_view').innerHTML = near_place.geometry.location.lat();
         document.getElementById('longitude_view').innerHTML = near_place.geometry.location.lng();
