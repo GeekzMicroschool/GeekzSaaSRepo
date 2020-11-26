@@ -28,28 +28,31 @@ from allauth.socialaccount.signals import pre_social_login'''
 # search feature for user
 def searchbar(request):
     if request.method == "POST":
-        print("ttttttttpppppppp")
         SaaSLoc_lat=float(request.POST['loc_lat'])
         SaaSLoc_long=float(request.POST['loc_long'])
         user_location = Point( SaaSLoc_long,SaaSLoc_lat)
-        clients_within_radius = MICRO_APPLY.objects.filter(location=(user_location,Distance(m=5000)))
-        clients_within_radius = Queryset(clients_within_radius)
-        print("tttttttt")
-        print(type(clients_within_radius))
-        print('cr',clients_within_radius)
-        return render(request,'search_filter.html',{'clients_within_radius':clients_within_radius})    
+        cr = MICRO_APPLY.objects.values()
+        clients = cr.filter(location__distance_lt=(user_location,Distance(m=5000)))
+        print(type(clients))
+       # clients = clients_within_radius.filter(location=(user_location,Distance(m=5000)))
+       # print(type(clients))
+        #course_qs = <whatever query gave you the queryset>
+        for course in clients:
+            print(course['NAME'])
+        #print(clients[0])
+        return render(request,'search_filter.html',{'clients_within_radius':clients})    
     return render(request,'serachbar.html')
 
-'''class searchbar(generic.ListView):
+'''def searchbar(request):
     if request.method == "POST":
-        print("ttttttttpppppppp")
         SaaSLoc_lat=float(request.POST['loc_lat'])
         SaaSLoc_long=float(request.POST['loc_long'])
-        model = MICRO_APPLY
-        context_object_name = 'clients_within_radius'
         user_location = Point( SaaSLoc_long,SaaSLoc_lat)
-        queryset = MICRO_APPLY.objects.annotate(location=Distance('location',user_location)).order_by('distance')[0:6]
-        template_name = 'clients_within_radius/index.html'    '''
+        for p in MICRO_APPLY.objects.raw('SELECT NAME, SCHOOL_LOCALITY  FROM  MICRO_APPLY  WHERE  location=user_location && ST_Expand(location.geom, 5000)  ORDER BY ST_Distance(location.geom) ASC LIMIT 1;'):
+            print(p)
+    return render(request,'serachbar.html')  '''     
+
+
 
 def search_filter(request):
      return render(request,'search_filter.html')
