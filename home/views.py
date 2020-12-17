@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User,auth
 from django.contrib import messages
 from schoolasaservice.models import MICRO_APPLN, QUEST_APPLN, MICRO_AUDN, QUEST_AUDN,MICRO_APPLY
+from .models import USER_DETAILS
 #from allauth.account.decorators import verified_email_required
 from django.contrib.auth.decorators import login_required
 from django.contrib.gis.db.models.functions import Distance
@@ -42,15 +43,6 @@ def searchbar(request):
         #print(clients[0])
         return render(request,'search_filter.html',{'clients_within_radius':clients})    
     return render(request,'serachbar.html')
-
-'''def searchbar(request):
-    if request.method == "POST":
-        SaaSLoc_lat=float(request.POST['loc_lat'])
-        SaaSLoc_long=float(request.POST['loc_long'])
-        user_location = Point( SaaSLoc_long,SaaSLoc_lat)
-        for p in MICRO_APPLY.objects.raw('SELECT NAME, SCHOOL_LOCALITY  FROM  MICRO_APPLY  WHERE  location=user_location && ST_Expand(location.geom, 5000)  ORDER BY ST_Distance(location.geom) ASC LIMIT 1;'):
-            print(p)
-    return render(request,'serachbar.html')  '''     
 
 
 
@@ -177,5 +169,13 @@ def retrieve_social_data(request, user, **kwargs):
 @receiver(user_logged_in)
 def post_login(request, user, **kwargs):
     request.session['user_id']=user.id
+
+@login_required
+def student_profileEdit(request):
+    user_id=request.session['user_id']
+    user=User.objects.get(id=user_id)
+    print(user)
+    user_details=USER_DETAILS.objects.get(USER_EMAIL=user.email)    
+    return render(request,"student_profileEdit.html",{"user_details":user_details})      
   
 

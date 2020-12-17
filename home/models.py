@@ -15,3 +15,5 @@ class USER_DETAILS(models.Model):
    IS_QUESTSCHOOL=models.CharField(max_length=1, default="N")
    IS_HOMESCHOOL=models.CharField(max_length=1, default="N")
    PHOTO_URL=models.URLField(max_length=300)
+
+

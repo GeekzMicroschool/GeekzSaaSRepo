@@ -6,4 +6,5 @@ urlpatterns = [
     path('saasapplication', views.saasapplication, name="saasapplication"),
     path('audition', views.audition, name="audition"),
     path('saasaudition', views.saasaudition, name="saasaudition"),
+    #path("student_profileEdit",views.student_profileEdit,name="sp")
 ]

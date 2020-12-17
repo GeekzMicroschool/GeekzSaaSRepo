@@ -1,5 +1,49 @@
-thanks.....
-{% for cr in clients_within_radius %}
-{{cr.NAME}}
-{{CR.SCHOOL_LOCALITY}}
-{% endfor %}
+{% extends 'base.html' %}
+{% load static %}
+{% load socialaccount %}
+{% block title %}Apply | Geekz School-as-a-Service{% endblock title %}
+{% block metadescription %}
+    <meta name="description" content="Geekz School-As-A-Service Application.">
+{% endblock metadescription %}
+{% block metakeywords %}
+    <meta name="keywords" content="geekz, geeks, school, reimagined school, alternate school, international, velachery, chennai, india, personalized, curriculum, self paced, learning, mastery, khan academy, duolingo, Microsoft, Program Manager, application, apply, micro-school, microschool, micro school, micro, School As A Service, SaaS, Affiliation, Quest, Questschool, Quest School, Work From Home, WFH, Part Time Job, Jobs">
+{% endblock metakeywords %}
+
+
+
+{% block content %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyAhy_mC_xNa374iO1IAFuoioiNHYM9oYpw"></script>
+<main class="site-content" role="main">
+		
+			
+    <!-- Contact section -->
+   
+                <section id="price"  style="background-color:#f8f8f8;">
+                    <div class="container">
+                        <div class="row">
+                        
+                            <div class="sec-title text-center wow animated fadeInDown">
+                                <h2>Day at Geekz</h2>
+                                <p>Unschooling the schooling.</p><br>
+                            </div>
+                            {% for cr in clients_within_radius %}
+                            <div class="col-md-4 wow animated fadeInUp">
+                                <div class="price-table featured text-center">
+                                    <span style="height:85px;">{{cr.NAME}}</span>
+                                    <span style="height:85px;">{{cr.DOB}}</span>
+                                    
+                                    <div class="value">
+                                        <span style="height:85px;">{{cr.SCHOOL_LOCALITY}}</span>                      
+                                   </div>
+                                </div>
+                            </div> 
+                            {% endfor %}
+                            
+                        </div>
+                    </div>
+                </section>
+           
+</main>
+{% endblock content %}

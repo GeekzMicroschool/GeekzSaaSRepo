@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.gis.db import models
 from django.contrib.gis.geos import Point
+from home.models import USER_DETAILS
 
 # Create your models here.
 class MICRO_APPLN(models.Model):
@@ -81,8 +82,8 @@ class QUEST_AUDN(models.Model):
     INTERNET_MODE=models.CharField(max_length=20)
     INTERNET_SPEED=models.CharField(max_length=5)
     YOUTUBE_VIDEO=models.URLField(max_length=300)
-    NO_OF_STUDENTS=models.IntegerField()
     QUESTIONS=models.CharField(max_length=10000)
+    NO_OF_STUDENTS=models.IntegerField()
 
 
 
@@ -107,3 +108,24 @@ class MICRO_APPLY(models.Model):
     OCCUPATION=models.CharField(max_length=100)
     PASSION=models.CharField(max_length=10000)
     WHY_AFFILIATE=models.CharField(max_length=10000)
+
+
+class SLOTS_DAY(models.Model):
+    admin = models.CharField(max_length=200)
+    slot = models.TextField()
+    day = models.TextField() 
+    duration = models.TextField()
+
+class EVENTS_SCHEDULE(models.Model):
+    user_details = models.ForeignKey(USER_DETAILS,on_delete=models.CASCADE)
+    slot = models.ForeignKey(SLOTS_DAY, on_delete=models.CASCADE)
+    summery = models.CharField(max_length=200)
+    description =  models.CharField(max_length=200)
+    start_time = models.DateTimeField()
+    end_time = models.DateTimeField()
+    schedule_date = models.DateField()
+    dummy_field = models.CharField(max_length=200)
+    class Meta:
+        unique_together = ("user_details", "slot","start_time")
+
+

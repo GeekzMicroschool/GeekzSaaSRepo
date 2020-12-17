@@ -1,0 +1,68 @@
+########### django calendar packages #####################
+How to clone:
+1.  clone (git clone https://github.com/llazzaro/django-scheduler-sample.git)
+2. cd django-scheduler-sample
+3. clone (git clone https://github.com/llazzaro/django-scheduler.git) 
+
+( if cloned the  the following changes from 1-6 are already there in settings.py file but have to install them into the local environment)
+
+(link followed :https://github.com/llazzaro/django-scheduler,https://pypi.org/project/django-node-assets/)
+***** if you have requirement.txt of django_schedular sample project then run (pip install -r requirements.txt) command and skip 1,3 
+1.pip install django-scheduler
+2.TEMPLATE_CONTEXT_PROCESSORS:  "django.template.context_processors.request" (make sure it is there in settings.py file)
+3.pip install django-bower
+4. add the following packages to settings.py :
+'debug_toolbar',
+'djangobower',
+'schedule',
+'project_sample',
+5.Add static finder to STATICFILES_FINDERS: 'djangobower.finders.BowerFinder'
+6.Add the following Bower dependencies for scheduler:
+
+BOWER_INSTALLED_APPS = (
+    'jquery',
+    'jquery-ui',
+    'bootstrap'
+)
+*** have to manually add these changes into cloned project ****
+
+7.pip install django-node-assets
+
+8.Add it to the installed apps in settings.py 
+'django_node_assets',
+
+9. Add NodeModulesFinder to STATICFILES_FINDERS:
+STATICFILES_FINDERS = [
+    ...
+    'django_node_assets.finders.NodeModulesFinder',
+]
+
+10.npm install -g bower
+
+11.python manage.py bower install
+
+12. find the location of node_modules(folder), package.json(file)  installed in your local machine. Bring the node_modules folder to the static folder of project .
+my system paths of the node_modules and package.json are:
+NODE_PACKAGE_JSON ='C:/Users/Asus/Desktop/django-calendar/django-scheduler-sample/django-scheduler/schedule/static/jsx/node_modules/@nodelib/fs.stat/package.json'
+NODE_MODULES_ROOT = 'C:/Users/Asus/Desktop/django-calendar/django-scheduler-sample/django-scheduler/schedule/static/jsx/node_modules'
+(copy the path and change the slash to forward slash as given above)
+
+13.make sure you have following dependencies are in your package.json file:
+{
+    "dependencies": {
+        "jquery": "^3.2.1",
+        "bootstrap": "^3.3.5",
+    }
+}
+
+14.python manage.py collectstatic
+This will result like this:
+(This will overwrite existing files!
+Are you sure you want to do this?
+Type 'yes' to continue, or 'no' to cancel: yes)
+
+15.python manage.py makemigrations
+
+16.python manage.py migrate
+
+17.python manage.py runserver

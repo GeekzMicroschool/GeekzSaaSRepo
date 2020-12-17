@@ -1,54 +1,152 @@
-<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+{% extends 'base.html' %}
+{% load static %}
+{% load socialaccount %}
+{% block title %}Apply | Geekz School-as-a-Service{% endblock title %}
+{% block metadescription %}
+    <meta name="description" content="Geekz School-As-A-Service Application.">
+{% endblock metadescription %}
+{% block metakeywords %}
+    <meta name="keywords" content="geekz, geeks, school, reimagined school, alternate school, international, velachery, chennai, india, personalized, curriculum, self paced, learning, mastery, khan academy, duolingo, Microsoft, Program Manager, application, apply, micro-school, microschool, micro school, micro, School As A Service, SaaS, Affiliation, Quest, Questschool, Quest School, Work From Home, WFH, Part Time Job, Jobs">
+{% endblock metakeywords %}
+
+
+
+{% block content %}
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyAhy_mC_xNa374iO1IAFuoioiNHYM9oYpw"></script>
-<form  method="POST">{% csrf_token %}
-<div class="form-group">
-  <label>Location:</label>
-  <input type="text" class="form-control" name ="search_input" id="search_input" placeholder="Type address..." />
-  <input type="hidden" name="loc_lat"  id="loc_lat" />
-  <input type="hidden" name="loc_long" id="loc_long" />
-  <button  type ="submit" value = "Submit" class="btn btn-blue btn-effect"><i class="fas fa-search"></i></button>
-</div>
-</form>
-<!-- Remove powered by gogle -->
-<style>
-    .pac-container:after{
-        background-image: none!important;
-        height:0px;
-    }
-</style>
-<!-- Display latitude and longitude -->
-<div class="latlong-view">
-  <p><b>Latitude:</b> <span id="latitude_view"></span></p>
-  <p><b>Longitude:</b> <span id="longitude_view"></span></p>
-</div>
-
-<script>
-  var searchInput = 'search_input';
-
-$(document).ready(function () {
-    var autocomplete;
-    autocomplete = new google.maps.places.Autocomplete((document.getElementById(searchInput)), {
-        types: ['geocode'],
-    });
-	
-    google.maps.event.addListener(autocomplete, 'place_changed', function () {
-        var near_place = autocomplete.getPlace();
-        var lat =  document.getElementById('loc_lat').value = near_place.geometry.location.lat();
-        var long = document.getElementById('loc_long').value = near_place.geometry.location.lng();
-	      document.getElementById("loc_lat").defaultValue=lat;
-        document.getElementById("loc_long").defaultValue=long;
+<main class="site-content" role="main">
 		
-        document.getElementById('latitude_view').innerHTML = near_place.geometry.location.lat();
-        document.getElementById('longitude_view').innerHTML = near_place.geometry.location.lng();
-    });
-});
-$(document).on('change', '#'+searchInput, function () {
-    document.getElementById('latitude_input').value = '';
-    document.getElementById('longitude_input').value = '';
-	
-    document.getElementById('latitude_view').innerHTML = '';
-    document.getElementById('longitude_view').innerHTML = '';
-});
+			
+    <!-- Contact section -->
+    <section id="contact" >
+        <div class="container">
+            <div class="row">
+                
+                <div class="sec-title text-center wow animated fadeInDown">
+                    <span>&nbsp;</span><p>&nbsp;&nbsp;</p>
+                    <h2>START YOUR GEEKZ JOURNEY!</h2>
+                    <p id="geekzapply">Get affiliated. Welcome your first geek.</p>
+                </div>
+                <style>
+                    /*style for multiple step form*/
+                    * {
+                        box-sizing: border-box;
+                    }
 
-</script>	
+                    h1 {
+                        text-align: center;  
+                    }
+
+                    /* Mark input boxes that gets an error on validation: */
+                    input.invalid {
+                        background-color:#ffdddd;
+                    }
+
+                    input.valid {
+                        background-color:white;
+                    }
+
+                    select.invalid {
+                        background-color:#ffdddd;
+                    }
+
+                    select.valid {
+                        background-color: white;
+                    }
+
+                    textarea.invalid {
+                        background-color:#ffdddd;
+                    }
+
+                    textarea.valid {
+                        background-color:white;
+                    }
+
+
+                    /* Hide all steps by default: */
+                    .tabb {
+                        display: none;
+                    }
+
+                    #prevBtn {
+                        background-color: #bbbbbb;
+                    }
+
+                    /* Make circles that indicate the steps of the form: */
+                    .step {
+                        height: 15px;
+                        width: 15px;
+                        margin: 0 2px;
+                        background-color: #bbbbbb;
+                        border: none;  
+                        border-radius: 50%;
+                        display: inline-block;
+                        opacity: 0.5;
+                    }
+
+                    .step.active {
+                        opacity: 1;
+                    }
+
+                    /* Mark the steps that are finished and valid: */
+                    .step.finish {
+                        background-color: rgba(0,158,227, 0.78);
+                    }
+                    /* Remove powered by google */
+
+                  .pac-container:after{
+                        background-image: none!important;
+                        height:0px;
+                    }
+
+                </style>
+                <script>
+                  var searchInput = 'search_input';
+                
+                $(document).ready(function () {
+                    var autocomplete;
+                    autocomplete = new google.maps.places.Autocomplete((document.getElementById(searchInput)), {
+                        types: ['geocode'],
+                    });
+                  
+                    google.maps.event.addListener(autocomplete, 'place_changed', function () {
+                        var near_place = autocomplete.getPlace();
+                        var lat =  document.getElementById('loc_lat').value = near_place.geometry.location.lat();
+                        var long = document.getElementById('loc_long').value = near_place.geometry.location.lng();
+                        document.getElementById("loc_lat").defaultValue=lat;
+                        document.getElementById("loc_long").defaultValue=long;
+                    
+                        document.getElementById('latitude_view').innerHTML = near_place.geometry.location.lat();
+                        document.getElementById('longitude_view').innerHTML = near_place.geometry.location.lng();
+                    });
+                });
+                $(document).on('change', '#'+searchInput, function () {
+                    document.getElementById('latitude_input').value = '';
+                    document.getElementById('longitude_input').value = '';
+                  
+                    document.getElementById('latitude_view').innerHTML = '';
+                    document.getElementById('longitude_view').innerHTML = '';
+                });
+                
+                </script>	
+                <div class="col-md-6 contact-form wow animated fadeInLeft">
+                    <form  method="POST">{% csrf_token %}
+                      <div class="input-field">
+                        <input type="text" name="search_input" id="search_input" class="subscribe form-control" placeholder="Type address..." required>           
+                        <input type="hidden" name="loc_lat"  id="loc_lat" />
+                        <input type="hidden" name="loc_long" id="loc_long" />
+                        <button type="submit" class="submit-icon">
+                          <i class="fa fa-search" aria-hidden="true"></i>
+                      </button>
+                      </div>
+                      </form>
+                       
+            </div>
+        </div>
+        </div>
+    </section>
+    <!-- end Contact section -->
+</main>
+{% endblock content %}
+
