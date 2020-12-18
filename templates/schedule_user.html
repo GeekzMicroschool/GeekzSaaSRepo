@@ -38,12 +38,7 @@
                  // replace the contents of the city input with the data that came from the server
                 
 
-                let html_data = '<option value="">---------</option>';
-                data.forEach(function (slot) {
-                    html_data += `<option value="${slot.id}">${slot.slot } </option>`
-                });
-                console.log(html_data);
-                $("#id_slot").html(html_data);
+                 $("#id_slot").html(data)
 
                 
             }

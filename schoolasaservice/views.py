@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .models import MICRO_APPLN, QUEST_APPLN, MICRO_AUDN, QUEST_AUDN,MICRO_APPLY
 from home.models import USER_DETAILS
 from django.contrib.auth.models import User,auth
+from django.http import HttpResponse, HttpResponseRedirect
 from allauth.socialaccount.models import SocialAccount
 from django.contrib.auth.decorators import login_required
 #for sending email
@@ -11,12 +12,13 @@ from django.core.mail import EmailMessage
 from django.conf import settings
 from django.contrib.gis.geos import Point
 ###django calendar #####
+import calendar
 import pytz
 import httplib2
 from googleapiclient.discovery import build  #pip install google-api-python-client
 from oauth2client.service_account import ServiceAccountCredentials #pip install oauth2client
 from .models import *
-#from .forms import SlotCreationForm
+from .forms import SlotCreationForm
 from uuid import uuid4
 import datetime
 from django.http import JsonResponse
@@ -499,7 +501,8 @@ def saasaudition(request):
         message=EmailMessage(subject, html_message, settings.EMAIL_HOST_USER, [to_email])
         message.content_subtype='html'
         message.send()
-        return redirect('index')
+        return redirect('schedule_user')
+
 
 
 '''def student_profileEdit(request):
@@ -513,8 +516,8 @@ def saasaudition(request):
 
 ####################Django calendar #########################
 #Django calendar_admin view to add slots
-'''
-def CalendarView1(request):
+
+def schedule_admin(request):
     if request.method == "POST" :
         start_time = request.POST['start_time']
         print(start_time)
@@ -530,19 +533,20 @@ def CalendarView1(request):
             while t <= end_time:
                 yield t.strftime('%H:%M')
                 t += datetime.timedelta(minutes=time_duration)
-                slot_obj = slots_day1(slot=t.strftime('%H:%M'),day=day,duration=time_duration)
+                slot_obj = SLOTS_DAY(slot=t.strftime('%H:%M'),day=day,duration=time_duration,admin="admin")
                 slot_obj.save()
                 print(t.strftime('%H:%M'))
         print(list(time_slots(start_datetime_object, end_datetime_object,time_duration)))
-        return render(request,'calendar_admin.html')
-    slots_monday = slots_day1.objects.filter(day='Monday')
-    slots_tuesday = slots_day1.objects.filter(day='Tuesday') 
-    slots_wednesday = slots_day1.objects.filter(day='Wednesday')
-    slots_thursday = slots_day1.objects.filter(day='Thursday')
-    slots_friday = slots_day1.objects.filter(day='Friday')
-    slots_saturday = slots_day1.objects.filter(day='Saturday')
-    return render(request,'schedule_admin.html',{'slots_monday':slots_monday,'slots_tuesday':slots_tuesday,'slots_wednesday':slots_wednesday,'slots_thursday':slots_thursday,'slots_friday':slots_friday,'slots_saturday':slots_saturday})         
+        return render(request,'schedule_admin.html')
+    slots_monday = SLOTS_DAY.objects.filter(day='Monday')
+    slots_tuesday = SLOTS_DAY.objects.filter(day='Tuesday') 
+    slots_wednesday = SLOTS_DAY.objects.filter(day='Wednesday')
+    slots_thursday = SLOTS_DAY.objects.filter(day='Thursday')
+    slots_friday = SLOTS_DAY.objects.filter(day='Friday')
+    slots_saturday = SLOTS_DAY.objects.filter(day='Saturday')
+    return render(request,'schedule_admin.html',{'slots_monday':slots_monday,'slots_tuesday':slots_tuesday,'slots_wednesday':slots_wednesday,'slots_thursday':slots_thursday,'slots_friday':slots_friday,'slots_saturday':slots_saturday}) 
 
+'''
 # view to create event and to write in google calendar and create google meet link
 def create_event(request):    
     form = EventForm(request.POST or None)
@@ -590,12 +594,19 @@ def create_event(request):
             ['chauhanreetika45@gmail.com']
         )
         return HttpResponseRedirect(reverse('calendarapp:calendar'))
-    return render(request, 'event.html', {'form': form})
+    return render(request, 'event.html', {'form': form})'''
 
 # view for user to pick date and select slot
-def calendar_user(request):
+@login_required
+def schedule_user(request):
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
+        user_id=request.session['user_id']
+        user=User.objects.get(id=user_id)
+        print(user)
+        print(user.email)
+        user_details=USER_DETAILS.objects.get(USER_EMAIL=user.email)
+        print(user_details)
         form = SlotCreationForm(request.POST)
         # check whether it's valid:
         if form.is_valid():
@@ -604,7 +615,7 @@ def calendar_user(request):
             print('sc',type(schedule_date))
             print('slot',slot.id)
             print(type(slot))
-            slot_obj = slots_day1.objects.filter(id=slot.id)
+            slot_obj = SLOTS_DAY.objects.filter(id=slot.id)
             print('slot_obj',slot_obj)
             qq = list(slot_obj)
             print(qq)
@@ -612,18 +623,49 @@ def calendar_user(request):
             nn = qq.duration
             start_time = qq.slot
             now = datetime.datetime.now()
-            date_obj = now.strftime("%Y-%m-%d")
-            start_time = date_obj + " "+ start_time
+            date_obj = schedule_date.strftime("%Y-%m-%d")
+            start_time = date_obj + " "+ start_time 
             start_time = datetime.datetime.strptime(start_time, '%Y-%m-%d %H:%M')
             end_time = start_time + datetime.timedelta(minutes=float(nn))
             print('st',start_time)
             print('et', end_time)
+            print("type",type(start_time))
+            link = " "
             if schedule_date < datetime.date.today():
                 return HttpResponse("Please do not enter past date")    
             else:
-                event_obj = EVENTS_SCHEDULE(title="timi",description="audition",start_time=start_time,end_time=end_time,slot=slot,schedule_date=schedule_date)
-                event_obj.save()
-                return HttpResponse("Success")         
+                service_account_email = "geekz-145@geekz-297209.iam.gserviceaccount.com"
+                SCOPES = ["https://www.googleapis.com/auth/calendar"]
+                credentials = ServiceAccountCredentials.from_json_keyfile_name( filename="client_secret.json", scopes=SCOPES )
+                def build_service():
+                    service = build("calendar", "v3", credentials=credentials)
+                    return service
+                
+                def create_event():
+                    service = build_service()
+                    event_cal = (service.events().insert(calendarId="c27hrqb165rc6s5mgoqq5l1e4c@group.calendar.google.com",body={
+                      "summary": "GEEKZ",
+                      "description": "GEEKZ INTERVIEW FOR AFFLIATION",
+                      "start":{"dateTime":start_time.isoformat()}, 
+                      "end": {
+                        "dateTime": end_time.isoformat()
+                             },
+                     "conferenceData": {"createRequest": {"requestId": f"{uuid4().hex}",
+                                                      "conferenceSolutionKey": {"type": "hangoutsMeet"}}},
+                     "reminders": {"useDefault": True},
+                         },conferenceDataVersion=1).execute() )
+                    
+                    print("ee",event_cal['hangoutLink']) ## trying to fetch google meet link from event_cal 
+                    create_event.link = event_cal['hangoutLink']
+                    print(create_event.link)
+                    send_mail(
+                       "events",
+                       "The audition date is booked ",
+                        settings.EMAIL_HOST_USER,
+                        ['chauhanreetika45@gmail.com']
+                       )
+                create_event()
+                return render(request,"joinMeeting.html",{'link':create_event.link})        
     # if a GET (or any other method) we'll create a blank form
     else:
         form = SlotCreationForm()
@@ -641,7 +683,6 @@ def load_slots(request):
     def build_service():
         service = build("calendar", "v3", credentials=credentials)
         return service
-
     page_token = None
     while True:
         service = build_service()
@@ -673,11 +714,14 @@ def load_slots(request):
         print(start_time.isoformat())
         # filtering slots if the slot is booked
         for gc in times:
+            print("hello in gc")
             if start_time == gc:
-                pass
+                break
             else:
-                slot_fil.append(s)
-    return JsonResponse(slot_fil.values('id','slot'), safe=False) '''
+                print("i am in else")
+        slot_fil.append(s)
+    print(slot_fil)            
+    return render(request, 'slots_dropdown_list_options.html', {'slots': slots}) 
 
 
 
