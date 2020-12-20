@@ -13,7 +13,7 @@ from django.conf import settings
 from django.contrib.gis.geos import Point
 ###django calendar #####
 import calendar
-import pytz
+from pytz import timezone
 import httplib2
 from googleapiclient.discovery import build  #pip install google-api-python-client
 from oauth2client.service_account import ServiceAccountCredentials #pip install oauth2client
@@ -526,11 +526,11 @@ def schedule_admin(request):
         time_duration = float(request.POST['duration'])
         start_datetime_object =  datetime.datetime.strptime(start_time, '%H:%M')
         end_datetime_object =  datetime.datetime.strptime(end_time, '%H:%M')
-        #start_time = datetime.time(start_time)
-        #end_time = datetime.time(end_time)
+        #start_datetime_object = start_datetime_object.astimezone(timezone('Asia/Kolkata'))
+        #end_datetime_object = end_datetime_object.astimezone(timezone('Asia/Kolkata'))
         def time_slots(start_time, end_time,duration):
             t = start_time
-            while t <= end_time:
+            while t < end_time:
                 yield t.strftime('%H:%M')
                 t += datetime.timedelta(minutes=time_duration)
                 slot_obj = SLOTS_DAY(slot=t.strftime('%H:%M'),day=day,duration=time_duration,admin="admin")
@@ -627,6 +627,8 @@ def schedule_user(request):
             start_time = date_obj + " "+ start_time 
             start_time = datetime.datetime.strptime(start_time, '%Y-%m-%d %H:%M')
             end_time = start_time + datetime.timedelta(minutes=float(nn))
+            start_time = start_time.astimezone(timezone('Asia/Kolkata')) # time zone attached
+            end_time = end_time.astimezone(timezone('Asia/Kolkata'))   # time zone attached
             print('st',start_time)
             print('et', end_time)
             print("type",type(start_time))
@@ -653,16 +655,18 @@ def schedule_user(request):
                      "conferenceData": {"createRequest": {"requestId": f"{uuid4().hex}",
                                                       "conferenceSolutionKey": {"type": "hangoutsMeet"}}},
                      "reminders": {"useDefault": True},
+                     "attendees":user.email,
+
                          },conferenceDataVersion=1).execute() )
                     
-                    print("ee",event_cal['hangoutLink']) ## trying to fetch google meet link from event_cal 
-                    create_event.link = event_cal['hangoutLink']
+                    print("ee",event_cal) 
+                    create_event.link = event_cal['hangoutLink'] ##  fetch google meet link from event_cal 
                     print(create_event.link)
                     send_mail(
                        "events",
                        "The audition date is booked ",
                         settings.EMAIL_HOST_USER,
-                        ['chauhanreetika45@gmail.com']
+                        [user.email]
                        )
                 create_event()
                 return render(request,"joinMeeting.html",{'link':create_event.link})        
@@ -705,23 +709,31 @@ def load_slots(request):
     slot_fil = []
     for s in slots_obj:
         print("slots",s.slot)
-        now = datetime.datetime.now()
-        date_obj = now.strftime("%Y-%m-%d")
-        print(date_obj)
-        date_obj = date_obj + " "+ s.slot
+        #now = datetime.datetime.now()
+        #date_obj = now.strftime("%Y-%m-%d")
+        #print(date_obj)
+        date_obj = day + " "+ s.slot
         print(date_obj)
         start_time = datetime.datetime.strptime(date_obj, '%Y-%m-%d %H:%M')
+        start_time = start_time.astimezone(timezone('Asia/Kolkata'))
         print(start_time.isoformat())
+        start_time = start_time.isoformat()
         # filtering slots if the slot is booked
         for gc in times:
-            print("hello in gc")
             if start_time == gc:
+                print("i am already in google calendar")
+                flag ="false"
                 break
             else:
                 print("i am in else")
-        slot_fil.append(s)
+                print("gc",gc)
+                flag = "true"
+                print("start_time",start_time)
+        print(flag)            
+        if flag == "true":
+            slot_fil.append(s)
     print(slot_fil)            
-    return render(request, 'slots_dropdown_list_options.html', {'slots': slots}) 
+    return render(request, 'slots_dropdown_list_options.html', {'slots': slot_fil}) 
 
 
 
