@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dependent Dropdown in Django</title>
+</head>
+<body>
+<h3>{{message}}</h3>
+
+<form method="post" id="slot_form" >
+    {% csrf_token %}
+    
+    {{ form.as_p }}
+    
+    <input type="submit" value="Submit">
+</form>
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  $("#id_schedule_date").change(function () {
+      
+        //const url = $("#slot_form").attr("data-slots-url");  // get the url of the `load_cities` view
+        const dayId = $(this).val();
+        //$day_id = $('#day').val();
+
+        
+        $.ajax({                       // initialize an AJAX request
+            url: 'ajax/load_slots/',                    // set the url of the request (= /persons/ajax/load-cities/ )
+            data: {
+                'day_id': dayId,       // add the country id to the GET parameters
+            },
+            datatype:'json',
+            success: function (data) {   // `data` is the return of the `load_cities` view function
+                 // replace the contents of the city input with the data that came from the server
+                
+
+                 $("#id_slot").html(data)
+
+                
+            }
+        });
+
+    });
+ 
+
+</script>
+
+</body>
+</html>

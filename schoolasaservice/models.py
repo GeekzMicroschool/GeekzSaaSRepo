@@ -1,6 +1,11 @@
 from django.db import models
 from django.contrib.gis.db import models
 from django.contrib.gis.geos import Point
+from home.models import USER_DETAILS
+import sys
+from PIL import Image
+from io import BytesIO
+from django.core.files.uploadedfile import InMemoryUploadedFile
 
 # Create your models here.
 class MICRO_APPLN(models.Model):
@@ -81,8 +86,8 @@ class QUEST_AUDN(models.Model):
     INTERNET_MODE=models.CharField(max_length=20)
     INTERNET_SPEED=models.CharField(max_length=5)
     YOUTUBE_VIDEO=models.URLField(max_length=300)
-    NO_OF_STUDENTS=models.IntegerField()
     QUESTIONS=models.CharField(max_length=10000)
+    NO_OF_STUDENTS=models.IntegerField()
 
 
 
@@ -107,3 +112,49 @@ class MICRO_APPLY(models.Model):
     OCCUPATION=models.CharField(max_length=100)
     PASSION=models.CharField(max_length=10000)
     WHY_AFFILIATE=models.CharField(max_length=10000)
+
+
+class SLOTS_DAY(models.Model):
+    admin = models.CharField(max_length=200)
+    slot = models.TextField()
+    day = models.TextField() 
+    duration = models.TextField()
+
+class EVENTS_SCHEDULE(models.Model):
+    user_details = models.ForeignKey(USER_DETAILS,on_delete=models.CASCADE)
+    slot = models.ForeignKey(SLOTS_DAY, on_delete=models.CASCADE)
+    summery = models.CharField(max_length=200)
+    description =  models.CharField(max_length=200)
+    start_time = models.DateTimeField()
+    end_time = models.DateTimeField()
+    schedule_date = models.DateField()
+    dummy_field = models.CharField(max_length=200)
+    class Meta:
+        unique_together = ("user_details", "slot","start_time")
+
+######################### auto webpage creation ###########################
+class webdata2(models.Model):
+    url =  models.CharField(max_length=250,unique=True,blank=False,null=False)
+    title = models.CharField(max_length=250,unique=True,blank=False,null=False) 
+    Infrastructure_affliation = models.CharField(max_length=250)
+    Education_affliation = models.CharField(max_length=250)
+    HomeSchool_affliation = models.CharField(max_length=250)
+    School_Fee_rule = models.CharField(max_length=250)
+    brandFee_rule = models.CharField(max_length=250)
+    profile = models.ImageField(upload_to='media/',blank=True , null=True)
+    def save(self, *args, **kwargs):
+        if not self.id:
+            self.profile = self.compressImage(self.profile)
+        super(webdata2, self).save(*args, **kwargs)
+    
+    def compressImage(self,profile): 
+        imageTemproary = Image.open(profile)
+        outputIoStream = BytesIO()
+        imageTemproaryResized = imageTemproary.resize( (1020,573) ) 
+        imageTemproary.save(outputIoStream , format='JPEG', quality=60)
+        outputIoStream.seek(0)
+        profile = InMemoryUploadedFile(outputIoStream,'ImageField', "%s.jpg" % profile.name.split('.')[0], 'image/jpeg', sys.getsizeof(outputIoStream), None)
+        return profile
+
+######################################################################################3
+

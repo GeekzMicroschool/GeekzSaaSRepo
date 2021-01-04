@@ -1,0 +1,89 @@
+############ Documentation of  user search wheel using postgis,Geo django  in windows10 ###########
+
+1.Go to Postgresql folder
+
+2. Search for application stack builder
+
+3. Under spatial extensions select postGIS. CLICK NEXT ..
+.
+(EXTENSION WILL BE DOWNLOADED)
+4. Go to pgadmin
+
+5. Go to query tool.
+
+6. CREATE EXTENSION postgis;
+   CREATE EXTENSION postgis_topology;
+just update the ENGINE setting in settings.py with the following:
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        ...
+    }
+}
+7. Install GDAL from link (https://www.lfd.uci.edu/~gohlke/pythonlibs/#gdal) click on link (GDAL‑3.1.4‑cp37‑cp37m‑win_amd64.whl)[can vary according to system and python version]
+
+8. place it in your main project
+
+9. pip install GDAL-3.1.4-cp37-cp37m‑win_amd64.whl
+
+10.pip install psycopg2 psycopg2-binary
+
+     **** In settings.py ****
+11.  In installed apps add   'django.contrib.gis',
+
+12.DATABASES = {
+    'default': {
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'HOST': 'localhost',
+        'PASSWORD': 'geekz'
+    }
+}
+
+13. Go to env/ libs / sitepackages/osgeo/gdal301.dll (make sure if its there and note it .Version may change)
+
+14. Go to django/contrib/gis/gdal/libgdal.py (edit this file as follows):
+elif os.name == 'nt':
+    # Windows NT shared libraries
+    lib_names = ['gdal301'] # make sure your version is present . Here in this case version is gdal301
+
+15. In settings.py give path:
+if os.name == 'nt':
+    ENV_BASE = os.environ['VIRTUAL_ENV']
+    os.environ['PATH'] = os.path.join(ENV_BASE,'Lib\\site-packages\\osgeo') + ';' + os.environ['PATH']
+    os.environ['PROJ_LIB'] = os.path.join(ENV_BASE,'Lib\\site-packages\\osgeo\\data\\proj') + ';' + os.environ['PATH']
+
+16. IN MODELS.PY ADD FILED POINT FILED FOR STORING LATITUDE AND LONGITUDE VALUES and remenber to convert those values to float before converting it to point.
+from django.contrib.gis.db import models
+from django.contrib.gis.geos import Point
+class Client(models.Model):
+    firstname = models.CharField(max_length=100)
+    lastname = models.CharField(max_length=100)
+    location = models.PointField(geography=True, default=Point(0.0, 0.0))
+
+17. To retrieve all clients within  in a circle
+
+def searchbar(request):
+    if request.method == "POST":
+        SaaSLoc_lat=float(request.POST['loc_lat'])
+        SaaSLoc_long=float(request.POST['loc_long'])
+        user_location = Point( SaaSLoc_long,SaaSLoc_lat)
+        cr = MICRO_APPLY.objects.values()
+        clients = cr.filter(location__distance_lt=(user_location,Distance(m=5000)))
+        print(type(clients))
+       # clients = clients_within_radius.filter(location=(user_location,Distance(m=5000)))
+       # print(type(clients))
+        #course_qs = <whatever query gave you the queryset>
+        for course in clients:
+            print(course['NAME'])
+        #print(clients[0])
+        return render(request,'search_filter.html',{'clients_within_radius':clients})    
+    return render(request,'serachbar.html')
+ 
+notes : first retrieve queryset object(eg.cr) then pass the object to location__distance_lt (spatial function)(* its double underscore in function )
+
+
+
+
+

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<body>
+    
+<h2>HTML Forms</h2>
+
+<form  method ="POST" enctype="multipart/form-data">{% csrf_token %}
+  <label for="fname">Your website url</label><br>
+  <input type="text" id="url" name="url" ><br>
+  <label for="fname">title:</label><br>
+  <input type="text" id="title" name="title" ><br>
+  <label for="fname">Why Affiliate to Microschool:</label><br>
+  <label for="fname">1:Infrastructure</label><br>
+  <input type="text" id="m1" name="m1" ><br>
+  <label for="fname">2:Education</label><br>
+  <input type="text" id="m2" name="m2" ><br>
+  <label for="fname">3:HomeSchool</label><br>
+  <input type="text" id="m3" name="m3" ><br>
+  <label for="fname">Your School Rules:</label><br>
+  <label for="fname">1. School Fee</label><br>
+  <input type="text" id="schoolfee" name="schoolfee" ><br>
+  <label for="fname">2. Brand </label><br>
+  <input type="text" id="brand" name="brand"><br>
+  <label for="fname">Logo:</label><br>
+  <input type="file" name="profile"><br>
+<br>
+  <input type="submit" value="Submit">
+</form> 
+</body>
+</html>

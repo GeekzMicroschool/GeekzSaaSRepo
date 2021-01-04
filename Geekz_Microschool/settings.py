@@ -52,8 +52,6 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-
-    #providers
     'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.google',
 
@@ -72,6 +70,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
 ]
 
 
@@ -79,7 +78,7 @@ ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_USERNAME_REQUIRED = False
-ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+#ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 5
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 7
 ACCOUNT_SIGNUP_PASSWORD_VERIFICATION = False
@@ -93,6 +92,8 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  ### email
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -103,7 +104,7 @@ TEMPLATES = [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+                'django.contrib.messages.context_processors.messages',  
             ],
         },
     },
@@ -166,11 +167,13 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
+
+
 STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
 
 #after social authentication
 SITE_ID = 1
-LOGIN_REDIRECT_URL = "/apply"
+LOGIN_REDIRECT_URL = "/index"
 
 SOCIALACCOUNT_PROVIDERS = {
     'google' : {
@@ -207,10 +210,22 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 
 
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_USE_TLS = True
-EMAIL_PORT = 587
-EMAIL_HOST_USER='username'
-EMAIL_HOST_PASSWORD='password'
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+#EMAIL_HOST = 'smtp.gmail.com'
+#EMAIL_USE_TLS = True
+#EMAIL_PORT = 587
+#EMAIL_HOST_USER='username'
+#EMAIL_HOST_PASSWORD='password'
+#DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
+#SMTP configuration (please do not use email password for your personal use)
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'geekzmicroschool@gmail.com'
+EMAIL_HOST_PASSWORD = 'geekz3months'
+EMAIL_USE_TLS = True
+
+MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
