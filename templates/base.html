@@ -84,9 +84,9 @@
 
             {% block navbar %}
             <header id="navigation" class="navbar-inverse navbar-fixed-top animated-header">
-                <table style="width:90%">
+                <table style="width:100%"><!-- added width="100% in container style and changed table width from 90% to 100% "-->
                     <td>
-                        <div class="container">
+                        <div style="width:100%;" class="container">
                             <div class="navbar-header">
                                 <!-- responsive nav button -->
                                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -118,7 +118,7 @@
                                     <li><a href="/schoolasaservice">Become a Microschool</a></li>
                                     <li><a href="/questschool">Become a Questschool</a></li>
                                     <!--<li><a href="Affiliate.html" class="btn btn-blue btn-effect">Launch Your Own Geekz</a></li>
-            <!--                        <li><a href="https://thegeekstudio.wordpress.com/" target="_blank">Blog</a></li>-->
+                                   <li><a href="https://thegeekstudio.wordpress.com/" target="_blank">Blog</a></li>-->
                                     
                                 </ul>
                             </nav>
@@ -442,10 +442,10 @@
             End Fixed Navigation
             ==================================== -->
             {% endblock navbar %}
-
+            <main class="site-content" role="main">
             {% block content %}
             {% endblock content %}
-
+            </main>
             {% block footer %}
             <footer id="footer">
                 <div class="container">

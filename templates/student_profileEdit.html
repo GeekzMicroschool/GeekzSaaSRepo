@@ -1,11 +1,12 @@
 {% for d in object_details %}
-<div class="input-field">
-    <input type="text" id="SaaSName" name="SaaSName" value="{{d.fullname}}" readonly class="form-control" placeholder="Your Name..." required>
+<form method="POST" >{% csrf_token %}
+<div >
+    <input type="text" id="SaaSName" name="SaaSName" class="form-control"  value="{{d.FULL_NAME}}" placeholder={{d.FULL_NAME}} required>
 </div>
-<div class="input-field">
-    <input type="email" id="SaaSEmail" name="SaaSEmail" value="{{email}}" readonly class="form-control" placeholder="Email..." required>
+<div >
+    <input type="email" id="SaaSEmail" name="SaaSEmail"   readonly class="form-control" placeholder="{{d.USER_EMAIL}}"required>
 </div>
-<div class="input-field">
+<div >
     <select id="SaaSCountryCode" name="SaaSCountryCode" class="form-control" style="width:21%" value = "{{d.CONTACT_PHONE}}" >
         <option data-countryCode="IN" value="91" selected>India (+91)</option>
         <optgroup label="Other countries">
@@ -226,12 +227,13 @@
         </optgroup>
     </select>
 
-    <input type="tel" id="SaaSPhone" name="SaaSPhone" class="form-control" style="width:78%;" placeholder="Phone..."  required>
+    <input type="tel" id="SaaSPhone" name="SaaSPhone" class="form-control" value="{{d.CONTACT_PHONE}}"  style="width:78%;" required>
     <div style="display: none;" id="errmsgph">
         <p style="color: red; font-size:10px;">Please fill out this field.</p>
     </div>
     <div style="display: none;" id="errmsgvalph">
         <p style="color: red; font-size:10px;">Please enter a valid number.</p>
     </div>
-
+    <input type="submit" value="Update">
+</form>
  {% endfor %}   

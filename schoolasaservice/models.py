@@ -133,7 +133,7 @@ class EVENTS_SCHEDULE(models.Model):
         unique_together = ("user_details", "slot","start_time")
 
 ######################### auto webpage creation ###########################
-class webdata2(models.Model):
+class webdata21(models.Model):
     url =  models.CharField(max_length=250,unique=True,blank=False,null=False)
     title = models.CharField(max_length=250,unique=True,blank=False,null=False) 
     Infrastructure_affliation = models.CharField(max_length=250)
@@ -142,10 +142,11 @@ class webdata2(models.Model):
     School_Fee_rule = models.CharField(max_length=250)
     brandFee_rule = models.CharField(max_length=250)
     profile = models.ImageField(upload_to='media/',blank=True , null=True)
+    admin_email = models.CharField(max_length=250)
     def save(self, *args, **kwargs):
         if not self.id:
             self.profile = self.compressImage(self.profile)
-        super(webdata2, self).save(*args, **kwargs)
+        super(webdata21, self).save(*args, **kwargs)
     
     def compressImage(self,profile): 
         imageTemproary = Image.open(profile)

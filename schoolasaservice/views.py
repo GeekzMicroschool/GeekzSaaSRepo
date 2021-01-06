@@ -22,6 +22,8 @@ from uuid import uuid4
 import datetime
 from django.http import JsonResponse
 from django.contrib.auth.decorators import user_passes_test
+from .decorators import  allowed_users
+from django.contrib.auth.models import Group
 
 # Create your views here.
 def searchbar(request):
@@ -503,14 +505,25 @@ def saasaudition(request):
         message.send()
         return redirect('index')
 
-
-'''def student_profileEdit(request):
+@login_required
+def student_profileEdit(request):
     user_id=request.session['user_id']
     user=User.objects.get(id=user_id)
     print(user)
-    user_details=USER_DETAILS.objects.get(USER_EMAIL=user.email)    
+    user_details=USER_DETAILS.objects.filter(USER_EMAIL=user.email)    
     print(user_details) 
-    return render(request,"student_profileEdit.html",{"object_details":user_details})  ''' 
+    if request.method == "POST":
+        SaaSName=request.POST['SaaSName']
+        #SaaSEmail=request.POST['SaaSEmail']
+        SaaSPhone=request.POST['SaaSPhone']
+        user_id=request.session['user_id']
+        user=User.objects.get(id=user_id)
+        user_details=USER_DETAILS.objects.get(USER_EMAIL=user.email)
+        user_details.FULL_NAME = SaaSName
+        user_details.CONTACT_PHONE = SaaSPhone
+        user_details.save(update_fields=['FULL_NAME','CONTACT_PHONE'])
+        return redirect('index')
+    return render(request,"student_profileEdit.html",{"object_details":user_details})  
 
 
 ####################Django calendar #########################
@@ -735,9 +748,12 @@ def load_slots(request):
     return render(request, 'slots_dropdown_list_options.html', {'slots': slot_fil}) 
 
 ################################### auto creation of webpage ##########################
-
+@login_required
+@allowed_users(allowed_roles=['admin'])
 def web_form(request):
     if request.method == "POST" and  request.FILES['profile']:
+        user_id=request.session['user_id']
+        user=User.objects.get(id=user_id)
         url = request.POST['url']
         title = request.POST['title']
         m1 = request.POST['m1']
@@ -746,15 +762,25 @@ def web_form(request):
         schoolfee = request.POST['schoolfee']
         brand = request.POST['brand']
         profile = request.FILES['profile']
-        ob = webdata2(url = url ,title = title ,Infrastructure_affliation = m1,Education_affliation=m2,HomeSchool_affliation=m3, School_Fee_rule=schoolfee,brandFee_rule=brand, profile = profile)
+        ob = webdata21(url = url ,title = title ,Infrastructure_affliation = m1,Education_affliation=m2,HomeSchool_affliation=m3, School_Fee_rule=schoolfee,brandFee_rule=brand, profile = profile,admin_email=user.email)
         ob.save()
-        OBJ = webdata2.objects.filter(url=url)
-        return render(request,'webpage_creation.html',{'ob':OBJ })
+        #OBJ = webdata2.objects.filter(url=url)
+        return render(request,'index.html')
     return render(request,'web_form.html')
 
+@login_required
+@allowed_users(allowed_roles=['superadmin'])
+def webpage_creation(request):
+    user_id=request.session['user_id']
+    user=User.objects.get(id=user_id)
+    OBJ = webdata21.objects.all()
+    return render(request,'webpage_creation.html',{'ob':OBJ})
+
+@login_required
+@allowed_users(allowed_roles=['superadmin'])
 def webpage(request,url):
         print('url',url)
-        l = webdata2.objects.filter(url=url)
+        l = webdata21.objects.filter(url=url)
         return render(request, 'webpage.html',{'l':l})    
 
 
