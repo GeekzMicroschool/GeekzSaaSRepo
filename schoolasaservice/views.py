@@ -503,7 +503,7 @@ def saasaudition(request):
         message=EmailMessage(subject, html_message, settings.EMAIL_HOST_USER, [to_email])
         message.content_subtype='html'
         message.send()
-        return redirect('index')
+        return redirect('profiling')
 
 @login_required
 def student_profileEdit(request):
@@ -608,16 +608,14 @@ def create_event(request):
     return render(request, 'event.html', {'form': form})
 '''
 # view for user to pick date and select slot
-@login_required
-def schedule_user(request):
+
+def saasappointment(request):
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
-        user_id=request.session['user_id']
-        user=User.objects.get(id=user_id)
-        print(user)
-        print(user.email)
-        user_details=USER_DETAILS.objects.get(USER_EMAIL=user.email)
-        print(user_details)
+        #user_id=request.session['user_id']
+       # user=User.objects.get(id=user_id)
+        #print(user)
+        #print(user.email)
         form = SlotCreationForm(request.POST)
         # check whether it's valid:
         if form.is_valid():
@@ -666,7 +664,7 @@ def schedule_user(request):
                      "conferenceData": {"createRequest": {"requestId": f"{uuid4().hex}",
                                                       "conferenceSolutionKey": {"type": "hangoutsMeet"}}},
                      "reminders": {"useDefault": True},
-                     "attendees":user.email,
+                     "attendees":'chauhanreetika45@gmail.com',
 
                          },conferenceDataVersion=1).execute() )
                     
@@ -676,7 +674,7 @@ def schedule_user(request):
                     subject='Geekz SaaS Audition Completed!'
                     html_template='socialaccount/email/audition_completed_email.html'
                     html_message=render_to_string(html_template)
-                    to_email=user.email
+                    to_email='chauhanreetika45@gmail.com'
                     message=EmailMessage(subject, html_message, settings.EMAIL_HOST_USER, [to_email])
                     message.content_subtype='html'
                     message.send()
@@ -685,7 +683,7 @@ def schedule_user(request):
     # if a GET (or any other method) we'll create a blank form
     else:
         form = SlotCreationForm()
-        return render(request,"schedule_user.html",{'form': form})
+        return render(request,"profiling.html",{'form': form})
 
 # ajax view to get slots and populate in dropdown and reading calendar to filter slots
 def load_slots(request):
@@ -704,10 +702,13 @@ def load_slots(request):
         service = build_service()
         events = service.events().list(calendarId='c27hrqb165rc6s5mgoqq5l1e4c@group.calendar.google.com', pageToken=page_token).execute()
         times =[]
+        summery = []
         for event in events['items']:
             print (event['start']['dateTime'])
             times.append(event['start']['dateTime'])
-        print(times)    
+            summery.append(event['summary'])
+        print(times)
+        print(summery)    
         page_token = events.get('nextPageToken')
         if not page_token:
             break

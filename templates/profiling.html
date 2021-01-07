@@ -1,0 +1,204 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load socialaccount %}
+{% block title %}Profiling | Geekz School-as-a-Service{% endblock title %}
+{% block metadescription %}
+    <meta name="description" content="Geekz School-As-A-Service Geekz SaaS Profiling.">
+{% endblock metadescription %}
+{% block metakeywords %}
+    <meta name="keywords" content="geekz, geeks, school, reimagined school, alternate school, international, velachery, chennai, india, personalized, curriculum, self paced, learning, mastery, khan academy, duolingo, Microsoft, Program Manager, application, apply, micro-school, microschool, micro school, micro, School As A Service, SaaS, Affiliation, Quest, Questschool, Quest School, Work From Home, WFH, Part Time Job, Jobs,Audition, School As A Service, SaaS, Affiliation, Quest, Questschool, Quest School, Work From Home, WFH, Profiling ">
+{% endblock metakeywords %}
+
+
+
+{% block content %}
+
+		
+			
+    <!-- Contact section -->
+    <section id="contact" >
+        <div class="container">
+            <div class="row">
+                
+                <div class="sec-title text-center wow animated fadeInDown">
+                    <span>&nbsp;</span><p>&nbsp;</p>
+                    <h2>START YOUR GEEKZ Profiling!</h2>
+                    <p id="geekzapply">Schedule an appointment to get to know each other. </p>
+                </div>
+
+                <style>
+                    /*style for multiple step form*/
+                    * {
+                        box-sizing: border-box;
+                    }
+
+                    h1 {
+                        text-align: center;  
+                    }
+
+                    /* Mark input boxes that gets an error on validation: */
+                    input.invalid {
+                        background-color:#ffdddd;
+                    }
+
+                    input.valid {
+                        background-color:white;
+                    }
+
+                    select.invalid {
+                        background-color:#ffdddd;
+                    }
+
+                    select.valid {
+                        background-color: white;
+                    }
+
+                    textarea.invalid {
+                        background-color:#ffdddd;
+                    }
+
+                    textarea.valid {
+                        background-color:white;
+                    }
+
+
+                    /* Hide all steps by default: */
+                    .tabb {
+                        display: none;
+                    }
+
+                    #prevBtn {
+                        background-color: #bbbbbb;
+                    }
+
+                    /* Make circles that indicate the steps of the form: */
+                    .step {
+                        height: 15px;
+                        width: 15px;
+                        margin: 0 2px;
+                        background-color: #bbbbbb;
+                        border: none;  
+                        border-radius: 50%;
+                        display: inline-block;
+                        opacity: 0.5;
+                    }
+
+                    .step.active {
+                        opacity: 1;
+                    }
+
+                    /* Mark the steps that are finished and valid: */
+                    .step.finish {
+                        background-color: rgba(0,158,227, 0.78);
+                    }
+                </style>  
+                <div class="col-md-6 contact-form wow animated fadeInLeft">
+                    <form  id="slot_form" method="POST">
+                        {% csrf_token %}
+                        <div class="tabb">
+                           <h3><b>Book Appointment</b></h3>
+                           <div class="input-field">
+                               {{form.as_p}}
+                           
+                          </div>
+                          
+                            <style>
+                                .form-control {
+                                    display: initial;
+                                }
+                            </style>  
+                             
+                        </div>
+                        <input type="submit" value="Submit">
+                        
+
+                        <div>
+                            <button type="button" id="prevBtn" onclick="nextPrev(-1)" class="btn btn-blue">Prev</button>
+                            <button type="button" id="nextBtn" onclick="nextPrev(1)" class="btn btn-blue btn-effect">Next</button>
+                        </div>
+
+                        <div style="text-align:center;margin-top:40px;">
+                            <span class="step"></span>
+                            <span class="step"></span>
+                            <span class="step"></span>
+                        </div>
+                    </form>
+                </div>
+                <div id="tips" class="col-md-4 wow animated fadeInRight" style="float:right;">
+                    <address class="contact-details">
+                        <h3>Getting To Know</h3>
+                        <p>Please be as specific as possible so we can start to understand your thoughts, hopes, and dreams on reimagining education.</p>
+                    </address>
+                </div>
+            </div>
+        </div>
+    </section>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+     $(document).ready (function()
+           {
+            $("#id_slot").hide();
+    $('#id_schedule_date').on('blur', function()  {
+        
+        var ConfFile=$("#id_slot");
+        ConfFile.show();
+    });
+});
+  $("#id_schedule_date").change(function () {
+      
+        //const url = $("#slot_form").attr("data-slots-url");  // get the url of the `load_cities` view
+        const dayId = $(this).val();
+        //$day_id = $('#day').val();
+
+        
+        $.ajax({                       // initialize an AJAX request
+            url: 'ajax/load_slots/',                    // set the url of the request (= /persons/ajax/load-cities/ )
+            data: {
+                'day_id': dayId,       // add the country id to the GET parameters
+            },
+            datatype:'json',
+            success: function (data) {   // `data` is the return of the `load_cities` view function
+                 // replace the contents of the city input with the data that came from the server
+                
+
+                 $("#id_slot").html(data)
+
+                
+            }
+        });
+
+    });
+ 
+
+</script>
+    <!-- end Contact section -->
+
+{% endblock content %}
+
+{% block footer %}
+<footer id="footer">
+    <div class="container">
+        <div class="row text-center">
+            <div class="footer-content">
+                
+                <div class="footer-social">
+                    <ul>
+                        <style>
+                            .footer-social ul li a:hover {
+                                color: white;
+                            }
+                        </style>
+                        <li class="wow animated zoomIn"><a href="https://www.facebook.com/VrGeekz/" target="_blank" style="background-color: inherit;"><i class="fa fa-facebook fa-3x"></i></a></li>
+                        <li class="wow animated zoomIn" data-wow-delay="0.3s"><a href="https://www.instagram.com/vrgeekz/" target="_blank" style="background-color: inherit;"><i class="fa fa-instagram fa-3x"></i></a></li>
+                        <li class="wow animated zoomIn" data-wow-delay="0.6s"><a href="https://www.youtube.com/channel/UCNy54QG09WBP7ZU8eOSRntQ/videos" target="_blank" style="background-color: inherit;"><i class="fa fa-youtube-play fa-3x"></i></a></li>
+                        <li class="wow animated zoomIn" data-wow-delay="0.9s"><a href="https://twitter.com/VrGeekz" target="_blank" style="background-color: inherit;"><i class="fa fa-twitter fa-3x"></i></a></li>
+                        <!-- <li class="wow animated zoomIn" data-wow-delay="0.9s"><a href="https://thegeekstudio.wordpress.com/" target="_blank" style="background-color: inherit;"><i class="fa fa-rss fa-3x"></i></a></li> -->
+                    </ul>
+                </div>
+                
+                <p>Copyright &copy; 2020 by Geekz. All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+{% endblock footer %}
