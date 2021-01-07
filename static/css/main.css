@@ -290,6 +290,7 @@ main > section {
     background-color: rgba(0,0,0,.4);
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
     padding: 5px 0;
+   
 }
 
 #navigation.animated-header {
@@ -316,6 +317,8 @@ h1.navbar-logo {
 /*    color: #fff;*/
     font-size: 15px;
     text-transform: uppercase;
+    display: flex;
+    justify-content: space-between;
     float: left;
 }
 

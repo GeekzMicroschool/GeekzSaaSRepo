@@ -104,7 +104,12 @@ TEMPLATES = [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
+<<<<<<< HEAD
                 'django.contrib.messages.context_processors.messages',  
+=======
+                'django.contrib.messages.context_processors.messages',
+                
+>>>>>>> 73dff70a9d2f7665f71dff4e6c98f9e913ccc8f7
             ],
         },
     },
@@ -223,9 +228,13 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'geekzmicroschool@gmail.com'
 EMAIL_HOST_PASSWORD = 'geekz3months'
+<<<<<<< HEAD
 EMAIL_USE_TLS = True
 
 MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+=======
+EMAIL_USE_TLS = True
+>>>>>>> 73dff70a9d2f7665f71dff4e6c98f9e913ccc8f7

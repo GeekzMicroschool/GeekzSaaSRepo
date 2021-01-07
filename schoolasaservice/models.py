@@ -2,10 +2,13 @@ from django.db import models
 from django.contrib.gis.db import models
 from django.contrib.gis.geos import Point
 from home.models import USER_DETAILS
+<<<<<<< HEAD
 import sys
 from PIL import Image
 from io import BytesIO
 from django.core.files.uploadedfile import InMemoryUploadedFile
+=======
+>>>>>>> 73dff70a9d2f7665f71dff4e6c98f9e913ccc8f7
 
 # Create your models here.
 class MICRO_APPLN(models.Model):
@@ -132,6 +135,7 @@ class EVENTS_SCHEDULE(models.Model):
     class Meta:
         unique_together = ("user_details", "slot","start_time")
 
+<<<<<<< HEAD
 ######################### auto webpage creation ###########################
 class webdata21(models.Model):
     url =  models.CharField(max_length=250,unique=True,blank=False,null=False)
@@ -158,4 +162,6 @@ class webdata21(models.Model):
         return profile
 
 ######################################################################################3
+=======
+>>>>>>> 73dff70a9d2f7665f71dff4e6c98f9e913ccc8f7
 

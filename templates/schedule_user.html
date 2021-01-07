@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Dependent Dropdown in Django</title>
 </head>
+<<<<<<< HEAD
 <style>
     .hideme
         {
@@ -14,19 +15,27 @@
             visibility:hidden;
         }
 </style>
+=======
+>>>>>>> 73dff70a9d2f7665f71dff4e6c98f9e913ccc8f7
 <body>
 <h3>{{message}}</h3>
 
 <form method="post" id="slot_form" >
     {% csrf_token %}
     
+<<<<<<< HEAD
     {{form}}
+=======
+    {{ form.as_p }}
+    
+>>>>>>> 73dff70a9d2f7665f71dff4e6c98f9e913ccc8f7
     <input type="submit" value="Submit">
 </form>
 
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script>
+<<<<<<< HEAD
      $(document).ready (function()
            {
             $("#id_slot").hide();
@@ -37,6 +46,8 @@
     });
 });
  
+=======
+>>>>>>> 73dff70a9d2f7665f71dff4e6c98f9e913ccc8f7
   $("#id_schedule_date").change(function () {
       
         //const url = $("#slot_form").attr("data-slots-url");  // get the url of the `load_cities` view
@@ -61,7 +72,11 @@
         });
 
     });
+<<<<<<< HEAD
    
+=======
+ 
+>>>>>>> 73dff70a9d2f7665f71dff4e6c98f9e913ccc8f7
 
 </script>
 

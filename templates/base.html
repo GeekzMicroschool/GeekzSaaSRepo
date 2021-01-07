@@ -50,6 +50,7 @@
         <link rel="icon" type="image/png" href="{% static 'img/favicon-32x32.png' %}" sizes="32x32">
 
         <style>
+            
 			.buttongeekzhome{
 				width:250px
             }
@@ -84,9 +85,15 @@
 
             {% block navbar %}
             <header id="navigation" class="navbar-inverse navbar-fixed-top animated-header">
+<<<<<<< HEAD
                 <table style="width:100%"><!-- added width="100% in container style and changed table width from 90% to 100% "-->
                     <td>
                         <div style="width:100%;" class="container">
+=======
+                <table style="width:100%">
+                    <td>
+                        <div style="width:100%;"class="container"> <!-- added width="100% in container style and changed table width from 90% to 100% "-->
+>>>>>>> 73dff70a9d2f7665f71dff4e6c98f9e913ccc8f7
                             <div class="navbar-header">
                                 <!-- responsive nav button -->
                                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -109,10 +116,10 @@
                             {% block mainnav %}
                             <!-- main nav -->
                             <nav class="collapse navbar-collapse navbar-right" role="navigation">
-                                <ul id="nav" class= "nav navbar-tabs">
+                                <ul id="nav"  class= "nav navbar-tabs">
             <!--                        <li><a href="/">Home</a></li>-->
-                                    <li><a href="">Quest</a></li>
-                                    <li id="nav1"><a href="#service">Education</a></li>
+                                    <li ><a href="">Quest</a></li>
+                                    <li  id="nav1"><a href="#service">Education</a></li>
                                     <li id="nav2"><a href="#admissions">Admissions</a></li>
                                     <li><a href="/homeschool">Homeschool</a></li>
                                     <li><a href="/schoolasaservice">Become a Microschool</a></li>
