@@ -8,7 +8,6 @@ urlpatterns = [
     path('saasapplication', views.saasapplication, name="saasapplication"),
     path('audition', views.audition, name="audition"),
     path('saasaudition', views.saasaudition, name="saasaudition"),
-<<<<<<< HEAD
     path("student_profileEdit",views.student_profileEdit,name="sp"),
     path('schedule_admin', views.schedule_admin, name="schedule_admin"),
     path('profiling', views.saasappointment, name="schedule_user"),
@@ -21,11 +20,3 @@ urlpatterns = [
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-=======
-    #path("student_profileEdit",views.student_profileEdit,name="sp")
-    path('schedule_admin', views.schedule_admin, name="schedule_admin"),
-    path('schedule_user', views.schedule_user, name="schedule_user"),
-    path('ajax/load_slots/', views.load_slots, name='ajax_load_slots'), # AJAX
-    
-]
->>>>>>> 73dff70a9d2f7665f71dff4e6c98f9e913ccc8f7

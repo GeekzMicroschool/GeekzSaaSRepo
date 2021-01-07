@@ -5,15 +5,10 @@ from django.contrib.admin.widgets import AdminDateWidget
 from django.forms.fields import DateField
 import calendar
 import datetime
-<<<<<<< HEAD
-=======
-
->>>>>>> 73dff70a9d2f7665f71dff4e6c98f9e913ccc8f7
 slot_obj = []
 
 class SlotCreationForm(forms.ModelForm):
   class Meta:
-<<<<<<< HEAD
     model = EVENTS_SCHEDULE
     fields = ['schedule_date','slot']
     widgets = {
@@ -21,14 +16,6 @@ class SlotCreationForm(forms.ModelForm):
    
     
     
-=======
-        model = EVENTS_SCHEDULE
-        fields = ['schedule_date','slot']
-        widgets = {
-      'schedule_date': DateInput(attrs={'type': 'date'}, format='%Y-%m-%d'),
-      
-    }
->>>>>>> 73dff70a9d2f7665f71dff4e6c98f9e913ccc8f7
   def __init__(self, *args, **kwargs):
     super(SlotCreationForm, self).__init__(*args, **kwargs)
     # input_formats to parse HTML5 datetime-local input to datetime field

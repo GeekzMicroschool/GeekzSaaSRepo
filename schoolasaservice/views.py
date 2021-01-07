@@ -2,7 +2,6 @@ from django.shortcuts import render, redirect
 from .models import MICRO_APPLN, QUEST_APPLN, MICRO_AUDN, QUEST_AUDN,MICRO_APPLY
 from home.models import USER_DETAILS
 from django.contrib.auth.models import User,auth
-from django.http import HttpResponse, HttpResponseRedirect
 from allauth.socialaccount.models import SocialAccount
 from django.contrib.auth.decorators import login_required
 #for sending email
@@ -22,12 +21,9 @@ from .forms import SlotCreationForm
 from uuid import uuid4
 import datetime
 from django.http import JsonResponse
-<<<<<<< HEAD
 from django.contrib.auth.decorators import user_passes_test
 from .decorators import  allowed_users
 from django.contrib.auth.models import Group
-=======
->>>>>>> 73dff70a9d2f7665f71dff4e6c98f9e913ccc8f7
 
 # Create your views here.
 def searchbar(request):
@@ -507,7 +503,6 @@ def saasaudition(request):
         message=EmailMessage(subject, html_message, settings.EMAIL_HOST_USER, [to_email])
         message.content_subtype='html'
         message.send()
-<<<<<<< HEAD
         return redirect('profiling')
 
 @login_required
@@ -529,19 +524,6 @@ def student_profileEdit(request):
         user_details.save(update_fields=['FULL_NAME','CONTACT_PHONE'])
         return redirect('index')
     return render(request,"student_profileEdit.html",{"object_details":user_details})  
-=======
-        return redirect('schedule_user')
-
-
-
-'''def student_profileEdit(request):
-    user_id=request.session['user_id']
-    user=User.objects.get(id=user_id)
-    print(user)
-    user_details=USER_DETAILS.objects.get(USER_EMAIL=user.email)    
-    print(user_details) 
-    return render(request,"student_profileEdit.html",{"object_details":user_details})  ''' 
->>>>>>> 73dff70a9d2f7665f71dff4e6c98f9e913ccc8f7
 
 
 ####################Django calendar #########################
@@ -575,10 +557,6 @@ def schedule_admin(request):
     slots_friday = SLOTS_DAY.objects.filter(day='Friday')
     slots_saturday = SLOTS_DAY.objects.filter(day='Saturday')
     return render(request,'schedule_admin.html',{'slots_monday':slots_monday,'slots_tuesday':slots_tuesday,'slots_wednesday':slots_wednesday,'slots_thursday':slots_thursday,'slots_friday':slots_friday,'slots_saturday':slots_saturday}) 
-<<<<<<< HEAD
-=======
-
->>>>>>> 73dff70a9d2f7665f71dff4e6c98f9e913ccc8f7
 '''
 # view to create event and to write in google calendar and create google meet link
 def create_event(request):    
@@ -627,7 +605,6 @@ def create_event(request):
             ['chauhanreetika45@gmail.com']
         )
         return HttpResponseRedirect(reverse('calendarapp:calendar'))
-<<<<<<< HEAD
     return render(request, 'event.html', {'form': form})
 '''
 # view for user to pick date and select slot
@@ -639,21 +616,6 @@ def saasappointment(request):
        # user=User.objects.get(id=user_id)
         #print(user)
         #print(user.email)
-=======
-    return render(request, 'event.html', {'form': form})'''
-
-# view for user to pick date and select slot
-@login_required
-def schedule_user(request):
-    if request.method == 'POST':
-        # create a form instance and populate it with data from the request:
-        user_id=request.session['user_id']
-        user=User.objects.get(id=user_id)
-        print(user)
-        print(user.email)
-        user_details=USER_DETAILS.objects.get(USER_EMAIL=user.email)
-        print(user_details)
->>>>>>> 73dff70a9d2f7665f71dff4e6c98f9e913ccc8f7
         form = SlotCreationForm(request.POST)
         # check whether it's valid:
         if form.is_valid():
@@ -702,18 +664,13 @@ def schedule_user(request):
                      "conferenceData": {"createRequest": {"requestId": f"{uuid4().hex}",
                                                       "conferenceSolutionKey": {"type": "hangoutsMeet"}}},
                      "reminders": {"useDefault": True},
-<<<<<<< HEAD
                      "attendees":'chauhanreetika45@gmail.com',
-=======
-                     "attendees":user.email,
->>>>>>> 73dff70a9d2f7665f71dff4e6c98f9e913ccc8f7
 
                          },conferenceDataVersion=1).execute() )
                     
                     print("ee",event_cal) 
                     create_event.link = event_cal['hangoutLink'] ##  fetch google meet link from event_cal 
                     print(create_event.link)
-<<<<<<< HEAD
                     subject='Geekz SaaS Audition Completed!'
                     html_template='socialaccount/email/audition_completed_email.html'
                     html_message=render_to_string(html_template)
@@ -721,24 +678,12 @@ def schedule_user(request):
                     message=EmailMessage(subject, html_message, settings.EMAIL_HOST_USER, [to_email])
                     message.content_subtype='html'
                     message.send()
-=======
-                    send_mail(
-                       "events",
-                       "The audition date is booked ",
-                        settings.EMAIL_HOST_USER,
-                        [user.email]
-                       )
->>>>>>> 73dff70a9d2f7665f71dff4e6c98f9e913ccc8f7
                 create_event()
                 return render(request,"joinMeeting.html",{'link':create_event.link})        
     # if a GET (or any other method) we'll create a blank form
     else:
         form = SlotCreationForm()
-<<<<<<< HEAD
         return render(request,"profiling.html",{'form': form})
-=======
-        return render(request,"schedule_user.html",{'form': form})
->>>>>>> 73dff70a9d2f7665f71dff4e6c98f9e913ccc8f7
 
 # ajax view to get slots and populate in dropdown and reading calendar to filter slots
 def load_slots(request):
@@ -757,7 +702,6 @@ def load_slots(request):
         service = build_service()
         events = service.events().list(calendarId='c27hrqb165rc6s5mgoqq5l1e4c@group.calendar.google.com', pageToken=page_token).execute()
         times =[]
-<<<<<<< HEAD
         summery = []
         for event in events['items']:
             print (event['start']['dateTime'])
@@ -765,12 +709,6 @@ def load_slots(request):
             summery.append(event['summary'])
         print(times)
         print(summery)    
-=======
-        for event in events['items']:
-            print (event['start']['dateTime'])
-            times.append(event['start']['dateTime'])
-        print(times)    
->>>>>>> 73dff70a9d2f7665f71dff4e6c98f9e913ccc8f7
         page_token = events.get('nextPageToken')
         if not page_token:
             break
@@ -810,7 +748,6 @@ def load_slots(request):
     print(slot_fil)            
     return render(request, 'slots_dropdown_list_options.html', {'slots': slot_fil}) 
 
-<<<<<<< HEAD
 ################################### auto creation of webpage ##########################
 @login_required
 @allowed_users(allowed_roles=['admin'])
@@ -849,12 +786,3 @@ def webpage(request,url):
 
 
  ###########################################3       
-=======
-
-
-
-        
-    
-
-
->>>>>>> 73dff70a9d2f7665f71dff4e6c98f9e913ccc8f7
