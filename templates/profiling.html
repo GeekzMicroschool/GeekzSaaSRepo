@@ -93,15 +93,13 @@
                     }
                 </style>  
                 <div class="col-md-6 contact-form wow animated fadeInLeft">
-                    <form  id="slot_form" method="POST">
+                    <form action="profiling" id="slot_form" method="POST">
                         {% csrf_token %}
-                        <div class="tabb">
-                           <h3><b>Book Appointment</b></h3>
+                        <div>
+                           <h3><b>Profiling Information</b></h3>
                            <div class="input-field">
-                               {{form.as_p}}
-                           
-                          </div>
-                          
+                              {{form}}
+                         </div>
                             <style>
                                 .form-control {
                                     display: initial;
@@ -109,20 +107,12 @@
                             </style>  
                              
                         </div>
-                        <input type="submit" value="Submit">
                         
 
                         <div>
-                            <button type="button" id="prevBtn" onclick="nextPrev(-1)" class="btn btn-blue">Prev</button>
-                            <button type="button" id="nextBtn" onclick="nextPrev(1)" class="btn btn-blue btn-effect">Next</button>
+                            <button type="submit" class="btn btn-blue btn-effect">Next</button>
                         </div>
-
-                        <div style="text-align:center;margin-top:40px;">
-                            <span class="step"></span>
-                            <span class="step"></span>
-                            <span class="step"></span>
-                        </div>
-                    </form>
+                    </form>    
                 </div>
                 <div id="tips" class="col-md-4 wow animated fadeInRight" style="float:right;">
                     <address class="contact-details">
@@ -135,15 +125,16 @@
     </section>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script>
-     $(document).ready (function()
+
+    $(document).ready (function()
            {
             $("#id_slot").hide();
     $('#id_schedule_date').on('blur', function()  {
-        
-        var ConfFile=$("#id_slot");
-        ConfFile.show();
+          var ConfFile=$("#id_slot");
+          ConfFile.show();
     });
 });
+
   $("#id_schedule_date").change(function () {
       
         //const url = $("#slot_form").attr("data-slots-url");  // get the url of the `load_cities` view
@@ -160,7 +151,6 @@
             success: function (data) {   // `data` is the return of the `load_cities` view function
                  // replace the contents of the city input with the data that came from the server
                 
-
                  $("#id_slot").html(data)
 
                 

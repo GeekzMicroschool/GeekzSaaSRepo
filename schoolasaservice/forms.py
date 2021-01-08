@@ -8,14 +8,19 @@ import datetime
 slot_obj = []
 
 class SlotCreationForm(forms.ModelForm):
+  '''schedule_date = forms.DateField(widget= forms.DateInput(attrs={
+    "type":"date",
+    "placeholder":"%Y-%m-%d",
+    "class":"form-control"
+  }))'''
+  
   class Meta:
     model = EVENTS_SCHEDULE
     fields = ['schedule_date','slot']
     widgets = {
-      'schedule_date': DateInput(attrs={'type': 'date'}, format='%Y-%m-%d'),}
+      'schedule_date': DateInput(attrs={'type': 'date'}, format='%Y-%m-%d'),} 
    
-    
-    
+  
   def __init__(self, *args, **kwargs):
     super(SlotCreationForm, self).__init__(*args, **kwargs)
     # input_formats to parse HTML5 datetime-local input to datetime field

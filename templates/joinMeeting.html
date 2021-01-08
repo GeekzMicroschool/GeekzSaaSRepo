@@ -1,2 +1,147 @@
-<button><a href = "{{link}}">Join Meeting</a></button>
-<button><a href = "">Reschedule Meeting</a></button>
+{% extends 'base.html' %}
+{% load static %}
+{% load socialaccount %}
+{% block title %}Profiling | Geekz School-as-a-Service{% endblock title %}
+{% block metadescription %}
+    <meta name="description" content="Geekz School-As-A-Service Geekz SaaS Profiling.">
+{% endblock metadescription %}
+{% block metakeywords %}
+    <meta name="keywords" content="geekz, geeks, school, reimagined school, alternate school, international, velachery, chennai, india, personalized, curriculum, self paced, learning, mastery, khan academy, duolingo, Microsoft, Program Manager, application, apply, micro-school, microschool, micro school, micro, School As A Service, SaaS, Affiliation, Quest, Questschool, Quest School, Work From Home, WFH, Part Time Job, Jobs,Audition, School As A Service, SaaS, Affiliation, Quest, Questschool, Quest School, Work From Home, WFH, Profiling ">
+{% endblock metakeywords %}
+
+
+
+{% block content %}
+
+		
+			
+    <!-- Contact section -->
+    <section id="contact" >
+        <div class="container">
+            <div class="row">
+                
+                <div class="sec-title text-center wow animated fadeInDown">
+                    <span>&nbsp;</span><p>&nbsp;</p>
+                    <h2>START YOUR GEEKZ Profiling!</h2>
+                    <p id="geekzapply">Schedule an appointment to get to know each other. </p>
+                </div>
+
+                <style>
+                    /*style for multiple step form*/
+                    * {
+                        box-sizing: border-box;
+                    }
+
+                    h1 {
+                        text-align: center;  
+                    }
+
+                    /* Mark input boxes that gets an error on validation: */
+                    input.invalid {
+                        background-color:#ffdddd;
+                    }
+
+                    input.valid {
+                        background-color:white;
+                    }
+
+                    select.invalid {
+                        background-color:#ffdddd;
+                    }
+
+                    select.valid {
+                        background-color: white;
+                    }
+
+                    textarea.invalid {
+                        background-color:#ffdddd;
+                    }
+
+                    textarea.valid {
+                        background-color:white;
+                    }
+
+
+                    /* Hide all steps by default: */
+                    .tabb {
+                        display: none;
+                    }
+
+                    #prevBtn {
+                        background-color: #bbbbbb;
+                    }
+
+                    /* Make circles that indicate the steps of the form: */
+                    .step {
+                        height: 15px;
+                        width: 15px;
+                        margin: 0 2px;
+                        background-color: #bbbbbb;
+                        border: none;  
+                        border-radius: 50%;
+                        display: inline-block;
+                        opacity: 0.5;
+                    }
+
+                    .step.active {
+                        opacity: 1;
+                    }
+
+                    /* Mark the steps that are finished and valid: */
+                    .step.finish {
+                        background-color: rgba(0,158,227, 0.78);
+                    }
+                </style>
+                
+                <div class="col-md-6 contact-form wow animated fadeInLeft">
+                    <h3><b>{{heading}}</b></h3>
+                    <br>
+                    <button type= "button" class="btn btn-blue btn-effect"><a style="text-decoration: none;color:white;" href = "{{link}}">Join Meeting</a></button>
+                    <button type="button" class="btn btn-blue btn-effect"><a style="text-decoration: none;color:white;" href = "deletevent">Reschedule Meeting</a></button>
+                </div>
+                <div id="tips" class="col-md-4 wow animated fadeInRight" style="float:right;">
+                    <address class="contact-details">
+                        <h3>Getting To Know</h3>
+                        <p>Please be as specific as possible so we can start to understand your thoughts, hopes, and dreams on reimagining education.</p>
+                    </address>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- end Contact section -->
+</main>
+{% endblock content %}
+
+{% block footer %}
+<footer id="footer">
+    <div class="container">
+        <div class="row text-center">
+            <div class="footer-content">
+                
+                <div class="footer-social">
+                    <ul>
+                        <style>
+                            .footer-social ul li a:hover {
+                                color: white;
+                            }
+                        </style>
+                        <li class="wow animated zoomIn"><a href="https://www.facebook.com/VrGeekz/" target="_blank" style="background-color: inherit;"><i class="fa fa-facebook fa-3x"></i></a></li>
+                        <li class="wow animated zoomIn" data-wow-delay="0.3s"><a href="https://www.instagram.com/vrgeekz/" target="_blank" style="background-color: inherit;"><i class="fa fa-instagram fa-3x"></i></a></li>
+                        <li class="wow animated zoomIn" data-wow-delay="0.6s"><a href="https://www.youtube.com/channel/UCNy54QG09WBP7ZU8eOSRntQ/videos" target="_blank" style="background-color: inherit;"><i class="fa fa-youtube-play fa-3x"></i></a></li>
+                        <li class="wow animated zoomIn" data-wow-delay="0.9s"><a href="https://twitter.com/VrGeekz" target="_blank" style="background-color: inherit;"><i class="fa fa-twitter fa-3x"></i></a></li>
+                        <!-- <li class="wow animated zoomIn" data-wow-delay="0.9s"><a href="https://thegeekstudio.wordpress.com/" target="_blank" style="background-color: inherit;"><i class="fa fa-rss fa-3x"></i></a></li> -->
+                    </ul>
+                </div>
+                
+                <p>Copyright &copy; 2021 by Geekz. All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+{% endblock footer %}
+
+
+
+
+
+

@@ -612,17 +612,17 @@ def create_event(request):
 def saasappointment(request):
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
-        #user_id=request.session['user_id']
-       # user=User.objects.get(id=user_id)
-        #print(user)
-        #print(user.email)
+        user_id=request.session['user_id']
+        user=User.objects.get(id=user_id)
+        print(user)
+        print(user.email)
         form = SlotCreationForm(request.POST)
         # check whether it's valid:
         if form.is_valid():
             schedule_date = form.cleaned_data['schedule_date']
             slot = form.cleaned_data['slot']
             print('sc',type(schedule_date))
-            print('slot',slot.id)
+            print('slot',slot)
             print(type(slot))
             slot_obj = SLOTS_DAY.objects.filter(id=slot.id)
             print('slot_obj',slot_obj)
@@ -633,14 +633,23 @@ def saasappointment(request):
             start_time = qq.slot
             now = datetime.datetime.now()
             date_obj = schedule_date.strftime("%Y-%m-%d")
+            datee = schedule_date.strftime("%b %d %Y")
+            print(datee)
+            print(type(date_obj))
+            print(type(qq.slot))
+            start = datetime.datetime.strptime(qq.slot, '%H:%M')
+            end = start + datetime.timedelta(minutes=float(nn))
+            start = start.strftime("%I:%M %p")
+            end = end.strftime("%I:%M %p")
             start_time = date_obj + " "+ start_time 
             start_time = datetime.datetime.strptime(start_time, '%Y-%m-%d %H:%M')
             end_time = start_time + datetime.timedelta(minutes=float(nn))
             start_time = start_time.astimezone(timezone('Asia/Kolkata')) # time zone attached
             end_time = end_time.astimezone(timezone('Asia/Kolkata'))   # time zone attached
-            print('st',start_time)
+            print('st',start)
             print('et', end_time)
             print("type",type(start_time))
+            heading = qq.day + " " + datee + " " + "At" + " " + start + " " + "to" + " " + end
             link = " "
             if schedule_date < datetime.date.today():
                 return HttpResponse("Please do not enter past date")    
@@ -664,7 +673,7 @@ def saasappointment(request):
                      "conferenceData": {"createRequest": {"requestId": f"{uuid4().hex}",
                                                       "conferenceSolutionKey": {"type": "hangoutsMeet"}}},
                      "reminders": {"useDefault": True},
-                     "attendees":'chauhanreetika45@gmail.com',
+                     "attendees":user.email,
 
                          },conferenceDataVersion=1).execute() )
                     
@@ -674,17 +683,30 @@ def saasappointment(request):
                     subject='Geekz SaaS Audition Completed!'
                     html_template='socialaccount/email/audition_completed_email.html'
                     html_message=render_to_string(html_template)
-                    to_email='chauhanreetika45@gmail.com'
+                    to_email= user.email
                     message=EmailMessage(subject, html_message, settings.EMAIL_HOST_USER, [to_email])
                     message.content_subtype='html'
                     message.send()
                 create_event()
-                return render(request,"joinMeeting.html",{'link':create_event.link})        
+                return render(request,"joinMeeting.html",{'link':create_event.link,'heading':heading})        
     # if a GET (or any other method) we'll create a blank form
     else:
         form = SlotCreationForm()
         return render(request,"profiling.html",{'form': form})
 
+def deletevent(request):
+    service_account_email = "geekz-145@geekz-297209.iam.gserviceaccount.com"
+    SCOPES = ["https://www.googleapis.com/auth/calendar"]
+    credentials = ServiceAccountCredentials.from_json_keyfile_name( filename="client_secret.json", scopes=SCOPES )
+    def build_service():
+        service = build("calendar", "v3", credentials=credentials)
+        return service
+                    
+    def create_event():
+        service = build_service()
+        event_cal = (service.events().delete(calendarId="c27hrqb165rc6s5mgoqq5l1e4c@group.calendar.google.com",eventId = "vvk0h4vd3roc110oppjl3ohm54").execute() )     
+    create_event()
+    return redirect("index")
 # ajax view to get slots and populate in dropdown and reading calendar to filter slots
 def load_slots(request):
     print("fffffffffff")
@@ -747,6 +769,7 @@ def load_slots(request):
             slot_fil.append(s)
     print(slot_fil)            
     return render(request, 'slots_dropdown_list_options.html', {'slots': slot_fil}) 
+    
 
 ################################### auto creation of webpage ##########################
 @login_required

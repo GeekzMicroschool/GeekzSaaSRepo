@@ -16,6 +16,7 @@ urlpatterns = [
     path('webpage_creation',views.webpage_creation,name='webpage_creation'),
     path('webpage',views.webpage,name='webpage'),
     path('microschool/<url>',views.webpage, name='webpage'),
+    path('deletevent',views.deletevent,name="delete")
 
 ]
 if settings.DEBUG:
