@@ -157,5 +157,22 @@ class webdata21(models.Model):
         profile = InMemoryUploadedFile(outputIoStream,'ImageField', "%s.jpg" % profile.name.split('.')[0], 'image/jpeg', sys.getsizeof(outputIoStream), None)
         return profile
 
+class MICRO_PROFILIN(models.Model):
+    uid=models.CharField(max_length=50, primary_key=True)
+    IS_PROFILINGCOMPLETE=models.CharField(max_length=1, default="N")
+    slot = models.ForeignKey(SLOTS_DAY, on_delete=models.CASCADE)
+    schedule_date = models.DateField()
+    USER = models.CharField(max_length=250)
+    EVENT_ID = models.CharField(max_length=600)
+    ICalUID = models.CharField(max_length=600)
+    hangoutLink = models.CharField(max_length=600)
+    START_TIME = models.CharField(max_length=250)
+    END_TIME = models.CharField(max_length=250)
+    HEADING = models.CharField(max_length=300)
+
+class RESCHEDULE_REASON(models.Model):
+    uid =  models.CharField(max_length=50, primary_key=True)
+    reason = models.CharField(max_length=10000)  
+
 ######################################################################################3
 

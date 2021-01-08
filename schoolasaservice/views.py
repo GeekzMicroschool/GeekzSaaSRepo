@@ -608,105 +608,129 @@ def create_event(request):
     return render(request, 'event.html', {'form': form})
 '''
 # view for user to pick date and select slot
-
+@login_required
 def saasappointment(request):
-    if request.method == 'POST':
-        # create a form instance and populate it with data from the request:
-        user_id=request.session['user_id']
-        user=User.objects.get(id=user_id)
-        print(user)
-        print(user.email)
-        form = SlotCreationForm(request.POST)
-        # check whether it's valid:
-        if form.is_valid():
-            schedule_date = form.cleaned_data['schedule_date']
-            slot = form.cleaned_data['slot']
-            print('sc',type(schedule_date))
-            print('slot',slot)
-            print(type(slot))
-            slot_obj = SLOTS_DAY.objects.filter(id=slot.id)
-            print('slot_obj',slot_obj)
-            qq = list(slot_obj)
-            print(qq)
-            qq = qq[0]
-            nn = qq.duration
-            start_time = qq.slot
-            now = datetime.datetime.now()
-            date_obj = schedule_date.strftime("%Y-%m-%d")
-            datee = schedule_date.strftime("%b %d %Y")
-            print(datee)
-            print(type(date_obj))
-            print(type(qq.slot))
-            start = datetime.datetime.strptime(qq.slot, '%H:%M')
-            end = start + datetime.timedelta(minutes=float(nn))
-            start = start.strftime("%I:%M %p")
-            end = end.strftime("%I:%M %p")
-            start_time = date_obj + " "+ start_time 
-            start_time = datetime.datetime.strptime(start_time, '%Y-%m-%d %H:%M')
-            end_time = start_time + datetime.timedelta(minutes=float(nn))
-            start_time = start_time.astimezone(timezone('Asia/Kolkata')) # time zone attached
-            end_time = end_time.astimezone(timezone('Asia/Kolkata'))   # time zone attached
-            print('st',start)
-            print('et', end_time)
-            print("type",type(start_time))
-            heading = qq.day + " " + datee + " " + "At" + " " + start + " " + "to" + " " + end
-            link = " "
-            if schedule_date < datetime.date.today():
-                return HttpResponse("Please do not enter past date")    
-            else:
-                service_account_email = "geekz-145@geekz-297209.iam.gserviceaccount.com"
-                SCOPES = ["https://www.googleapis.com/auth/calendar"]
-                credentials = ServiceAccountCredentials.from_json_keyfile_name( filename="client_secret.json", scopes=SCOPES )
-                def build_service():
-                    service = build("calendar", "v3", credentials=credentials)
-                    return service
-                
-                def create_event():
-                    service = build_service()
-                    event_cal = (service.events().insert(calendarId="c27hrqb165rc6s5mgoqq5l1e4c@group.calendar.google.com",body={
-                      "summary": "GEEKZ",
-                      "description": "GEEKZ INTERVIEW FOR AFFLIATION",
-                      "start":{"dateTime":start_time.isoformat()}, 
-                      "end": {
-                        "dateTime": end_time.isoformat()
-                             },
-                     "conferenceData": {"createRequest": {"requestId": f"{uuid4().hex}",
-                                                      "conferenceSolutionKey": {"type": "hangoutsMeet"}}},
-                     "reminders": {"useDefault": True},
-                     "attendees":user.email,
+    user_id=request.session['user_id']
+    user=User.objects.get(id=user_id)
+    user_details=USER_DETAILS.objects.get(USER_EMAIL=user.email)
+    micro_audition = MICRO_AUDN.objects.get(uid = user_details.uid)
+    microprofil = MICRO_PROFILIN.objects.filter(uid = user_details.uid )
+    '''if user_details.IS_MICROSCHOOL=="Y" or user_details.IS_QUESTSCHOOL=="Y" and micro_audition.IS_COMPLETE=='Y' and micro_audition.IS_APPROVED == 'N':
+        return redirect("apply")'''
+    if user_details.IS_MICROSCHOOL=="Y" or user_details.IS_QUESTSCHOOL=="Y" and micro_audition.IS_COMPLETE=='Y' :
+        if not microprofil:
+            if request.method == 'POST':
+                # create a form instance and populate it with data from the request:
+                user_id=request.session['user_id']
+                user=User.objects.get(id=user_id)
+                user_details=USER_DETAILS.objects.get(USER_EMAIL=user.email)
+                print(user)
+                print(user.email)
+                form = SlotCreationForm(request.POST)
+                # check whether it's valid:
+                if form.is_valid():
+                    schedule_date = form.cleaned_data['schedule_date']
+                    slot = form.cleaned_data['slot']
+                    print('sc',type(schedule_date))
+                    print('slot',slot)
+                    print(type(slot))
+                    slot_obj = SLOTS_DAY.objects.filter(id=slot.id)
+                    print('slot_obj',slot_obj)
+                    qq = list(slot_obj)
+                    print(qq)
+                    qq = qq[0]
+                    nn = qq.duration
+                    start_time = qq.slot
+                    now = datetime.datetime.now()
+                    date_obj = schedule_date.strftime("%Y-%m-%d")
+                    datee = schedule_date.strftime("%b %d %Y")
+                    print(datee)
+                    print(type(date_obj))
+                    print(type(qq.slot))
+                    start = datetime.datetime.strptime(qq.slot, '%H:%M')
+                    end = start + datetime.timedelta(minutes=float(nn))
+                    start = start.strftime("%I:%M %p")
+                    end = end.strftime("%I:%M %p")
+                    start_time = date_obj + " "+ start_time 
+                    start_time = datetime.datetime.strptime(start_time, '%Y-%m-%d %H:%M')
+                    end_time = start_time + datetime.timedelta(minutes=float(nn))
+                    start_time = start_time.astimezone(timezone('Asia/Kolkata')) # time zone attached
+                    end_time = end_time.astimezone(timezone('Asia/Kolkata'))   # time zone attached
+                    print('st',start)
+                    print('et', end_time)
+                    print("type",type(start_time))
+                    heading = qq.day + " " + datee + " " + "at" + " " + start + " " + "to" + " " + end
+                    link = " "
+                    if schedule_date < datetime.date.today():
+                        return HttpResponse("Please do not enter past date")    
+                    else:
+                        service_account_email = "geekz-145@geekz-297209.iam.gserviceaccount.com"
+                        SCOPES = ["https://www.googleapis.com/auth/calendar"]
+                        credentials = ServiceAccountCredentials.from_json_keyfile_name( filename="client_secret.json", scopes=SCOPES )
+                        def build_service():
+                            service = build("calendar", "v3", credentials=credentials)
+                            return service
+                        
+                        def create_event():
+                            service = build_service()
+                            event_cal = (service.events().insert(calendarId="c27hrqb165rc6s5mgoqq5l1e4c@group.calendar.google.com",body={
+                            "summary": "GEEKZ",
+                            "description": "GEEKZ INTERVIEW FOR AFFLIATION",
+                            "start":{"dateTime":start_time.isoformat()}, 
+                            "end": {
+                                "dateTime": end_time.isoformat()
+                                    },
+                            "conferenceData": {"createRequest": {"requestId": f"{uuid4().hex}",
+                                                            "conferenceSolutionKey": {"type": "hangoutsMeet"}}},
+                            "reminders": {"useDefault": True},
+                            "attendees":user.email,
 
-                         },conferenceDataVersion=1).execute() )
-                    
-                    print("ee",event_cal) 
-                    create_event.link = event_cal['hangoutLink'] ##  fetch google meet link from event_cal 
-                    print(create_event.link)
-                    subject='Geekz SaaS Audition Completed!'
-                    html_template='socialaccount/email/audition_completed_email.html'
-                    html_message=render_to_string(html_template)
-                    to_email= user.email
-                    message=EmailMessage(subject, html_message, settings.EMAIL_HOST_USER, [to_email])
-                    message.content_subtype='html'
-                    message.send()
-                create_event()
-                return render(request,"joinMeeting.html",{'link':create_event.link,'heading':heading})        
-    # if a GET (or any other method) we'll create a blank form
-    else:
-        form = SlotCreationForm()
-        return render(request,"profiling.html",{'form': form})
+                                },conferenceDataVersion=1).execute() )
+                            
+                            print("ee",event_cal) 
+                            create_event.link = event_cal['hangoutLink'] ##  fetch google meet link from event_cal 
+                            profiling_obj = MICRO_PROFILIN(uid = user_details.uid, IS_PROFILINGCOMPLETE='Y',USER = user.email , EVENT_ID = event_cal['id'],ICalUID=event_cal['iCalUID'],hangoutLink = create_event.link,START_TIME= event_cal['start']['dateTime'],END_TIME = event_cal['end']['dateTime'],HEADING= heading,slot= qq,schedule_date= schedule_date)
+                            profiling_obj.save()
+                            subject='Geekz SaaS Profiling Confirmation'
+                            html_template='socialaccount/email/SaaS_Profiling_Confirmation_Email.html'
+                            html_message=render_to_string(html_template,{'heading':heading})
+                            to_email= user.email
+                            message=EmailMessage(subject, html_message, settings.EMAIL_HOST_USER, [to_email])
+                            message.content_subtype='html'
+                            message.send()
+                        create_event()
+                        return render(request,"joinMeeting.html",{'link':create_event.link,'heading':heading})        
+            # if a GET (or any other method) we'll create a blank form
+            else:
+                form = SlotCreationForm()
+                return render(request,"profiling.html",{'form': form})
+        else:
+            micro_profiling = MICRO_PROFILIN.objects.get(uid = user_details.uid )
+            return render(request,"joinMeeting.html",{'link':micro_profiling.hangoutLink,'heading':micro_profiling.HEADING})
+
 
 def deletevent(request):
-    service_account_email = "geekz-145@geekz-297209.iam.gserviceaccount.com"
-    SCOPES = ["https://www.googleapis.com/auth/calendar"]
-    credentials = ServiceAccountCredentials.from_json_keyfile_name( filename="client_secret.json", scopes=SCOPES )
-    def build_service():
-        service = build("calendar", "v3", credentials=credentials)
-        return service
-                    
-    def create_event():
-        service = build_service()
-        event_cal = (service.events().delete(calendarId="c27hrqb165rc6s5mgoqq5l1e4c@group.calendar.google.com",eventId = "vvk0h4vd3roc110oppjl3ohm54").execute() )     
-    create_event()
-    return redirect("index")
+    if request.method == "POST" :
+        user_id=request.session['user_id']
+        user=User.objects.get(id=user_id)
+        micro_prof = MICRO_PROFILIN.objects.get(USER = user.email )
+        SaaSreason=request.POST['reason']
+        reason_ob = RESCHEDULE_REASON(uid = micro_prof.uid,reason=SaaSreason)
+        reason_ob.save()
+        service_account_email = "geekz-145@geekz-297209.iam.gserviceaccount.com"
+        SCOPES = ["https://www.googleapis.com/auth/calendar"]
+        credentials = ServiceAccountCredentials.from_json_keyfile_name( filename="client_secret.json", scopes=SCOPES )
+        def build_service():
+            service = build("calendar", "v3", credentials=credentials)
+            return service
+                        
+        def create_event():
+            service = build_service()
+            event_cal = (service.events().delete(calendarId="c27hrqb165rc6s5mgoqq5l1e4c@group.calendar.google.com",eventId = micro_prof.EVENT_ID).execute() )     
+        create_event()
+        MICRO_PROFILIN.objects.filter(uid = micro_prof.uid).delete()
+        form = SlotCreationForm()
+        return render(request,"profiling.html",{'form': form})
 # ajax view to get slots and populate in dropdown and reading calendar to filter slots
 def load_slots(request):
     print("fffffffffff")
@@ -805,7 +829,9 @@ def webpage_creation(request):
 def webpage(request,url):
         print('url',url)
         l = webdata21.objects.filter(url=url)
-        return render(request, 'webpage.html',{'l':l})    
+        return render(request, 'webpage.html',{'l':l})  
+
+
 
 
  ###########################################3       

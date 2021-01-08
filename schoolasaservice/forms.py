@@ -1,5 +1,5 @@
 from django.forms import ModelForm, DateInput
-from schoolasaservice.models import SLOTS_DAY,EVENTS_SCHEDULE
+from schoolasaservice.models import SLOTS_DAY,MICRO_PROFILIN
 from django import forms
 from django.contrib.admin.widgets import AdminDateWidget
 from django.forms.fields import DateField
@@ -15,10 +15,10 @@ class SlotCreationForm(forms.ModelForm):
   }))'''
   
   class Meta:
-    model = EVENTS_SCHEDULE
+    model = MICRO_PROFILIN
     fields = ['schedule_date','slot']
     widgets = {
-      'schedule_date': DateInput(attrs={'type': 'date'}, format='%Y-%m-%d'),} 
+      'schedule_date': DateInput(attrs={'class':'form-control','type': 'date'}, format='%Y-%m-%d'),} 
    
   
   def __init__(self, *args, **kwargs):

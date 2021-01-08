@@ -94,15 +94,24 @@
                 </style>
                 
                 <div class="col-md-6 contact-form wow animated fadeInLeft">
-                    <h3><b>{{heading}}</b></h3>
+                    <h3><b>Profiling Information</b></h3>
+                    <p id="geekzapply">Profiling is on {{heading}} </b></p>
                     <br>
-                    <button type= "button" class="btn btn-blue btn-effect"><a style="text-decoration: none;color:white;" href = "{{link}}">Join Meeting</a></button>
-                    <button type="button" class="btn btn-blue btn-effect"><a style="text-decoration: none;color:white;" href = "deletevent">Reschedule Meeting</a></button>
+                    <button  class="btn btn-blue btn-effect" ><a style="text-decoration: none;" href = "{{link}}">Join Profiling</a></button>
+                    <button type="button" onclick="reasonform(1)" id ="reschedule" class="btn btn-blue btn-effect">Reschedule SaaS Profiling</button>
+                    <br><br>
+                    <form action ="deletevent" id = "reasonform" method ="POST">
+                        {% csrf_token %}
+                        <textarea id = "reason" name="reason" class="form-control" placeholder="Why Do You Want to Reschedule Meeting..." required></textarea>
+                        <div>
+                            <button type="submit" class="btn btn-blue btn-effect">SEND</button>
+                        </div>
+                    </form>
                 </div>
                 <div id="tips" class="col-md-4 wow animated fadeInRight" style="float:right;">
                     <address class="contact-details">
-                        <h3>Getting To Know</h3>
-                        <p>Please be as specific as possible so we can start to understand your thoughts, hopes, and dreams on reimagining education.</p>
+                        <h3>Important Dates</h3>
+                        <p>Schedule profiling to meet virtually. You can also reschedule profiling per your availability.</p>
                     </address>
                 </div>
             </div>
@@ -110,6 +119,24 @@
     </section>
     <!-- end Contact section -->
 </main>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+window.onload = function() {
+
+document.getElementById("reasonform").style.display = "none";
+
+};
+function reasonform(a) {
+  
+  if (a == 1) {
+    document.getElementById("reasonform").style.display = "block";
+  } else {
+    document.getElementById("reasonform").style.display = "none";
+  }
+    
+}
+   
+</script>
 {% endblock content %}
 
 {% block footer %}
