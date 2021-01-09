@@ -359,7 +359,7 @@ function validateEmail(email) {
                     0: function () {
                         $(applications).fadeOut();
                         $(tips).fadeOut();
-                        $(geekzapply).html('Your application’s on its way. Geekz admissions team will be in touch with you shortly. Good luck!');
+                        $(geekzapply).html('Your application’s on its wayy. Geekz admissions team will be in touch with you shortly. Good luck!');
                     },
                     200: function () {
                         $(applications).fadeOut();
