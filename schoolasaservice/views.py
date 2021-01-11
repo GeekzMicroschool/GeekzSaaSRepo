@@ -417,6 +417,7 @@ def profiling(request):
         else:
             return redirect('audition')
     return redirect('apply')
+    
 @login_required
 def saasaudition(request):
     if request.method == "POST":
@@ -551,22 +552,26 @@ def student_profileEdit(request):
 def schedule_admin(request):
     if request.method == "POST" :
         start_time = request.POST['start_time']
-        print(start_time)
+        print(type(start_time))
         end_time = request.POST['end_time']
         day = request.POST['day']
         time_duration = float(request.POST['duration'])
         start_datetime_object =  datetime.datetime.strptime(start_time, '%H:%M')
         end_datetime_object =  datetime.datetime.strptime(end_time, '%H:%M')
+        start_datetime_object = start_datetime_object.strftime("%I:%M %p")
+        end_datetime_object = end_datetime_object.strftime("%I:%M %p")
+        start_datetime_object =  datetime.datetime.strptime(start_datetime_object, '%I:%M %p')
+        end_datetime_object =  datetime.datetime.strptime(end_datetime_object, '%I:%M %p')
         #start_datetime_object = start_datetime_object.astimezone(timezone('Asia/Kolkata'))
         #end_datetime_object = end_datetime_object.astimezone(timezone('Asia/Kolkata'))
-        def time_slots(start_time, end_time,duration):
-            t = start_time
-            while t < end_time:
-                yield t.strftime('%H:%M')
+        def time_slots(start_datetime_object, end_datetime_object,duration):
+            t = start_datetime_object
+            while t < end_datetime_object:
+                yield t.strftime('%I:%M %p')
+                slot_obj = SLOTS_DAY(slot=t.strftime('%I:%M %p'),day=day,duration=time_duration,admin="admin")
                 t += datetime.timedelta(minutes=time_duration)
-                slot_obj = SLOTS_DAY(slot=t.strftime('%H:%M'),day=day,duration=time_duration,admin="admin")
                 slot_obj.save()
-                print(t.strftime('%H:%M'))
+                print(t.strftime('%I:%M %p'))
         print(list(time_slots(start_datetime_object, end_datetime_object,time_duration)))
         return render(request,'schedule_admin.html')
     slots_monday = SLOTS_DAY.objects.filter(day='Monday')
@@ -576,6 +581,7 @@ def schedule_admin(request):
     slots_friday = SLOTS_DAY.objects.filter(day='Friday')
     slots_saturday = SLOTS_DAY.objects.filter(day='Saturday')
     return render(request,'schedule_admin.html',{'slots_monday':slots_monday,'slots_tuesday':slots_tuesday,'slots_wednesday':slots_wednesday,'slots_thursday':slots_thursday,'slots_friday':slots_friday,'slots_saturday':slots_saturday}) 
+
 '''
 # view to create event and to write in google calendar and create google meet link
 def create_event(request):    
@@ -656,12 +662,12 @@ def saasappointment(request):
             print(datee)
             print(type(date_obj))
             print(type(qq.slot))
-            start = datetime.datetime.strptime(qq.slot, '%H:%M')
+            start = datetime.datetime.strptime(qq.slot, '%I:%M %p')
             end = start + datetime.timedelta(minutes=float(nn))
             start = start.strftime("%I:%M %p")
             end = end.strftime("%I:%M %p")
             start_time = date_obj + " "+ start_time 
-            start_time = datetime.datetime.strptime(start_time, '%Y-%m-%d %H:%M')
+            start_time = datetime.datetime.strptime(start_time, '%Y-%m-%d %I:%M %p')
             end_time = start_time + datetime.timedelta(minutes=float(nn))
             start_time = start_time.astimezone(timezone('Asia/Kolkata')) # time zone attached
             end_time = end_time.astimezone(timezone('Asia/Kolkata'))   # time zone attached
@@ -694,15 +700,14 @@ def saasappointment(request):
                     "reminders": {"useDefault": True},
                     "attendees":user.email,
 
-                        },conferenceDataVersion=1).execute() )
-                            
+                        },conferenceDataVersion=1).execute() )       
                     print("ee",event_cal) 
                     create_event.link = event_cal['hangoutLink'] ##  fetch google meet link from event_cal 
                     profiling_obj = MICRO_PROFILIN(uid = user_details.uid, IS_PROFILINGCOMPLETE='Y',USER = user.email , EVENT_ID = event_cal['id'],ICalUID=event_cal['iCalUID'],hangoutLink = create_event.link,START_TIME= event_cal['start']['dateTime'],END_TIME = event_cal['end']['dateTime'],HEADING= heading,slot= qq,schedule_date= schedule_date)
                     profiling_obj.save()
                     subject='Geekz SaaS Profiling Confirmation'
-                    html_template='socialaccount/email/SaaS_Profiling_Confirmation_Email.html'
-                    html_message=render_to_string(html_template,{'heading':heading})
+                    html_template='socialaccount/email/SaaS_profiling_copy.html'
+                    html_message=render_to_string(html_template,{'heading':heading,'link':create_event.link})
                     to_email= user.email
                     message=EmailMessage(subject, html_message, settings.EMAIL_HOST_USER, [to_email])
                     message.content_subtype='html'
@@ -732,6 +737,8 @@ def deletevent(request):
         MICRO_PROFILIN.objects.filter(uid = micro_prof.uid).delete()
         form = SlotCreationForm()
         return render(request,"profiling.html",{'form': form})
+
+
 # ajax view to get slots and populate in dropdown and reading calendar to filter slots
 def load_slots(request):
     print("fffffffffff")
@@ -774,7 +781,7 @@ def load_slots(request):
         #print(date_obj)
         date_obj = day + " "+ s.slot
         print(date_obj)
-        start_time = datetime.datetime.strptime(date_obj, '%Y-%m-%d %H:%M')
+        start_time = datetime.datetime.strptime(date_obj, '%Y-%m-%d %I:%M %p')
         start_time = start_time.astimezone(timezone('Asia/Kolkata'))
         print(start_time.isoformat())
         start_time = start_time.isoformat()

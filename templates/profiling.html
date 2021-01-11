@@ -91,6 +91,7 @@
                     .step.finish {
                         background-color: rgba(0,158,227, 0.78);
                     }
+                    input { margin-bottom: 10px; width:40px; }
                 </style>  
                 <div class="col-md-6 contact-form wow animated fadeInLeft">
                     <form action="saasappointment" id="slot_form" method="POST">
@@ -98,14 +99,11 @@
                         <div>
                            <h3><b>Profiling Information</b></h3>
                            <div class="input-field">
-                              {{form}}
+                            {% for field in form.visible_fields %}
+                             {{ field }}
+                            {% endfor %}
                          </div>
-                            <style>
-                                .form-control {
-                                    display: initial;
-                                }
-                            </style>  
-                             
+                            
                         </div>
                         <div>
                             <button type="submit" class="btn btn-blue btn-effect">SEND</button>

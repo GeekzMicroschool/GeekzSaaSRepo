@@ -17,8 +17,10 @@ class SlotCreationForm(forms.ModelForm):
   class Meta:
     model = MICRO_PROFILIN
     fields = ['schedule_date','slot']
+    max =  datetime.datetime.today() + datetime.timedelta(14)
     widgets = {
-      'schedule_date': DateInput(attrs={'class':'form-control','type': 'date'}, format='%Y-%m-%d'),} 
+      'schedule_date': DateInput(attrs={'class':'form-control','onfocus':"(this.type='date')",'placeholder':'Schedule Date','min':datetime.date.today() ,'max': max }, format='%Y-%m-%d'),
+      } 
    
   
   def __init__(self, *args, **kwargs):
