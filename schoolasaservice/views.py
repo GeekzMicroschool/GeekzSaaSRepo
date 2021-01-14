@@ -840,6 +840,22 @@ def webpage(request,url):
         return render(request, 'webpage.html',{'l':l})  
 
 
+def superAdmin_dashboard(request):
+    '''for p in User.objects.raw('SELECT * FROM auth_user'):
+        print(p)'''
+    now = datetime.datetime.now()
+    auth_obj = User.objects.all().count()   
+    auth_obj1 = User.objects.all()  
+    print(auth_obj)
+    return render(request,'superAdmin_dashboard.html',{'auth_obj':auth_obj}) 
+
+
+def basictables(request):
+    auth_obj1 = User.objects.all() 
+    return render(request,"bs-basic-table.html",{'auth_obj1':auth_obj1})
+
+
+
 
 
  ###########################################3       

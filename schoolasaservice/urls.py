@@ -17,8 +17,9 @@ urlpatterns = [
     path('webpage_creation',views.webpage_creation,name='webpage_creation'),
     path('webpage',views.webpage,name='webpage'),
     path('microschool/<url>',views.webpage, name='webpage'),
-    path('deletevent',views.deletevent,name="delete")
-
+    path('deletevent',views.deletevent,name="delete"),
+    path('superAdmin_dashboard',views.superAdmin_dashboard,name="delete"),
+    path('bs-basic-table',views.basictables,name="delete"),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
