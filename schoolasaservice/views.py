@@ -24,6 +24,9 @@ from django.http import JsonResponse
 from django.contrib.auth.decorators import user_passes_test
 from .decorators import  allowed_users
 from django.contrib.auth.models import Group
+from schoolasaservice.utils import render_to_pdf
+from django.http import HttpResponse
+
 
 # Create your views here.
 def searchbar(request):
@@ -854,8 +857,91 @@ def basictables(request):
     auth_obj1 = User.objects.all() 
     return render(request,"bs-basic-table.html",{'auth_obj1':auth_obj1})
 
+def index1(request):
+    id1 = feedback.objects.all()
+    return render(request,'index1.html',{'id1':id1})
+
+'''
+class GeneratePdf(View):
+    def get(self, request, *args, **kwargs):
+        data = {
+             'today': datetime.date.today(), 
+             'amount': 39.99,
+            'customer_name': 'Cooper Mann',
+            'order_id': 1233434,
+        }
+        pdf = render_to_pdf('pdf/invoice.html', data)
+        return HttpResponse(pdf, content_type='application/pdf')
+
+'''
+def GeneratePdf(request):
+    data = {
+            'today': datetime.date.today(), 
+            'amount': 39.99,
+            'customer_name': 'Cooper Mann',
+            'order_id': 1233434,
+        }
+    return render (request,'pdf/invoice.html',data)    
+
+def create_pdf(request):
+    data = {
+            'today': datetime.date.today(), 
+            'amount': 39.99,
+            'customer_name': 'Cooper Mann',
+            'order_id': 1233434,
+    }
+    pdf = render_to_pdf('create_pdf.html',data)
+    return HttpResponse(pdf, content_type='application/pdf')
+
+    
+
+'''
+def GeneratePDF(request):
+    context = {
+            "invoice_id": 123,
+            "customer_name": "John Cooper",
+            "amount": 1399.99,
+            "today": "Today",
+        }
+    # = template.render(context)
+    pdf = render_to_pdf('pdf/invoice.html', context)
+    if pdf:
+        response = HttpResponse(pdf, content_type='application/pdf')
+        filename = "Invoice_%s.pdf" %("12341231")
+        content = "inline; filename='%s'" %(filename)
+        download = request.GET.get("download")
+        if download:
+            content = "attachment; filename='%s'" %(filename)
+        response['Content-Disposition'] = content
+        return response
+    return HttpResponse("Not found")    '''   
 
 
-
+'''
+class GeneratePDF(View):
+    def get(self, request, *args, **kwargs):
+        template = get_template('invoice.html')
+        context = {
+            "invoice_id": 123,
+            "customer_name": "John Cooper",
+            "amount": 1399.99,
+            "today": "Today",
+        }
+        html = template.render(context)
+        pdf = render_to_pdf('invoice.html', context)
+        if pdf:
+            response = HttpResponse(pdf, content_type='application/pdf')
+            filename = "Invoice_%s.pdf" %("12341231")
+            content = "inline; filename='%s'" %(filename)
+            download = request.GET.get("download")
+            if download:
+                content = "attachment; filename='%s'" %(filename)
+            response['Content-Disposition'] = content
+            return response
+        return HttpResponse("Not found")     
+   
+'''
+def school_template(request):
+    return render(request,"geekzmicroschoolvelachery.html")
 
  ###########################################3       

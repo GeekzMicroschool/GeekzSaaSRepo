@@ -20,6 +20,11 @@ urlpatterns = [
     path('deletevent',views.deletevent,name="delete"),
     path('superAdmin_dashboard',views.superAdmin_dashboard,name="delete"),
     path('bs-basic-table',views.basictables,name="delete"),
+    path('invoice',views.GeneratePdf,name="generatepdf"),
+    path('create_pdf',views.create_pdf,name="create_pdf"),
+    path('index1',views.index1,name="index1"),
+    path('geekzmicro',views.school_template,name="geekzmicro"),
+
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

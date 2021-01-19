@@ -174,5 +174,38 @@ class RESCHEDULE_REASON(models.Model):
     uid =  models.CharField(max_length=50, primary_key=True)
     reason = models.CharField(max_length=10000)  
 
+class feedback(models.Model):
+    name = models.CharField(max_length=250)  
+    feedback = models.CharField(max_length=700) 
+
+
+class INDIVIDUAL_WEBPAGE(models.Model):
+    SCHOOL_NAME = models.CharField(max_length=250)   
+    LOCALITY = models.CharField(max_length=250) 
+    AMENITIES = models.CharField(max_length=800)
+    BANNER1 = models.ImageField(upload_to='media/',blank=True , null=True)
+    BANNER2 = models.ImageField(upload_to='media/',blank=True , null=True)
+    BANNER3 =  models.ImageField(upload_to='media/',blank=True , null=True)
+    BANNER4 = models.ImageField(upload_to='media/',blank=True , null=True)
+    GOOGLE_REVIEWS_LINK = models.URLField(max_length=300)
+    FOUNDER_NAME = models.CharField(max_length=250) 
+    DESIGNATION = models.CharField(max_length=250) 
+    CO_FOUNDER1 = models.CharField(max_length=250) 
+    DESIGNATION_CO1 = models.CharField(max_length=250) 
+    CO_FOUNDER2 = models.CharField(max_length=250) 
+    DESIGNATION_CO2 = models.CharField(max_length=250) 
+    CONTENT1 = models.CharField(max_length=1000) 
+    CONTENT2 = models.CharField(max_length=1000)
+    CONTENT3 = models.CharField(max_length=1000)
+    ADDRESS1 = models.CharField(max_length=400)
+    ADDRESS2 = models.CharField(max_length=400)
+    SCHOOL_LOCALITY = models.CharField(max_length=400)
+    SCHOOL_PHONE = models.BigIntegerField()
+    SCHOOL_PHONE1 = models.BigIntegerField()
+    SCHOOL_EMAIL = models.EmailField(max_length=254)
+
+
+     
+
 ######################################################################################3
 
