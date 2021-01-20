@@ -179,10 +179,20 @@ class feedback(models.Model):
     feedback = models.CharField(max_length=700) 
 
 
-class INDIVIDUAL_WEBPAGE(models.Model):
+class INDIVIDUAL_WEBPAGEE(models.Model):
+    uid = models.CharField(max_length=50, primary_key=True)
     SCHOOL_NAME = models.CharField(max_length=250)   
     LOCALITY = models.CharField(max_length=250) 
-    AMENITIES = models.CharField(max_length=800)
+    AMENITIES_is_Spacious_Studio = models.CharField(max_length=1, default="N")
+    AMENITIES_is_Outdoor_PlayLawn = models.CharField(max_length=1, default="N")
+    AMENITIES_is_Commute = models.CharField(max_length=1, default="N")
+    AMENITIES_is_WiFi = models.CharField(max_length=1, default="N")
+    AMENITIES_is_CCTV = models.CharField(max_length=1, default="N")
+    AMENITIES_is_Device = models.CharField(max_length=1, default="N")
+    AMENITIES_is_Food = models.CharField(max_length=1, default="N")
+    AMENITIES_is_Daycare = models.CharField(max_length=1, default="N")
+    AMENITIES_is_After_School = models.CharField(max_length=1, default="N")
+    AMENITIES_is_Residential = models.CharField(max_length=1, default="N")
     BANNER1 = models.ImageField(upload_to='media/',blank=True , null=True)
     BANNER2 = models.ImageField(upload_to='media/',blank=True , null=True)
     BANNER3 =  models.ImageField(upload_to='media/',blank=True , null=True)
@@ -203,6 +213,8 @@ class INDIVIDUAL_WEBPAGE(models.Model):
     SCHOOL_PHONE = models.BigIntegerField()
     SCHOOL_PHONE1 = models.BigIntegerField()
     SCHOOL_EMAIL = models.EmailField(max_length=254)
+    SCHOOL_HOURS_KS = models.CharField(max_length=250) 
+    SCHOOL_HOURS_ES = models.CharField(max_length=250) 
 
 
      

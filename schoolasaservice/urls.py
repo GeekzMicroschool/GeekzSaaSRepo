@@ -16,7 +16,7 @@ urlpatterns = [
     path('web_form',views.web_form,name='web_form'),
     path('webpage_creation',views.webpage_creation,name='webpage_creation'),
     path('webpage',views.webpage,name='webpage'),
-    path('microschool/<url>',views.webpage, name='webpage'),
+    path('microschool/<LOCALITY>',views.webpage, name='webpage'),
     path('deletevent',views.deletevent,name="delete"),
     path('superAdmin_dashboard',views.superAdmin_dashboard,name="delete"),
     path('bs-basic-table',views.basictables,name="delete"),
@@ -24,6 +24,7 @@ urlpatterns = [
     path('create_pdf',views.create_pdf,name="create_pdf"),
     path('index1',views.index1,name="index1"),
     path('geekzmicro',views.school_template,name="geekzmicro"),
+    path('webb',views.form,name="form")
 
 ]
 if settings.DEBUG:

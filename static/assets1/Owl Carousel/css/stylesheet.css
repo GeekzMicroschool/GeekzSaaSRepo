@@ -1,0 +1,60 @@
+/* Import Stylesheet */
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+@import url('all.css');
+@import url('owl.carousel.min.css');
+@import url('owl.theme.default.css');
+
+
+/*Default Css*/
+/*body {
+    font-family: 'Open Sans', sans-serif;
+    color: #fff;
+    font-size: 14px;
+    margin:11% 3%;
+    padding: 0;
+    text-align: center;
+    line-height: 20px;
+    background-image: radial-gradient(circle, #04dada, #00d0d2, #00c5ca, #00bbc1, #00b1b9);
+    }*/
+
+    .owl-carousel .item{
+        background: #fff;
+        text-align: left;
+        color: #666;
+        border-radius: 3px;
+        margin: 10px;
+    }
+    .owl-carousel .item .testimonials{
+        padding: 20px;
+    }
+    .owl-carousel .item .testimonials img{
+        display: block;
+        width: auto;
+    }
+    .owl-carousel .item .testimonials p{
+        font-style: italic;
+        color: #666;
+    }
+    .owl-carousel .item .designation{
+        position: relative;
+         background: #00B1B9;
+         color: #fff;
+         padding: 20px;
+    }
+    .owl-carousel .item .designation .fa-quote-left{
+        position: absolute;
+        top: -30px;
+        right: 25px;
+        font-size: 20px;
+        background: #fff;
+        color: #00B1B9;
+        padding: 20px;
+        border-radius: 50px;
+        box-shadow: 0px 3px 6px #00000059;
+    }
+    .owl-carousel .item .designation h3{
+        margin: 0 0 2px 0;
+    }
+    .owl-carousel .item .designation span{
+        font-size: 12px;
+    }

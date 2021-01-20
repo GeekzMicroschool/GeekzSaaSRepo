@@ -1,0 +1,232 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<main class="site-content" role="main">
+  <section id="contact" >
+    <div class="container">
+      <div class="sec-title text-center wow animated fadeInDown">
+        <span>&nbsp;</span><p>&nbsp;</p>
+        <h2>START YOUR GEEKZ JOURNEY!</h2>
+        <p id="geekzapply">Get affiliated. Welcome your first geek.</p>
+    </div>
+        <div class="row">
+            <div class="col-md-12 contact-form wow animated fadeInLeft">
+                
+                <form id="inquiry"  method="post" enctype="multipart/form-data"> {% csrf_token %}
+                    <div class="input-field">
+                        <input type="text" id="schoolname" name="schoolname" class="form-control" placeholder="Your School Name..." required>
+                    </div>
+                    <div class="input-field">
+                      <input type="text" id="locality" name="locality" class="form-control" placeholder="Locality" required>
+                    </div>
+                    <div class="input-field">
+                      <input type="text" id ="checkboxes" class="form-control" placeholder="Select Ameneties....">
+                    </div>
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-md-4">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <label>
+                                <input type="checkbox" onchange="showAdd();" name ="Spacious_Studio" value='Y'>&nbsp;Spacious Studio
+                                <input type="text" id ="is_Spacious_Studio" name ="is_Spacious_Studio" value="N">
+                            </label>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-12">
+                              <label>
+                                <input type="checkbox" name ="Outdoor_PlayLawn" value='Y'>&nbsp;Outdoor Play & Lawn
+                                <input type="text" id ="is_Outdoor_PlayLawn" name ="is_Outdoor_PlayLawn" value="N" >
+                            </label>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-12">
+                              <label>
+                                <input type="checkbox" name ="Commute" value='Y'>&nbsp;Commute
+                                <input type="text" id ="is_Commute " name ="is_Commute" value="N" >
+                            </label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <label>
+                                <input type="checkbox" name ="WiFi" value='Y'>&nbsp;WiFi
+                                <input type="text" id ="is_WiFi" name ="is_WiFi" value="N">
+                            </label>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-12">
+                              <label>
+                                <input type="checkbox" name ="Device" value='Y'>&nbsp;Device
+                                <input type="text" id ="is_Device" name ="is_Device" value="N" >
+                            </label>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-12">
+                              <label>
+                                <input type="checkbox" name ="is_Food" value='Y'>&nbsp;Food
+                                <input type="text" id ="is_Food" name ="is_Food" value="N">
+                            </label>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-12">
+                              <label>
+                                <input type="checkbox" name ="CCTV" value='Y'>&nbsp;CCTV
+                                <input type="text" id ="is_CCTV" name ="is_CCTV" value="N" >
+                            </label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <label>
+                                <input type="checkbox" name ="Daycare" value='Y'>&nbsp;Daycare
+                                <input type="text" id ="is_Daycare" name ="is_Daycare" value="N" >
+                            </label>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-12">
+                              <label>
+                                <input type="checkbox" name ="After_School" value='Y'>&nbsp;After School
+                                <input type="text" id ="is_After_School " name ="is_After_School" value="N" >
+                            </label>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-12">
+                              <label>
+                                <input type="checkbox" name ="Residential" value='Y'>&nbsp;Residential
+                                <input type="text" id ="is_Residential" name ="is_Residential" value="N" >
+                            </label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <script>
+                     
+                      function showAdd(){
+                              document.getElementById('is_Spacious_Studio').value="Y";
+                              
+                      }
+                    </script>
+
+                    
+                    <div class="input-field">
+                        <input type="email" id="Email" name="email" class="form-control" placeholder="Your Email..." required>                  
+                    </div>
+                    <div class="input-field">
+                      <input type="text" name="banner1" id="banner1" class="form-control" onfocus="(this.type='file')"  placeholder="Banner1">
+                    </div>
+                    <div class="input-field">
+                      <input type="text" name="banner2" id="banner2" class="form-control" onfocus="(this.type='file')"  placeholder="Banner2">
+                    </div>
+                    <div class="input-field">
+                      <input type="text" name="banner3" id="banner3" class="form-control" onfocus="(this.type='file')"  placeholder="Banner3">
+                    </div>
+                    <div class="input-field">
+                      <input type="text" name="banner4" id="banner4" class="form-control" onfocus="(this.type='file')"  placeholder="Banner4">
+                    </div>
+                    <div class="input-field">
+                        <input type="number" id="phone" name="phone" class="form-control" placeholder="Your Phone..." required>
+                    </div>
+                    <div class="input-field">
+                      <input type="number" id="phone1" name="phone1" class="form-control" placeholder="Your Second Phone..." required>
+                  </div>
+                    <div class="input-field">
+                        <input type="url" id="googlereview" name="googlereview" class="form-control" placeholder="Enter your google review link..." required>
+                    </div>
+                    <div class="input-field">
+                      <input type="text" id="founder_name1" name="founder_name1" class="form-control" placeholder="Founder name" required>
+                    </div>
+                    <div class="input-field">
+                        <textarea id="about_founder1" name="about_founder1" class="form-control" placeholder="Messages..." required></textarea>
+                    </div>
+                    <div class="input-field">
+                      <input type="text" id="founder_designation" name="founder_designation" class="form-control" placeholder="Founder designation" required>
+                    </div>
+
+                    <div class="input-field">
+                      <input type="text" id="founder_name2" name="founder_name2" class="form-control" placeholder="Co-Founder name" required>
+                    </div>
+                    <div class="input-field">
+                        <textarea id="about_founder2" name="about_founder2" class="form-control" placeholder="Messages..." required></textarea>
+                    </div>
+                    <div class="input-field">
+                      <input type="text" id="founder_designation1" name="founder_designation1" class="form-control" placeholder="Co-Founder designation" required>
+                    </div>
+                    <div class="input-field">
+                      <input type="text" id="address1" name="address1" class="form-control" placeholder="Address..." required>
+                    </div>
+                    <div class="input-field">
+                      <input type="text" id="address2" name="address2" class="form-control" placeholder="Address..." required>
+                    </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+                    <div class="form-group">
+                      <input type="text" class="form-control" name="SchoolArea" id="SchoolArea" placeholder="School Locality...." />
+                      <input type="hidden" name="loc_lat"  id="loc_lat" />
+                      <input type="hidden" name="loc_long" id="loc_long" />
+                    </div>
+<!-- Remove powered by gogle -->
+<style>
+    .pac-container:after{
+        background-image: none!important;
+        height:0px;
+    }
+</style>
+
+<!-- google map places api js -->
+<script>
+  var searchInput = 'SchoolArea';
+
+$(document).ready(function () {
+    var autocomplete;
+    autocomplete = new google.maps.places.Autocomplete((document.getElementById(searchInput)), {
+        types: ['geocode'],
+    });
+	
+    google.maps.event.addListener(autocomplete, 'place_changed', function () {
+        var near_place = autocomplete.getPlace();
+        var lat =  document.getElementById('loc_lat').value = near_place.geometry.location.lat();
+        var long = document.getElementById('loc_long').value = near_place.geometry.location.lng();
+	    document.getElementById("loc_lat").defaultValue=float(lat);
+        document.getElementById("loc_long").defaultValue=float(long);
+		
+        document.getElementById('latitude_view').innerHTML = near_place.geometry.location.lat();
+        document.getElementById('longitude_view').innerHTML = near_place.geometry.location.lng();
+    });
+});
+$(document).on('change', '#'+searchInput, function () {
+    document.getElementById('latitude_input').value = '';
+    document.getElementById('longitude_input').value = '';
+	
+    document.getElementById('latitude_view').innerHTML = '';
+    document.getElementById('longitude_view').innerHTML = '';
+});
+</script>	
+                      <div class="input-field">
+                        <input type="text" id="time" name="time" class="form-control" placeholder="KS School Hours..." onfocus="(this.type='time')" required>
+                      </div>
+                      <div class="input-field">
+                        <input type="text" id="time1" name="time1" class="form-control" placeholder="ES School Hours ..." onfocus="(this.type='time')" required>
+                      </div>
+                      <button type="submit" id="submit" class="btn btn-blue btn-effect">Send</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+</main>
+{% endblock content %}
+

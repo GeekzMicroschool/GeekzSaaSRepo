@@ -44,6 +44,7 @@ class SlotCreationForm(forms.ModelForm):
  # def __init__(self, *args, **kwargs):
   #   super().__init__(*args, **kwargs)
    #  self.fields['slot'].queryset = slots_day1.objects.none()'''
-           
+
+
           
           
