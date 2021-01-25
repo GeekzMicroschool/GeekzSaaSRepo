@@ -269,8 +269,10 @@ function init() {
     var map = new google.maps.Map(mapElement, mapOptions);
 
     // Let's also add a marker while we're at it
+    LAT = document.getElementById('loc_lat')
+    LONG = document.getElementById('loc_long')
     var marker = new google.maps.Marker({
-        position: new google.maps.LatLng(31.287104,75.57533819999999),
+        position: new google.maps.LatLng(LAT,LONG),
         map: map,
     });
 }

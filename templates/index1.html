@@ -12,6 +12,7 @@
    <!-- <a href="#portfolio" class="btn btn-blue btn-effect">Gala</a> -->
     <!--Day At geekz Video -->
     <br><br><br>
+    <link href="assets/img/favicon.png" rel="icon">
     <a href="/schoolasaservice" class ="btn btn-blue btn-effect buttongeekzhome">School as a Service</a><br><br>
     
     <a href="/homeschool" class ="btn btn-blue btn-effect buttongeekzhome">Homeschool</a><br><br>
@@ -26,97 +27,6 @@
         </div>
 
 </div>
-    
-<style>
-
-.section {
-  position: relative;
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-
-.section .contents_header {
-  text-align: center;
-  font-size: 6rem;
-  font-family: "Cookie";
-  padding: 20px;
-  margin: 15px;
-  z-index: 1;
-  opacity: 0.7;
-}
-
-    video {
-  object-fit: cover;
-  width:100%;
-  min-height:100%;
-}
-
-
-.video-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-}
-
-.container h1{
-    padding:60x 0;
-    color:black;
-    font-size:44x;
-    text-align:center;   
-}
-
-
-.feature-img{
-    margin:auto;
-    position:relative;
-    border-radius:6px;
-    overflow:hidden;  
-}
-.small-img-row{
-    display:flex;
-   
-    align-items:center;
-    border-radius: 6px;
-    overflow:hidden;
-       
-}
-.small-img{
-    position:relative;
-} 
-.profile
-    {
-      text-align:justify;
-      width:290px;
-      float:left;
-      margin:10px;
-      padding-bottom: 10px;
-      border-style:solid;
-      border-color:white;
-     }
-
-      
-
-     
-      
-blockquote:first-letter {
-    text-transform: uppercase;
-}
-     
-
-
-      .testimonials
-    {
-       margin: 50px auto;
-    }
-
-
-</style>
-
 <div class="container">
     <br>
     <div class="sec-title text-center wow animated fadeInDown">
@@ -158,6 +68,60 @@ blockquote:first-letter {
 
 </div>
 </div>
+    
+<style>
+
+.section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.section .contents_header {
+  text-align: center;
+  font-size: 6rem;
+  padding: 20px;
+  margin: 15px;
+  z-index: 1;
+  opacity: 0.7;
+}
+
+    video {
+  object-fit: cover;
+  width:100%;
+  min-height:100%;
+}
+
+
+.video-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.container h1{
+    padding:60x 0;
+    color:black;
+    font-size:44x;
+    text-align:center;   
+}
+
+
+.feature-img{
+    
+    border-radius:6px;
+    
+}
+
+
+</style>
+
+
 <section id="about" >
     <!--				<div class="container">-->
     <!--					<div class="row">-->
@@ -610,5 +574,18 @@ blockquote:first-letter {
                 </div>
             </dsiv>
         </section>
+            <!-- jQuery -->
+		<script src="{% static 'assets/js/jquery.min.js' %}"></script>
+		
+		<!-- Bootstrap Core JS -->
+		<script src="{% static 'assets/js/popper.min.js' %}"></script>
+		<script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+		
+		<!-- Sticky Sidebar JS -->
+        <script src="{% static 'assets/plugins/theia-sticky-sidebar/ResizeSensor.js' %}"></script>
+        <script src="{% static 'assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js' %}"></script>
+		
+		<!-- Custom JS -->
+		<script src="{% static 'assets/js/script.js"></script>
    
 {% endblock %}

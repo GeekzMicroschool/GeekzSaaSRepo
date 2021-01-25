@@ -22,7 +22,13 @@
 		================================================== -->
 		
 		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
+	
 		
+		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+			<script src="assets/js/html5shiv.min.js"></script>
+			<script src="assets/js/respond.min.js"></script>
+		<![endif]-->
 		<!-- Fontawesome Icon font -->
         <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
 		<!-- bootstrap.min -->
@@ -65,7 +71,9 @@
         <!--
         Fixed Navigation
         ==================================== -->
-        {% for m in l %}
+		{% for m in l %}
+		<input type="hidden" name="loc_lat" value="{{m.LATITUDE}}" id="loc_lat" />
+        <input type="hidden" name="loc_long" value="{{m.LONGITUDE}}" id="loc_long" />
         <header id="navigation" class="navbar-inverse navbar-fixed-top animated-header">
             <table style="width:100%" align="center"><td width="80%">
             <div class="container" style="width:80%">
@@ -152,18 +160,18 @@
                 <!-- Wrapper for slides -->
                 <div class="carousel-inner">
                   <div class="item active">
-                    <img src="/schoolasaservice/media/{{m.BANNER1}}" alt="Los Angeles" style="width:100%;">
+                    <img src="/schoolasaservice/media/{{m.BANNER1}}" alt="Los Angeles" style="width:100%;background: rgba(0, 0, 0, 0.5);">
                   </div>
             
                   <div class="item">
-                    <img src="/schoolasaservice/media/{{m.BANNER2}}" alt="Chicago" style="width:100%;">
+                    <img src="/schoolasaservice/media/{{m.BANNER2}}" alt="Chicago" style="width:100%;background: rgba(0, 0, 0, 0.5);">
                   </div>
                 
                   <div class="item">
-                    <img src="/schoolasaservice/media/{{m.BANNER3}}" alt="New york" style="width:100%;">
+                    <img src="/schoolasaservice/media/{{m.BANNER3}}" alt="New york" style="width:100%;background: rgba(0, 0, 0, 0.5);">
                   </div>
                   <div class="item">
-                    <img src="/schoolasaservice/media/{{m.BANNER4}}" alt="New york" style="width:100%;">
+                    <img src="/schoolasaservice/media/{{m.BANNER4}}" alt="New york" style="width:100%;background: rgba(0, 0, 0, 0.5);">
                   </div>
                 </div>
             
@@ -182,7 +190,7 @@
                             <div class="caption-content">
                                 <h2 class="animated fadeInDown"><b style="color:#FF0000">Geekz </b>Microschool</h2>
                                 <span class="animated fadeInDown">Your School |<b style="color:#FF0000"> To Learn Life At Your Own Pace</b></span>
-                                <a href="#contact" class="btn btn-blue btn-effect">Velachery</a>
+                                <a href="#contact" class="btn btn-blue btn-effect">{{m.LOCALITY}}</a>
                             </div>
             </div>
 						
@@ -707,8 +715,8 @@
 		
 					</div>
 				</div>
-			</section>
-
+      </section>
+     
 			<!-- end Price section -->
 			
             <!-- Founder section -->
@@ -877,13 +885,29 @@
 				</div>
 			</section>
 			<!-- end Social section -->
-			
+			<script>
+				function Validate() {
+						var ddlFruits = document.getElementById("HSGrade");
+						var ddlFruits = document.getElementById("HSBranding");
+						if (ddlFruits.value == "Enrolling Grade...") {
+							//If the "Please Select" option is selected display error.
+							document.getElementById("errmsgltb").style.display = "block";
+							return false;
+						}
+						if (ddlFruits.value == "How Did You Hear About Geekz...") {
+							//If the "Please Select" option is selected display error.
+							document.getElementById("errmsgltb1").style.display = "block";
+							return false;
+						}
+						return true;
+					}
+			</script>
             
 			<!-- Apply & Contact section -->
 			<section id="contact" >
 				<div class="container">
 					<div class="row">
-						
+		
 						<div class="sec-title text-center wow animated fadeInDown">
 							<h2>Start Your Geekz Journey!</h2>
 							<p>Together let us reimagine education!</p>
@@ -891,14 +915,12 @@
 				
 						<div class="col-md-7 contact-form wow animated fadeInLeft">
                             <p id="geekzhomeschool"></p>
-							<form id="homeschool" action="javascript:postHomeschoolToGoogle()" method="post">
+							<form id="homeschool"  method="post">{% csrf_token %}
                                 <h3><b>Student Information</b></h3>
 								<div class="input-field">
 									<input type="text" id="HSFullName" class="form-control" placeholder="Your Name..." required>
 								</div>
-                                <div class="input-field">
-									<input type="text" id="HSDOB" class="form-control" placeholder="Date of Birth..." onfocus="(this.type='date')" required>
-								</div>
+                                
                                 <div class="input-field">
 									<select id="HSGrade" class="form-control" required>
                                         <option selected disabled>Enrolling Grade...</option>
@@ -910,19 +932,12 @@
                                         <option>3rd Grade</option>
                                         <option>4th Grade</option>
                                         <option>5th Grade</option>
-                                    </select>
+									</select>
+									<div style="display: none;" id="errmsgltb">
+										<p style="color: red; font-size:10px;">Please select an item in the list.</p>
+									</div>
 								</div>
-                                <br>
-                                <h3><b>Parent Information</b></h3>
-                                <div class="input-field">
-									<input type="text" id="HSParentName" class="form-control" placeholder="Parent Name..." required>
-								</div>
-                                <div class="input-field">
-									<input type="text" id="HSOccupation" class="form-control" placeholder="Occupation..." required>
-								</div>
-                                <div class="input-field">
-									<input type="url" id="HSFB" class="form-control" placeholder="Facebook/LinkedIn..." required>
-                            	</div>
+                                
                                 <div class="input-field">
 									<input type="email" id="HSEmail" class="form-control" placeholder="Email..." required>
 								</div>
@@ -942,24 +957,25 @@
                                         <option>Web Search</option>
                                         <option>Print Ad</option>
                                         <option>News Article</option>
-                                    </select>
+									</select>
+									<div style="display: none;" id="errmsgltb1">
+										<p style="color: red; font-size:10px;">Please select an item in the list.</p>
+									</div>
 								</div>
-						       	<div class="input-field">
-									<textarea id="HSAddress" class="form-control" placeholder="Address (Street, City, State, Zipcode)..." required></textarea>
-								</div>
-								<button type="submit" id="submit" class="btn btn-blue btn-effect">Send</button>
+						       	
+								<button type="submit" id="submit" value="Validate" onclick="return Validate()" class="btn btn-blue btn-effect">Send</button>
 							</form>
 						</div>
-						
+					
 						<div class="col-md-5 wow animated fadeInRight">
 							<address class="contact-details">
 								<h3>Contact Us</h3>						
 <!--								<p><i class="fa fa-pencil"></i>Phoenix Inc.<span>PO Box 345678</span> <span>Little Lonsdale St, Melbourne </span><span>Australia</span></p><br>-->
                                 <p><i class="fa fa-pencil"></i>Door No 21 Plot No 196<span>4th Street Murugu Nagar</span><span>Velachery Chennai</span></p><br>
-								<p><i class="fa fa-phone"></i>{{m.SCHOOL_PHONE}}<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{m.SCHOOL_PHONE1}}</span></p>
-								<p><i class="fa fa-envelope"></i>{{m.email}}</p>
+								<p><i class="fa fa-phone"></i>{{m.SCHOOL_PHONE}}<span>&nbsp;{{m.SCHOOL_PHONE1}}</span></p>
+								<p><i class="fa fa-envelope"></i>{{m.SCHOOL_EMAIL}}</p>
                                 <br>
-                                <p><i class="fa fa-clock-o"></i>KS: 09:30 AM to 12:30 PM<span>ES: 09:30 AM to 03:00 PM</span></p>
+                                <p><i class="fa fa-clock-o"></i>{{m.SCHOOL_HOURS_KS}}<span>{{m.SCHOOL_HOURS_ES}}</span></p>
 							</address>
 						</div>
 			
@@ -1021,5 +1037,6 @@
         <script src="{% static 'js/wow.min.js' %}"></script>
 		<!-- Custom Functions -->
         <script src="{% static 'js/main.js' %}"></script>
+    
     </body>
 </html>

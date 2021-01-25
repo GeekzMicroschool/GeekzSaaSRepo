@@ -10,6 +10,11 @@
         <h2>START YOUR GEEKZ JOURNEY!</h2>
         <p id="geekzapply">Get affiliated. Welcome your first geek.</p>
     </div>
+    {% if webform_done == 'done' %}
+					<div class="sec-title text-center wow animated fadeInDown">
+						<p>Your message on its way. Geekz support team will be in touch with you shortly. <br />Good luck!'</p>
+          </div>
+          {% else %}
         <div class="row">
             <div class="col-md-12 contact-form wow animated fadeInLeft">
                 
@@ -21,16 +26,16 @@
                       <input type="text" id="locality" name="locality" class="form-control" placeholder="Locality" required>
                     </div>
                     <div class="input-field">
-                      <input type="text" id ="checkboxes" class="form-control" placeholder="Select Ameneties....">
+                      <input type="text" readonly id ="checkboxes" class="form-control" placeholder="Select Ameneties....">
                     </div>
-                    <div class="container">
+                    <div class="container" id="check">
                       <div class="row">
                         <div class="col-md-4">
                           <div class="row">
                             <div class="col-md-12">
                               <label>
                                 <input type="checkbox" onchange="showAdd();" name ="Spacious_Studio" value='Y'>&nbsp;Spacious Studio
-                                <input type="text" id ="is_Spacious_Studio" name ="is_Spacious_Studio" value="N">
+                                <input type="hidden" id ="is_Spacious_Studio" name ="is_Spacious_Studio" value="N">
                             </label>
                             </div>
                           </div>
@@ -38,7 +43,7 @@
                             <div class="col-md-12">
                               <label>
                                 <input type="checkbox" onchange="showAdd1();" name ="Outdoor_PlayLawn" value='Y'>&nbsp;Outdoor Play & Lawn
-                                <input type="text" id ="is_Outdoor_PlayLawn" name ="is_Outdoor_PlayLawn" value="N" >
+                                <input type="hidden" id ="is_Outdoor_PlayLawn" name ="is_Outdoor_PlayLawn" value="N" >
                             </label>
                             </div>
                           </div>
@@ -46,7 +51,7 @@
                             <div class="col-md-12">
                               <label>
                                 <input type="checkbox" onchange="showAdd2();" name ="Commute" value='Y'>&nbsp;Commute
-                                <input type="text" id ="is_Commute" name ="is_Commute" value="N" >
+                                <input type="hidden" id ="is_Commute" name ="is_Commute" value="N" >
                             </label>
                             </div>
                           </div>
@@ -56,7 +61,7 @@
                             <div class="col-md-12">
                               <label>
                                 <input type="checkbox" onchange="showAdd3();" name ="WiFi" value='Y'>&nbsp;WiFi
-                                <input type="text" id ="is_WiFi" name ="is_WiFi" value="N">
+                                <input type="hidden" id ="is_WiFi" name ="is_WiFi" value="N">
                             </label>
                             </div>
                           </div>
@@ -64,7 +69,7 @@
                             <div class="col-md-12">
                               <label>
                                 <input type="checkbox" onchange="showAdd4();" name ="Device" value='Y'>&nbsp;Device
-                                <input type="text" id ="is_Device" name ="is_Device" value="N" >
+                                <input type="hidden" id ="is_Device" name ="is_Device" value="N" >
                             </label>
                             </div>
                           </div>
@@ -72,7 +77,7 @@
                             <div class="col-md-12">
                               <label>
                                 <input type="checkbox" onchange="showAdd5();" name ="Food" value='Y'>&nbsp;Food
-                                <input type="text" id ="is_Food" name ="is_Food" value="N">
+                                <input type="hidden" id ="is_Food" name ="is_Food" value="N">
                             </label>
                             </div>
                           </div>
@@ -80,7 +85,7 @@
                             <div class="col-md-12">
                               <label>
                                 <input type="checkbox" onchange="showAdd6();" name ="CCTV" value='Y'>&nbsp;CCTV
-                                <input type="text" id ="is_CCTV" name ="is_CCTV" value="N" >
+                                <input type="hidden" id ="is_CCTV" name ="is_CCTV" value="N" >
                             </label>
                             </div>
                           </div>
@@ -90,7 +95,7 @@
                             <div class="col-md-12">
                               <label>
                                 <input type="checkbox" onchange="showAdd7();" name ="Daycare" value='Y'>&nbsp;Daycare
-                                <input type="text" id ="is_Daycare" name ="is_Daycare" value="N" >
+                                <input type="hidden" id ="is_Daycare" name ="is_Daycare" value="N" >
                             </label>
                             </div>
                           </div>
@@ -98,7 +103,7 @@
                             <div class="col-md-12">
                               <label>
                                 <input type="checkbox" onchange="showAdd8();" name ="After_School" value='Y'>&nbsp;After School
-                                <input type="text" id ="is_After_School" name ="is_After_School" value="N" >
+                                <input type="hidden" id ="is_After_School" name ="is_After_School" value="N" >
                             </label>
                             </div>
                           </div>
@@ -106,7 +111,7 @@
                             <div class="col-md-12">
                               <label>
                                 <input type="checkbox" onchange="showAdd9();"  name ="Residential" value='Y'>&nbsp;Residential
-                                <input type="text" id ="is_Residential" name ="is_Residential" value="N" >
+                                <input type="hidden" id ="is_Residential" name ="is_Residential" value="N" >
                             </label>
                             </div>
                           </div>
@@ -155,6 +160,15 @@
                               document.getElementById('is_Residential').value="Y";
                               
                       }
+                      function ValidateSize(file) {
+                        var FileSize = file.files[0].size / 1024 / 1024; // in MiB
+                        if (FileSize > 2) {
+                            alert('File size exceeds 2 MiB');
+                          // $(file).val(''); //for clearing with Jquery
+                        } else {
+
+                        }
+                      }
                     </script>
 
                     
@@ -162,7 +176,7 @@
                         <input type="email" id="Email" name="email" class="form-control" placeholder="Your Email..." required>                  
                     </div>
                     <div class="input-field">
-                      <input type="text" name="banner1" id="banner1" class="form-control" onfocus="(this.type='file')"  placeholder="Banner1">
+                      <input type="text" name="banner1" id="banner1" accept=".jpg,.jpeg" class="form-control" onfocus="(this.type='file')" onchange="ValidateSize(this)" placeholder="Banner1">
                     </div>
                     <div class="input-field">
                       <input type="text" name="banner2" id="banner2" class="form-control" onfocus="(this.type='file')"  placeholder="Banner2">
@@ -251,16 +265,28 @@ $(document).on('change', '#'+searchInput, function () {
     document.getElementById('longitude_view').innerHTML = '';
 });
 </script>	
-                      <div class="input-field">
-                        <input type="text" id="time" name="time" class="form-control" placeholder="KS School Hours..." onfocus="(this.type='time')" required>
+                      <div class="row">
+                        <div class="col-md-6 input-field">
+                        <input type="text" id="time" name="time_from" class="form-control" placeholder="KS School Hours..." onfocus="(this.type='time')" required>
+                        </div>
+                        <div class="col-md-6 input-field">
+                        <input type="text" id="time" name="time_to" class="form-control" placeholder="KS School Hours..." onfocus="(this.type='time')" required>
+                        </div>
                       </div>
-                      <div class="input-field">
-                        <input type="text" id="time1" name="time1" class="form-control" placeholder="ES School Hours ..." onfocus="(this.type='time')" required>
+                      <div class= "row">
+                        <div class="col-md-6 input-field">
+                        <input type="text" id="time1" name="time1_from" class="form-control" placeholder="ES School Hours ..." onfocus="(this.type='time')" required>
+                        </div>
+                        <div class="col-md-6 input-field">
+                        <input type="text" id="time1" name="time1_to" class="form-control" placeholder="ES School Hours ..." onfocus="(this.type='time')" required>
+                        </div>
                       </div>
+                      
                       <button type="submit" id="submit" class="btn btn-blue btn-effect">Send</button>
                 </form>
             </div>
         </div>
+        {% endif %}
     </div>
 </section>
 </main>

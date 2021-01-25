@@ -810,45 +810,76 @@ def load_slots(request):
 #@login_required
 #@allowed_users(allowed_roles=['admin'])
 def web_form(request):
-    if request.method == "POST" :
-        user_id=request.session['user_id']
-        user=User.objects.get(id=user_id)
-        user_details=USER_DETAILS.objects.get(USER_EMAIL=user.email)
-        school_name = request.POST['schoolname']
-        is_Spacious_Studio = request.POST['is_Spacious_Studio']
-        is_Outdoor_PlayLawn = request.POST['is_Outdoor_PlayLawn']
-        is_Commute = request.POST['is_Commute']
-        is_WiFi = request.POST['is_WiFi']
-        is_Device = request.POST['is_Device']
-        is_Food = request.POST['is_Food']
-        is_CCTV = request.POST['is_CCTV']
-        is_Daycare = request.POST['is_Daycare']
-        is_After_School = request.POST['is_After_School']
-        is_Residential = request.POST['is_Residential']
-        locality = request.POST['locality']                 
-        email = request.POST['email']
-        phone = request.POST['phone']
-        phone1 = request.POST['phone1']
-        founder_name1 = request.POST['founder_name1']
-        founder_name2 = request.POST['founder_name2']
-        about_founder1 = request.POST['about_founder1']
-        about_founder2 = request.POST['about_founder2']
-        founder_designation =  request.POST['founder_designation']
-        founder_designation1 =  request.POST['founder_designation1']
-        address1 = request.POST['address1']
-        address2 = request.POST['address2']
-        SchoolArea = request.POST['SchoolArea']
-        googlereview= request.POST['googlereview']
-        banner1 = request.FILES['banner1']
-        banner2 = request.FILES['banner2']
-        banner3 = request.FILES['banner3']
-        banner4 = request.FILES['banner4']
-        time = request.POST['time']
-        time1 = request.POST['time1']
-        ob = INDIVIDUAL_WEBPAGEE(uid = user_details.uid,SCHOOL_NAME = school_name ,LOCALITY = locality ,AMENITIES_is_Spacious_Studio=is_Spacious_Studio ,AMENITIES_is_Outdoor_PlayLawn=is_Outdoor_PlayLawn,AMENITIES_is_Commute = is_Commute,AMENITIES_is_CCTV = is_CCTV,AMENITIES_is_WiFi=is_WiFi,AMENITIES_is_Device=is_Device,AMENITIES_is_Food=is_Food,AMENITIES_is_Daycare=is_Daycare,AMENITIES_is_After_School=is_After_School,AMENITIES_is_Residential= is_Residential,BANNER1=banner1,BANNER2=banner2, BANNER3=banner3,BANNER4=banner4, GOOGLE_REVIEWS_LINK =googlereview,FOUNDER_NAME=founder_name1,DESIGNATION=founder_designation,CO_FOUNDER1=founder_name2,DESIGNATION_CO1=founder_designation1,CONTENT1=about_founder1,CONTENT2=about_founder2,ADDRESS1=address1,ADDRESS2=address2,SCHOOL_LOCALITY =SchoolArea,SCHOOL_PHONE=phone,SCHOOL_PHONE1=phone1,SCHOOL_EMAIL=email,SCHOOL_HOURS_KS=time,SCHOOL_HOURS_ES=time1)
-        ob.save()
-        #OBJ = webdata2.objects.filter(url=url)
-        return render(request,'index.html')
+    user_id=request.session['user_id']
+    user=User.objects.get(id=user_id)
+    user_details=USER_DETAILS.objects.get(USER_EMAIL=user.email)
+    IE=INDIVIDUAL_WEBPAGESS.objects.filter(uid=user_details.uid,IS_COMPLETE='Y',IS_APPROVED ='N')
+    print(IE)
+     # msg form to be reviewed
+    
+    IE1 = INDIVIDUAL_WEBPAGESS.objects.filter(uid=user_details.uid,IS_COMPLETE='Y',IS_APPROVED ='Y') # show webpage
+    if IE:
+        print('hi')
+        return render(request, 'web_form.html',{'webform_done':'done'})
+        
+    if IE1:
+        IEE = INDIVIDUAL_WEBPAGESS.objects.get(uid=user_details.uid)
+        LOCALITY = IEE.LOCALITY
+        return render(request,'webpage.html',{'l':IE1})
+    else:
+        print("hey")
+        if request.method == "POST" :
+            user_id=request.session['user_id']
+            user=User.objects.get(id=user_id)
+            user_details=USER_DETAILS.objects.get(USER_EMAIL=user.email)
+            school_name = request.POST['schoolname']
+            is_Spacious_Studio = request.POST['is_Spacious_Studio']
+            is_Outdoor_PlayLawn = request.POST['is_Outdoor_PlayLawn']
+            is_Commute = request.POST['is_Commute']
+            is_WiFi = request.POST['is_WiFi']
+            is_Device = request.POST['is_Device']
+            is_Food = request.POST['is_Food']
+            is_CCTV = request.POST['is_CCTV']
+            is_Daycare = request.POST['is_Daycare']
+            is_After_School = request.POST['is_After_School']
+            is_Residential = request.POST['is_Residential']
+            locality = request.POST['locality']                 
+            email = request.POST['email']
+            phone = request.POST['phone']
+            phone1 = request.POST['phone1']
+            founder_name1 = request.POST['founder_name1']
+            founder_name2 = request.POST['founder_name2']
+            about_founder1 = request.POST['about_founder1']
+            about_founder2 = request.POST['about_founder2']
+            founder_designation =  request.POST['founder_designation']
+            founder_designation1 =  request.POST['founder_designation1']
+            address1 = request.POST['address1']
+            address2 = request.POST['address2']
+            SchoolArea = request.POST['SchoolArea']
+            googlereview= request.POST['googlereview']
+            banner1 = request.FILES['banner1']
+            banner2 = request.FILES['banner2']
+            banner3 = request.FILES['banner3']
+            banner4 = request.FILES['banner4']
+            time_from = request.POST['time_from']
+            time_from =  datetime.datetime.strptime(time_from, '%H:%M')
+            time_from = time_from.strftime("%I:%M %p")
+            time_to = request.POST['time_to']
+            time_to =  datetime.datetime.strptime(time_to, '%H:%M')
+            time_to = time_to.strftime("%I:%M %p")
+            time1_from = request.POST['time1_from']
+            time1_from =  datetime.datetime.strptime(time1_from, '%H:%M')
+            time1_from = time1_from.strftime("%I:%M %p")
+            time1_to = request.POST['time1_to']
+            time1_to =  datetime.datetime.strptime(time1_to, '%H:%M')
+            time1_to = time1_to.strftime("%I:%M %p")
+            latitude = request.POST['loc_lat']
+            longitude = request.POST['loc_long']
+            ob = INDIVIDUAL_WEBPAGESS(uid = user_details.uid,SCHOOL_NAME = school_name ,LOCALITY = locality ,AMENITIES_is_Spacious_Studio=is_Spacious_Studio ,AMENITIES_is_Outdoor_PlayLawn=is_Outdoor_PlayLawn,AMENITIES_is_Commute = is_Commute,AMENITIES_is_CCTV = is_CCTV,AMENITIES_is_WiFi=is_WiFi,AMENITIES_is_Device=is_Device,AMENITIES_is_Food=is_Food,AMENITIES_is_Daycare=is_Daycare,AMENITIES_is_After_School=is_After_School,AMENITIES_is_Residential= is_Residential,BANNER1=banner1,BANNER2=banner2, BANNER3=banner3,BANNER4=banner4, GOOGLE_REVIEWS_LINK =googlereview,FOUNDER_NAME=founder_name1,DESIGNATION=founder_designation,CO_FOUNDER1=founder_name2,DESIGNATION_CO1=founder_designation1,CONTENT1=about_founder1,CONTENT2=about_founder2,ADDRESS1=address1,ADDRESS2=address2,SCHOOL_LOCALITY =SchoolArea,SCHOOL_PHONE=phone,SCHOOL_PHONE1=phone1,SCHOOL_EMAIL=email,SCHOOL_HOURS_KS=time_from+' to '+ time_to,SCHOOL_HOURS_ES=time1_from+' to '+ time1_to,IS_COMPLETE='Y',LATITUDE=latitude,LONGITUDE=longitude)
+            ob.save()
+            #OBJ = webdata2.objects.filter(url=url)
+            return render(request,'index.html')
+    
     return render(request,'web_form.html')
 
 
@@ -860,14 +891,14 @@ def form(request):
 def webpage_creation(request):
     user_id=request.session['user_id']
     user=User.objects.get(id=user_id)
-    OBJ = INDIVIDUAL_WEBPAGEE.objects.all()
+    OBJ = INDIVIDUAL_WEBPAGESS.objects.all()
     return render(request,'webpage_creation.html',{'ob':OBJ})
 
 '''@login_required
 @allowed_users(allowed_roles=['superadmin'])'''
 def webpage(request,LOCALITY):
         print('url',LOCALITY)
-        l = INDIVIDUAL_WEBPAGEE.objects.filter(LOCALITY=LOCALITY)
+        l = INDIVIDUAL_WEBPAGESS.objects.filter(LOCALITY=LOCALITY)
         return render(request, 'webpage.html',{'l':l})  
 
 
@@ -971,5 +1002,7 @@ class GeneratePDF(View):
 '''
 def school_template(request):
     return render(request,"geekzmicroschoolvelachery.html")
+
+
 
  ###########################################3       

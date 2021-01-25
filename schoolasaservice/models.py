@@ -179,7 +179,7 @@ class feedback(models.Model):
     feedback = models.CharField(max_length=700) 
 
 
-class INDIVIDUAL_WEBPAGEE(models.Model):
+class INDIVIDUAL_WEBPAGESS(models.Model):
     uid = models.CharField(max_length=50, primary_key=True)
     SCHOOL_NAME = models.CharField(max_length=250)   
     LOCALITY = models.CharField(max_length=250) 
@@ -215,6 +215,27 @@ class INDIVIDUAL_WEBPAGEE(models.Model):
     SCHOOL_EMAIL = models.EmailField(max_length=254)
     SCHOOL_HOURS_KS = models.CharField(max_length=250) 
     SCHOOL_HOURS_ES = models.CharField(max_length=250) 
+    IS_COMPLETE = models.CharField(max_length=1, default="N")
+    IS_APPROVED = models.CharField(max_length=1, default="N")
+    LATITUDE = models.FloatField(max_length=600)
+    LONGITUDE = models.FloatField(max_length=600)
+
+    def save(self, *args, **kwargs):
+        if not self.uid:
+            self.BANNER1 = self.compressImage(self.BANNER1)
+        super(INDIVIDUAL_WEBPAGESS, self).save(*args, **kwargs)
+    
+    def compressImage(self,BANNER1):
+        print(BANNER1) 
+        imageTemproary = Image.open(BANNER1)
+        outputIoStream = BytesIO()
+        imageTemproaryResized = imageTemproary.resize( (1020,573) ) 
+        imageTemproary.save(outputIoStream , format='JPEG', quality=60)
+        outputIoStream.seek(0)
+        BANNER1 = InMemoryUploadedFile(outputIoStream,'ImageField', "%s.jpg" % BANNER1.name.split('.')[0], 'image/jpeg', sys.getsizeof(outputIoStream), None)
+        return BANNER1
+
+
 
 
      
