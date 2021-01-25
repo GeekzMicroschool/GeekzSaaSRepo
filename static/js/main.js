@@ -197,8 +197,10 @@ google.maps.event.addDomListener(window, 'load', init);
 function init() {
     // Basic options for a simple Google Map
     // For more options see: https://developers.google.com/maps/documentation/javascript/reference#MapOptions
-
-	    var myLatLng = new google.maps.LatLng(31.287104,75.57533819999999);
+    //LAT = document.getElementById('loc_lat')
+    //LONG = document.getElementById('loc_long')
+    
+	    var myLatLng = new google.maps.LatLng( 31.287104,75.57533819999999);
 
 	    var mapOptions = {
 	        zoom: 15,
@@ -269,10 +271,9 @@ function init() {
     var map = new google.maps.Map(mapElement, mapOptions);
 
     // Let's also add a marker while we're at it
-    LAT = document.getElementById('loc_lat')
-    LONG = document.getElementById('loc_long')
+ 
     var marker = new google.maps.Marker({
-        position: new google.maps.LatLng(LAT,LONG),
+        position: new google.maps.LatLng(31.287104,75.57533819999999),
         map: map,
     });
 }
@@ -283,7 +284,7 @@ var wow = new WOW ({
 	offset:       75,          // distance to the element when triggering the animation (default is 0)
 	mobile:       false,       // trigger animations on mobile devices (default is true)
 });
-wow.init();
+wow.init(); 
 
 // ========== Subscribe Email To Google Sheets ========== //
 

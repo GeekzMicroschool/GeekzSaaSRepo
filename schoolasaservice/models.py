@@ -178,6 +178,12 @@ class feedback(models.Model):
     name = models.CharField(max_length=250)  
     feedback = models.CharField(max_length=700) 
 
+'''def user_directory_path(instance, filename):
+    # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
+    return 'user_{0}/{1}'.format(instance.user.id, filename) '''   
+
+def content_file_name(instance,filename):
+    return '/'.join(['uploads','banner1',filename])
 
 class INDIVIDUAL_WEBPAGESS(models.Model):
     uid = models.CharField(max_length=50, primary_key=True)
@@ -193,7 +199,7 @@ class INDIVIDUAL_WEBPAGESS(models.Model):
     AMENITIES_is_Daycare = models.CharField(max_length=1, default="N")
     AMENITIES_is_After_School = models.CharField(max_length=1, default="N")
     AMENITIES_is_Residential = models.CharField(max_length=1, default="N")
-    BANNER1 = models.ImageField(upload_to='media/',blank=True , null=True)
+    BANNER1 = models.ImageField(upload_to=content_file_name,blank=True , null=True)
     BANNER2 = models.ImageField(upload_to='media/',blank=True , null=True)
     BANNER3 =  models.ImageField(upload_to='media/',blank=True , null=True)
     BANNER4 = models.ImageField(upload_to='media/',blank=True , null=True)
@@ -220,7 +226,7 @@ class INDIVIDUAL_WEBPAGESS(models.Model):
     LATITUDE = models.FloatField(max_length=600)
     LONGITUDE = models.FloatField(max_length=600)
 
-    def save(self, *args, **kwargs):
+    '''def save(self, *args, **kwargs):
         if not self.uid:
             self.BANNER1 = self.compressImage(self.BANNER1)
         super(INDIVIDUAL_WEBPAGESS, self).save(*args, **kwargs)
@@ -233,8 +239,15 @@ class INDIVIDUAL_WEBPAGESS(models.Model):
         imageTemproary.save(outputIoStream , format='JPEG', quality=60)
         outputIoStream.seek(0)
         BANNER1 = InMemoryUploadedFile(outputIoStream,'ImageField', "%s.jpg" % BANNER1.name.split('.')[0], 'image/jpeg', sys.getsizeof(outputIoStream), None)
-        return BANNER1
+        return BANNER1 '''
 
+def user_directory_path(instance, filename):
+    # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
+    return 'user_{0}/{1}'.format(instance.user, filename)
+
+class MyModel1(models.Model):
+    user = models.CharField(max_length=400)
+    upload = models.FileField(upload_to=user_directory_path)
 
 
 

@@ -26,6 +26,9 @@ from .decorators import  allowed_users
 from django.contrib.auth.models import Group
 from schoolasaservice.utils import render_to_pdf
 from django.http import HttpResponse
+from PIL import Image
+from io import BytesIO
+from django.core.files.uploadedfile import InMemoryUploadedFile
 
 
 # Create your views here.
@@ -858,6 +861,29 @@ def web_form(request):
             SchoolArea = request.POST['SchoolArea']
             googlereview= request.POST['googlereview']
             banner1 = request.FILES['banner1']
+           
+            def GetThumbnail(f):
+                try:
+                    name = str(f).split('.')[0]
+                    
+                    image = Image.open(f)
+                    image.thumbnail((400, 400), Image.ANTIALIAS)
+                    thumbnail = BytesIO()
+                    # Default quality is quality=75
+                    image.save(thumbnail, format='JPEG', quality=50)
+                    thumbnail.seek(0)
+                    newImage = InMemoryUploadedFile(thumbnail,
+                                            None,
+                                            name + ".jpg",
+                                            'image/jpeg',
+                                            thumbnail.tell(),
+                                            None)
+                    return newImage
+                except Exception as e:
+                    return e
+          
+                  
+            banner11 =  GetThumbnail(banner1)       
             banner2 = request.FILES['banner2']
             banner3 = request.FILES['banner3']
             banner4 = request.FILES['banner4']
@@ -875,7 +901,7 @@ def web_form(request):
             time1_to = time1_to.strftime("%I:%M %p")
             latitude = request.POST['loc_lat']
             longitude = request.POST['loc_long']
-            ob = INDIVIDUAL_WEBPAGESS(uid = user_details.uid,SCHOOL_NAME = school_name ,LOCALITY = locality ,AMENITIES_is_Spacious_Studio=is_Spacious_Studio ,AMENITIES_is_Outdoor_PlayLawn=is_Outdoor_PlayLawn,AMENITIES_is_Commute = is_Commute,AMENITIES_is_CCTV = is_CCTV,AMENITIES_is_WiFi=is_WiFi,AMENITIES_is_Device=is_Device,AMENITIES_is_Food=is_Food,AMENITIES_is_Daycare=is_Daycare,AMENITIES_is_After_School=is_After_School,AMENITIES_is_Residential= is_Residential,BANNER1=banner1,BANNER2=banner2, BANNER3=banner3,BANNER4=banner4, GOOGLE_REVIEWS_LINK =googlereview,FOUNDER_NAME=founder_name1,DESIGNATION=founder_designation,CO_FOUNDER1=founder_name2,DESIGNATION_CO1=founder_designation1,CONTENT1=about_founder1,CONTENT2=about_founder2,ADDRESS1=address1,ADDRESS2=address2,SCHOOL_LOCALITY =SchoolArea,SCHOOL_PHONE=phone,SCHOOL_PHONE1=phone1,SCHOOL_EMAIL=email,SCHOOL_HOURS_KS=time_from+' to '+ time_to,SCHOOL_HOURS_ES=time1_from+' to '+ time1_to,IS_COMPLETE='Y',LATITUDE=latitude,LONGITUDE=longitude)
+            ob = INDIVIDUAL_WEBPAGESS(uid = user_details.uid,SCHOOL_NAME = school_name ,LOCALITY = locality ,AMENITIES_is_Spacious_Studio=is_Spacious_Studio ,AMENITIES_is_Outdoor_PlayLawn=is_Outdoor_PlayLawn,AMENITIES_is_Commute = is_Commute,AMENITIES_is_CCTV = is_CCTV,AMENITIES_is_WiFi=is_WiFi,AMENITIES_is_Device=is_Device,AMENITIES_is_Food=is_Food,AMENITIES_is_Daycare=is_Daycare,AMENITIES_is_After_School=is_After_School,AMENITIES_is_Residential= is_Residential,BANNER1=banner11,BANNER2=banner2, BANNER3=banner3,BANNER4=banner4, GOOGLE_REVIEWS_LINK =googlereview,FOUNDER_NAME=founder_name1,DESIGNATION=founder_designation,CO_FOUNDER1=founder_name2,DESIGNATION_CO1=founder_designation1,CONTENT1=about_founder1,CONTENT2=about_founder2,ADDRESS1=address1,ADDRESS2=address2,SCHOOL_LOCALITY =SchoolArea,SCHOOL_PHONE=phone,SCHOOL_PHONE1=phone1,SCHOOL_EMAIL=email,SCHOOL_HOURS_KS=time_from+' to '+ time_to,SCHOOL_HOURS_ES=time1_from+' to '+ time1_to,IS_COMPLETE='Y',LATITUDE=latitude,LONGITUDE=longitude)
             ob.save()
             #OBJ = webdata2.objects.filter(url=url)
             return render(request,'index.html')
@@ -883,8 +909,15 @@ def web_form(request):
     return render(request,'web_form.html')
 
 
-def form(request):
-    return render(request,'webb.html')    
+def web1(request):
+    if request.method == "POST" :
+        user_id=request.session['user_id']
+        user=User.objects.get(id=user_id)
+        user_details=USER_DETAILS.objects.get(USER_EMAIL=user.email)
+        file = request.FILES['file']
+        mm = MyModel1(upload = file ,user = user_details.uid) 
+        mm.save()
+    return render(request,'web1.html')    
 
 '''@login_required
 @allowed_users(allowed_roles=['superadmin'])'''
