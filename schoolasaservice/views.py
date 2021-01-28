@@ -862,15 +862,15 @@ def web_form(request):
             googlereview= request.POST['googlereview']
             banner1 = request.FILES['banner1']
            
-            def GetThumbnail(f):
+            def OptimizePics(f):
                 try:
                     name = str(f).split('.')[0]
                     
                     image = Image.open(f)
-                    image.thumbnail((400, 400), Image.ANTIALIAS)
+                    image.thumbnail((1500, 1500), Image.ANTIALIAS)
                     thumbnail = BytesIO()
                     # Default quality is quality=75
-                    image.save(thumbnail, format='JPEG', quality=50)
+                    image.save(thumbnail, format='JPEG', quality=80)
                     thumbnail.seek(0)
                     newImage = InMemoryUploadedFile(thumbnail,
                                             None,
@@ -883,7 +883,7 @@ def web_form(request):
                     return e
           
                   
-            banner11 =  GetThumbnail(banner1)       
+            banner11 =  OptimizePics(banner1)       
             banner2 = request.FILES['banner2']
             banner3 = request.FILES['banner3']
             banner4 = request.FILES['banner4']
@@ -908,6 +908,8 @@ def web_form(request):
     
     return render(request,'web_form.html')
 
+def rough(request):
+    return render(request,'rough.html')
 
 def web1(request):
     if request.method == "POST" :
@@ -952,6 +954,9 @@ def basictables(request):
 def index1(request):
     id1 = feedback.objects.all()
     return render(request,'index1.html',{'id1':id1})
+    
+def rough2(request):
+    return render(request,'rough2.html')    
 
 '''
 class GeneratePdf(View):

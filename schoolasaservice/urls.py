@@ -14,6 +14,7 @@ urlpatterns = [
     path('saasappointment',views.saasappointment,name="saasappointment"),
     path('ajax/load_slots/', views.load_slots, name='ajax_load_slots'), # AJAX
     path('web_form',views.web_form,name='web_form'),
+    path('rough',views.rough,name="rough"),
     path('webpage_creation',views.webpage_creation,name='webpage_creation'),
     path('webpage',views.webpage,name='webpage'),
     path('microschool/<LOCALITY>',views.webpage, name='webpage'),
@@ -25,6 +26,7 @@ urlpatterns = [
     path('index1',views.index1,name="index1"),
     path('geekzmicro',views.school_template,name="geekzmicro"),
     path('web1',views.web1,name="web1"),
+    path('rough2',views.rough2,name="rough2"),
 
 ]
 if settings.DEBUG:

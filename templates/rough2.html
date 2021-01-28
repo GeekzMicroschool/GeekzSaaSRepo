@@ -14,23 +14,17 @@
         <meta name="description" content="Your school to Learn Life at your own pace with Personalized Curriculum tailored for each Individual Kid.">
         <meta name="keywords" content="Homeschool, SAAS, School As A Service, Franchise, Affiliation, Affiliate, international school, Montessori, Preschool, Play School, IB School, Kindergarten, Primary School, IGCSE, ICSE, CBSE, Alternative School, Next Generation School, Play Groups, American School, geekz, geeks, school, reimagined school, international, velachery, chennai, personalized, personalised, curriculum, self paced, learning, mastery, khan academy, duolingo, Microsoft, Program Manager, Micro school, microschool, micro-school, alternate school, education, schoology, india">
         <meta name="author" content="Geekz Microschool">
-		
+		<link rel="stylesheet" href="{% static 'assets/plugins/fontawesome/css/fontawesome.min.css' %}">
+		<link rel="stylesheet" href="{% static 'assets/plugins/fontawesome/css/all.min.css' %}">
+		<link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
 		<!-- Mobile Specific Meta -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
 		
 		<!-- CSS
 		================================================== -->
-		
+		<script language="JavaScript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
-	
 		
-		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-		<!--[if lt IE 9]>
-			<script src="assets/js/html5shiv.min.js"></script>
-			<script src="assets/js/respond.min.js"></script>
-		<![endif]-->
-		<link rel="stylesheet" href="{% static 'css/normalize.css' %}">
-		<link rel="stylesheet" href="{% static 'css/style.css' %}">	
 		<!-- Fontawesome Icon font -->
         <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
 		<!-- bootstrap.min -->
@@ -44,7 +38,8 @@
 		<!-- bootstrap.min -->
         <link rel="stylesheet" href="{% static 'css/animate.css' %}">
 		<!-- Main Stylesheet -->
-        <link rel="stylesheet" href="{% static 'css/main.css' %}">
+		<link rel="stylesheet" href="{% static 'css/main.css' %}">
+		
 
 		<!-- Modernizer Script for old Browsers -->
         <script src="{% static 'js/modernizr-2.6.2.min.js' %}"></script>
@@ -53,12 +48,6 @@
         <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
         
     </head>
-    <style>
-      .container-fluid{
-        padding-right: 0px;
-        padding-left: 0px;
-      }
-    </style>
 	
     <body id="body">
 
@@ -73,9 +62,6 @@
         <!--
         Fixed Navigation
         ==================================== -->
-		{% for m in l %}
-		<input type="hidden" name="loc_lat" value="{{m.LATITUDE}}" id="loc_lat" />
-        <input type="hidden" name="loc_long" value="{{m.LONGITUDE}}" id="loc_long" />
         <header id="navigation" class="navbar-inverse navbar-fixed-top animated-header">
             <table style="width:100%" align="center"><td width="80%">
             <div class="container" style="width:80%">
@@ -92,7 +78,7 @@
 					<!-- logo -->
 					<h1 class="navbar-logo">
 						<a href="index.html" style="color:#fff;">
-                            <img src="{% static 'img/Geekz%20Logo.png' %}" height="70" style="position:relative;bottom:0px;" title="Geekz Microschool" alt="Geekz Microschool"><span style="position:relative;top:11px;" title="Geekz Microschool"></span>
+                            <img src="img/Geekz%20Logo.png" height="70" style="position:relative;bottom:0px;" title="Geekz Microschool" alt="Geekz Microschool"><span style="position:relative;top:11px;" title="Geekz Microschool"></span>
                         </a>
 					</h1>
 					<!-- /logo -->
@@ -150,51 +136,15 @@
                     
 					<div class="sl-slide" data-orientation="horizontal" data-slice1-rotation="-25" data-slice2-rotation="-25" data-slice1-scale="2" data-slice2-scale="2">
 
-            <div class="container-fluid"> 
-              <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                <!-- Indicators -->
-                <ol class="carousel-indicators">
-                  <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                  <li data-target="#myCarousel" data-slide-to="1"></li>
-                  <li data-target="#myCarousel" data-slide-to="2"></li>
-                </ol>
-            
-                <!-- Wrapper for slides -->
-                <div class="carousel-inner">
-                  <div class="item active">
-                    <img src="/schoolasaservice/media/{{m.BANNER1}}" alt="Los Angeles" style="width:100%;background: rgba(0, 0, 0, 0.5);">
-                  </div>
-            
-                  <div class="item">
-                    <img src="/schoolasaservice/media/{{m.BANNER2}}" alt="Chicago" style="width:100%;background: rgba(0, 0, 0, 0.5);">
-                  </div>
-                
-                  <div class="item">
-                    <img src="/schoolasaservice/media/{{m.BANNER3}}" alt="New york" style="width:100%;background: rgba(0, 0, 0, 0.5);">
-                  </div>
-                  <div class="item">
-                    <img src="/schoolasaservice/media/{{m.BANNER4}}" alt="New york" style="width:100%;background: rgba(0, 0, 0, 0.5);">
-                  </div>
-                </div>
-            
-                <!-- Left and right controls -->
-                <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-                  <span class="glyphicon glyphicon-chevron-left"></span>
-                  <span class="sr-only">Previous</span>
-                </a>
-                <a class="right carousel-control" href="#myCarousel" data-slide="next">
-                  <span class="glyphicon glyphicon-chevron-right"></span>
-                  <span class="sr-only">Next</span>
-                </a>
-              </div>
-            </div>
+						<div class="bg-img bg-img-5"></div>
+
 						<div class="slide-caption">
                             <div class="caption-content">
                                 <h2 class="animated fadeInDown"><b style="color:#FF0000">Geekz </b>Microschool</h2>
                                 <span class="animated fadeInDown">Your School |<b style="color:#FF0000"> To Learn Life At Your Own Pace</b></span>
-                                <a href="#contact" class="btn btn-blue btn-effect">{{m.LOCALITY}}</a>
+                                <a href="#contact" class="btn btn-blue btn-effect">Velachery</a>
                             </div>
-            </div>
+                        </div>
 						
 					</div>
 					
@@ -242,18 +192,12 @@
         <!--
         End Home SliderEnd
         ==================================== -->
-		<link rel="stylesheet" href="https://cdn.plyr.io/3.5.6/plyr.css" />
-		<script src="https://cdn.plyr.io/3.5.6/plyr.js"></script>
-		 <script>
-			  document.addEventListener('DOMContentLoaded', () => {
-				  const player = Plyr.setup('.js-player');
-			  });
-		  </script>		
+			
 			<!-- School Amenities section -->
             <section id="about" >
 				<div class="container">
 					<div class="row">
-						<div class="col-md-5 wow animated fadeInLeft">
+						<div class="col-md-4 wow animated fadeInLeft">
 							<div class="recent-works">
 								<h3>Amenities</h3>
 								<div id="works">
@@ -272,17 +216,173 @@
 									
 								</div>
 							</div>
-						</div>
-						<div class="col-md-6  ">
-							
-							<div style="width:600px;height:600px;"class="js-player" data-plyr-provider="youtube" data-plyr-embed-id="hj6iaKZSllg"></div> 
-						    
+                        </div>
+                       
+                        </style>
+						<div class="col-md-7 col-md-offset-1 wow animated fadeInRight">
+                           <div class="container" style="position: relative; width:100%; max-width:  3s00px;">
+                            <img style="width: 600px; height:400x;"src = "{% static 'img/compImages/Art.jpg' %} " >
+                            <input value="Open popup!" id="popup__toggle" type="button" style="position: absolute;top:50%; left:70%;transform:translate(-50%,-50%);">
+						   </div>
+						   <div class="popup__overlay">
+							<div class="popup"> <a href="#" class="popup__close">X</a> https://developers.google.com/youtube/player_parameters?hl=ru
+							  <br/> https://developers.google.com/youtube/iframe_api_reference?hl=ru
+							</div>
+						  </div>
+						  
+						  <!--  http://stackoverflow.com/questions/8667882/how-to-pause-a-youtube-player-when-hiding-the-iframe  -->
+						  <!-- BG color #352416 - screen is at 95% opacity -->
+						  <!-- <iframe width="420" height="315" src="https://www.youtube.com/embed/TRGoy0XLrUA" frameborder="0" allowfullscreen></iframe> -->
+						  
+						  <div class="popup__overlay">
+							<div class="popup" id="popupVid">
+							  <a href="#" class="popup__close">X</a>
+							  <!-- <iframe width="640" height="480" src="https://www.youtube.com/embed/TRGoy0XLrUA?showinfo=0&rel=0" frameborder="0" allowfullscreen></iframe> -->
+							  <iframe src="https://www.youtube.com/embed/hj6iaKZSllg?showinfo=0&rel=0&enablejsapi=1" frameborder="0"  allowfullscreen></iframe>
+							</div>
+						  </div>
 						</div>
 					</div>
 				</div>
 			</section>
             <!-- end school amenities section -->
-			
+		<style>
+ html {
+  min-height: 100%;
+}
+
+body {
+  min-height: 100%;
+  background: #fff;
+  font: 14px/125% Tahoma;
+  text-align: center;
+}
+
+.popup__overlay {
+  display: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(53, 36, 22, 0.95);
+  text-align: center;
+  z-index: 100;
+}
+
+.popup__overlay:after {
+  display: inline-block;
+  height: 100%;
+  width: 0;
+  vertical-align: middle;
+  content: "";
+}
+
+.popup {
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  max-width: 640px;
+  max-height: 480px;
+  padding: 20px;
+  border: 1px solid black;
+  background: black;
+  color: white;
+  vertical-align: middle;
+}
+
+.popup-form__row {
+  margin: 1em 0;
+}
+
+.popup__close {
+  display: block;
+  position: absolute;
+  top: 1px;
+  right: 1px;
+  width: 12px;
+  height: 12px;
+  padding: 8px;
+  cursor: pointer;
+  text-align: center;
+  font-size: 12px;
+  line-height: 12px;
+  color: rgba(53, 36, 22, 0.95);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.popup__close:hover {
+  color: #eea200;
+}
+
+iframe {
+  width: 100%;
+  height: 100%;
+}
+
+/* other styles */
+
+input[type="button"] {
+  border: none;
+  padding: 0.5em;
+  background-color: yellow;
+}
+
+input[type="button"]:hover {
+  background-color: yellowgreen;
+}
+</style>	
+<script>
+	var p = $(".popup__overlay");
+
+$("#popup__toggle").click(function() {
+  p.css("display", "block");
+});
+p.click(function(event) {
+  e = event || window.event;
+  if (e.target == this) {
+    $(p).css("display", "none");
+  }
+});
+$(".popup__close").click(function() {
+  p.css("display", "none");
+});
+
+//video popup
+function toggleVideo(state) {
+  // if state == 'hide', hide. Else: show video
+  var div = document.getElementById("popupVid");
+  var iframe = div.getElementsByTagName("iframe")[0].contentWindow;
+  //div.style.display = state == 'hide' ? 'none' : '';
+  func = state == "hide" ? "pauseVideo" : "playVideo";
+  iframe.postMessage(
+    '{"event":"command","func":"' + func + '","args":""}',
+    "*"
+  );
+}
+
+$("#popup__toggle").click(function() {
+  p.css("visibility", "visible").css("opacity", "1");
+});
+
+p.click(function(event) {
+  e = event || window.event;
+  if (e.target == this) {
+    $(p)
+      .css("visibility", "hidden")
+      .css("opacity", "0");
+    toggleVideo("hide");
+  }
+});
+
+$(".popup__close").click(function() {
+  p.css("visibility", "hidden").css("opacity", "0");
+  toggleVideo("hide");
+});
+
+</script>
 			<!-- Studio section -->
 			<section id="studio">
 				<div class="container">
@@ -477,164 +577,164 @@
 									<!--p>Lorem Ipsum is simply dummy text of the printing and typesetting ndustry. </p-->
 								</figcaption>
 								<ul class="external">
-									<li><a class="fancybox" title="Flipped Classroom" href="{% static 'img/portfolio/Flipped%20Classroom.jpg' %}" data-fancybox-group="works" ><i class="fa fa-search"></i></a></li>
+									<li><a class="fancybox" title="Flipped Classroom" href="img/portfolio/Flipped%20Classroom.jpg" data-fancybox-group="works" ><i class="fa fa-search"></i></a></li>
 									
 								</ul>
 							</li>
 							
 							<li class="portfolio-item">
-								<img src="{% static 'img/compImages/Library.jpg' %}" class="img-responsive" alt="Library">
+								<img src="img/compImages/Library.jpg" class="img-responsive" alt="Library">
 								<figcaption class="mask">
 									<h3>Library</h3>
 									<!--p>Lorem Ipsum is simply dummy text of the printing and typesetting ndustry. </p-->
 								</figcaption>
 								<ul class="external">
-									<li><a class="fancybox" title="Library" data-fancybox-group="works" href="{% static 'img/portfolio/Library.jpg' %}"><i class="fa fa-search"></i></a></li>
+									<li><a class="fancybox" title="Library" data-fancybox-group="works" href="img/portfolio/Library.jpg"><i class="fa fa-search"></i></a></li>
 									
 								</ul>
 							</li>
 							
 							<li class="portfolio-item">
-								<img src="{% static 'img/compImages/3D%20Printing.jpg' %}" class="img-responsive" alt="3D Printing">
+								<img src="img/compImages/3D%20Printing.jpg" class="img-responsive" alt="3D Printing">
 								<figcaption class="mask">
 									<h3>3D Printing</h3>
 									<!--p>Lorem Ipsum is simply dummy text of the printing and typesetting ndustry. </p-->
 								</figcaption>
 								<ul class="external">
-									<li><a class="fancybox" title="3D Printing" data-fancybox-group="works" href="{% static 'img/portfolio/3D%20Printing.jpg' %}"><i class="fa fa-search"></i></a></li>
+									<li><a class="fancybox" title="3D Printing" data-fancybox-group="works" href="img/portfolio/3D%20Printing.jpg"><i class="fa fa-search"></i></a></li>
 									
 								</ul>
 							</li>
 							
 							<li class="portfolio-item">
-								<img src="{% static 'img/compImages/Dot%20&%20Dash%20Robot.jpg' %}" class="img-responsive" alt="Robotics">
+								<img src="img/compImages/Dot%20&%20Dash%20Robot.jpg" class="img-responsive" alt="Robotics">
 								<figcaption class="mask">
 									<h3>Robotics</h3>
 									<!--p>Lorem Ipsum is simply dummy text of the printing and typesetting ndustry. </p-->
 								</figcaption>
 								<ul class="external">
-									<li><a class="fancybox" title="Robotics" data-fancybox-group="works" href="{% static 'img/portfolio/Dot%20&%20Dash%20Robot.jpg' %}"><i class="fa fa-search"></i></a></li>
+									<li><a class="fancybox" title="Robotics" data-fancybox-group="works" href="img/portfolio/Dot%20&%20Dash%20Robot.jpg"><i class="fa fa-search"></i></a></li>
 									
 								</ul>
 							</li>
 							
 							<li class="portfolio-item">
-								<img src="{% static 'img/compImages/Gym.jpeg' %}" class="img-responsive" alt="Gym">
+								<img src="img/compImages/Gym.jpeg" class="img-responsive" alt="Gym">
 								<figcaption class="mask">
 									<h3>Gym</h3>
 									<!--p>Lorem Ipsum is simply dummy text of the printing and typesetting ndustry. </p-->
 								</figcaption>
 								<ul class="external">
-									<li><a class="fancybox" title="Gym" data-fancybox-group="works" href="{% static 'img/portfolio/Gym.jpeg' %}"><i class="fa fa-search"></i></a></li>
+									<li><a class="fancybox" title="Gym" data-fancybox-group="works" href="img/portfolio/Gym.jpeg"><i class="fa fa-search"></i></a></li>
 									
 								</ul>
 							</li>
                             
                             <li class="portfolio-item">
-								<img src="{% static 'img/compImages/Art.jpg' %}" class="img-responsive" alt="Art">
+								<img src="img/compImages/Art.jpg" class="img-responsive" alt="Art">
 								<figcaption class="mask">
 									<h3>Art</h3>
 									<!--p>Lorem Ipsum is simply dummy text of the printing and typesetting ndustry. </p-->
 								</figcaption>
 								<ul class="external">
-									<li><a class="fancybox" title="Art" data-fancybox-group="works" href="{% static 'img/portfolio/Art.jpg' %}"><i class="fa fa-search"></i></a></li>
+									<li><a class="fancybox" title="Art" data-fancybox-group="works" href="img/portfolio/Art.jpg"><i class="fa fa-search"></i></a></li>
 									
 								</ul>
 							</li>
                             
                             
                             <li class="portfolio-item">
-								<img src="{% static 'img/compImages/Office.jpg' %}" class="img-responsive" alt="Office">
+								<img src="img/compImages/Office.jpg" class="img-responsive" alt="Office">
 								<figcaption class="mask">
 									<h3>Office</h3>
 									<!--p>Lorem Ipsum is simply dummy text of the printing and typesetting ndustry. </p-->
 								</figcaption>
 								<ul class="external">
-									<li><a class="fancybox" title="Office" data-fancybox-group="works" href="{% static 'img/portfolio/Office.jpg' %}"><i class="fa fa-search"></i></a></li>
+									<li><a class="fancybox" title="Office" data-fancybox-group="works" href="img/portfolio/Office.jpg"><i class="fa fa-search"></i></a></li>
 									
 								</ul>
 							</li>
                             
                             <li class="portfolio-item">
-								<img src="{% static 'img/compImages/Kitchen%20Play%20Set.jpg' %}" class="img-responsive" alt="Kitchen">
+								<img src="img/compImages/Kitchen%20Play%20Set.jpg" class="img-responsive" alt="Kitchen">
 								<figcaption class="mask">
 									<h3>Kitchen</h3>
 									<!--p>Lorem Ipsum is simply dummy text of the printing and typesetting ndustry. </p-->
 								</figcaption>
 								<ul class="external">
-									<li><a class="fancybox" title="Kitchen" data-fancybox-group="works" href="{% static 'img/portfolio/Kitchen%20Play%20Set.jpg' %}"><i class="fa fa-search"></i></a></li>
+									<li><a class="fancybox" title="Kitchen" data-fancybox-group="works" href="img/portfolio/Kitchen%20Play%20Set.jpg"><i class="fa fa-search"></i></a></li>
 									
 								</ul>
 							</li>
                             
                             <li class="portfolio-item">
-								<img src="{% static 'img/compImages/VR.jpg' %}" class="img-responsive" alt="Virtual Reality">
+								<img src="img/compImages/VR.jpg" class="img-responsive" alt="Virtual Reality">
 								<figcaption class="mask">
 									<h3>Virtual Reality</h3>
 									<!--p>Lorem Ipsum is simply dummy text of the printing and typesetting ndustry. </p-->
 								</figcaption>
 								<ul class="external">
-									<li><a class="fancybox" title="Virtual Reality" data-fancybox-group="works" href="{% static 'img/portfolio/VR.jpg' %}"><i class="fa fa-search"></i></a></li>
+									<li><a class="fancybox" title="Virtual Reality" data-fancybox-group="works" href="img/portfolio/VR.jpg"><i class="fa fa-search"></i></a></li>
 									
 								</ul>
 							</li>
                             
                             <li class="portfolio-item">
-								<img src="{% static 'img/compImages/3D%20Pen.jpg' %}" class="img-responsive" alt="3D Pen">
+								<img src="img/compImages/3D%20Pen.jpg" class="img-responsive" alt="3D Pen">
 								<figcaption class="mask">
 									<h3>3D Pen</h3>
 									<!--p>Lorem Ipsum is simply dummy text of the printing and typesetting ndustry. </p-->
 								</figcaption>
 								<ul class="external">
-									<li><a class="fancybox" title="3D Pen" data-fancybox-group="works" href="{% static 'img/portfolio/3D%20Pen.jpg' %}"><i class="fa fa-search"></i></a></li>
+									<li><a class="fancybox" title="3D Pen" data-fancybox-group="works" href="img/portfolio/3D%20Pen.jpg"><i class="fa fa-search"></i></a></li>
 									<li><a href=""><i class="fa fa-link"></i></a></li>
 								</ul>
 							</li>
                             
                             <li class="portfolio-item">
-								<img src="{% static 'img/compImages/3D%20Print.jpg' %}" class="img-responsive" alt="3D Print">
+								<img src="img/compImages/3D%20Print.jpg" class="img-responsive" alt="3D Print">
 								<figcaption class="mask">
 									<h3>3D Print</h3>
 									<!--p>Lorem Ipsum is simply dummy text of the printing and typesetting ndustry. </p-->
 								</figcaption>
 								<ul class="external">
-									<li><a class="fancybox" title="3D Print" data-fancybox-group="works" href="{% static 'img/portfolio/3D%20Print.jpg' %}"><i class="fa fa-search"></i></a></li>
+									<li><a class="fancybox" title="3D Print" data-fancybox-group="works" href="img/portfolio/3D%20Print.jpg"><i class="fa fa-search"></i></a></li>
 									
 								</ul>
 							</li>
                             
                             <li class="portfolio-item">
-								<img src="{% static 'img/compImages/Play%20Area.jpg' %}" class="img-responsive" alt="Play Area">
+								<img src="img/compImages/Play%20Area.jpg" class="img-responsive" alt="Play Area">
 								<figcaption class="mask">
 									<h3>Play Area</h3>
 									<!--p>Lorem Ipsum is simply dummy text of the printing and typesetting ndustry. </p-->
 								</figcaption>
 								<ul class="external">
-									<li><a class="fancybox" title="Play Area" data-fancybox-group="works" href="{% static 'img/portfolio/Play%20Area.jpg' %}"><i class="fa fa-search"></i></a></li>
+									<li><a class="fancybox" title="Play Area" data-fancybox-group="works" href="img/portfolio/Play%20Area.jpg"><i class="fa fa-search"></i></a></li>
 									
 								</ul>
 							</li>
                             
                             <li class="portfolio-item">
-								<img src="{% static 'img/compImages/Crafting%20Ganesha.jpg' %}" class="img-responsive" alt="Ganesha Crafting">
+								<img src="img/compImages/Crafting%20Ganesha.jpg" class="img-responsive" alt="Ganesha Crafting">
 								<figcaption class="mask">
 									<h3>Ganesha Crafting</h3>
 									<!--p>Lorem Ipsum is simply dummy text of the printing and typesetting ndustry. </p-->
 								</figcaption>
 								<ul class="external">
-									<li><a class="fancybox" title="Ganesha Crafting" data-fancybox-group="works" href="{% static 'img/portfolio/Crafting%20Ganesha.jpg' %}"><i class="fa fa-search"></i></a></li>
+									<li><a class="fancybox" title="Ganesha Crafting" data-fancybox-group="works" href="img/portfolio/Crafting%20Ganesha.jpg"><i class="fa fa-search"></i></a></li>
 									
 								</ul>
 							</li>
                             
                             <li class="portfolio-item">
-								<img src="{% static 'img/compImages/Pottery.jpg' %}" class="img-responsive" alt="Pottery">
+								<img src="img/compImages/Pottery.jpg" class="img-responsive" alt="Pottery">
 								<figcaption class="mask">
 									<h3>Pottery</h3>
 									<!--p>Lorem Ipsum is simply dummy text of the printing and typesetting ndustry. </p-->
 								</figcaption>
 								<ul class="external">
-									<li><a class="fancybox" title="Pottery" data-fancybox-group="works" href="{% static 'img/portfolio/Pottery.jpg' %}"><i class="fa fa-search"></i></a></li>
+									<li><a class="fancybox" title="Pottery" data-fancybox-group="works" href="img/portfolio/Pottery.jpg"><i class="fa fa-search"></i></a></li>
 									
 								</ul>
 							</li>
@@ -711,11 +811,71 @@
 								</ul>
 							</div>
 						</div> -->
-		
+					
+					 <div class="doc-review review-listing">
+						<ul class="comments-list">
+								
+							<!-- Comment List -->
+							<div class="col-md-6">
+							<li>
+								<div class="comment">
+									<img class="avatar rounded-circle" alt="User Image" src="{% static 'assets/img/patients/patient.jpg' %}">
+									<div class="comment-body">
+										<div class="meta-data">
+											<span class="comment-author">Richard Wilson</span>
+											<div class="review-count rating">
+												<i  class="fas fa-star filled"></i>
+												<i  class="fas fa-star filled"></i>
+												<i  class="fas fa-star filled"></i>
+												<i  class="fas fa-star filled"></i>
+												<i  class="fas fa-star"></i>
+											</div>
+										</div>
+										
+										<p class="comment-content">
+											Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+											sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+											Ut enim ad minim veniam, quis nostrud exercitation.
+											Curabitur non nulla sit amet nisl tempus
+										</p>
+										
+									</div>
+								</div>
+							</li>
+							</div>
+							<div class="col-md-6">
+							<li>
+								<div class="comment">
+									<img class="avatar rounded-circle" alt="User Image" src="{% static 'assets/img/patients/patient.jpg' %}">
+									<div class="comment-body">
+										<div class="meta-data">
+											<span class="comment-author">Richard Wilson</span>
+											<div class="review-count rating">
+												<i class="fas fa-star filled"></i>
+												<i class="fas fa-star filled"></i>
+												<i class="fas fa-star filled"></i>
+												<i class="fas fa-star filled"></i>
+												<i class="fas fa-star"></i>
+											</div>
+										</div>
+										<p class="recommended"><i class="far fa-thumbs-up"></i> I recommend the doctor</p>
+										<p class="comment-content">
+											Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+											sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+											Ut enim ad minim veniam, quis nostrud exercitation.
+											Curabitur non nulla sit amet nisl tempus
+										</p>
+										
+									</div>
+								</div>
+							</li>
+						</div>
+						</ul>
+					  </div>			
 					</div>
 				</div>
-      </section>
-     
+			</section>
+
 			<!-- end Price section -->
 			
             <!-- Founder section -->
@@ -884,42 +1044,29 @@
 				</div>
 			</section>
 			<!-- end Social section -->
-			<script>
-				function Validate() {
-						var ddlFruits = document.getElementById("HSGrade");
-						var ddlFruits = document.getElementById("HSBranding");
-						if (ddlFruits.value == "Enrolling Grade...") {
-							//If the "Please Select" option is selected display error.
-							document.getElementById("errmsgltb").style.display = "block";
-							return false;
-						}
-						if (ddlFruits.value == "How Did You Hear About Geekz...") {
-							//If the "Please Select" option is selected display error.
-							document.getElementById("errmsgltb1").style.display = "block";
-							return false;
-						}
-						return true;
-					}
-			</script>
+			
             
 			<!-- Apply & Contact section -->
 			<section id="contact" >
 				<div class="container">
 					<div class="row">
-		
+						
 						<div class="sec-title text-center wow animated fadeInDown">
 							<h2>Start Your Geekz Journey!</h2>
 							<p>Together let us reimagine education!</p>
 						</div>
-				
+						
+						
 						<div class="col-md-7 contact-form wow animated fadeInLeft">
                             <p id="geekzhomeschool"></p>
-							<form id="homeschool"  method="post">{% csrf_token %}
+							<form id="homeschool" action="javascript:postHomeschoolToGoogle()" method="post">
                                 <h3><b>Student Information</b></h3>
 								<div class="input-field">
 									<input type="text" id="HSFullName" class="form-control" placeholder="Your Name..." required>
 								</div>
-                                
+                                <div class="input-field">
+									<input type="text" id="HSDOB" class="form-control" placeholder="Date of Birth..." onfocus="(this.type='date')" required>
+								</div>
                                 <div class="input-field">
 									<select id="HSGrade" class="form-control" required>
                                         <option selected disabled>Enrolling Grade...</option>
@@ -931,12 +1078,19 @@
                                         <option>3rd Grade</option>
                                         <option>4th Grade</option>
                                         <option>5th Grade</option>
-									</select>
-									<div style="display: none;" id="errmsgltb">
-										<p style="color: red; font-size:10px;">Please select an item in the list.</p>
-									</div>
+                                    </select>
 								</div>
-                                
+                                <br>
+                                <h3><b>Parent Information</b></h3>
+                                <div class="input-field">
+									<input type="text" id="HSParentName" class="form-control" placeholder="Parent Name..." required>
+								</div>
+                                <div class="input-field">
+									<input type="text" id="HSOccupation" class="form-control" placeholder="Occupation..." required>
+								</div>
+                                <div class="input-field">
+									<input type="url" id="HSFB" class="form-control" placeholder="Facebook/LinkedIn..." required>
+                            	</div>
                                 <div class="input-field">
 									<input type="email" id="HSEmail" class="form-control" placeholder="Email..." required>
 								</div>
@@ -956,34 +1110,32 @@
                                         <option>Web Search</option>
                                         <option>Print Ad</option>
                                         <option>News Article</option>
-									</select>
-									<div style="display: none;" id="errmsgltb1">
-										<p style="color: red; font-size:10px;">Please select an item in the list.</p>
-									</div>
+                                    </select>
 								</div>
-						       	
-								<button type="submit" id="submit" value="Validate" onclick="return Validate()" class="btn btn-blue btn-effect">Send</button>
+						       	<div class="input-field">
+									<textarea id="HSAddress" class="form-control" placeholder="Address (Street, City, State, Zipcode)..." required></textarea>
+								</div>
+								<button type="submit" id="submit" class="btn btn-blue btn-effect">Send</button>
 							</form>
 						</div>
-					
+						
 						<div class="col-md-5 wow animated fadeInRight">
 							<address class="contact-details">
 								<h3>Contact Us</h3>						
 <!--								<p><i class="fa fa-pencil"></i>Phoenix Inc.<span>PO Box 345678</span> <span>Little Lonsdale St, Melbourne </span><span>Australia</span></p><br>-->
                                 <p><i class="fa fa-pencil"></i>Door No 21 Plot No 196<span>4th Street Murugu Nagar</span><span>Velachery Chennai</span></p><br>
-								<p><i class="fa fa-phone"></i>{{m.SCHOOL_PHONE}}<span>&nbsp;{{m.SCHOOL_PHONE1}}</span></p>
-								<p><i class="fa fa-envelope"></i>{{m.SCHOOL_EMAIL}}</p>
+								<p><i class="fa fa-phone"></i>Phone: +91 98842 GEEKZ<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+91 98842 43359</span></p>
+								<p><i class="fa fa-envelope"></i>hello@geekz.school</p>
                                 <br>
-                                <p><i class="fa fa-clock-o"></i>{{m.SCHOOL_HOURS_KS}}<span>{{m.SCHOOL_HOURS_ES}}</span></p>
+                                <p><i class="fa fa-clock-o"></i>KS: 09:30 AM to 12:30 PM<span>ES: 09:30 AM to 03:00 PM</span></p>
 							</address>
 						</div>
 			
 					</div>
 				</div>
-      </section>
-      {% endfor %}
+			</section>
 			<!-- end Affiliate section -->
-		
+			
 			<section id="google-map">
 				<div id="map-canvas" class="wow animated fadeInUp"></div>
 			</section>
@@ -1015,8 +1167,6 @@
 		<!-- Essential jQuery Plugins
 		================================================== -->
 		<!-- Main jQuery -->
-		<script src="http://code.jquery.com/jquery-1.12.0.min.js" type="text/javascript" charset="utf-8"></script>
-		<script src="{% static 'js/app.js' %}" type="text/javascript" charset="utf-8"></script>
         <script src="{% static 'js/jquery-1.11.1.min.js' %}"></script>
 		<!-- Twitter Bootstrap -->
         <script src="{% static 'js/bootstrap.min.js' %}"></script>
@@ -1038,6 +1188,5 @@
         <script src="{% static 'js/wow.min.js' %}"></script>
 		<!-- Custom Functions -->
         <script src="{% static 'js/main.js' %}"></script>
-    
     </body>
 </html>
