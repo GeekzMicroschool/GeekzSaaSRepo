@@ -45,7 +45,9 @@
         <link rel="stylesheet" href="{% static 'css/animate.css' %}">
 		<!-- Main Stylesheet -->
         <link rel="stylesheet" href="{% static 'css/main.css' %}">
-
+		<link rel="stylesheet" href="https://cdn.plyr.io/3.5.6/plyr.css" />
+		<script src="https://cdn.plyr.io/3.5.6/plyr.js"></script>
+		
 		<!-- Modernizer Script for old Browsers -->
         <script src="{% static 'js/modernizr-2.6.2.min.js' %}"></script>
         
@@ -53,12 +55,7 @@
         <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
         
     </head>
-    <style>
-      .container-fluid{
-        padding-right: 0px;
-        padding-left: 0px;
-      }
-    </style>
+    
 	
     <body id="body">
 
@@ -134,20 +131,6 @@
             <div id="slider" class="sl-slider-wrapper">
 
 				<div class="sl-slider">
-				    
-                   <!-- <div class="sl-slide" data-orientation="horizontal" data-slice1-rotation="3" data-slice2-rotation="3" data-slice1-scale="2" data-slice2-scale="1">
-						
-						<div class="bg-img bg-img-4"></div>
-						<div class="slide-caption">
-                            <div class="caption-content">
-                                <h2 style="color:#FF0000;">Air Pollution Awareness Art Contest</h2>
-                                <span>Go Green. Breathe Clean.</span>
-                                <a href="AirPollutionArtContest.html" target="_blank" class="btn btn-blue btn-effect">Enroll</a>
-                            </div>
-                        </div>
-
-					</div> -->
-                    
 					<div class="sl-slide" data-orientation="horizontal" data-slice1-rotation="-25" data-slice2-rotation="-25" data-slice1-scale="2" data-slice2-scale="2">
 
             <div class="container-fluid"> 
@@ -157,8 +140,15 @@
                   <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
                   <li data-target="#myCarousel" data-slide-to="1"></li>
                   <li data-target="#myCarousel" data-slide-to="2"></li>
-                </ol>
-            
+				</ol>
+				<style>
+					.container-fluid{
+					padding-right: 0px;
+					padding-left: 0px;
+				  }
+				
+				</style>
+				
                 <!-- Wrapper for slides -->
                 <div class="carousel-inner">
                   <div class="item active">
@@ -198,19 +188,7 @@
 						
 					</div>
 					
-				<!--	<div class="sl-slide" data-orientation="vertical" data-slice1-rotation="10" data-slice2-rotation="-15" data-slice1-scale="1.5" data-slice2-scale="1.5">
-					
-						<div class="bg-img bg-img-1"></div>
-						<div class="slide-caption">
-                            <div class="caption-content">
-                                <h2 style="color:#FF0000;">School As A Service (SAAS)</h2>
-                                <span>We're accepting applications for the 2020-2021 school year in the following location:</span>
-                                <a href="#admissions" class="btn btn-blue btn-effect">Velachery</a>
-                            </div>
-                        </div>
-						
-					</div>
--->
+	
 				</div><!-- /sl-slider -->
 
                 <!-- 
@@ -242,13 +220,7 @@
         <!--
         End Home SliderEnd
         ==================================== -->
-		<link rel="stylesheet" href="https://cdn.plyr.io/3.5.6/plyr.css" />
-		<script src="https://cdn.plyr.io/3.5.6/plyr.js"></script>
-		 <script>
-			  document.addEventListener('DOMContentLoaded', () => {
-				  const player = Plyr.setup('.js-player');
-			  });
-		  </script>		
+		
 			<!-- School Amenities section -->
             <section id="about" >
 				<div class="container">
@@ -273,6 +245,10 @@
 								</div>
 							</div>
 						</div>
+						<script>document.addEventListener('DOMContentLoaded', () => {
+							const player = Plyr.setup('.js-player');
+						});</script>
+						
 						<div class="col-md-6  ">
 							
 							<div style="width:600px;height:600px;"class="js-player" data-plyr-provider="youtube" data-plyr-embed-id="hj6iaKZSllg"></div> 
@@ -657,61 +633,6 @@
 							<h2>5.0 (23 reviews)</h2>
 							<p>Education reimagined.</p>
 						</div>
-						
-						<!--<div class="col-md-4 wow animated fadeInUp">
-							<div class="price-table featured text-center">
-								<span>Kindergarten</span>
-								<div class="value">
-									<span><i class="fa fa-inr"></i></span>
-									<span>70500</span><br>
-									<span>year</span>
-								</div>
-								<ul>
-									<li>Pay Per Kid (Age Upto 4.5)</li>
-									<li>Pay On Enrollment</li>
-									<li>Billed Annually</li>
-                                    <li>Zero Upfront Cost</li>
-									<li><a href="#contact">sign up</a></li>
-								</ul>
-							</div>
-						</div>
-						
-						<div class="col-md-4 wow animated fadeInUp" data-wow-delay="0.4s">
-							<div class="price-table text-center">
-								<span>Lower Elementary</span>
-								<div class="value">
-									<span><i class="fa fa-inr"></i></span>
-									<span>85500</span><br>
-									<span>year</span>
-								</div>
-								<ul>
-									<li>Pay Per Kid (Age 4.5 To 7)</li>
-									<li>Pay On Enrollment</li>
-									<li>Billed Annually</li>
-                                    <li>Zero Upfront Cost</li>
-									<li style="background-color: #DDDCD2;"><a href="#contact" style="color:#434C45;">sign up</a></li>
-								</ul>
-							</div>
-						</div>
-						
-						<div class="col-md-4 wow animated fadeInUp" data-wow-delay="0.8s">
-							<div class="price-table featured text-center">
-								<span>Upper Elementary</span>
-								<div class="value">
-									<span><i class="fa fa-inr"></i></span>
-									<span>95500</span><br>
-									<span>year</span>
-								</div>
-								<ul>
-									<li>Pay Per Kid (Age 7 To 10)</li>
-									<li>Pay On Enrollment</li>
-									<li>Billed Annually</li>
-                                    <li>Zero Upfront Cost</li>
-									<li><a href="#contact">sign up</a></li>
-								</ul>
-							</div>
-						</div> -->
-		
 					</div>
 				</div>
       </section>
@@ -884,23 +805,7 @@
 				</div>
 			</section>
 			<!-- end Social section -->
-			<script>
-				function Validate() {
-						var ddlFruits = document.getElementById("HSGrade");
-						var ddlFruits = document.getElementById("HSBranding");
-						if (ddlFruits.value == "Enrolling Grade...") {
-							//If the "Please Select" option is selected display error.
-							document.getElementById("errmsgltb").style.display = "block";
-							return false;
-						}
-						if (ddlFruits.value == "How Did You Hear About Geekz...") {
-							//If the "Please Select" option is selected display error.
-							document.getElementById("errmsgltb1").style.display = "block";
-							return false;
-						}
-						return true;
-					}
-			</script>
+			
             
 			<!-- Apply & Contact section -->
 			<section id="contact" >
@@ -938,11 +843,15 @@
 								</div>
                                 
                                 <div class="input-field">
-									<input type="email" id="HSEmail" class="form-control" placeholder="Email..." required>
+									<input type="email" id="HSEmail" class="form-control"  placeholder="Email..." required>
 								</div>
 								<div class="input-field">
 									<input type="number" id="HSPhone" class="form-control" placeholder="Phone..." required>
+								<div style="display: none;" id="errmsgvalph">
+                                    <p style="color: red; font-size:10px;">Please enter a valid number.</p>
+                                </div>
 								</div>
+
                                 <div class="input-field">
 									<select id="HSBranding" class="form-control" required>
                                         <option selected disabled>How Did You Hear About Geekz...</option>
@@ -981,7 +890,7 @@
 					</div>
 				</div>
       </section>
-      {% endfor %}
+     
 			<!-- end Affiliate section -->
 		
 			<section id="google-map">
@@ -990,7 +899,7 @@
 			
 		
 		</main>
-		
+		{% endfor %}	
 		<footer id="footer">
 			<div class="container">
 				<div class="row text-center">

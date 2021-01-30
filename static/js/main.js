@@ -197,11 +197,11 @@ google.maps.event.addDomListener(window, 'load', init);
 function init() {
     // Basic options for a simple Google Map
     // For more options see: https://developers.google.com/maps/documentation/javascript/reference#MapOptions
-    //LAT = document.getElementById('loc_lat')
-    //LONG = document.getElementById('loc_long')
+    LAT = document.getElementById('loc_lat').value
+    LONG = document.getElementById('loc_long').value
     
 	    var myLatLng = new google.maps.LatLng( 31.287104,75.57533819999999);
-
+       // var myLatLng1 = new google.maps.LatLng(  LAT,LONG);
 	    var mapOptions = {
 	        zoom: 15,
 	        center: myLatLng,
@@ -262,13 +262,75 @@ function init() {
             }]
         }]
     };
+   /* var mapOptions1 = {
+        zoom: 15,
+        center: myLatLng1,
+        disableDefaultUI: true,
+        scrollwheel: false,
+        navigationControl: true,
+        mapTypeControl: false,
+        scaleControl: false,
+        draggable: true,
+
+    // How you would like to style the map. 
+    // This is where you would paste any style found on Snazzy Maps.
+    styles: [{
+        featureType: 'water',
+        stylers: [{
+            color: '#46bcec'
+        }, {
+            visibility: 'on'
+        }]
+    }, {
+        featureType: 'landscape',
+        stylers: [{
+            color: '#f2f2f2'
+        }]
+    }, {
+        featureType: 'road',
+        stylers: [{
+            saturation: -100
+        }, {
+            lightness: 45
+        }]
+    }, {
+        featureType: 'road.highway',
+        stylers: [{
+            visibility: 'simplified'
+        }]
+    }, {
+        featureType: 'road.arterial',
+        elementType: 'labels.icon',
+        stylers: [{
+            visibility: 'off'
+        }]
+    }, {
+        featureType: 'administrative',
+        elementType: 'labels.text.fill',
+        stylers: [{
+            color: '#444444'
+        }]
+    }, {
+        featureType: 'transit',
+        stylers: [{
+            visibility: 'off'
+        }]
+    }, {
+        featureType: 'poi',
+        stylers: [{
+            visibility: 'off'
+        }]
+    }]
+};*/
 
     // Get the HTML DOM element that will contain your map 
     // We are using a div with id="map" seen below in the <body>
     var mapElement = document.getElementById('map-canvas');
+    //var mapElement1 = document.getElementById('map-canvas1');
 
     // Create the Google Map using our element and options defined above
     var map = new google.maps.Map(mapElement, mapOptions);
+   // var map1 = new google.maps.Map(mapElement1, mapOptions1);
 
     // Let's also add a marker while we're at it
  
@@ -276,6 +338,10 @@ function init() {
         position: new google.maps.LatLng(31.287104,75.57533819999999),
         map: map,
     });
+   /* var marker1 = new google.maps.Marker({
+        position: new google.maps.LatLng(LAT,LONG),
+        map: map1,
+    });*/
 }
 
 // ========== END GOOGLE MAP ========== //
@@ -954,3 +1020,281 @@ $(document).on('change', '#'+searchInput, function () {
     document.getElementById('latitude_view').innerHTML = '';
     document.getElementById('longitude_view').innerHTML = '';
 });
+
+
+//////////inquiry dropdown validation //////////////
+
+function Validate() {
+    var ddlFruits = document.getElementById("HSGrade");
+    var ddlFruits1 = document.getElementById("HSBranding");
+    var HSPhoneid = document.getElementById("HSPhone");
+    if (ddlFruits.value == "Enrolling Grade...") {
+        //If the "Please Select" option is selected display error.
+        document.getElementById("errmsgltb").style.display = "block";
+        return false;
+    }
+    if (ddlFruits1.value == "How Did You Hear About Geekz...") {
+        //If the "Please Select" option is selected display error.
+        document.getElementById("errmsgltb1").style.display = "block";
+        return false;
+    } 
+    if(isNaN(HSPhoneid.value) || HSPhoneid.value.length!=10){
+        document.getElementById("errmsgvalph").style.display = "block";
+        return false;
+    }
+    
+    return true;
+}
+//////////// IMAGE TYpEVALIDATION///////
+function vv() {
+    var x,y;
+    y= document.getElementsByTagName("input");
+    var allowedExtensions =  
+              /(\.jpg|\.jpeg|\.png|\.gif)$/i; 
+    for (k = 0; k< y.length; k++) {
+      if (y[k].id == "file"||y[k].id == "file2"||y[k].id == "file3"||y[k].id == "file4"){
+        var filePath = y[k].value; 
+        if ((!allowedExtensions.exec(filePath)) && (filePath != '' ) ) { 
+          if(y[k].id == "file"){
+            $("#errmsg").show();
+            y[k].value = ''; 
+          }
+          if(y[k].id == "file2"){
+            $("#errmsg2").show();
+            y[k].value = ''; 
+          }
+          if(y[k].id == "file3"){
+            $("#errmsg3").show();
+            y[k].value = ''; 
+          }
+          if(y[k].id == "file4"){
+            $("#errmsg4").show();
+            y[k].value = ''; 
+          }
+        }
+      }
+      if(isNaN(y[i].value || y[k].id=="phone1"){
+        
+        if(  (y[k].value.length!=10) ){
+            //if not a number or length is not equal to 10
+            $("#errmsgvalph1").show()
+            valid = false;
+        }
+        else{
+            $("#errmsgvalph1").hide()
+        }
+    }
+    if(y[k].id=="phone"){
+        
+        if(isNaN(y[i].value || y[k].value.length!=10 ){
+            //if not a number or length is not equal to 10
+            $("#errmsgvalph").show()
+            valid = false;
+        }else{
+            $("#errmsgvalph").hide()
+        }
+    }
+
+
+      
+      /*if(y[k].type == "checkbox"){
+        if(y[k].id == "c1")
+        {
+          var ch =  document.getElementById('is_Spacious_Studio').value;
+          if (ch =="N"){
+            document.getElementById('is_Spacious_Studio').value = 'Y';
+          }
+          else if (ch=='Y'){
+            document.getElementById('is_Spacious_Studio').value = 'N';
+          }
+        }
+        if(y[k].id == "c2")
+        {
+          var ch1 = document.getElementById('is_Outdoor_PlayLawn').value;
+          if (ch1 =="N"){
+            document.getElementById('is_Outdoor_PlayLawn').value="Y";
+              }
+          else if (ch1=='Y'){
+            document.getElementById('is_Outdoor_PlayLawn').value= 'N';
+            }  
+        }
+        if(y[k].name == "Commute")
+        {
+          var ch2 = document.getElementById('is_Commute').value;
+          if (ch2 =="N"){
+            document.getElementById('is_Commute').value="Y";
+              }
+          else if (ch2=='Y'){
+            document.getElementById('is_Commute').value= 'N';
+            }   
+        }
+        if(y[k].name == "WiFi")
+        {
+          var ch3 = document.getElementById('is_WiFi').value;
+          if (ch3 =="N"){
+            document.getElementById('is_WiFi').value="Y";
+              }
+          else if (ch3=='Y'){
+            document.getElementById('is_WiFi').value= 'N';
+            }  
+        }
+        if(y[k].name == "CCTV")
+        {
+          var ch6 = document.getElementById('is_CCTV').value;
+          if (ch6 =="N"){
+            document.getElementById('is_CCTV').value="Y";
+              }
+          else if (ch6=='Y'){
+            document.getElementById('is_CCTV').value= 'N';
+            }  
+        }
+        if(y[k].name == "Device")
+        {
+          var ch4 = document.getElementById('is_Device').value;
+          if (ch4 =="N"){
+            document.getElementById('is_Device').value="Y";
+              }
+          else if (ch4=='Y'){
+            document.getElementById('is_Device').value= 'N';
+            }   
+        }
+        if(y[k].name == "Food")
+        {
+          var ch5 = document.getElementById('is_Food').value;
+          if (ch5 =="N"){
+            document.getElementById('is_Food').value="Y";
+              }
+          else if (ch5=='Y'){
+            document.getElementById('is_Food').value= 'N';
+            } 
+        }
+        if(y[k].name == "After_School")
+        {
+          var ch8 = document.getElementById('is_After_School').value;
+          if (ch8 =="N"){
+            document.getElementById('is_After_School').value="Y";
+              }
+          else if (ch8=='Y'){
+            document.getElementById('is_After_School').value= 'N';
+            }    
+        }
+        if(y[k].name == "Residential")
+        {
+          var ch9 = document.getElementById('is_Residential').value;
+          if (ch9 =="N"){
+            document.getElementById('is_Residential').value="Y";
+              }
+          else if (ch9 =='Y'){
+            document.getElementById('is_Residential').value= 'N';
+            }  
+        }
+        if(y[k].name == "Daycare")
+        {
+          var ch7 = document.getElementById('is_Daycare').value;
+          if (ch7 =="N"){
+            document.getElementById('is_Daycare').value="Y";
+              }
+          else if (ch7=='Y'){
+            document.getElementById('is_Daycare').value= 'N';
+            }    
+        }
+
+      }*/
+   
+    }
+
+  }  
+
+  function showAdd(){
+                              
+    var ch =  document.getElementById('is_Spacious_Studio').value;
+      if (ch =="N"){
+        document.getElementById('is_Spacious_Studio').value = 'Y';
+      }
+      else if (ch=='Y'){
+        document.getElementById('is_Spacious_Studio').value = 'N';
+      }
+
+}
+function showAdd1(){
+var ch1 = document.getElementById('is_Outdoor_PlayLawn').value;
+if (ch1 =="N"){
+  document.getElementById('is_Outdoor_PlayLawn').value="Y";
+   }
+else if (ch1=='Y'){
+  document.getElementById('is_Outdoor_PlayLawn').value= 'N';
+ }              
+}
+function showAdd2(){
+var ch2 = document.getElementById('is_Commute').value;
+if (ch2 =="N"){
+  document.getElementById('is_Commute').value="Y";
+   }
+else if (ch2=='Y'){
+  document.getElementById('is_Commute').value= 'N';
+ }                   
+}
+function showAdd4(){
+var ch3 = document.getElementById('is_WiFi').value;
+if (ch3 =="N"){
+  document.getElementById('is_WiFi').value="Y";
+   }
+else if (ch3=='Y'){
+  document.getElementById('is_WiFi').value= 'N';
+ }           
+}
+function showAdd5(){
+var ch4 = document.getElementById('is_Device').value;
+if (ch4 =="N"){
+  document.getElementById('is_Device').value="Y";
+   }
+else if (ch4=='Y'){
+  document.getElementById('is_Device').value= 'N';
+ }          
+}
+function showAdd6(){
+var ch5 = document.getElementById('is_Food').value;
+if (ch5 =="N"){
+  document.getElementById('is_Food').value="Y";
+   }
+else if (ch5=='Y'){
+  document.getElementById('is_Food').value= 'N';
+ }        
+}
+function showAdd3(){
+var ch6 = document.getElementById('is_CCTV').value;
+if (ch6 =="N"){
+  document.getElementById('is_CCTV').value="Y";
+   }
+else if (ch6=='Y'){
+  document.getElementById('is_CCTV').value= 'N';
+ }        
+     
+}
+function showAdd7(){
+var ch7 = document.getElementById('is_Daycare').value;
+if (ch7 =="N"){
+  document.getElementById('is_Daycare').value="Y";
+   }
+else if (ch7=='Y'){
+  document.getElementById('is_Daycare').value= 'N';
+ }             
+}
+function showAdd8(){
+var ch8 = document.getElementById('is_After_School').value;
+if (ch8 =="N"){
+  document.getElementById('is_After_School').value="Y";
+   }
+else if (ch8=='Y'){
+  document.getElementById('is_After_School').value= 'N';
+ }                
+}
+function showAdd9(){
+var ch9 = document.getElementById('is_Residential').value;
+if (ch9 =="N"){
+  document.getElementById('is_Residential').value="Y";
+   }
+else if (ch9 =='Y'){
+  document.getElementById('is_Residential').value= 'N';
+ }              
+} 

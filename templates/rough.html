@@ -1,8 +1,35 @@
-<link rel="stylesheet" href="https://cdn.plyr.io/3.5.6/plyr.css" />
-<script src="https://cdn.plyr.io/3.5.6/plyr.js"></script>
- <script>
-      document.addEventListener('DOMContentLoaded', () => {
-          const player = Plyr.setup('.js-player');
-      });
+
+
+{% block content %}
+  <div id="container" style="width: 75%;">
+    <canvas id="pie-chart"></canvas>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+  <script>
+
+    var config = {
+      type: 'pie',
+      data: {
+        datasets: [{
+          data: {{ data|safe }},
+          backgroundColor: [
+            '#FF3336', '#8DFF33', '#A9A9A9', '#FF33A2', '#33F0FF'
+          ],
+          label: 'Population'
+        }],
+        labels: {{ labels|safe }}
+      },
+      options: {
+        responsive: true
+      }
+    };
+
+    window.onload = function() {
+      var ctx = document.getElementById('pie-chart').getContext('2d');
+      window.myPie = new Chart(ctx, config);
+    };
+
   </script>
-<div style="width:600px;height:600px;"class="js-player" data-plyr-provider="youtube" data-plyr-embed-id="hj6iaKZSllg"></div>
+
+{% endblock %}

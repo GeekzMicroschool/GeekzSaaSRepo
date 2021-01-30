@@ -250,6 +250,15 @@ class MyModel1(models.Model):
     upload = models.FileField(upload_to=user_directory_path)
 
 
+class Country(models.Model):
+    name = models.CharField(max_length=30)
+
+class City(models.Model):
+    name = models.CharField(max_length=30)
+    country = models.ForeignKey(Country, on_delete=models.CASCADE)
+    population = models.PositiveIntegerField()    
+
+
 
      
 

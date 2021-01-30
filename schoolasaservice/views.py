@@ -1042,5 +1042,21 @@ def school_template(request):
     return render(request,"geekzmicroschoolvelachery.html")
 
 
+def rough(request):
+    labels = []
+    data = []
+
+    queryset = City.objects.order_by('-population')[:5]
+    for city in queryset:
+        labels.append(city.name)
+        data.append(city.population)
+
+    return render(request, 'rough.html', {
+        'labels': labels,
+        'data': data,
+    })
+
+
+
 
  ###########################################3       

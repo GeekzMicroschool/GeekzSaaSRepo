@@ -10,142 +10,7 @@
         <h2>START YOUR GEEKZ JOURNEY!</h2>
         <p id="geekzapply">Get affiliated. Welcome your first geek.</p>
     </div>
-    <script> 
-        function vv() {
-          var x,y;
-          y= document.getElementsByTagName("input");
-          var allowedExtensions =  
-                    /(\.jpg|\.jpeg|\.png|\.gif)$/i; 
-          for (k = 0; k< y.length; k++) {
-            if (y[k].id == "file"||y[k].id == "file2"||y[k].id == "file3"||y[k].id == "file4"){
-              var filePath = y[k].value; 
-              if ((!allowedExtensions.exec(filePath)) && (filePath != '' ) ) { 
-                if(y[k].id == "file"){
-                  $("#errmsg").show();
-                  y[k].value = ''; 
-                }
-                if(y[k].id == "file2"){
-                  $("#errmsg2").show();
-                  y[k].value = ''; 
-                }
-                if(y[k].id == "file3"){
-                  $("#errmsg3").show();
-                  y[k].value = ''; 
-                }
-                if(y[k].id == "file4"){
-                  $("#errmsg4").show();
-                  y[k].value = ''; 
-                }
-              }
-            }
-            /*if(y[k].type == "checkbox"){
-              if(y[k].id == "c1")
-              {
-                var ch =  document.getElementById('is_Spacious_Studio').value;
-                if (ch =="N"){
-                  document.getElementById('is_Spacious_Studio').value = 'Y';
-                }
-                else if (ch=='Y'){
-                  document.getElementById('is_Spacious_Studio').value = 'N';
-                }
-              }
-              if(y[k].id == "c2")
-              {
-                var ch1 = document.getElementById('is_Outdoor_PlayLawn').value;
-                if (ch1 =="N"){
-                  document.getElementById('is_Outdoor_PlayLawn').value="Y";
-                    }
-                else if (ch1=='Y'){
-                  document.getElementById('is_Outdoor_PlayLawn').value= 'N';
-                  }  
-              }
-              if(y[k].name == "Commute")
-              {
-                var ch2 = document.getElementById('is_Commute').value;
-                if (ch2 =="N"){
-                  document.getElementById('is_Commute').value="Y";
-                    }
-                else if (ch2=='Y'){
-                  document.getElementById('is_Commute').value= 'N';
-                  }   
-              }
-              if(y[k].name == "WiFi")
-              {
-                var ch3 = document.getElementById('is_WiFi').value;
-                if (ch3 =="N"){
-                  document.getElementById('is_WiFi').value="Y";
-                    }
-                else if (ch3=='Y'){
-                  document.getElementById('is_WiFi').value= 'N';
-                  }  
-              }
-              if(y[k].name == "CCTV")
-              {
-                var ch6 = document.getElementById('is_CCTV').value;
-                if (ch6 =="N"){
-                  document.getElementById('is_CCTV').value="Y";
-                    }
-                else if (ch6=='Y'){
-                  document.getElementById('is_CCTV').value= 'N';
-                  }  
-              }
-              if(y[k].name == "Device")
-              {
-                var ch4 = document.getElementById('is_Device').value;
-                if (ch4 =="N"){
-                  document.getElementById('is_Device').value="Y";
-                    }
-                else if (ch4=='Y'){
-                  document.getElementById('is_Device').value= 'N';
-                  }   
-              }
-              if(y[k].name == "Food")
-              {
-                var ch5 = document.getElementById('is_Food').value;
-                if (ch5 =="N"){
-                  document.getElementById('is_Food').value="Y";
-                    }
-                else if (ch5=='Y'){
-                  document.getElementById('is_Food').value= 'N';
-                  } 
-              }
-              if(y[k].name == "After_School")
-              {
-                var ch8 = document.getElementById('is_After_School').value;
-                if (ch8 =="N"){
-                  document.getElementById('is_After_School').value="Y";
-                    }
-                else if (ch8=='Y'){
-                  document.getElementById('is_After_School').value= 'N';
-                  }    
-              }
-              if(y[k].name == "Residential")
-              {
-                var ch9 = document.getElementById('is_Residential').value;
-                if (ch9 =="N"){
-                  document.getElementById('is_Residential').value="Y";
-                    }
-                else if (ch9 =='Y'){
-                  document.getElementById('is_Residential').value= 'N';
-                  }  
-              }
-              if(y[k].name == "Daycare")
-              {
-                var ch7 = document.getElementById('is_Daycare').value;
-                if (ch7 =="N"){
-                  document.getElementById('is_Daycare').value="Y";
-                    }
-                else if (ch7=='Y'){
-                  document.getElementById('is_Daycare').value= 'N';
-                  }    
-              }
-
-            }*/
-         
-          }
-
-        }  
-    </script>
+    
     {%if webform_done == 'done' %}
 					<div class="sec-title text-center wow animated fadeInDown">
 						<p>Your message on its way. Geekz support team will be in touch with you shortly. <br />Good luck!'</p>
@@ -171,7 +36,7 @@
                             <div class="col-md-12">
                               <label>
                                 <input type="checkbox" onchange="showAdd();" id="c1" name ="Spacious_Studio" value='Y'>&nbsp;Spacious Studio
-                                <input type="text" id ="is_Spacious_Studio" name ="is_Spacious_Studio" value="N">
+                                <input type="hidden" id ="is_Spacious_Studio" name ="is_Spacious_Studio" value="N">
                             </label>
                             </div>
                           </div>
@@ -179,7 +44,7 @@
                             <div class="col-md-12">
                               <label>
                                 <input type="checkbox" onchange="showAdd1();" id="c2" name ="Outdoor_PlayLawn" value='Y'>&nbsp;Outdoor Play & Lawn
-                                <input type="text" id ="is_Outdoor_PlayLawn" name ="is_Outdoor_PlayLawn" value="N" >
+                                <input type="hidden" id ="is_Outdoor_PlayLawn" name ="is_Outdoor_PlayLawn" value="N" >
                             </label>
                             </div>
                           </div>
@@ -187,7 +52,7 @@
                             <div class="col-md-12">
                               <label>
                                 <input type="checkbox" onchange="showAdd2();"  name ="Commute" value='Y'>&nbsp;Commute
-                                <input type="text" id ="is_Commute" name ="is_Commute" value="N" >
+                                <input type="hidden" id ="is_Commute" name ="is_Commute" value="N" >
                             </label>
                             </div>
                           </div>
@@ -221,7 +86,7 @@
                             <div class="col-md-12">
                               <label>
                                 <input type="checkbox" onchange="showAdd6();" id="c5" name ="Food" value='Y'>&nbsp;Food
-                                <input type="text" id ="is_Food" name ="is_Food" value="N">
+                                <input type="hidden" id ="is_Food" name ="is_Food" value="N">
                             </label>
                             </div>
                           </div>
@@ -232,7 +97,7 @@
                             <div class="col-md-12">
                               <label>
                                 <input type="checkbox" onchange="showAdd7();" id="c7" name ="Daycare" value='Y'>&nbsp;Daycare
-                                <input type="text" id ="is_Daycare" name ="is_Daycare" value="N" >
+                                <input type="hidden" id ="is_Daycare" name ="is_Daycare" value="N" >
                             </label>
                             </div>
                           </div>
@@ -240,7 +105,7 @@
                             <div class="col-md-12">
                               <label>
                                 <input type="checkbox" onchange="showAdd8();" id="c8" name ="After_School" value='Y'>&nbsp;After School
-                                <input type="text" id ="is_After_School" name ="is_After_School" value="N" >
+                                <input type="hidden" id ="is_After_School" name ="is_After_School" value="N" >
                             </label>
                             </div>
                           </div>
@@ -255,104 +120,6 @@
                         </div>
                       </div>
                     </div>
-                    <script>
-                     
-                    function showAdd(){
-                              
-                            var ch =  document.getElementById('is_Spacious_Studio').value;
-                              if (ch =="N"){
-                                document.getElementById('is_Spacious_Studio').value = 'Y';
-                              }
-                              else if (ch=='Y'){
-                                document.getElementById('is_Spacious_Studio').value = 'N';
-                              }
-
-                      }
-                      function showAdd1(){
-                        var ch1 = document.getElementById('is_Outdoor_PlayLawn').value;
-                        if (ch1 =="N"){
-                          document.getElementById('is_Outdoor_PlayLawn').value="Y";
-                           }
-                        else if (ch1=='Y'){
-                          document.getElementById('is_Outdoor_PlayLawn').value= 'N';
-                         }              
-                      }
-                      function showAdd2(){
-                        var ch2 = document.getElementById('is_Commute').value;
-                        if (ch2 =="N"){
-                          document.getElementById('is_Commute').value="Y";
-                           }
-                        else if (ch2=='Y'){
-                          document.getElementById('is_Commute').value= 'N';
-                         }                   
-                      }
-                      function showAdd4(){
-                        var ch3 = document.getElementById('is_WiFi').value;
-                        if (ch3 =="N"){
-                          document.getElementById('is_WiFi').value="Y";
-                           }
-                        else if (ch3=='Y'){
-                          document.getElementById('is_WiFi').value= 'N';
-                         }           
-                      }
-                      function showAdd5(){
-                        var ch4 = document.getElementById('is_Device').value;
-                        if (ch4 =="N"){
-                          document.getElementById('is_Device').value="Y";
-                           }
-                        else if (ch4=='Y'){
-                          document.getElementById('is_Device').value= 'N';
-                         }          
-                      }
-                      function showAdd6(){
-                        var ch5 = document.getElementById('is_Food').value;
-                        if (ch5 =="N"){
-                          document.getElementById('is_Food').value="Y";
-                           }
-                        else if (ch5=='Y'){
-                          document.getElementById('is_Food').value= 'N';
-                         }        
-                      }
-                      function showAdd3(){
-                        var ch6 = document.getElementById('is_CCTV').value;
-                        if (ch6 =="N"){
-                          document.getElementById('is_CCTV').value="Y";
-                           }
-                        else if (ch6=='Y'){
-                          document.getElementById('is_CCTV').value= 'N';
-                         }        
-                             
-                      }
-                      function showAdd7(){
-                        var ch7 = document.getElementById('is_Daycare').value;
-                        if (ch7 =="N"){
-                          document.getElementById('is_Daycare').value="Y";
-                           }
-                        else if (ch7=='Y'){
-                          document.getElementById('is_Daycare').value= 'N';
-                         }             
-                      }
-                      function showAdd8(){
-                        var ch8 = document.getElementById('is_After_School').value;
-                        if (ch8 =="N"){
-                          document.getElementById('is_After_School').value="Y";
-                           }
-                        else if (ch8=='Y'){
-                          document.getElementById('is_After_School').value= 'N';
-                         }                
-                      }
-                      function showAdd9(){
-                        var ch9 = document.getElementById('is_Residential').value;
-                        if (ch9 =="N"){
-                          document.getElementById('is_Residential').value="Y";
-                           }
-                        else if (ch9 =='Y'){
-                          document.getElementById('is_Residential').value= 'N';
-                         }              
-                      } 
-                  
-                    </script>
-                    
                     <div class="input-field">
                         <input type="email" id="Email" name="email" class="form-control" placeholder="Your Email..." required>                  
                     </div>
@@ -382,10 +149,16 @@
                       <p style="color: red; font-size:10px;">File invalid</p>
                     </div>
                     <div class="input-field">
-                        <input type="number" id="phone" name="phone" class="form-control" placeholder="Your Phone..." required>
+                        <input type="number" id="phone" name="phone" class="form-control" onchange="return vv()" placeholder="Your Phone..." required>
+                        <div style="display: none;" id="errmsgvalph">
+                          <p style="color: red; font-size:10px;">Please enter a valid number.</p>
+                      </div>
                     </div>
                     <div class="input-field">
-                      <input type="number" id="phone1" name="phone1" class="form-control" placeholder="Your Second Phone..." required>
+                      <input type="number" id="phone1" name="phone1" class="form-control" onchange="return vv()" placeholder="Your Second Phone..." required>
+                      <div style="display: none;" id="errmsgvalph1">
+                        <p style="color: red; font-size:10px;">Please enter a valid number.</p>
+                    </div>
                   </div>
                     <div class="input-field">
                         <input type="url" id="googlereview" name="googlereview" class="form-control" placeholder="Enter your google review link..." required>
