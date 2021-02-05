@@ -5,6 +5,7 @@ from home.models import USER_DETAILS
 import sys
 from PIL import Image
 from io import BytesIO
+from datetime import datetime  
 from django.core.files.uploadedfile import InMemoryUploadedFile
 
 # Create your models here.
@@ -241,6 +242,8 @@ class INDIVIDUAL_WEBPAGESS(models.Model):
         BANNER1 = InMemoryUploadedFile(outputIoStream,'ImageField', "%s.jpg" % BANNER1.name.split('.')[0], 'image/jpeg', sys.getsizeof(outputIoStream), None)
         return BANNER1 '''
 
+
+
 def user_directory_path(instance, filename):
     # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
     return 'user_{0}/{1}'.format(instance.user, filename)
@@ -258,6 +261,21 @@ class City(models.Model):
     country = models.ForeignKey(Country, on_delete=models.CASCADE)
     population = models.PositiveIntegerField()    
 
+class Inquiry(models.Model):
+    uid = models.CharField(max_length=50, primary_key=True)
+    date = models.DateTimeField(default=datetime.now(), blank=True)
+    studentName = models.CharField(max_length=250)
+    enrolling_grade = models.CharField(max_length=250)
+    email = models.EmailField(max_length=250)
+    phone = models.BigIntegerField()
+    message = models.CharField(max_length=700) 
+    hear_about_us = models.CharField(max_length=250) 
+    microschool = models.CharField(max_length=250) 
+
+class Photo(models.Model):
+    title = models.CharField(max_length=255, blank=True)
+    file = models.FileField(upload_to='media/')
+    uploaded_at = models.DateTimeField(auto_now_add=True)
 
 
      

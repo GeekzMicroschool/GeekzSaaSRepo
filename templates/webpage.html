@@ -23,7 +23,9 @@
 		
 		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
 	
-		
+		<link rel="stylesheet" href="{% static 'assets/plugins/fontawesome/css/fontawesome.min.css' %}">
+		<link rel="stylesheet" href="{% static 'assets/plugins/fontawesome/css/all.min.css' %}">
+		<link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
 		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!--[if lt IE 9]>
 			<script src="assets/js/html5shiv.min.js"></script>
@@ -167,15 +169,9 @@
                   </div>
                 </div>
             
-                <!-- Left and right controls -->
-                <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-                  <span class="glyphicon glyphicon-chevron-left"></span>
-                  <span class="sr-only">Previous</span>
-                </a>
-                <a class="right carousel-control" href="#myCarousel" data-slide="next">
-                  <span class="glyphicon glyphicon-chevron-right"></span>
-                  <span class="sr-only">Next</span>
-                </a>
+               
+                
+               
               </div>
             </div>
 						<div class="slide-caption">
@@ -225,38 +221,108 @@
             <section id="about" >
 				<div class="container">
 					<div class="row">
-						<div class="col-md-5 wow animated fadeInLeft">
+						<div class="col-md-4 wow animated fadeInLeft">
 							<div class="recent-works">
 								<h3>Amenities</h3>
+								<br>
 								<div id="works">
 									<div class="work-item" style="text-align:justify;">
-										<p><i class="fa fa-university fa-x"></i>&emsp;Spacious Studio</p>
-                                        <p><i class="fa fa-futbol-o fa-x"></i>&emsp;Outdoor Play & Lawn</p>
-                                        <p><i class="fa fa-bus fa-x"></i>&emsp;Commute</p>
-                                        <p><i class="fa fa-wifi fa-x"></i>&emsp;Wifi</p>
-                                        <p><i class="fa fa-video-camera fa-x"></i>&emsp;CCTV</p>
-                                        <p><i class="fa fa-tablet fa-x"></i>&emsp; <del>Device</del></p>
-                                        <p><i class="fa fa-cutlery fa-x"></i>&emsp; <del>Food</del></p>
-                                        <p><i class="fa fa-child fa-x"></i>&emsp; <del>Daycare</del></p>
-                                        <p><i class="fa fa-bell fa-x"></i>&emsp;<del>After School</del></p>
-                                        <p><i class="fa fa-home fa-x"></i>&emsp;<del>Residential</del></p>
+										<p style="font-size:28px;"><i class="fa fa-university fa-x"></i>&emsp;Spacious Studio</p><br>
+										<p style="font-size:28px;"><i class="fa fa-futbol-o fa-x"></i>&emsp;Outdoor Play & Lawn</p><br>
+										<p style="font-size:28px;"><i class="fa fa-bus fa-x"></i>&emsp;Commute</p><br>
+										<p style="font-size:28px;"><i class="fa fa-wifi fa-x"></i>&emsp;Wifi</p><br>
+										<p style="font-size:28px;"><i class="fa fa-video-camera fa-x"></i>&emsp;CCTV</p>
+									</div>
+									<div class="work-item" style="text-align:justify;">
+										<p style="font-size:28px;"><i class="fa fa-tablet fa-x"></i>&emsp;Device</p><br>
+										<p style="font-size:28px;"><i class="fa fa-cutlery fa-x"></i>&emsp;Food</p><br>
+										<p style="font-size:28px;"><i class="fa fa-child fa-x"></i>&emsp;Daycare</p><br>
+										<p style="font-size:28px;"><i class="fa fa-bell fa-x"></i>&emsp;After School</p><br>
+										<p style="font-size:28px;"><i class="fa fa-home fa-x"></i>&emsp;Residential</p>
 									</div>
 									
 								</div>
+								<br><br>
 							</div>
 						</div>
-						<script>document.addEventListener('DOMContentLoaded', () => {
-							const player = Plyr.setup('.js-player');
-						});</script>
 						
-						<div class="col-md-6  ">
-							
-							<div style="width:600px;height:600px;"class="js-player" data-plyr-provider="youtube" data-plyr-embed-id="hj6iaKZSllg"></div> 
-						    
+						<div class="col-md-8 col-md-offset-1 wow animated fadeInRight">
+							<div>
+								<h3>Real World Learning</h3>								
+						     	 <div>
+								 <img src="{% static 'img/flip.png' %} " style="max-width:700px;max-height:300px;display:block;margin:0 auto;" alt="learning cycle">
+							<!-- 	<button  data-dismiss="modal" class="btn1 close"><i style="color: rgba(0,158,227, 0.78);font-size:30px;"class="fa fa-play" aria-hidden="true"></i></button> -->
+							<a class="edit-link btn1" data-toggle="modal" href="#video-pop"><i style="color: rgba(0,158,227, 0.78);font-size:30px;"class="fa fa-play" aria-hidden="true"></i></a>
+								  </div>
+								  <br>
+						       	<a href="https://www.youtube.com/channel/UCNy54QG09WBP7ZU8eOSRntQ" target="_blank" class="btn btn-border btn-effect pull-right">Quests</a>   
+						    </div>
 						</div>
 					</div>
 				</div>
 			</section>
+			<div class="modal fade custom-modal " id="video-pop" style="backdrop-filter: blur(5px);" style="max-width: 700px;">
+				<div class="modal-dialog modal-dialog-centered " >
+					<div class="modal-content" >
+						<div class="modal-body ">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+							<iframe  width="630" height="370" src="https://www.youtube.com/embed/hj6iaKZSllg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+						</div>
+					</div>
+				</div>
+			</div>
+			<style>
+				.vd-container {
+					overflow: hidden;
+					position: relative;
+					width:100%;
+				}
+
+				.vd-container::after {
+					padding-top: 1.25%;
+					display: block;
+					content: '';
+				}
+
+				.vd-container iframe {
+					position: absolute;
+					top: 0;
+					left: 0;
+					width: 100%;
+					height: 100%;
+				}
+			/* Container needed to position the button. Adjust the width as needed */
+.col-md-8 {
+  position: relative;
+  width: 50%;
+}
+
+/* Make the image responsive */
+
+
+/* Style the button and place it in the middle of the container/image */
+.col-md-8 .btn1 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  color: white;
+  font-size: 16px;
+  padding: 12px 24px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.col-md-8 .btn1:hover {
+  color: white;
+}
+</style>				
+				
+				
             <!-- end school amenities section -->
 			
 			<!-- Studio section -->
@@ -627,13 +693,219 @@
 
 			<section id="price" style="background-color:#f8f8f8;">
 				<div class="container">
-					<div class="row">
-					
-						<div class="sec-title text-center wow animated fadeInDown">
-							<h2>5.0 (23 reviews)</h2>
-							<p>Education reimagined.</p>
+					<div class="sec-title text-center wow animated fadeInDown">
+						<h2>5.0 (23 reviews)</h2>
+						<p>Education reimagined.</p>
+					</div>	
+					<div class="row">		
+					 <div class="doc-review review-listing">
+						<ul class="comments-list">
+								
+							<!-- Comment List -->
+							<div class="col-md-1">
+								
+							</div>
+							<div class="col-md-4">
+							<li>
+								<div class="comment">
+									<img  style="border-radius: 50%;" class="avatar rounded-circle" alt="User Image" src="{% static 'assets/img/patients/patient.jpg' %}">
+									<div class="comment-body">
+										<div class="meta-data">
+											<span ><h3>Richard Wilson</h3></span>
+											<div class="review-count rating">
+												<i  class="fas fa-star filled"></i>
+												<i  class="fas fa-star filled"></i>
+												<i  class="fas fa-star filled"></i>
+												<i  class="fas fa-star filled"></i>
+												<i  class="fas fa-star"></i>
+											</div>
+										</div>
+										
+										<p>
+											Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+											sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+											
+										</p>
+										
+									</div>
+								</div>
+							</li>
+							</div>
+							<div class="col-md-1">
+								
+							</div>
+							<div class="col-md-4">
+							<li>
+								<div class="comment">
+									<img style="border-radius: 50%;" class="avatar rounded-circle" alt="User Image" src="{% static 'assets/img/patients/patient.jpg' %}">
+									<div class="comment-body">
+										<div class="meta-data">
+											<span ><h3>Richard Wilson</h3></span>
+											<div class="review-count rating">
+												<i class="fas fa-star filled"></i>
+												<i class="fas fa-star filled"></i>
+												<i class="fas fa-star filled"></i>
+												<i class="fas fa-star filled"></i>
+												<i class="fas fa-star"></i>
+											</div>
+										</div>
+										<p>
+											Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+											sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+											
+										</p>
+										
+									</div>
+								</div>
+							</li>
 						</div>
+						<div class="col-md-1">
+								
+						</div>
+						</ul>
+					 </div>
 					</div>
+					<br>
+					<div class="row">		
+						<div class="doc-review review-listing">
+						   <ul class="comments-list">
+								   
+							   <!-- Comment List -->
+							   <div class="col-md-1">
+								   
+							   </div>
+							   <div class="col-md-4">
+							   <li>
+								   <div class="comment">
+									   <img  style="border-radius: 50%;" class="avatar rounded-circle" alt="User Image" src="{% static 'assets/img/patients/patient.jpg' %}">
+									   <div class="comment-body">
+										   <div class="meta-data">
+											   <span ><h3>Richard Wilson</h3></span>
+											   <div class="review-count rating">
+												   <i  class="fas fa-star filled"></i>
+												   <i  class="fas fa-star filled"></i>
+												   <i  class="fas fa-star filled"></i>
+												   <i  class="fas fa-star filled"></i>
+												   <i  class="fas fa-star"></i>
+											   </div>
+										   </div>
+										   
+										   <p>
+											   Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+											   sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+											   
+										   </p>
+										   
+									   </div>
+								   </div>
+							   </li>
+							   </div>
+							   <div class="col-md-1">
+								   
+							   </div>
+							   <div class="col-md-4">
+							   <li>
+								   <div class="comment">
+									   <img style="border-radius: 50%;" class="avatar rounded-circle" alt="User Image" src="{% static 'assets/img/patients/patient.jpg' %}">
+									   <div class="comment-body">
+										   <div class="meta-data">
+											   <span ><h3>Richard Wilson</h3></span>
+											   <div class="review-count rating">
+												   <i class="fas fa-star filled"></i>
+												   <i class="fas fa-star filled"></i>
+												   <i class="fas fa-star filled"></i>
+												   <i class="fas fa-star filled"></i>
+												   <i class="fas fa-star"></i>
+											   </div>
+										   </div>
+										   <p>
+											   Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+											   sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+											   
+										   </p>
+										   
+									   </div>
+								   </div>
+							   </li>
+						   </div>
+						   <div class="col-md-1">
+								   
+						   </div>
+						   </ul>
+						</div>
+					   </div>
+					   <br>
+					   <div class="row">		
+						<div class="doc-review review-listing">
+						   <ul class="comments-list">
+								   
+							   <!-- Comment List -->
+							   <div class="col-md-1">
+								   
+							   </div>
+							   <div class="col-md-4">
+							   <li>
+								   <div class="comment">
+									   <img  style="border-radius: 50%;" class="avatar rounded-circle" alt="User Image" src="{% static 'assets/img/patients/patient.jpg' %}">
+									   <div class="comment-body">
+										   <div class="meta-data">
+											   <span ><h3>Richard Wilson</h3></span>
+											   <div class="review-count rating">
+												   <i  class="fas fa-star filled"></i>
+												   <i  class="fas fa-star filled"></i>
+												   <i  class="fas fa-star filled"></i>
+												   <i  class="fas fa-star filled"></i>
+												   <i  class="fas fa-star"></i>
+											   </div>
+										   </div>
+										   
+										   <p>
+											   Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+											   sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+											   
+										   </p>
+										   
+									   </div>
+								   </div>
+							   </li>
+							   </div>
+							   <div class="col-md-1">
+								   
+							   </div>
+							   <div class="col-md-4">
+							   <li>
+								   <div class="comment">
+									   <img style="border-radius: 50%;" class="avatar rounded-circle" alt="User Image" src="{% static 'assets/img/patients/patient.jpg' %}">
+									   <div class="comment-body">
+										   <div class="meta-data">
+											   <span ><h3>Richard Wilson</h3></span>
+											   <div class="review-count rating">
+												   <i class="fas fa-star filled"></i>
+												   <i class="fas fa-star filled"></i>
+												   <i class="fas fa-star filled"></i>
+												   <i class="fas fa-star filled"></i>
+												   <i class="fas fa-star"></i>
+											   </div>
+										   </div>
+										   <p>
+											   Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+											   sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+											   
+										   </p>
+										   
+									   </div>
+								   </div>
+							   </li>
+						   </div>
+						   <div class="col-md-1">
+								   
+						   </div>
+						   </ul>
+						</div>
+					   </div>
+				</div>
+				<br><br><div class="sec-title text-center">
+					<a href="#contact" class="btn btn-blue btn-effect wow animated bounceInLeft">Show all 25 reviews</a>    
 				</div>
       </section>
      
@@ -651,7 +923,7 @@
 							
 								<div class="testimonial-item text-center">
 <!--                                    <span style="font-size:20px;font-weight: bold;">Mission</span><br><br>-->
-									<img src="img/sridhar.jpg" alt="Our Clients">
+									<img src="{% static 'img/sridhar.jpg' %}" alt="Our Clients">
 									<div class="clearfix">
 										<span>Sridhar Gopalaswamy<br><span style="text-transform:none;font-weight:normal;">Founder & CEO</span></span>
 										<p>Setting vision for Geekz and reimagining education.</p>
@@ -822,11 +1094,11 @@
 							<form id="homeschool"  method="post">{% csrf_token %}
                                 <h3><b>Student Information</b></h3>
 								<div class="input-field">
-									<input type="text" id="HSFullName" class="form-control" placeholder="Your Name..." required>
+									<input type="text" id="HSFullName" name="s_name" class="form-control" placeholder="Your Name..." required>
 								</div>
                                 
                                 <div class="input-field">
-									<select id="HSGrade" class="form-control" required>
+									<select id="HSGrade" name="enrolling_grade" class="form-control" required>
                                         <option selected disabled>Enrolling Grade...</option>
                                         <option>Pre-K</option>
                                         <option>Jr-K</option>
@@ -843,17 +1115,17 @@
 								</div>
                                 
                                 <div class="input-field">
-									<input type="email" id="HSEmail" class="form-control"  placeholder="Email..." required>
+									<input type="email" id="HSEmail" name="email" class="form-control"  placeholder="Email..." required>
 								</div>
 								<div class="input-field">
-									<input type="number" id="HSPhone" class="form-control" placeholder="Phone..." required>
+									<input type="number" id="HSPhone" name="phone" class="form-control" placeholder="Phone..." required>
 								<div style="display: none;" id="errmsgvalph">
                                     <p style="color: red; font-size:10px;">Please enter a valid number.</p>
                                 </div>
 								</div>
 
                                 <div class="input-field">
-									<select id="HSBranding" class="form-control" required>
+									<select id="HSBranding" name="hear_about" class="form-control" required>
                                         <option selected disabled>How Did You Hear About Geekz...</option>
                                         <option>Facebook</option>
                                         <option>Twitter</option>

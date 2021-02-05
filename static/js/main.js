@@ -124,7 +124,7 @@ $(document).ready(function(){
         $('#home-slider, #slider, .sl-slider, .sl-content-wrapper').css('height',slideHeight);
     });
 	
-	
+		
 	
 	$("#works, #testimonial").owlCarousel({	 
 		navigation : true,
@@ -1028,6 +1028,7 @@ function Validate() {
     var ddlFruits = document.getElementById("HSGrade");
     var ddlFruits1 = document.getElementById("HSBranding");
     var HSPhoneid = document.getElementById("HSPhone");
+   
     if (ddlFruits.value == "Enrolling Grade...") {
         //If the "Please Select" option is selected display error.
         document.getElementById("errmsgltb").style.display = "block";
@@ -1043,7 +1044,19 @@ function Validate() {
         return false;
     }
     
+    
     return true;
+}
+function funcURL(){
+var schoolname = document.getElementById("schoolname");
+var locality   = document.getElementById("locality");
+if(schoolname.value!='' && locality.value!=''){
+    var sname= schoolname.value;
+    var local = locality.value;
+    var urll = "Your url is : geekz.school/schoolasaservice/"+sname+local;
+
+    alert(urll);
+}
 }
 //////////// IMAGE TYpEVALIDATION///////
 function vv() {
@@ -1073,9 +1086,10 @@ function vv() {
           }
         }
       }
-      if(isNaN(y[i].value || y[k].id=="phone1"){
+      $("#errmsgvalph1").hide()
+      if( y[k].id=="phone1"){
         
-        if(  (y[k].value.length!=10) ){
+        if( isNaN(y[k].value) || (y[k].value.length!=10) ){
             //if not a number or length is not equal to 10
             $("#errmsgvalph1").show()
             valid = false;
@@ -1084,9 +1098,10 @@ function vv() {
             $("#errmsgvalph1").hide()
         }
     }
+    $("#errmsgvalph").hide()
     if(y[k].id=="phone"){
         
-        if(isNaN(y[i].value || y[k].value.length!=10 ){
+        if(isNaN(y[k].value)  || y[k].value.length!=10 ){
             //if not a number or length is not equal to 10
             $("#errmsgvalph").show()
             valid = false;
@@ -1094,6 +1109,10 @@ function vv() {
             $("#errmsgvalph").hide()
         }
     }
+    
+}
+}
+
 
 
       
@@ -1201,9 +1220,7 @@ function vv() {
 
       }*/
    
-    }
-
-  }  
+   
 
   function showAdd(){
                               

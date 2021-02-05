@@ -29,7 +29,11 @@ from django.http import HttpResponse
 from PIL import Image
 from io import BytesIO
 from django.core.files.uploadedfile import InMemoryUploadedFile
+from django.http import JsonResponse
+from django.views import View
 
+from .forms import PhotoForm
+from .models import Photo
 
 # Create your views here.
 def searchbar(request):
@@ -926,14 +930,36 @@ def web1(request):
 def webpage_creation(request):
     user_id=request.session['user_id']
     user=User.objects.get(id=user_id)
+    uid_obj = USER_DETAILS.objects.get(USER_EMAIL=user.email)
     OBJ = INDIVIDUAL_WEBPAGESS.objects.all()
-    return render(request,'webpage_creation.html',{'ob':OBJ})
+    url_obj = INDIVIDUAL_WEBPAGESS.objects.get(uid = uid_obj.uid)
+    url_variable = url_obj.SCHOOL_NAME + url_obj.LOCALITY
+    return render(request,'webpage_creation.html',{'ob':OBJ,'URL':url_variable })
 
 '''@login_required
 @allowed_users(allowed_roles=['superadmin'])'''
 def webpage(request,LOCALITY):
         print('url',LOCALITY)
         l = INDIVIDUAL_WEBPAGESS.objects.filter(LOCALITY=LOCALITY)
+        if request.method == "POST" :
+            user_id=request.session['user_id']
+            user=User.objects.get(id=user_id)
+            print(user.id)
+            name = request.POST['s_name']
+            enrolling_grade = request.POST['enrolling_grade']
+            email = request.POST['email']
+            phone = request.POST['phone']
+            hear_about = request.POST['hear_about']
+            microschool = 'gujrat'
+            inquiry_obj = Inquiry(uid=user.id,studentName=name,enrolling_grade=enrolling_grade,email=email,phone=phone,hear_about_us=hear_about,microschool=microschool)
+            inquiry_obj.save()
+            subject='Inquiry Mail'
+            html_template='socialaccount/email/inquirymail.html'
+            html_message=render_to_string(html_template)
+            to_email= email
+            message=EmailMessage(subject, html_message, settings.EMAIL_HOST_USER, [to_email])
+            message.content_subtype='html'
+            message.send()
         return render(request, 'webpage.html',{'l':l})  
 
 
@@ -1045,7 +1071,6 @@ def school_template(request):
 def rough(request):
     labels = []
     data = []
-
     queryset = City.objects.order_by('-population')[:5]
     for city in queryset:
         labels.append(city.name)
@@ -1055,6 +1080,25 @@ def rough(request):
         'labels': labels,
         'data': data,
     })
+
+def studentinquiry(request):
+    if request.method == "POST" :
+        user_id=request.session['user_id']
+        user=User.objects.get(id=user_id)
+        print(user.id)
+        name = request.POST['s_name']
+        enrolling_grade = request.POST['enrolling_grade']
+        email = request.POST['email']
+        phone = request.POST['phone']
+        hear_about = request.POST['hear_about']
+        microschool = 'gujrat'
+        inquiry_obj = Inquiry(uid=user.id,studentName=name,enrolling_grade=enrolling_grade,email=email,phone=phone,hear_about_us=hear_about,microschool=microschool)
+        inquiry_obj.save()
+        l= INDIVIDUAL_WEBPAGESS.objects.filter(LOCALITY='gujrat')
+        return render(request,'webpage.html',{'l':l}) 
+
+    
+
 
 
 

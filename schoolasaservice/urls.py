@@ -2,6 +2,8 @@ from django.urls import path
 from . import views
 from django.conf.urls.static import static
 from django.conf import settings
+from django.conf.urls import url
+
 #from  Geekz_Microschool import settings
 urlpatterns = [
     path('apply', views.apply, name="apply"),
@@ -27,6 +29,8 @@ urlpatterns = [
     path('geekzmicro',views.school_template,name="geekzmicro"),
     path('web1',views.web1,name="web1"),
     path('rough2',views.rough2,name="rough2"),
+    path('studentinquiry',views.studentinquiry,name="studentinquiry"),
+    
 
 ]
 if settings.DEBUG:
