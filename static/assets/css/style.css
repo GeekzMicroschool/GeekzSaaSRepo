@@ -1307,7 +1307,7 @@ button.bg-danger:hover {
 	-ms-flex-pack: flex-start;
 }
 .modal-dialog.modal-md {
-    max-width: 600px;
+    max-width: 300px;
 }
 .custom-modal .modal-content {
 	border: 0;

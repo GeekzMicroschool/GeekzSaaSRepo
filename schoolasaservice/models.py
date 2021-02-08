@@ -274,7 +274,7 @@ class Inquiry(models.Model):
 
 class Photo(models.Model):
     title = models.CharField(max_length=255, blank=True)
-    file = models.FileField(upload_to='media/')
+    file = models.FileField(upload_to='gala/')
     uploaded_at = models.DateTimeField(auto_now_add=True)
 
 

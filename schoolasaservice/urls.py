@@ -29,9 +29,9 @@ urlpatterns = [
     path('geekzmicro',views.school_template,name="geekzmicro"),
     path('web1',views.web1,name="web1"),
     path('rough2',views.rough2,name="rough2"),
-    path('studentinquiry',views.studentinquiry,name="studentinquiry"),
-    
-
+    path('bulk_load',views.bulk_load,name="bulk_load"),
+    path('drag_load',views.drag_load,name="drag_load"),
+    path('clear',views.clear_database,name="clear"),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

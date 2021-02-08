@@ -75,7 +75,7 @@
 		{% for m in l %}
 		<input type="hidden" name="loc_lat" value="{{m.LATITUDE}}" id="loc_lat" />
         <input type="hidden" name="loc_long" value="{{m.LONGITUDE}}" id="loc_long" />
-        <header id="navigation" class="navbar-inverse navbar-fixed-top animated-header">
+        <header id="navigation" class="navbar-inverse navbar-fixed-top animated-header" style="width:100%" >
             <table style="width:100%" align="center"><td width="80%">
             <div class="container" style="width:80%">
                 <div class="navbar-header">
@@ -111,11 +111,8 @@
 <!--                        <li><a href="https://thegeekstudio.wordpress.com/" target="_blank">Blog</a></li>-->
                         
                     </ul>
-                </nav>
-                
-                
+                </nav>  
 				<!-- /main nav -->
-				
             </div></td>
             <td><a href="#contact" class="btn btn-blue-affiliatewrap btn-effect">Apply</a></td></table>
         </header>
@@ -135,7 +132,7 @@
 				<div class="sl-slider">
 					<div class="sl-slide" data-orientation="horizontal" data-slice1-rotation="-25" data-slice2-rotation="-25" data-slice1-scale="2" data-slice2-scale="2">
 
-            <div class="container-fluid"> 
+            <div class="container-fluid" > 
               <div id="myCarousel" class="carousel slide" data-ride="carousel">
                 <!-- Indicators -->
                 <ol class="carousel-indicators">
@@ -148,12 +145,28 @@
 					padding-right: 0px;
 					padding-left: 0px;
 				  }
+				  .caption {
+					position: absolute;
+					top: 50%;
+					left: 50%;
+					transform: translate( -50%, -50% );
+					text-align: center;
+					color: white;
+					font-weight: bold;
+				}
+				img {
+                display: block;
+                }
+				.carousel-inner{
+					position: relative;
+                    display: inline-block;
+				}
 				
 				</style>
 				
                 <!-- Wrapper for slides -->
-                <div class="carousel-inner">
-                  <div class="item active">
+                <div class="carousel-inner" style="width: 100%;">
+                  <div class="item active" >
                     <img src="/schoolasaservice/media/{{m.BANNER1}}" alt="Los Angeles" style="width:100%;background: rgba(0, 0, 0, 0.5);">
                   </div>
             
@@ -168,14 +181,10 @@
                     <img src="/schoolasaservice/media/{{m.BANNER4}}" alt="New york" style="width:100%;background: rgba(0, 0, 0, 0.5);">
                   </div>
                 </div>
-            
-               
-                
-               
               </div>
             </div>
 						<div class="slide-caption">
-                            <div class="caption-content">
+                            <div class="caption-content caption">
                                 <h2 class="animated fadeInDown"><b style="color:#FF0000">Geekz </b>Microschool</h2>
                                 <span class="animated fadeInDown">Your School |<b style="color:#FF0000"> To Learn Life At Your Own Pace</b></span>
                                 <a href="#contact" class="btn btn-blue btn-effect">{{m.LOCALITY}}</a>
@@ -250,7 +259,7 @@
 							<div>
 								<h3>Real World Learning</h3>								
 						     	 <div>
-								 <img src="{% static 'img/flip.png' %} " style="max-width:700px;max-height:300px;display:block;margin:0 auto;" alt="learning cycle">
+								 <img src="{% static 'img/flip.png' %} " style="width:100%;display:block;margin:0 auto;" alt="learning cycle">
 							<!-- 	<button  data-dismiss="modal" class="btn1 close"><i style="color: rgba(0,158,227, 0.78);font-size:30px;"class="fa fa-play" aria-hidden="true"></i></button> -->
 							<a class="edit-link btn1" data-toggle="modal" href="#video-pop"><i style="color: rgba(0,158,227, 0.78);font-size:30px;"class="fa fa-play" aria-hidden="true"></i></a>
 								  </div>
@@ -261,38 +270,39 @@
 					</div>
 				</div>
 			</section>
-			<div class="modal fade custom-modal " id="video-pop" style="backdrop-filter: blur(5px);" style="max-width: 700px;">
-				<div class="modal-dialog modal-dialog-centered " >
-					<div class="modal-content" >
-						<div class="modal-body ">
+			
+			<div class="modal fade custom-modal " id="video-pop" style="backdrop-filter: blur(5px);" style="width:100%;">
+				<div class="modal-dialog modal-dialog-centered" >
+					<div class="modal-content ">
+						<div class="modal-body video-con">
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
-							<iframe  width="630" height="370" src="https://www.youtube.com/embed/hj6iaKZSllg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+							<iframe width="100%" height="100%" src="https://www.youtube.com/embed/hj6iaKZSllg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 						</div>
 					</div>
 				</div>
 			</div>
 			<style>
-				.vd-container {
-					overflow: hidden;
+				.video-con {
 					position: relative;
+					padding-bottom: 56.25%;
+					padding-top: 30px; 
 					width:100%;
+					height: 100%; 
+					overflow: hidden;
 				}
 
-				.vd-container::after {
-					padding-top: 1.25%;
-					display: block;
-					content: '';
-				}
-
-				.vd-container iframe {
+				.video-con iframe,
+				.video-con object,
+				.video-con embed {
 					position: absolute;
 					top: 0;
 					left: 0;
 					width: 100%;
 					height: 100%;
 				}
+				
 			/* Container needed to position the button. Adjust the width as needed */
 .col-md-8 {
   position: relative;
@@ -920,7 +930,14 @@
 							<div class="sec-title text-center white wow animated fadeInDown">
 								<h2>About</h2>
 							</div>
-							
+							<div id="testimonial" class=" wow animated fadeInUp">
+								<div class="testimonial-item text-center">									
+									<br><br><span style="font-size:20px;font-weight: bold;">MISSION</span><br><br><br>
+									<div class="clearfix">
+		<!--										<span>Mission</span>-->
+										<p>Empower every child to identify their inner calling and learn life at their own pace. </p>
+									</div>
+								</div>
 								<div class="testimonial-item text-center">
 <!--                                    <span style="font-size:20px;font-weight: bold;">Mission</span><br><br>-->
 									<img src="{% static 'img/sridhar.jpg' %}" alt="Our Clients">
@@ -930,11 +947,12 @@
                                         <p>Ex-Microsoft Program Manager experienced at cutting edge technologies including education fuels his creative direction and bold ideas. His experience in other industries is a game changer for education. He holds a Master's degree in Information Systems from University of Illinois, Chicago.</p>
 									</div>
 								</div>
+
 							</div>
 						
 						</div>
 					</div>
-				
+				</div>
 			</section>
 			<!-- end Founder section -->
 			
@@ -1091,6 +1109,11 @@
 				
 						<div class="col-md-7 contact-form wow animated fadeInLeft">
                             <p id="geekzhomeschool"></p>
+							{%if webform_done == 'done' %}
+					<div class="sec-title text-center wow animated fadeInDown">
+						<p>Your message on its way. Geekz support team will be in touch with you shortly. <br />Good luck!'</p>
+          </div>
+          {% else %}
 							<form id="homeschool"  method="post">{% csrf_token %}
                                 <h3><b>Student Information</b></h3>
 								<div class="input-field">
@@ -1145,6 +1168,7 @@
 						       	
 								<button type="submit" id="submit" value="Validate" onclick="return Validate()" class="btn btn-blue btn-effect">Send</button>
 							</form>
+							{% endif %}
 						</div>
 					
 						<div class="col-md-5 wow animated fadeInRight">

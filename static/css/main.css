@@ -20,8 +20,12 @@ body {
     line-height: 24px;
     font-size: 16px;
     color: #818181;
+    position: relative
 }
-
+html, body {
+    overflow-x: hidden;
+  }
+  
 figure, p, address {
     margin: 0;
 }
@@ -1642,4 +1646,24 @@ textarea.form-control {
     .footer-content {
         width: 380px;
     }
+}
+
+/* media queries */
+@media (max-width: 560px){
+	
+	.container-fluid{
+        padding-right: 0px;
+        padding-left: 0px;
+      }
+      .caption {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate( -50%, -50% );
+        text-align: center;
+        color: white;
+        font-weight: bold;
+    }
+	
+		
 }

@@ -4,19 +4,20 @@
 {% block content %}
 
 {% load static %}
-<div class="section">
-     <div class="contents_header">
+<div class="section slide-caption">
+     <div class="contents_header caption-content">
     <h2 class="animated fadeInDown"><b style="color:#FF0000;">American</b> School</h2>
     <br>
     <span style="color:white;" class="animated fadeInDown">Internationally affiliated to | <b style="color:#FF0000">US Curriculum</b></span>
    <!-- <a href="#portfolio" class="btn btn-blue btn-effect">Gala</a> -->
     <!--Day At geekz Video -->
-    <br><br><br>
+   
     <link href="assets/img/favicon.png" rel="icon">
     <a href="/schoolasaservice" class ="btn btn-blue btn-effect buttongeekzhome">School as a Service</a><br><br>
     
     <a href="/homeschool" class ="btn btn-blue btn-effect buttongeekzhome">Homeschool</a><br><br>
     <a href="https://www.youtube.com/channel/UCNy54QG09WBP7ZU8eOSRntQ/videos" target="_blank" class ="btn btn-blue btn-effect buttongeekzhome">Geekz Curriculum</a>
+  
      </div>
 
         <div class="video-container">
@@ -40,25 +41,68 @@
         <h2>Geekz Videos</h2>
     </div>
      <div  class="row">
-         <div class="col-md-6">
-            <div style="width:100px;height:100px;"class="js-player" data-plyr-provider="youtube" data-plyr-embed-id="hj6iaKZSllg"></div> 
-         </div>
-         <div class="col-md-6">
-            <div style="width:100px;height:100px;"class="js-player" data-plyr-provider="youtube" data-plyr-embed-id="HKahHEfFmxI"></div> 
-         </div>      
-     </div>    
-     <br>         
-    <div class="row">    
-         <div class="col-md-6">
-           <div style="width:100px;height:100px;"class="js-player" data-plyr-provider="youtube" data-plyr-embed-id="IGWIM1Ru4FA"></div> 
+         <div  class="col-md-6">
+            <div class="row">
+                <div  class="col-md-12 " >							
+                          <div class="c-div">
+                         <img src="{% static 'img/flip.png' %} " style="width:100%;height:auto;max-width:700px;max-height:300px;display:block;margin:0 auto;" alt="learning cycle">
+                    <!-- 	<button  data-dismiss="modal" class="btn1 close"><i style="color: rgba(0,158,227, 0.78);font-size:30px;"class="fa fa-play" aria-hidden="true"></i></button> -->
+                    <a class="edit-link btn1" data-toggle="modal" href="#video-pop"><i style="color: rgba(0,158,227, 0.78);font-size:30px;"class="fa fa-play" aria-hidden="true"></i></a>
+                          </div>  
+              </div>
         </div>
+        </div>         
+                   
         <div class="col-md-6">
-           <div style="width:100px;height:100px;"class="js-player" data-plyr-provider="youtube" data-plyr-embed-id="mHlpD27QFrM"></div> 
-        </div>   
+            <div  class="row" style="padding-bottom: 6px;">
+                <div  class="col-md-6 ">
+                    <div class="c-div">
+                        <img src="{% static 'img/flip.png' %} " style="width:100%;height:auto;max-width:700px;max-height:300px;display:block;margin:0 auto;" alt="learning cycle">
+                   <!-- 	<button  data-dismiss="modal" class="btn1 close"><i style="color: rgba(0,158,227, 0.78);font-size:30px;"class="fa fa-play" aria-hidden="true"></i></button> -->
+                   <a class="edit-link btn1" data-toggle="modal" href="#video-pop"><i style="color: rgba(0,158,227, 0.78);font-size:30px;"class="fa fa-play" aria-hidden="true"></i></a>
+                     </div>   
+                </div>  
+                <div class="col-md-6 ">
+                    <div class="c-div">
+                        <img src="{% static 'img/flip.png' %} " style="width:100%;height:auto;max-width:700px;max-height:300px;display:block;margin:0 auto;" alt="learning cycle">
+                   <!-- 	<button  data-dismiss="modal" class="btn1 close"><i style="color: rgba(0,158,227, 0.78);font-size:30px;"class="fa fa-play" aria-hidden="true"></i></button> -->
+                   <a class="edit-link btn1" data-toggle="modal" href="#video-pop"><i style="color: rgba(0,158,227, 0.78);font-size:30px;"class="fa fa-play" aria-hidden="true"></i></a>
+                         </div>  
+                 </div>         
+            </div> 
+             
+            <div  class="row">
+                <div class="col-md-6">
+                    <div class="c-div">
+                        <img src="{% static 'img/flip.png' %} " style="width:100%;height:auto;max-width:700px;max-height:300px;display:block;margin:0 auto;" alt="learning cycle">
+                   <!-- 	<button  data-dismiss="modal" class="btn1 close"><i style="color: rgba(0,158,227, 0.78);font-size:30px;"class="fa fa-play" aria-hidden="true"></i></button> -->
+                   <a class="edit-link btn1" data-toggle="modal" href="#video-pop"><i style="color: rgba(0,158,227, 0.78);font-size:30px;"class="fa fa-play" aria-hidden="true"></i></a>
+                         </div>  
+                </div>  
+                <div class="col-md-6" >
+                    <div class="c-div">
+                        <img src="{% static 'img/flip.png' %} " style="width:100%;height:auto;max-width:700px;max-height:300px;display:block;margin:0 auto;" alt="learning cycle">
+                   <!-- 	<button  data-dismiss="modal" class="btn1 close"><i style="color: rgba(0,158,227, 0.78);font-size:30px;"class="fa fa-play" aria-hidden="true"></i></button> -->
+                   <a class="edit-link btn1" data-toggle="modal" href="#video-pop"><i style="color: rgba(0,158,227, 0.78);font-size:30px;"class="fa fa-play" aria-hidden="true"></i></a>
+                         </div>  
+                 </div>         
+            </div> 
+         </div>      
     </div>
     <br>
 </div>
-    
+<div class="modal fade custom-modal " id="video-pop" style="backdrop-filter: blur(5px);" style="max-width: 700px;">
+    <div class="modal-dialog modal-dialog-centered " >
+        <div class="modal-content" >
+            <div class="modal-body ">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <iframe  width="630" height="370" src="https://www.youtube.com/embed/hj6iaKZSllg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+</div> 
 <style>
 
 .section {
@@ -73,7 +117,6 @@
 
 .section .contents_header {
   text-align: center;
-  font-size: 6rem;
   padding: 20px;
   margin: 15px;
   z-index: 1;
@@ -107,7 +150,34 @@
     border-radius:6px;
     
 }
+/* Container needed to position the button. Adjust the width as needed */
+.c-div {
+  position: relative;
+  width: 100%;
+  padding-bottom: 6px;
+}
 
+/* Make the image responsive */
+
+
+/* Style the button and place it in the middle of the container/image */
+.c-div .btn1 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  color: white;
+  font-size: 16px;
+  padding: 12px 24px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.c-div.btn1:hover {
+  color: white;
+}
 
 </style>
 
@@ -530,6 +600,215 @@
                 
             </div>
         </section>
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row"> 
+                    <div class="sec-title text-center">
+                        <h2 class="wow animated bounceInLeft">Testimonials</h2>
+                    </div>                 
+                   <div class="col-md-12 col-lg-12 col-xl-12">
+                        <div class="row row-grid">  
+                            <div class="col-md-6 col-lg-4 col-xl-3">
+                                <div class="profile-widget">
+                                    <div class="text-center">
+                                       
+                                            <img style="width: 150px;border-radius:50%;" class="img-fluid" alt="User Image" src="{% static 'assets/img/doctors/doctor-01.jpg' %}">
+                                        
+                                    </div>
+                                    <br>
+                                    <div>
+                                       
+                                        <p>Thanks for such an outstanding sprint "How To Become An Astronaut".
+                                        It inculcates many skills in kids and has many dimensions: Knowledge, Confidence, Teamwork, Public Speaking, Co-ordination, Learning by Doing and many more. </p>
+                                        <div class="rating">
+                                            <i class="fas fa-star filled"></i>
+                                            <i class="fas fa-star filled"></i>
+                                            <i class="fas fa-star filled"></i>
+                                            <i class="fas fa-star filled"></i>
+                                            <i class="fas fa-star filled"></i>
+                                            <span class="d-inline-block average-rating">(17)</span>
+                                        </div>
+                                        <ul class="available-info">
+                                            <li>
+                                                <center> - Dana </center>
+                                            </li>
+                                            <li>
+                                                <center>  Working Professional Mother </center>
+                                            </li>
+                                           
+                                        </ul>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4 col-xl-3">
+                                <div class="profile-widget">
+                                    <div class="text-center">  
+                                            <img style="width: 150px;border-radius:50%;" alt="User Image" src="{% static 'assets/img/doctors/doctor-01.jpg' %}">
+                                    </div>
+                                    <br>
+                                    <div>
+                                      
+                                        <p >Its a new thought and a lovely way to help children learn. The staff are very friendly and teach subjects in a very practical way. my daughter studies here and I am very pleased with her development since she joined. </p>
+                                        <div class="rating">
+                                            <i class="fas fa-star filled"></i>
+                                            <i class="fas fa-star filled"></i>
+                                            <i class="fas fa-star filled"></i>
+                                            <i class="fas fa-star filled"></i>
+                                            <i class="fas fa-star filled"></i>
+                                            <span class="d-inline-block average-rating">(17)</span>
+                                        </div>
+                                        <ul class="available-info">
+                                            <li>
+                                               <center> - Lilya </center> 
+                                            </li>
+                                            <li>
+                                                <center>  Working Professional Mother </center>
+                                            </li>
+                                           
+                                        </ul>
+                                      
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4 col-xl-3">
+                                <div class="profile-widget">
+                                    <div class=" text-center">
+                                        
+                                            <img style="width: 150px;border-radius:50%;" src="{% static 'assets/img/doctors/doctor-01.jpg' %}" alt="Our Clients">
+                                       
+                                        
+                                    </div>
+                                    <br>
+                                    <div>
+                                        
+                                        <p>One of the best school for development of children... .........very different from the traditional school... very innovative... great experience for kids and parents... kids are future ready... keep going guys.... all the best</p>
+                                        <div class="rating">
+                                            <i class="fas fa-star filled"></i>
+                                            <i class="fas fa-star filled"></i>
+                                            <i class="fas fa-star filled"></i>
+                                            <i class="fas fa-star filled"></i>
+                                            <i class="fas fa-star filled"></i>
+                                            <span class="d-inline-block average-rating">(17)</span>
+                                        </div>
+                                        <ul class="available-info">
+                                            <li>
+                                                <center>  - Emma </center>
+                                            </li>
+                                            <li>
+                                                <center> Educator & Mom </center>
+                                            </li>
+                                            
+                                        </ul>
+                                       
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="row row-grid">  
+                            <div class="col-md-6 col-lg-4 col-xl-3">
+                                <div class="profile-widget">
+                                    <div class="text-center">
+                                       
+                                            <img style="width: 150px;border-radius:50%;" class="img-fluid" alt="User Image" src="{% static 'assets/img/doctors/doctor-01.jpg' %}">
+                                        
+                                    </div>
+                                    <br>
+                                    <div>
+                                       
+                                        <p>Thanks for such an outstanding sprint "How To Become An Astronaut".
+                                        It inculcates many skills in kids and has many dimensions: Knowledge, Confidence, Teamwork, Public Speaking, Co-ordination, Learning by Doing and many more. </p>
+                                        <div class="rating">
+                                            <i class="fas fa-star filled"></i>
+                                            <i class="fas fa-star filled"></i>
+                                            <i class="fas fa-star filled"></i>
+                                            <i class="fas fa-star filled"></i>
+                                            <i class="fas fa-star filled"></i>
+                                            <span class="d-inline-block average-rating">(17)</span>
+                                        </div>
+                                        <ul class="available-info">
+                                            <li>
+                                                <center> - Dana </center>
+                                            </li>
+                                            <li>
+                                                <center>  Working Professional Mother </center>
+                                            </li>
+                                           
+                                        </ul>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4 col-xl-3">
+                                <div class="profile-widget">
+                                    <div class="text-center">  
+                                            <img style="width: 150px;border-radius:50%;" alt="User Image" src="{% static 'assets/img/doctors/doctor-01.jpg' %}">
+                                    </div>
+                                    <br>
+                                    <div>
+                                      
+                                        <p >Its a new thought and a lovely way to help children learn. The staff are very friendly and teach subjects in a very practical way. my daughter studies here and I am very pleased with her development since she joined. </p>
+                                        <div class="rating">
+                                            <i class="fas fa-star filled"></i>
+                                            <i class="fas fa-star filled"></i>
+                                            <i class="fas fa-star filled"></i>
+                                            <i class="fas fa-star filled"></i>
+                                            <i class="fas fa-star filled"></i>
+                                            <span class="d-inline-block average-rating">(17)</span>
+                                        </div>
+                                        <ul class="available-info">
+                                            <li>
+                                               <center> - Lilya </center> 
+                                            </li>
+                                            <li>
+                                                <center>  Working Professional Mother </center>
+                                            </li>
+                                           
+                                        </ul>
+                                      
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4 col-xl-3">
+                                <div class="profile-widget">
+                                    <div class=" text-center">
+                                        
+                                            <img style="width: 150px;border-radius:50%;" src="{% static 'assets/img/doctors/doctor-01.jpg' %}" alt="Our Clients">
+                                       
+                                        
+                                    </div>
+                                    <br>
+                                    <div>
+                                        
+                                        <p>One of the best school for development of children... .........very different from the traditional school... very innovative... great experience for kids and parents... kids are future ready... keep going guys.... all the best</p>
+                                        <div class="rating">
+                                            <i class="fas fa-star filled"></i>
+                                            <i class="fas fa-star filled"></i>
+                                            <i class="fas fa-star filled"></i>
+                                            <i class="fas fa-star filled"></i>
+                                            <i class="fas fa-star filled"></i>
+                                            <span class="d-inline-block average-rating">(17)</span>
+                                        </div>
+                                        <ul class="available-info">
+                                            <li>
+                                                <center>  - Emma </center>
+                                            </li>
+                                            <li>
+                                                <center> Educator & Mom </center>
+                                            </li>
+                                            
+                                        </ul>
+                                       
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>	
+                </div>
+            </div>
+        </div>	
         <!-- end Technology section -->
         <!-- About section -->
         <section id="testimonials" class="parallax">
@@ -541,28 +820,36 @@
                         </div>
                         
                         <div id="testimonial" class=" wow animated fadeInUp">
-                            
-                            <div class = "container">
-                               
-                             <div class ='row'>
-                           {% for i in id1 %}
-                           <div class="col-md-4 text-center" >
-
-                                <div class="card">
-                                  <div class="card-header"></div>
-                                  <div class="card-body"><span>&#8220;</span>{{i.feedback}}<span>&#8221;</span></div> 
-                                  <div class="card-footer"><b style="color:#000;font-size:16px;">{{i.name}}</b></div>
+                            <div class="testimonial-item text-center">
+<!--									<img src="{% static 'img/member-1.jpg' %}" alt="Our Clients">-->
+                                <br><br><span style="font-size:20px;font-weight: bold;">MISSION</span><br><br><br>
+                                <div class="clearfix">
+<!--										<span>Mission</span>-->
+                                    <p>Empower every child to identify their inner calling and learn life at their own pace. </p>
                                 </div>
-                              </div>
-                            
-                           {% endfor %} 
-                        </div>
-                        </div>
+                            </div>
+                            <div class="testimonial-item text-center">
+<!--									<img src="{% static 'img/member-1.jpg' %}" alt="Our Clients">-->
+                                <br><br><span style="font-size:20px;font-weight: bold;">BRAIN CHILD</span><br><br><br>
+                                <div class="clearfix">
+<!--										<span>Katty Flower</span>-->
+                                    <p>Geekz (K-5) is a full-stack Education Technology company - Network of Microschools small by design, powered by technology. Top-notch technologists coming together with exceptional educators to reimagine schooling ground up.</p>
+                                </div>
+                            </div>
+                            <div class="testimonial-item text-center">
+<!--                                    <span style="font-size:20px;font-weight: bold;">Mission</span><br><br>-->
+                                <img src="{% static 'img/sridhar.jpg' %}" alt="Our Clients">
+                                <div class="clearfix">
+                                    <span>Sridhar Gopalaswamy<br><span style="text-transform:none;font-weight:normal;">Founder & CEO</span></span>
+                                    <p>Setting vision for Geekz and reimagining education.</p>
+                                    <p>Ex-Microsoft Program Manager experienced at cutting edge technologies including education fuels his creative direction and bold ideas. His experience in other industries is a game changer for education. He holds a Master's degree in Information Systems from University of Illinois, Chicago.</p>
+                                </div>
+                            </div>
                         </div>
                     
                     </div>
                 </div>
-            </dsiv>
+            </div>
         </section>
             <!-- jQuery -->
 		<script src="{% static 'assets/js/jquery.min.js' %}"></script>

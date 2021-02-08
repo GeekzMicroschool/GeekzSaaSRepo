@@ -941,26 +941,33 @@ def webpage_creation(request):
 def webpage(request,LOCALITY):
         print('url',LOCALITY)
         l = INDIVIDUAL_WEBPAGESS.objects.filter(LOCALITY=LOCALITY)
-        if request.method == "POST" :
-            user_id=request.session['user_id']
-            user=User.objects.get(id=user_id)
-            print(user.id)
-            name = request.POST['s_name']
-            enrolling_grade = request.POST['enrolling_grade']
-            email = request.POST['email']
-            phone = request.POST['phone']
-            hear_about = request.POST['hear_about']
-            microschool = 'gujrat'
-            inquiry_obj = Inquiry(uid=user.id,studentName=name,enrolling_grade=enrolling_grade,email=email,phone=phone,hear_about_us=hear_about,microschool=microschool)
-            inquiry_obj.save()
-            subject='Inquiry Mail'
-            html_template='socialaccount/email/inquirymail.html'
-            html_message=render_to_string(html_template)
-            to_email= email
-            message=EmailMessage(subject, html_message, settings.EMAIL_HOST_USER, [to_email])
-            message.content_subtype='html'
-            message.send()
-        return render(request, 'webpage.html',{'l':l})  
+        user_id=request.session['user_id']
+        user=User.objects.get(id=user_id) 
+        s_inquiry = Inquiry.objects.filter(uid = user.id)
+        if s_inquiry:
+            l= INDIVIDUAL_WEBPAGESS.objects.filter(LOCALITY='modeltown')
+            return render(request, 'webpage.html',{'webform_done':'done','l':l})
+        else:
+            if request.method == "POST" :
+                user_id=request.session['user_id']
+                user=User.objects.get(id=user_id)
+                print(user.id)
+                name = request.POST['s_name']
+                enrolling_grade = request.POST['enrolling_grade']
+                email = request.POST['email']
+                phone = request.POST['phone']
+                hear_about = request.POST['hear_about']
+                microschool = 'gujrat'
+                inquiry_obj = Inquiry(uid=user.id,studentName=name,enrolling_grade=enrolling_grade,email=email,phone=phone,hear_about_us=hear_about,microschool=microschool)
+                inquiry_obj.save()
+                subject='Inquiry Mail'
+                html_template='socialaccount/email/inquirymail.html'
+                html_message=render_to_string(html_template)
+                to_email= email
+                message=EmailMessage(subject, html_message, settings.EMAIL_HOST_USER, [to_email])
+                message.content_subtype='html'
+                message.send()
+            return render(request, 'webpage.html',{'l':l})  
 
 
 def superAdmin_dashboard(request):
@@ -1081,25 +1088,41 @@ def rough(request):
         'data': data,
     })
 
-def studentinquiry(request):
-    if request.method == "POST" :
-        user_id=request.session['user_id']
-        user=User.objects.get(id=user_id)
-        print(user.id)
-        name = request.POST['s_name']
-        enrolling_grade = request.POST['enrolling_grade']
-        email = request.POST['email']
-        phone = request.POST['phone']
-        hear_about = request.POST['hear_about']
-        microschool = 'gujrat'
-        inquiry_obj = Inquiry(uid=user.id,studentName=name,enrolling_grade=enrolling_grade,email=email,phone=phone,hear_about_us=hear_about,microschool=microschool)
-        inquiry_obj.save()
-        l= INDIVIDUAL_WEBPAGESS.objects.filter(LOCALITY='gujrat')
-        return render(request,'webpage.html',{'l':l}) 
 
     
+def bulk_load(request):
+    photos_list = Photo.objects.all()
+    if request.method == "POST" :
+        form = PhotoForm(request.POST, request.FILES)
+        if form.is_valid():
+            photo = form.save()
+            data = {'is_valid': True, 'name': photo.file.name, 'url': photo.file.url}
+            photos_list = Photo.objects.all()
+        else:
+            data = {'is_valid': False}
+            photos_list = Photo.objects.all()
+        return JsonResponse(data)
+    return render(request,'bulk_load.html',{'photos': photos_list}) 
 
-
+def drag_load(request):
+    photos_list = Photo.objects.all()
+    if request.method == "POST" :
+        form = PhotoForm(request.POST, request.FILES)
+        if form.is_valid():
+            photo = form.save()
+            data = {'is_valid': True, 'name': photo.file.name, 'url': photo.file.url}
+            photos_list = Photo.objects.all()
+        else:
+            data = {'is_valid': False}
+            photos_list = Photo.objects.all()
+        return JsonResponse(data)
+    return render(request,'drag_load.html',{'photos': photos_list}) 
+    
+def clear_database(request):
+    for photo in Photo.objects.all():
+        photo.file.delete()
+        photo.delete()
+    return redirect(request.POST.get('next'))
 
 
 
