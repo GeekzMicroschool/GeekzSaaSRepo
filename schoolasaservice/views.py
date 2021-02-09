@@ -33,7 +33,7 @@ from django.http import JsonResponse
 from django.views import View
 
 from .forms import PhotoForm
-from .models import Photo
+from .models import Photo_webpage
 
 # Create your views here.
 def searchbar(request):
@@ -820,17 +820,17 @@ def web_form(request):
     user_id=request.session['user_id']
     user=User.objects.get(id=user_id)
     user_details=USER_DETAILS.objects.get(USER_EMAIL=user.email)
-    IE=INDIVIDUAL_WEBPAGESS.objects.filter(uid=user_details.uid,IS_COMPLETE='Y',IS_APPROVED ='N')
+    IE=INDIVIDUAL_WEBPAGESS1.objects.filter(uid=user_details.uid,IS_COMPLETE='Y',IS_APPROVED ='N')
     print(IE)
      # msg form to be reviewed
     
-    IE1 = INDIVIDUAL_WEBPAGESS.objects.filter(uid=user_details.uid,IS_COMPLETE='Y',IS_APPROVED ='Y') # show webpage
+    IE1 = INDIVIDUAL_WEBPAGESS1.objects.filter(uid=user_details.uid,IS_COMPLETE='Y',IS_APPROVED ='Y') # show webpage
     if IE:
         print('hi')
         return render(request, 'web_form.html',{'webform_done':'done'})
         
     if IE1:
-        IEE = INDIVIDUAL_WEBPAGESS.objects.get(uid=user_details.uid)
+        IEE = INDIVIDUAL_WEBPAGESS1.objects.get(uid=user_details.uid)
         LOCALITY = IEE.LOCALITY
         return render(request,'webpage.html',{'l':IE1})
     else:
@@ -905,7 +905,7 @@ def web_form(request):
             time1_to = time1_to.strftime("%I:%M %p")
             latitude = request.POST['loc_lat']
             longitude = request.POST['loc_long']
-            ob = INDIVIDUAL_WEBPAGESS(uid = user_details.uid,SCHOOL_NAME = school_name ,LOCALITY = locality ,AMENITIES_is_Spacious_Studio=is_Spacious_Studio ,AMENITIES_is_Outdoor_PlayLawn=is_Outdoor_PlayLawn,AMENITIES_is_Commute = is_Commute,AMENITIES_is_CCTV = is_CCTV,AMENITIES_is_WiFi=is_WiFi,AMENITIES_is_Device=is_Device,AMENITIES_is_Food=is_Food,AMENITIES_is_Daycare=is_Daycare,AMENITIES_is_After_School=is_After_School,AMENITIES_is_Residential= is_Residential,BANNER1=banner11,BANNER2=banner2, BANNER3=banner3,BANNER4=banner4, GOOGLE_REVIEWS_LINK =googlereview,FOUNDER_NAME=founder_name1,DESIGNATION=founder_designation,CO_FOUNDER1=founder_name2,DESIGNATION_CO1=founder_designation1,CONTENT1=about_founder1,CONTENT2=about_founder2,ADDRESS1=address1,ADDRESS2=address2,SCHOOL_LOCALITY =SchoolArea,SCHOOL_PHONE=phone,SCHOOL_PHONE1=phone1,SCHOOL_EMAIL=email,SCHOOL_HOURS_KS=time_from+' to '+ time_to,SCHOOL_HOURS_ES=time1_from+' to '+ time1_to,IS_COMPLETE='Y',LATITUDE=latitude,LONGITUDE=longitude)
+            ob = INDIVIDUAL_WEBPAGESS1(uid = user_details.uid,SCHOOL_NAME = school_name ,LOCALITY = locality ,AMENITIES_is_Spacious_Studio=is_Spacious_Studio ,AMENITIES_is_Outdoor_PlayLawn=is_Outdoor_PlayLawn,AMENITIES_is_Commute = is_Commute,AMENITIES_is_CCTV = is_CCTV,AMENITIES_is_WiFi=is_WiFi,AMENITIES_is_Device=is_Device,AMENITIES_is_Food=is_Food,AMENITIES_is_Daycare=is_Daycare,AMENITIES_is_After_School=is_After_School,AMENITIES_is_Residential= is_Residential,BANNER1=banner11,BANNER2=banner2, BANNER3=banner3,BANNER4=banner4, GOOGLE_REVIEWS_LINK =googlereview,FOUNDER_NAME=founder_name1,DESIGNATION=founder_designation,CO_FOUNDER1=founder_name2,DESIGNATION_CO1=founder_designation1,CONTENT1=about_founder1,CONTENT2=about_founder2,ADDRESS1=address1,ADDRESS2=address2,SCHOOL_LOCALITY =SchoolArea,SCHOOL_PHONE=phone,SCHOOL_PHONE1=phone1,SCHOOL_EMAIL=email,SCHOOL_HOURS_KS=time_from+' to '+ time_to,SCHOOL_HOURS_ES=time1_from+' to '+ time1_to,IS_COMPLETE='Y',LATITUDE=latitude,LONGITUDE=longitude)
             ob.save()
             #OBJ = webdata2.objects.filter(url=url)
             return render(request,'index.html')
@@ -931,8 +931,8 @@ def webpage_creation(request):
     user_id=request.session['user_id']
     user=User.objects.get(id=user_id)
     uid_obj = USER_DETAILS.objects.get(USER_EMAIL=user.email)
-    OBJ = INDIVIDUAL_WEBPAGESS.objects.all()
-    url_obj = INDIVIDUAL_WEBPAGESS.objects.get(uid = uid_obj.uid)
+    OBJ = INDIVIDUAL_WEBPAGESS1.objects.all()
+    url_obj = INDIVIDUAL_WEBPAGESS1.objects.get(uid = uid_obj.uid)
     url_variable = url_obj.SCHOOL_NAME + url_obj.LOCALITY
     return render(request,'webpage_creation.html',{'ob':OBJ,'URL':url_variable })
 
@@ -940,12 +940,12 @@ def webpage_creation(request):
 @allowed_users(allowed_roles=['superadmin'])'''
 def webpage(request,LOCALITY):
         print('url',LOCALITY)
-        l = INDIVIDUAL_WEBPAGESS.objects.filter(LOCALITY=LOCALITY)
+        l = INDIVIDUAL_WEBPAGESS1.objects.filter(LOCALITY=LOCALITY)
         user_id=request.session['user_id']
         user=User.objects.get(id=user_id) 
         s_inquiry = Inquiry.objects.filter(uid = user.id)
         if s_inquiry:
-            l= INDIVIDUAL_WEBPAGESS.objects.filter(LOCALITY='modeltown')
+            l= INDIVIDUAL_WEBPAGESS1.objects.filter(LOCALITY=LOCALITY)
             return render(request, 'webpage.html',{'webform_done':'done','l':l})
         else:
             if request.method == "POST" :
@@ -968,7 +968,7 @@ def webpage(request,LOCALITY):
                 message.content_subtype='html'
                 message.send()
             return render(request, 'webpage.html',{'l':l})  
-
+       
 
 def superAdmin_dashboard(request):
     '''for p in User.objects.raw('SELECT * FROM auth_user'):
@@ -1091,35 +1091,44 @@ def rough(request):
 
     
 def bulk_load(request):
-    photos_list = Photo.objects.all()
+    photos_list = Photo_webpage.objects.all()
     if request.method == "POST" :
         form = PhotoForm(request.POST, request.FILES)
         if form.is_valid():
-            photo = form.save()
+            user_id=request.session['user_id']
+            user=User.objects.get(id=user_id)
+            uid_obj = USER_DETAILS.objects.get(USER_EMAIL=user.email)
+            g_obj = INDIVIDUAL_WEBPAGESS1.objects.filter(uid = uid_obj.uid)
+            g_obj = list(g_obj)
+            g_obj = g_obj[0]
+            g_file = request.FILES['file']
+            photo_obj = Photo_webpage(gala_admin=g_obj,file= g_file)
+            photo_obj.save()
+            photo = Photo_webpage.objects.get(file=g_file)
             data = {'is_valid': True, 'name': photo.file.name, 'url': photo.file.url}
-            photos_list = Photo.objects.all()
+            photos_list = Photo_webpage.objects.all() 
         else:
             data = {'is_valid': False}
-            photos_list = Photo.objects.all()
+            photos_list = Photo_webpage.objects.all()
         return JsonResponse(data)
     return render(request,'bulk_load.html',{'photos': photos_list}) 
 
 def drag_load(request):
-    photos_list = Photo.objects.all()
+    photos_list = Photo_webpage.objects.all()
     if request.method == "POST" :
         form = PhotoForm(request.POST, request.FILES)
         if form.is_valid():
             photo = form.save()
             data = {'is_valid': True, 'name': photo.file.name, 'url': photo.file.url}
-            photos_list = Photo.objects.all()
+            photos_list = Photo_webpage.objects.all()
         else:
             data = {'is_valid': False}
-            photos_list = Photo.objects.all()
+            photos_list = Photo_webpage.objects.all()
         return JsonResponse(data)
     return render(request,'drag_load.html',{'photos': photos_list}) 
     
 def clear_database(request):
-    for photo in Photo.objects.all():
+    for photo in Photo_webpage.objects.all():
         photo.file.delete()
         photo.delete()
     return redirect(request.POST.get('next'))

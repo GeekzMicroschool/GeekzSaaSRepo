@@ -917,7 +917,7 @@ button.bg-danger:hover {
 	position: relative;
 	display: inline-block;
 	width: 3rem;
-	height: 3rem
+	height: 3rem;
 }
 .avatar > img {
 	width: 100%;

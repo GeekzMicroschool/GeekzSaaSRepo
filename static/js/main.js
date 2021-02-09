@@ -1086,7 +1086,16 @@ function vv() {
           }
         }
       }
-      $("#errmsgvalph1").hide()
+     if(y[k].id=="phone"){
+        
+        if(isNaN(y[k].value)  || y[k].value.length!=10 ){
+            //if not a number or length is not equal to 10
+            $("#errmsgvalph").show()
+            valid = false;
+        }else{
+            $("#errmsgvalph").hide()
+        }
+    }
       if( y[k].id=="phone1"){
         
         if( isNaN(y[k].value) || (y[k].value.length!=10) ){
@@ -1098,17 +1107,8 @@ function vv() {
             $("#errmsgvalph1").hide()
         }
     }
-    $("#errmsgvalph").hide()
-    if(y[k].id=="phone"){
-        
-        if(isNaN(y[k].value)  || y[k].value.length!=10 ){
-            //if not a number or length is not equal to 10
-            $("#errmsgvalph").show()
-            valid = false;
-        }else{
-            $("#errmsgvalph").hide()
-        }
-    }
+    
+    
     
 }
 }

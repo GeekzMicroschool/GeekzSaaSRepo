@@ -236,18 +236,18 @@
 								<br>
 								<div id="works">
 									<div class="work-item" style="text-align:justify;">
-										<p style="font-size:28px;"><i class="fa fa-university fa-x"></i>&emsp;Spacious Studio</p><br>
-										<p style="font-size:28px;"><i class="fa fa-futbol-o fa-x"></i>&emsp;Outdoor Play & Lawn</p><br>
-										<p style="font-size:28px;"><i class="fa fa-bus fa-x"></i>&emsp;Commute</p><br>
-										<p style="font-size:28px;"><i class="fa fa-wifi fa-x"></i>&emsp;Wifi</p><br>
-										<p style="font-size:28px;"><i class="fa fa-video-camera fa-x"></i>&emsp;CCTV</p>
+										<p style="font-size:21px;"><i class="fa fa-university fa-x"></i>&emsp;Spacious Studio</p><br>
+										<p style="font-size:21px;"><i class="fa fa-futbol-o fa-x"></i>&emsp;Outdoor Play & Lawn</p><br>
+										<p style="font-size:21px;"><i class="fa fa-bus fa-x"></i>&emsp;Commute</p><br>
+										<p style="font-size:21px;"><i class="fa fa-wifi fa-x"></i>&emsp;Wifi</p><br>
+										<p style="font-size:21px;"><i class="fa fa-video-camera fa-x"></i>&emsp;CCTV</p>
 									</div>
 									<div class="work-item" style="text-align:justify;">
-										<p style="font-size:28px;"><i class="fa fa-tablet fa-x"></i>&emsp;Device</p><br>
-										<p style="font-size:28px;"><i class="fa fa-cutlery fa-x"></i>&emsp;Food</p><br>
-										<p style="font-size:28px;"><i class="fa fa-child fa-x"></i>&emsp;Daycare</p><br>
-										<p style="font-size:28px;"><i class="fa fa-bell fa-x"></i>&emsp;After School</p><br>
-										<p style="font-size:28px;"><i class="fa fa-home fa-x"></i>&emsp;Residential</p>
+										<p style="font-size:21px;"><i class="fa fa-tablet fa-x"></i>&emsp;<del>Device</del></p><br>
+										<p style="font-size:21px;"><i class="fa fa-cutlery fa-x"></i>&emsp;<del>Food</del></p><br>
+										<p style="font-size:21px;"><i class="fa fa-child fa-x"></i>&emsp;<del>Daycare</del></p><br>
+										<p style="font-size:21px;"><i class="fa fa-bell fa-x"></i>&emsp;<del>After School</del></p><br>
+										<p style="font-size:21px;"><i class="fa fa-home fa-x"></i>&emsp;<del>Residential</del></p>
 									</div>
 									
 								</div>
@@ -255,16 +255,17 @@
 							</div>
 						</div>
 						
-						<div class="col-md-8 col-md-offset-1 wow animated fadeInRight">
-							<div>
-								<h3>Real World Learning</h3>								
+						<div class="col-md-7 col-md-offset-1 wow animated fadeInRight">
+							<div >
+								<h3 style="padding-bottom: 30px;">Real World Learning</h3>
+																
 						     	 <div>
-								 <img src="{% static 'img/flip.png' %} " style="width:100%;display:block;margin:0 auto;" alt="learning cycle">
+								 <img src="{% static 'img/flip.png' %} " style="height:auto;width:auto;max-width:400px;max-height:400px;display:block;margin:0 auto;padding-bottom: 30px;" alt="learning cycle">
 							<!-- 	<button  data-dismiss="modal" class="btn1 close"><i style="color: rgba(0,158,227, 0.78);font-size:30px;"class="fa fa-play" aria-hidden="true"></i></button> -->
 							<a class="edit-link btn1" data-toggle="modal" href="#video-pop"><i style="color: rgba(0,158,227, 0.78);font-size:30px;"class="fa fa-play" aria-hidden="true"></i></a>
 								  </div>
 								  <br>
-						       	<a href="https://www.youtube.com/channel/UCNy54QG09WBP7ZU8eOSRntQ" target="_blank" class="btn btn-border btn-effect pull-right">Quests</a>   
+						       	<a href="https://www.youtube.com/channel/UCNy54QG09WBP7ZU8eOSRntQ" target="_blank" class="btn btn-border btn-effect pull-right"style="float:left;">Quests</a>   
 						    </div>
 						</div>
 					</div>
@@ -304,32 +305,29 @@
 				}
 				
 			/* Container needed to position the button. Adjust the width as needed */
-.col-md-8 {
-  position: relative;
-  width: 50%;
-}
+					
 
-/* Make the image responsive */
+					/* Make the image responsive */
 
 
-/* Style the button and place it in the middle of the container/image */
-.col-md-8 .btn1 {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  color: white;
-  font-size: 16px;
-  padding: 12px 24px;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
-}
+					/* Style the button and place it in the middle of the container/image */
+					.col-md-7 .btn1 {
+					position: absolute;
+					top: 50%;
+					left: 50%;
+					transform: translate(-50%, -50%);
+					-ms-transform: translate(-50%, -50%);
+					color: white;
+					font-size: 16px;
+					padding: 12px 24px;
+					border: none;
+					cursor: pointer;
+					border-radius: 5px;
+					}
 
-.col-md-8 .btn1:hover {
-  color: white;
-}
+					.col-md-7 .btn1:hover {
+					color: white;
+					}
 </style>				
 				
 				
@@ -718,10 +716,12 @@
 							<div class="col-md-4">
 							<li>
 								<div class="comment">
-									<img  style="border-radius: 50%;" class="avatar rounded-circle" alt="User Image" src="{% static 'assets/img/patients/patient.jpg' %}">
+									<img class="avatar rounded-circle"style="border-radius:50%;width:100px;height: 50px;" alt="User Image" src="{% static 'assets/img/patients/patient.jpg' %}">
 									<div class="comment-body">
 										<div class="meta-data">
-											<span ><h3>Richard Wilson</h3></span>
+											<span class="comment-author" style="font-family: 'Open Sans', sans-serif;
+											color: #252525;">Carl Kelly</span>
+											<span class="comment-date">july 30,2020 </span>
 											<div class="review-count rating">
 												<i  class="fas fa-star filled"></i>
 												<i  class="fas fa-star filled"></i>
@@ -747,10 +747,12 @@
 							<div class="col-md-4">
 							<li>
 								<div class="comment">
-									<img style="border-radius: 50%;" class="avatar rounded-circle" alt="User Image" src="{% static 'assets/img/patients/patient.jpg' %}">
+									<img class="avatar rounded-circle"style="border-radius:50%;width:100px;height: 50px;"  alt="User Image" src="{% static 'assets/img/patients/patient.jpg' %}">
 									<div class="comment-body">
 										<div class="meta-data">
-											<span ><h3>Richard Wilson</h3></span>
+											<span class="comment-author" style="font-family: 'Open Sans', sans-serif;
+											color: #252525;">Carl Kelly</span>
+											<span class="comment-date">july 30,2020 </span>
 											<div class="review-count rating">
 												<i class="fas fa-star filled"></i>
 												<i class="fas fa-star filled"></i>
@@ -787,10 +789,12 @@
 							   <div class="col-md-4">
 							   <li>
 								   <div class="comment">
-									   <img  style="border-radius: 50%;" class="avatar rounded-circle" alt="User Image" src="{% static 'assets/img/patients/patient.jpg' %}">
+									   <img  class="avatar rounded-circle"style="border-radius:50%;width:100px;height: 50px;" alt="User Image" src="{% static 'assets/img/patients/patient.jpg' %}">
 									   <div class="comment-body">
 										   <div class="meta-data">
-											   <span ><h3>Richard Wilson</h3></span>
+											<span class="comment-author" style="font-family: 'Open Sans', sans-serif;
+											color: #252525;">Carl Kelly</span>
+											<span class="comment-date">july 30,2020 </span>
 											   <div class="review-count rating">
 												   <i  class="fas fa-star filled"></i>
 												   <i  class="fas fa-star filled"></i>
@@ -816,10 +820,12 @@
 							   <div class="col-md-4">
 							   <li>
 								   <div class="comment">
-									   <img style="border-radius: 50%;" class="avatar rounded-circle" alt="User Image" src="{% static 'assets/img/patients/patient.jpg' %}">
+									   <img class="avatar rounded-circle"style="border-radius:50%;width:100px;height: 50px;" alt="User Image" src="{% static 'assets/img/patients/patient.jpg' %}">
 									   <div class="comment-body">
 										   <div class="meta-data">
-											   <span ><h3>Richard Wilson</h3></span>
+											<span class="comment-author" style="font-family: 'Open Sans', sans-serif;
+											color: #252525;">Carl Kelly</span>
+											<span class="comment-date">july 30,2020 </span>
 											   <div class="review-count rating">
 												   <i class="fas fa-star filled"></i>
 												   <i class="fas fa-star filled"></i>
@@ -856,10 +862,12 @@
 							   <div class="col-md-4">
 							   <li>
 								   <div class="comment">
-									   <img  style="border-radius: 50%;" class="avatar rounded-circle" alt="User Image" src="{% static 'assets/img/patients/patient.jpg' %}">
+									   <img  class="avatar rounded-circle"style="border-radius:50%;width:100px;height: 50px;" src="{% static 'assets/img/patients/patient.jpg' %}">
 									   <div class="comment-body">
 										   <div class="meta-data">
-											   <span ><h3>Richard Wilson</h3></span>
+											<span class="comment-author" style="font-family: 'Open Sans', sans-serif;
+											color: #252525;">Carl Kelly</span>
+											<span class="comment-date">july 30,2020 </span>
 											   <div class="review-count rating">
 												   <i  class="fas fa-star filled"></i>
 												   <i  class="fas fa-star filled"></i>
@@ -885,10 +893,12 @@
 							   <div class="col-md-4">
 							   <li>
 								   <div class="comment">
-									   <img style="border-radius: 50%;" class="avatar rounded-circle" alt="User Image" src="{% static 'assets/img/patients/patient.jpg' %}">
+									   <img class="avatar rounded-circle"style="border-radius:50%;width:100px;height: 50px;" src="{% static 'assets/img/patients/patient.jpg' %}">
 									   <div class="comment-body">
 										   <div class="meta-data">
-											   <span ><h3>Richard Wilson</h3></span>
+											<span class="comment-author" style="font-family: 'Open Sans', sans-serif;
+											color: #252525;">Carl Kelly</span>
+											<span class="comment-date">july 30,2020 </span>
 											   <div class="review-count rating">
 												   <i class="fas fa-star filled"></i>
 												   <i class="fas fa-star filled"></i>
@@ -915,9 +925,63 @@
 					   </div>
 				</div>
 				<br><br><div class="sec-title text-center">
-					<a href="#contact" class="btn btn-blue btn-effect wow animated bounceInLeft">Show all 25 reviews</a>    
+					<a  data-toggle="modal" href="#testimonials_modal"class="btn btn-blue btn-effect wow animated bounceInLeft">Show all 25 reviews</a>    
 				</div>
       </section>
+
+	  <div class="modal fade custom-modal" id="testimonials_modal" style="color:black;background-color:white;">
+		<div class="modal-dialog modal-dialog-centered" style="background-color:white;">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Edit Time Slots</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<li>
+						<div class="comment">
+							<img class="avatar rounded-circle" alt="User Image" src="assets/img/patients/patient3.jpg">
+							<div class="comment-body">
+								<div class="meta-data">
+									<span class="comment-author">Carl Kelly</span>
+									<span class="comment-date">Reviewed 5 Days ago</span>
+									<div class="review-count rating">
+										<i class="fas fa-star filled"></i>
+										<i class="fas fa-star filled"></i>
+										<i class="fas fa-star filled"></i>
+										<i class="fas fa-star filled"></i>
+										<i class="fas fa-star filled"></i>
+									</div>
+								</div>
+								<p class="comment-content">
+									Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+									sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+									Ut enim ad minim veniam, quis nostrud exercitation.
+									Curabitur non nulla sit amet nisl tempus
+								</p>
+								<div class="comment-reply">
+									<a class="comment-btn" href="#">
+										<i class="fas fa-reply"></i> Reply
+									</a>
+									<p class="recommend-btn">
+										<span>Recommend?</span>
+										<a href="#" class="like-btn">
+											<i class="far fa-thumbs-up"></i> Yes
+										</a>
+										<a href="#" class="dislike-btn">
+											<i class="far fa-thumbs-down"></i> No
+										</a>
+									</p>
+								</div>
+							</div>
+						</div>
+					</li>
+						
+				</div>
+			</div>
+		</div>
+	</div>
      
 			<!-- end Price section -->
 			

@@ -22,9 +22,7 @@ body {
     color: #818181;
     position: relative
 }
-html, body {
-    overflow-x: hidden;
-  }
+
   
 figure, p, address {
     margin: 0;

@@ -186,7 +186,11 @@ class feedback(models.Model):
 def content_file_name(instance,filename):
     return '/'.join(['uploads','banner1',filename])
 
-class INDIVIDUAL_WEBPAGESS(models.Model):
+def user_directory_path(instance, filename):
+    # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
+    return 'microschool_{0}/{1}'.format(instance.SCHOOL_NAME , filename)    
+
+class INDIVIDUAL_WEBPAGESS1(models.Model):
     uid = models.CharField(max_length=50, primary_key=True)
     SCHOOL_NAME = models.CharField(max_length=250)   
     LOCALITY = models.CharField(max_length=250) 
@@ -200,10 +204,10 @@ class INDIVIDUAL_WEBPAGESS(models.Model):
     AMENITIES_is_Daycare = models.CharField(max_length=1, default="N")
     AMENITIES_is_After_School = models.CharField(max_length=1, default="N")
     AMENITIES_is_Residential = models.CharField(max_length=1, default="N")
-    BANNER1 = models.ImageField(upload_to=content_file_name,blank=True , null=True)
-    BANNER2 = models.ImageField(upload_to='media/',blank=True , null=True)
-    BANNER3 =  models.ImageField(upload_to='media/',blank=True , null=True)
-    BANNER4 = models.ImageField(upload_to='media/',blank=True , null=True)
+    BANNER1 = models.ImageField(upload_to=user_directory_path,blank=True , null=True)
+    BANNER2 = models.ImageField(upload_to=user_directory_path,blank=True , null=True)
+    BANNER3 =  models.ImageField(upload_to=user_directory_path,blank=True , null=True)
+    BANNER4 = models.ImageField(upload_to=user_directory_path,blank=True , null=True)
     GOOGLE_REVIEWS_LINK = models.URLField(max_length=300)
     FOUNDER_NAME = models.CharField(max_length=250) 
     DESIGNATION = models.CharField(max_length=250) 
@@ -244,9 +248,7 @@ class INDIVIDUAL_WEBPAGESS(models.Model):
 
 
 
-def user_directory_path(instance, filename):
-    # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
-    return 'user_{0}/{1}'.format(instance.user, filename)
+
 
 class MyModel1(models.Model):
     user = models.CharField(max_length=400)
@@ -272,9 +274,14 @@ class Inquiry(models.Model):
     hear_about_us = models.CharField(max_length=250) 
     microschool = models.CharField(max_length=250) 
 
-class Photo(models.Model):
+def user_directory_path_gala(instance, filename):
+    # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
+    return 'microschool_{0}/gala/{1}'.format(instance.gala_admin.SCHOOL_NAME , filename)   
+
+class Photo_webpage(models.Model):
     title = models.CharField(max_length=255, blank=True)
-    file = models.FileField(upload_to='gala/')
+    gala_admin = models.ForeignKey(INDIVIDUAL_WEBPAGESS1, on_delete=models.CASCADE)
+    file = models.FileField(upload_to=user_directory_path_gala)
     uploaded_at = models.DateTimeField(auto_now_add=True)
 
 
