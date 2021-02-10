@@ -256,13 +256,12 @@
 						</div>
 						
 						<div class="col-md-7 col-md-offset-1 wow animated fadeInRight">
-							<div >
-								<h3 style="padding-bottom: 30px;">Real World Learning</h3>
-																
+							<div>
+								<h3 style="padding-bottom: 30px;">Real World Learning</h3>								
 						     	 <div>
 								 <img src="{% static 'img/flip.png' %} " style="height:auto;width:auto;max-width:400px;max-height:400px;display:block;margin:0 auto;padding-bottom: 30px;" alt="learning cycle">
 							<!-- 	<button  data-dismiss="modal" class="btn1 close"><i style="color: rgba(0,158,227, 0.78);font-size:30px;"class="fa fa-play" aria-hidden="true"></i></button> -->
-							<a class="edit-link btn1" data-toggle="modal" href="#video-pop"><i style="color: rgba(0,158,227, 0.78);font-size:30px;"class="fa fa-play" aria-hidden="true"></i></a>
+							<a class=" btn1" data-toggle="modal" href="#video-pop"><i style="color: rgba(0,158,227, 0.78);font-size:30px;"class="fa fa-play" aria-hidden="true"></i></a>
 								  </div>
 								  <br>
 						       	<a href="https://www.youtube.com/channel/UCNy54QG09WBP7ZU8eOSRntQ" target="_blank" class="btn btn-border btn-effect pull-right"style="float:left;">Quests</a>   
@@ -272,6 +271,7 @@
 				</div>
 			</section>
 			
+			
 			<div class="modal fade custom-modal " id="video-pop" style="backdrop-filter: blur(5px);" style="width:100%;">
 				<div class="modal-dialog modal-dialog-centered" >
 					<div class="modal-content ">
@@ -279,12 +279,23 @@
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
-							<iframe width="100%" height="100%" src="https://www.youtube.com/embed/hj6iaKZSllg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+							<iframe width="100%" height="100%"   src="https://www.youtube.com/embed/hj6iaKZSllg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+						  
 						</div>
 					</div>
 				</div>
 			</div>
 			<style>
+				
+				.responsive-iframe {
+				position: absolute;
+				top: 0;
+				left: 0;
+				bottom: 0;
+				right: 0;
+				width: 100%;
+				height: 100%;
+				}
 				.video-con {
 					position: relative;
 					padding-bottom: 56.25%;
@@ -328,7 +339,9 @@
 					.col-md-7 .btn1:hover {
 					color: white;
 					}
-</style>				
+					
+
+	</style>				
 				
 				
             <!-- end school amenities section -->
@@ -925,63 +938,311 @@
 					   </div>
 				</div>
 				<br><br><div class="sec-title text-center">
-					<a  data-toggle="modal" href="#testimonials_modal"class="btn btn-blue btn-effect wow animated bounceInLeft">Show all 25 reviews</a>    
+					<a  data-toggle="modal" href="#modal"class="btn btn-blue btn-effect wow animated bounceInLeft">Show all 25 reviews</a>    
 				</div>
       </section>
+	  <style>
+				.modal-trigger{
+		text-decoration: none;
+		padding:1rem;
+		background:#f93434;
+		display:inline-block;
+		border-radius:3px;
+		margin-top:50px;
+		color:#fff;
+		}
+		.modal{
+		display:none;
+		background:rgba(0, 0, 0, .8);
+		position:fixed;
+		left:0;
+		top:0;
+		height:100%;
+		width:100%;
+		}
+		.modal:target{
+		display:table;
+		}
+		.modal__dialog{
+		display:table-cell;
+		vertical-align:middle;
+		}
 
-	  <div class="modal fade custom-modal" id="testimonials_modal" style="color:black;background-color:white;">
-		<div class="modal-dialog modal-dialog-centered" style="background-color:white;">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title">Edit Time Slots</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<li>
-						<div class="comment">
-							<img class="avatar rounded-circle" alt="User Image" src="assets/img/patients/patient3.jpg">
-							<div class="comment-body">
-								<div class="meta-data">
-									<span class="comment-author">Carl Kelly</span>
-									<span class="comment-date">Reviewed 5 Days ago</span>
-									<div class="review-count rating">
-										<i class="fas fa-star filled"></i>
-										<i class="fas fa-star filled"></i>
-										<i class="fas fa-star filled"></i>
-										<i class="fas fa-star filled"></i>
-										<i class="fas fa-star filled"></i>
-									</div>
-								</div>
-								<p class="comment-content">
-									Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-									sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-									Ut enim ad minim veniam, quis nostrud exercitation.
-									Curabitur non nulla sit amet nisl tempus
-								</p>
-								<div class="comment-reply">
-									<a class="comment-btn" href="#">
-										<i class="fas fa-reply"></i> Reply
-									</a>
-									<p class="recommend-btn">
-										<span>Recommend?</span>
-										<a href="#" class="like-btn">
-											<i class="far fa-thumbs-up"></i> Yes
-										</a>
-										<a href="#" class="dislike-btn">
-											<i class="far fa-thumbs-down"></i> No
-										</a>
-									</p>
+		.modal__content{
+		background:rgb(255, 255, 255);
+		width:60%;
+		min-width:300px;
+		margin:auto;
+		position:relative;
+		
+		animation: slideUp 0.3s ease-in-out;
+		}
+
+		.modal__header{
+		background:rgba(0,158,227, 0.78);;
+		color:rgba(255, 255, 255, 0.8);
+		padding:1rem;
+		position:relative;
+		}
+		.modal__title{
+		margin:0;
+		}
+		.modal__close{
+		color:#fff;
+		text-decoration: none;
+		position:absolute;
+		top:1rem;
+		right:1rem;
+		}
+		.modal__image{
+		display:block;
+		margin:1rem auto;
+		}
+		.modal__text{
+		padding:0 1rem;
+		line-height:1.5;
+		}
+		.modal__footer{
+		padding:1rem;
+		border-top:1px solid #ccc;
+		}
+
+		@keyframes slideUp{
+		from{
+			opacity:0;
+			bottom: -200px;
+		}
+		to{
+			opacity:1;
+			bottom:0;
+		}
+		}
+	  </style>
+	  <div class="modal" id="modal">
+		<div class="modal__dialog" style="overflow-y: initial !important;">
+			<br><br><br><br>
+		  <section class="modal__content">
+			<header class="modal__header">
+			  <h2 class="modal__title">Reviews</h2>
+			  <button type="button" class="modal__close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			</header>
+			
+			<div class="modal__body" style="height: 80vh;
+			overflow-y: auto;">
+				<div class="doc-review review-listing">	
+					<!-- Review Listing -->
+					<ul class="comments-list">
+				<li>
+					<div class="comment">
+						<img class="avatar rounded-circle" style="border-radius:50%;width:100px;height: 50px;" alt="User Image" src="{% static 'assets/img/patients/patient3.jpg' %}">
+						<div class="comment-body">
+							<div class="meta-data">
+							    <span class="comment-author">Carl Kelly</span>
+								<span class="comment-date">Reviewed 5 Days ago</span>
+								<div class="review-count rating">
+									<i class="fas fa-star filled"></i>
+									<i class="fas fa-star filled"></i>
+									<i class="fas fa-star filled"></i>
+									<i class="fas fa-star filled"></i>
+									<i class="fas fa-star filled"></i>
 								</div>
 							</div>
+							<p class="comment-content">
+								Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+								sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+								Ut enim ad minim veniam, quis nostrud exercitation.
+								Curabitur non nulla sit amet nisl tempus
+							</p>
+							
 						</div>
-					</li>
-						
-				</div>
+					</div>
+				</li>
+				<li>
+					<div class="comment">
+						<img class="avatar rounded-circle" style="border-radius:50%;width:100px;height: 50px;" alt="User Image" src="{% static 'assets/img/patients/patient3.jpg' %}">
+						<div class="comment-body">
+							<div class="meta-data">
+							    <span class="comment-author">Carl Kelly</span>
+								<span class="comment-date">Reviewed 5 Days ago</span>
+								<div class="review-count rating">
+									<i class="fas fa-star filled"></i>
+									<i class="fas fa-star filled"></i>
+									<i class="fas fa-star filled"></i>
+									<i class="fas fa-star filled"></i>
+									<i class="fas fa-star filled"></i>
+								</div>
+							</div>
+							<p class="comment-content">
+								Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+								sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+								Ut enim ad minim veniam, quis nostrud exercitation.
+								Curabitur non nulla sit amet nisl tempus
+							</p>
+							
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="comment">
+						<img class="avatar rounded-circle" style="border-radius:50%;width:100px;height: 50px;" alt="User Image" src="{% static 'assets/img/patients/patient3.jpg' %}">
+						<div class="comment-body">
+							<div class="meta-data">
+							    <span class="comment-author">Carl Kelly</span>
+								<span class="comment-date">Reviewed 5 Days ago</span>
+								<div class="review-count rating">
+									<i class="fas fa-star filled"></i>
+									<i class="fas fa-star filled"></i>
+									<i class="fas fa-star filled"></i>
+									<i class="fas fa-star filled"></i>
+									<i class="fas fa-star filled"></i>
+								</div>
+							</div>
+							<p class="comment-content">
+								Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+								sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+								Ut enim ad minim veniam, quis nostrud exercitation.
+								Curabitur non nulla sit amet nisl tempus
+							</p>
+							
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="comment">
+						<img class="avatar rounded-circle" style="border-radius:50%;width:100px;height: 50px;" alt="User Image" src="{% static 'assets/img/patients/patient3.jpg' %}">
+						<div class="comment-body">
+							<div class="meta-data">
+							    <span class="comment-author">Carl Kelly</span>
+								<span class="comment-date">Reviewed 5 Days ago</span>
+								<div class="review-count rating">
+									<i class="fas fa-star filled"></i>
+									<i class="fas fa-star filled"></i>
+									<i class="fas fa-star filled"></i>
+									<i class="fas fa-star filled"></i>
+									<i class="fas fa-star filled"></i>
+								</div>
+							</div>
+							<p class="comment-content">
+								Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+								sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+								Ut enim ad minim veniam, quis nostrud exercitation.
+								Curabitur non nulla sit amet nisl tempus
+							</p>
+							
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="comment">
+						<img class="avatar rounded-circle" style="border-radius:50%;width:100px;height: 50px;" alt="User Image" src="{% static 'assets/img/patients/patient3.jpg' %}">
+						<div class="comment-body">
+							<div class="meta-data">
+							    <span class="comment-author">Carl Kelly</span>
+								<span class="comment-date">Reviewed 5 Days ago</span>
+								<div class="review-count rating">
+									<i class="fas fa-star filled"></i>
+									<i class="fas fa-star filled"></i>
+									<i class="fas fa-star filled"></i>
+									<i class="fas fa-star filled"></i>
+									<i class="fas fa-star filled"></i>
+								</div>
+							</div>
+							<p class="comment-content">
+								Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+								sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+								Ut enim ad minim veniam, quis nostrud exercitation.
+								Curabitur non nulla sit amet nisl tempus
+							</p>
+							
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="comment">
+						<img class="avatar rounded-circle" style="border-radius:50%;width:100px;height: 50px;" alt="User Image" src="{% static 'assets/img/patients/patient3.jpg' %}">
+						<div class="comment-body">
+							<div class="meta-data">
+							    <span class="comment-author">Carl Kelly</span>
+								<span class="comment-date">Reviewed 5 Days ago</span>
+								<div class="review-count rating">
+									<i class="fas fa-star filled"></i>
+									<i class="fas fa-star filled"></i>
+									<i class="fas fa-star filled"></i>
+									<i class="fas fa-star filled"></i>
+									<i class="fas fa-star filled"></i>
+								</div>
+							</div>
+							<p class="comment-content">
+								Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+								sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+								Ut enim ad minim veniam, quis nostrud exercitation.
+								Curabitur non nulla sit amet nisl tempus
+							</p>
+							
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="comment">
+						<img class="avatar rounded-circle" style="border-radius:50%;width:100px;height: 50px;" alt="User Image" src="{% static 'assets/img/patients/patient3.jpg' %}">
+						<div class="comment-body">
+							<div class="meta-data">
+							    <span class="comment-author">Carl Kelly</span>
+								<span class="comment-date">Reviewed 5 Days ago</span>
+								<div class="review-count rating">
+									<i class="fas fa-star filled"></i>
+									<i class="fas fa-star filled"></i>
+									<i class="fas fa-star filled"></i>
+									<i class="fas fa-star filled"></i>
+									<i class="fas fa-star filled"></i>
+								</div>
+							</div>
+							<p class="comment-content">
+								Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+								sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+								Ut enim ad minim veniam, quis nostrud exercitation.
+								Curabitur non nulla sit amet nisl tempus
+							</p>
+							
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="comment">
+						<img class="avatar rounded-circle" style="border-radius:50%;width:100px;height: 50px;" alt="User Image" src="{% static 'assets/img/patients/patient3.jpg' %}">
+						<div class="comment-body">
+							<div class="meta-data">
+							    <span class="comment-author">Carl Kelly</span>
+								<span class="comment-date">Reviewed 5 Days ago</span>
+								<div class="review-count rating">
+									<i class="fas fa-star filled"></i>
+									<i class="fas fa-star filled"></i>
+									<i class="fas fa-star filled"></i>
+									<i class="fas fa-star filled"></i>
+									<i class="fas fa-star filled"></i>
+								</div>
+							</div>
+							<p class="comment-content">
+								Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+								sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+								Ut enim ad minim veniam, quis nostrud exercitation.
+								Curabitur non nulla sit amet nisl tempus
+							</p>
+							
+						</div>
+					</div>
+				</li> 
+			</ul>
 			</div>
 		</div>
-	</div>
+			<footer class="modal__footer">
+			  
+			</footer>
+		  </section>
+		</div>
+	  </div>
      
 			<!-- end Price section -->
 			
