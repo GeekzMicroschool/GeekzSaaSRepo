@@ -139,9 +139,9 @@
                             {% if user.socialaccount_set.all %}
                                 {% for account in user.socialaccount_set.all %}
                                     <td style="padding: 20px;">
-                                        <div class="dropdown">
+                                        <div class="dropdown" style="width: 100%;">
                                             <img src="{{account.extra_data.picture}}" height="40" width="40" style="border-radius: 50%;">
-                                            <div class="dropdown-content">
+                                            <div class="dropdown-content" style="width: 100%;">
                                             <p><a href="/logout" class="btn btn-blue-affiliatewrap btn-effect">Logout</a></p>
                                             <p><a href="/student_profileEdit" class="btn btn-blue-affiliatewrap btn-effect">Profile</a></p>
                                             </div>
@@ -468,15 +468,20 @@
                             </form>
                             <div class="footer-social">
                                 <ul>
-                                    <li class="wow animated zoomIn"><a href="https://www.facebook.com/VrGeekz/" target="_blank"><i class="fa fa-facebook fa-3x"></i></a></li>
-                                    <li class="wow animated zoomIn" data-wow-delay="0.3s"><a href="https://www.instagram.com/vrgeekz/" target="_blank"><i class="fa fa-instagram fa-3x"></i></a></li>
-                                    <li class="wow animated zoomIn" data-wow-delay="0.6s"><a href="https://www.youtube.com/channel/UCNy54QG09WBP7ZU8eOSRntQ/videos" target="_blank"><i class="fa fa-youtube-play fa-3x"></i></a></li>
-                                    <li class="wow animated zoomIn" data-wow-delay="0.9s"><a href="https://twitter.com/VrGeekz" target="_blank"><i class="fa fa-twitter fa-3x"></i></a></li>
-                                    <!-- <li class="wow animated zoomIn" data-wow-delay="0.9s"><a href="https://thegeekstudio.wordpress.com/" target="_blank"><i class="fa fa-rss fa-3x"></i></a></li> -->
+                                    <style>
+                                        .footer-social ul li a:hover {
+                                            color: white;
+                                        }
+                                    </style>
+                                    <li class="wow animated zoomIn"><a href="https://www.facebook.com/VrGeekz/" target="_blank" style="background-color: inherit;"><i class="fa fa-facebook fa-3x"></i></a></li>
+                                    <li class="wow animated zoomIn" data-wow-delay="0.3s"><a href="https://www.instagram.com/vrgeekz/" target="_blank" style="background-color: inherit;"><i class="fa fa-instagram fa-3x"></i></a></li>
+                                    <li class="wow animated zoomIn" data-wow-delay="0.6s"><a href="https://www.youtube.com/channel/UCNy54QG09WBP7ZU8eOSRntQ/videos" target="_blank" style="background-color: inherit;"><i class="fa fa-youtube-play fa-3x"></i></a></li>
+                                    <li class="wow animated zoomIn" data-wow-delay="0.9s"><a href="https://twitter.com/VrGeekz" target="_blank" style="background-color: inherit;"><i class="fa fa-twitter fa-3x"></i></a></li>
+                                    <!-- <li class="wow animated zoomIn" data-wow-delay="0.9s"><a href="https://thegeekstudio.wordpress.com/" target="_blank" style="background-color: inherit;"><i class="fa fa-rss fa-3x"></i></a></li> -->
                                 </ul>
                             </div>
                             
-                            <p>Copyright &copy; 2020 by Geekz. All rights reserved.</p>
+                            <p>Copyright &copy; 2021 by Geekz. All rights reserved.</p>
                         </div>
                     </div>
                 </div>

@@ -946,7 +946,11 @@ def webpage(request,LOCALITY):
         s_inquiry = Inquiry.objects.filter(uid = user.id)
         if s_inquiry:
             l= INDIVIDUAL_WEBPAGESS1.objects.filter(LOCALITY=LOCALITY)
-            return render(request, 'webpage.html',{'webform_done':'done','l':l})
+            location = INDIVIDUAL_WEBPAGESS1.objects.get(LOCALITY=LOCALITY)
+            latitude = location.LATITUDE
+            longitude = location.LONGITUDE
+            print(type(latitude))
+            return render(request, 'webpage.html',{'webform_done':'done','l':l,'latitude':latitude,'longitude':longitude})
         else:
             if request.method == "POST" :
                 user_id=request.session['user_id']
@@ -967,7 +971,11 @@ def webpage(request,LOCALITY):
                 message=EmailMessage(subject, html_message, settings.EMAIL_HOST_USER, [to_email])
                 message.content_subtype='html'
                 message.send()
-            return render(request, 'webpage.html',{'l':l})  
+                location = INDIVIDUAL_WEBPAGESS1.objects.get(LOCALITY=LOCALITY)
+                latitude = location.LATITUDE
+                longitude = location.LONGITUDE
+                print(type(latitude))
+            return render(request, 'webpage.html',{'l':l,'latitude':latitude,'longitude':longitude})  
        
 
 def superAdmin_dashboard(request):
@@ -1101,7 +1109,29 @@ def bulk_load(request):
             g_obj = INDIVIDUAL_WEBPAGESS1.objects.filter(uid = uid_obj.uid)
             g_obj = list(g_obj)
             g_obj = g_obj[0]
-            g_file = request.FILES['file']
+            
+            def OptimizePics(f):
+                try:
+                    name = str(f).split('.')[0]
+                    
+                    image = Image.open(f)
+                    image.thumbnail((1500, 1500), Image.ANTIALIAS)
+                    thumbnail = BytesIO()
+                    # Default quality is quality=75
+                    image.save(thumbnail, format='JPEG', quality=80)
+                    thumbnail.seek(0)
+                    newImage = InMemoryUploadedFile(thumbnail,
+                                            None,
+                                            name + ".jpg",
+                                            'image/jpeg',
+                                            thumbnail.tell(),
+                                            None)
+                    return newImage
+                except Exception as e:
+                    return e
+            g_file1 = request.FILES['file']
+            g_file =  OptimizePics(g_file1)  
+          
             photo_obj = Photo_webpage(gala_admin=g_obj,file= g_file)
             photo_obj.save()
             photo = Photo_webpage.objects.get(file=g_file)

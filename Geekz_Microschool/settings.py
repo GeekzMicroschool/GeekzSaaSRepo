@@ -121,7 +121,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': 'postgres',
-        'USER': 'postgres',
+        'USER': '****',
         'HOST': 'localhost',
         'PASSWORD': '****'
     }
@@ -222,8 +222,8 @@ SOCIALACCOUNT_PROVIDERS = {
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = '*********ool@gmail.com'
-EMAIL_HOST_PASSWORD = '********'
+EMAIL_HOST_USER = '******ol@gmail.com'
+EMAIL_HOST_PASSWORD = '******'
 EMAIL_USE_TLS = True
 
 MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
