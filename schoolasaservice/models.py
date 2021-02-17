@@ -7,6 +7,8 @@ from PIL import Image
 from io import BytesIO
 from datetime import datetime  
 from django.core.files.uploadedfile import InMemoryUploadedFile
+from django_imgur.storage import ImgurStorage
+
 
 # Create your models here.
 class MICRO_APPLN(models.Model):
@@ -249,12 +251,6 @@ class INDIVIDUAL_WEBPAGESS1(models.Model):
 
 
 
-
-class MyModel1(models.Model):
-    user = models.CharField(max_length=400)
-    upload = models.FileField(upload_to=user_directory_path)
-
-
 class Country(models.Model):
     name = models.CharField(max_length=30)
 
@@ -278,10 +274,12 @@ def user_directory_path_gala(instance, filename):
     # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
     return 'microschool_{0}/gala/{1}'.format(instance.gala_admin.SCHOOL_NAME , filename)   
 
-class Photo_webpage(models.Model):
+STORAGE = ImgurStorage()
+
+class Photo_webpage1(models.Model):
     title = models.CharField(max_length=255, blank=True)
     gala_admin = models.ForeignKey(INDIVIDUAL_WEBPAGESS1, on_delete=models.CASCADE)
-    file = models.FileField(upload_to=user_directory_path_gala)
+    file = models.ImageField(upload_to='photos', storage=STORAGE, null=True, blank=True)
     uploaded_at = models.DateTimeField(auto_now_add=True)
 
 

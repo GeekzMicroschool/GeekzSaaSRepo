@@ -60,7 +60,7 @@ INSTALLED_APPS = [
     'django_apscheduler',
     'django_inlinecss',
     'django.contrib.gis',
-  
+    'django_imgur',
 ]
 
 MIDDLEWARE = [
@@ -74,6 +74,11 @@ MIDDLEWARE = [
     
 ]
 
+IMGUR_CONSUMER_ID = "541fa6cfe5fe094"
+IMGUR_CONSUMER_SECRET = "31b929961ada14864e46be011f432a0d18f6b552"
+IMGUR_USERNAME = "geekzmicroschoolGallery"
+IMGUR_ACCESS_TOKEN = "82c9daea192103737bd33fc06b71837ef088d953"
+IMGUR_ACCESS_TOKEN_REFRESH = "4757950415e312cfca8f96f7cc41513b63c1fe54"
 
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True
@@ -121,9 +126,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': 'postgres',
-        'USER': '****',
+        'USER': 'postgres',
         'HOST': 'localhost',
-        'PASSWORD': '****'
+        'PASSWORD': 'geekz'
     }
 }
 
@@ -222,8 +227,8 @@ SOCIALACCOUNT_PROVIDERS = {
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = '******ol@gmail.com'
-EMAIL_HOST_PASSWORD = '******'
+EMAIL_HOST_USER = 'geekzmicroschool@gmail.com'
+EMAIL_HOST_PASSWORD = 'geekz3months'
 EMAIL_USE_TLS = True
 
 MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')

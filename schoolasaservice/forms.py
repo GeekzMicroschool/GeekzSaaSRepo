@@ -1,5 +1,5 @@
 from django.forms import ModelForm, DateInput
-from schoolasaservice.models import SLOTS_DAY,MICRO_PROFILIN,Photo_webpage
+from schoolasaservice.models import SLOTS_DAY,MICRO_PROFILIN,Photo_webpage1
 from django import forms
 from django.contrib.admin.widgets import AdminDateWidget
 from django.forms.fields import DateField
@@ -47,7 +47,7 @@ class SlotCreationForm(forms.ModelForm):
 
 class PhotoForm(forms.ModelForm):
     class Meta:
-        model = Photo_webpage
+        model = Photo_webpage1
         fields = ('file', )
           
           

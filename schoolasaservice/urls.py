@@ -30,7 +30,7 @@ urlpatterns = [
     path('web1',views.web1,name="web1"),
     path('rough2',views.rough2,name="rough2"),
     path('bulk_load',views.bulk_load,name="bulk_load"),
-    path('drag_load',views.drag_load,name="drag_load"),
+    #path('drag_load',views.drag_load,name="drag_load"),
     path('clear',views.clear_database,name="clear"),
 ]
 if settings.DEBUG:

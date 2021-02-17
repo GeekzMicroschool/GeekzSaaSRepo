@@ -33,7 +33,7 @@ from django.http import JsonResponse
 from django.views import View
 
 from .forms import PhotoForm
-from .models import Photo_webpage
+from .models import Photo_webpage1
 
 # Create your views here.
 def searchbar(request):
@@ -827,7 +827,7 @@ def web_form(request):
     IE1 = INDIVIDUAL_WEBPAGESS1.objects.filter(uid=user_details.uid,IS_COMPLETE='Y',IS_APPROVED ='Y') # show webpage
     if IE:
         print('hi')
-        return render(request, 'web_form.html',{'webform_done':'done'})
+        return redirect('bulk_load')
         
     if IE1:
         IEE = INDIVIDUAL_WEBPAGESS1.objects.get(uid=user_details.uid)
@@ -908,7 +908,7 @@ def web_form(request):
             ob = INDIVIDUAL_WEBPAGESS1(uid = user_details.uid,SCHOOL_NAME = school_name ,LOCALITY = locality ,AMENITIES_is_Spacious_Studio=is_Spacious_Studio ,AMENITIES_is_Outdoor_PlayLawn=is_Outdoor_PlayLawn,AMENITIES_is_Commute = is_Commute,AMENITIES_is_CCTV = is_CCTV,AMENITIES_is_WiFi=is_WiFi,AMENITIES_is_Device=is_Device,AMENITIES_is_Food=is_Food,AMENITIES_is_Daycare=is_Daycare,AMENITIES_is_After_School=is_After_School,AMENITIES_is_Residential= is_Residential,BANNER1=banner11,BANNER2=banner2, BANNER3=banner3,BANNER4=banner4, GOOGLE_REVIEWS_LINK =googlereview,FOUNDER_NAME=founder_name1,DESIGNATION=founder_designation,CO_FOUNDER1=founder_name2,DESIGNATION_CO1=founder_designation1,CONTENT1=about_founder1,CONTENT2=about_founder2,ADDRESS1=address1,ADDRESS2=address2,SCHOOL_LOCALITY =SchoolArea,SCHOOL_PHONE=phone,SCHOOL_PHONE1=phone1,SCHOOL_EMAIL=email,SCHOOL_HOURS_KS=time_from+' to '+ time_to,SCHOOL_HOURS_ES=time1_from+' to '+ time1_to,IS_COMPLETE='Y',LATITUDE=latitude,LONGITUDE=longitude)
             ob.save()
             #OBJ = webdata2.objects.filter(url=url)
-            return render(request,'index.html')
+            return render(request,'bulk_load.html')
     
     return render(request,'web_form.html')
 
@@ -975,8 +975,8 @@ def webpage(request,LOCALITY):
                 latitude = location.LATITUDE
                 longitude = location.LONGITUDE
                 print(type(latitude))
-            return render(request, 'webpage.html',{'l':l,'latitude':latitude,'longitude':longitude})  
-       
+                return render(request, 'webpage.html',{'l':l,'latitude':latitude,'longitude':longitude})  
+        return render(request, 'webpage.html',{'l':l})
 
 def superAdmin_dashboard(request):
     '''for p in User.objects.raw('SELECT * FROM auth_user'):
@@ -1097,9 +1097,14 @@ def rough(request):
     })
 
 
-    
 def bulk_load(request):
-    photos_list = Photo_webpage.objects.all()
+    user_id=request.session['user_id']
+    user=User.objects.get(id=user_id)
+    uid_obj = USER_DETAILS.objects.get(USER_EMAIL=user.email)
+    photos_list = Photo_webpage1.objects.filter(gala_admin = uid_obj.uid) 
+    print('h',photos_list)
+    print('hello')
+    #print(items)
     if request.method == "POST" :
         form = PhotoForm(request.POST, request.FILES)
         if form.is_valid():
@@ -1109,11 +1114,10 @@ def bulk_load(request):
             g_obj = INDIVIDUAL_WEBPAGESS1.objects.filter(uid = uid_obj.uid)
             g_obj = list(g_obj)
             g_obj = g_obj[0]
-            
+            print('hiiiii')
             def OptimizePics(f):
                 try:
                     name = str(f).split('.')[0]
-                    
                     image = Image.open(f)
                     image.thumbnail((1500, 1500), Image.ANTIALIAS)
                     thumbnail = BytesIO()
@@ -1130,20 +1134,20 @@ def bulk_load(request):
                 except Exception as e:
                     return e
             g_file1 = request.FILES['file']
-            g_file =  OptimizePics(g_file1)  
-          
-            photo_obj = Photo_webpage(gala_admin=g_obj,file= g_file)
+            g_file =  OptimizePics(g_file1) 
+            photo_obj = Photo_webpage1(gala_admin=g_obj,file= g_file)
             photo_obj.save()
-            photo = Photo_webpage.objects.get(file=g_file)
+            photo = Photo_webpage1.objects.get(file=g_file)
             data = {'is_valid': True, 'name': photo.file.name, 'url': photo.file.url}
-            photos_list = Photo_webpage.objects.all() 
+            photos_list = Photo_webpage1.objects.all()  
         else:
             data = {'is_valid': False}
-            photos_list = Photo_webpage.objects.all()
+            photos_list = Photo_webpage1.objects.all()
         return JsonResponse(data)
+    
     return render(request,'bulk_load.html',{'photos': photos_list}) 
 
-def drag_load(request):
+'''def drag_load(request):
     photos_list = Photo_webpage.objects.all()
     if request.method == "POST" :
         form = PhotoForm(request.POST, request.FILES)
@@ -1154,11 +1158,15 @@ def drag_load(request):
         else:
             data = {'is_valid': False}
             photos_list = Photo_webpage.objects.all()
+        print(photos_list)   
         return JsonResponse(data)
-    return render(request,'drag_load.html',{'photos': photos_list}) 
+    return render(request,'drag_load.html',{'photos': photos_list}) '''
     
 def clear_database(request):
-    for photo in Photo_webpage.objects.all():
+    user_id=request.session['user_id']
+    user=User.objects.get(id=user_id)
+    uid_obj = USER_DETAILS.objects.get(USER_EMAIL=user.email)
+    for photo in Photo_webpage1.objects.filter(gala_admin = uid_obj.uid):
         photo.file.delete()
         photo.delete()
     return redirect(request.POST.get('next'))
