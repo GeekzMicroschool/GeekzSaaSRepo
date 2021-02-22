@@ -20,7 +20,7 @@ body {
     line-height: 24px;
     font-size: 16px;
     color: #818181;
-    position: relative
+    position: relative;
 }
 html,body{
     overflow-x: hidden;
@@ -354,7 +354,12 @@ li a:active {
 /*=================================================================
 	Home Slider
 ==================================================================*/
-
+@media (max-width: 767px) {
+    navbar-logo img{
+        vertical-align: middle;
+        text-align: center;
+    }
+}   
 
 #home-slider {
     position: relative;

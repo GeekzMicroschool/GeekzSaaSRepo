@@ -7,7 +7,7 @@ from PIL import Image
 from io import BytesIO
 from datetime import datetime  
 from django.core.files.uploadedfile import InMemoryUploadedFile
-from django_imgur.storage import ImgurStorage
+from django_imgur.storage import ImgurStorage 
 
 
 # Create your models here.
@@ -272,15 +272,18 @@ class Inquiry(models.Model):
 
 def user_directory_path_gala(instance, filename):
     # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
-    return 'microschool_{0}/gala/{1}'.format(instance.gala_admin.SCHOOL_NAME , filename)   
+    return 'micro_{0}{1}'.format(instance.gala_admin.SCHOOL_NAME , filename)   
 
 STORAGE = ImgurStorage()
+# the storage  calls the storage function in imgurpython present in env/src/imgurpython
 
 class Photo_webpage1(models.Model):
     title = models.CharField(max_length=255, blank=True)
     gala_admin = models.ForeignKey(INDIVIDUAL_WEBPAGESS1, on_delete=models.CASCADE)
-    file = models.ImageField(upload_to='photos', storage=STORAGE, null=True, blank=True)
+    file = models.ImageField(upload_to='geekz', storage=STORAGE, null=True, blank=True)
     uploaded_at = models.DateTimeField(auto_now_add=True)
+
+##https://geekzmicroschoolgallery.imgur.com/all/  the link to imgur api  
 
 
      

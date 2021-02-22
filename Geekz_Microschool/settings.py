@@ -60,7 +60,7 @@ INSTALLED_APPS = [
     'django_apscheduler',
     'django_inlinecss',
     'django.contrib.gis',
-    'django_imgur',
+    'django_imgur', # imgurpython installed using command (pip install -e git+http://github.com/preetamherald/django-imgur#egg=django-imgur) and present in env/src/imgurpython
 ]
 
 MIDDLEWARE = [
@@ -74,11 +74,14 @@ MIDDLEWARE = [
     
 ]
 
+## imgur api variables (link of github and documentation  https://github.com/preetamherald/django-imgur ##################
+
 IMGUR_CONSUMER_ID = "541fa6cfe5fe094"
 IMGUR_CONSUMER_SECRET = "31b929961ada14864e46be011f432a0d18f6b552"
-IMGUR_USERNAME = "geekzmicroschoolGallery"
+IMGUR_USERNAME = "geekzmicroschoolGallery"   
 IMGUR_ACCESS_TOKEN = "82c9daea192103737bd33fc06b71837ef088d953"
 IMGUR_ACCESS_TOKEN_REFRESH = "4757950415e312cfca8f96f7cc41513b63c1fe54"
+########################################
 
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True

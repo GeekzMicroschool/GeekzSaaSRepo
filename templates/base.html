@@ -44,7 +44,9 @@
         <link rel="stylesheet" href="{% static 'css/main.css' %}">
         <!--jquery stylesheet for mobile number validation
         <link rel="stylesheet" href="{% static 'css/intlTelInput.css' %}">-->
-         
+        <link href="{% static 'lity-2.4.1/dist/lity.css' %}" rel="stylesheet">
+		<script src="{% static 'lity-2.4.1/vendor/jquery.js' %}"></script>
+		<script src="{% static 'lity-2.4.1/dist/lity.js' %}"></script>
 		<!-- Modernizer Script for old Browsers -->
         <script src="{% static 'js/modernizr-2.6.2.min.js' %}"></script>
 
@@ -61,12 +63,12 @@
 			}
 			  
 			.dropdown-content {
+                width:100%;
 				display: none;
 				position: absolute;
 				background-color: rgba(0,0,0,.4);
-				
 				box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-				padding: 12px 16px;
+				padding: 12px 0px;
 				z-index: 1;
 			}
 			  
@@ -85,13 +87,13 @@
             {% endblock preloader %}
 
             {% block navbar %}
-            <header id="navigation" class="navbar-inverse navbar-fixed-top animated-header">
+            <header id="navigation" class="navbar-inverse navbar-fixed-top animated-header" style="width: 100%;">
                 <table style="width:100%"><!-- added width="100% in container style and changed table width from 90% to 100% "-->
                     <td>
                         <div style="width:100%;" class="container">
                             <div class="navbar-header">
                                 <!-- responsive nav button -->
-                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
                                     <span class="sr-only">Toggle navigation</span>
                                     <span class="icon-bar"></span>
                                     <span class="icon-bar"></span>
@@ -129,7 +131,7 @@
                         </div>
                     </td>
                 
-                    <td>
+                    <td class="navbar-collapse ">
                         <a href="" class="btn btn-blue-affiliatewrap btn-effect">Book a Free Quest Trial</a>
                     </td>
                     {% endblock mainnav %}
@@ -138,10 +140,10 @@
                         {% if user.is_authenticated %}
                             {% if user.socialaccount_set.all %}
                                 {% for account in user.socialaccount_set.all %}
-                                    <td style="padding: 20px;">
-                                        <div class="dropdown" style="width: 100%;">
+                                    <td style="padding: 30px;">
+                                        <div class="dropdown " style="width: 100%;">
                                             <img src="{{account.extra_data.picture}}" height="40" width="40" style="border-radius: 50%;">
-                                            <div class="dropdown-content" style="width: 100%;">
+                                            <div class="dropdown-content " style="width: 100%;left:0;right:0">
                                             <p><a href="/logout" class="btn btn-blue-affiliatewrap btn-effect">Logout</a></p>
                                             <p><a href="/student_profileEdit" class="btn btn-blue-affiliatewrap btn-effect">Profile</a></p>
                                             </div>
@@ -150,7 +152,7 @@
                                 {% endfor %}
                                 {% else %}
                                     <!--simple user-->
-                                    <td style="padding: 20px;">
+                                    <td style="padding: 30px;">
                                         <div class="dropdown">
                                             <a href style="color: grey; text-decoration: none;" class="fa fa-user fa-3x"></a>
                                             <div class="dropdown-content">
@@ -526,6 +528,7 @@
 		<!-- Custom Functions -->
         <script src="{% static 'js/main.js' %}"></script>
         <script src="{% static 'js/landing_map.js' %}"></script>
+        
 
         <!-- Use as a Vanilla JS plugin 
         <script src="{% static 'js/intlTelInput.min.js' %}"></script> -->

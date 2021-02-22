@@ -912,8 +912,7 @@ def web_form(request):
     
     return render(request,'web_form.html')
 
-def rough(request):
-    return render(request,'rough.html')
+
 
 def web1(request):
     if request.method == "POST" :
@@ -1101,8 +1100,8 @@ def bulk_load(request):
     user_id=request.session['user_id']
     user=User.objects.get(id=user_id)
     uid_obj = USER_DETAILS.objects.get(USER_EMAIL=user.email)
-    photos_list = Photo_webpage1.objects.filter(gala_admin = uid_obj.uid) 
-    print('h',photos_list)
+    #photos_list = Photo_webpage1.objects.filter(gala_admin = uid_obj.uid) 
+    #print('h',photos_list)
     print('hello')
     #print(items)
     if request.method == "POST" :
@@ -1115,6 +1114,7 @@ def bulk_load(request):
             g_obj = list(g_obj)
             g_obj = g_obj[0]
             print('hiiiii')
+            ## image compression function 
             def OptimizePics(f):
                 try:
                     name = str(f).split('.')[0]
@@ -1134,18 +1134,18 @@ def bulk_load(request):
                 except Exception as e:
                     return e
             g_file1 = request.FILES['file']
-            g_file =  OptimizePics(g_file1) 
-            photo_obj = Photo_webpage1(gala_admin=g_obj,file= g_file)
+           # g_file =  OptimizePics(g_file1) # saving the new image file in new variable
+            photo_obj = Photo_webpage1(gala_admin=g_obj,file= g_file1)
             photo_obj.save()
-            photo = Photo_webpage1.objects.get(file=g_file)
+            photo = Photo_webpage1.objects.get(file=g_file1)
             data = {'is_valid': True, 'name': photo.file.name, 'url': photo.file.url}
-            photos_list = Photo_webpage1.objects.all()  
+            #photos_list = Photo_webpage1.objects.all()  
         else:
             data = {'is_valid': False}
-            photos_list = Photo_webpage1.objects.all()
+           # photos_list = Photo_webpage1.objects.all()
         return JsonResponse(data)
     
-    return render(request,'bulk_load.html',{'photos': photos_list}) 
+    return render(request,'bulk_load.html') 
 
 '''def drag_load(request):
     photos_list = Photo_webpage.objects.all()

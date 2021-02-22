@@ -47,8 +47,9 @@
         <link rel="stylesheet" href="{% static 'css/animate.css' %}">
 		<!-- Main Stylesheet -->
         <link rel="stylesheet" href="{% static 'css/main.css' %}">
-		<link rel="stylesheet" href="https://cdn.plyr.io/3.5.6/plyr.css" />
-		<script src="https://cdn.plyr.io/3.5.6/plyr.js"></script>
+		<link href="{% static 'lity-2.4.1/dist/lity.css' %}" rel="stylesheet">
+		<script src="{% static 'lity-2.4.1/vendor/jquery.js' %}"></script>
+		<script src="{% static 'lity-2.4.1/dist/lity.js' %}"></script>
 		
 		<!-- Modernizer Script for old Browsers -->
         <script src="{% static 'js/modernizr-2.6.2.min.js' %}"></script>
@@ -109,13 +110,13 @@
                         <!--<li><a href="#contact">Contact</a></li>-->
                         
                         <!--<li><a href="Affiliate.html" class="btn btn-blue btn-effect">Launch Your Own Geekz</a></li>
-<!--                        <li><a href="https://thegeekstudio.wordpress.com/" target="_blank">Blog</a></li>-->
-                        
+                        <li><a href="https://thegeeksaffiliatewraptudio.wordpress.com/" target="_blank">Blog</a></li>-->
                     </ul>
                 </nav>  
 				<!-- /main nav -->
             </div></td>
-            <td><a href="#contact" class="btn btn-blue-affiliatewrap btn-effect">Apply</a></td></table>
+			
+			<td class="navbar-collapse"><a href="#contact" class="btn btn-blue-affiliatewrap btn-effect ">Apply</a></td></table>
         </header>
 		</div>
         <!--
@@ -261,7 +262,7 @@
 								 <img src="{% static 'img/flip.png' %} " style="height:auto;width:100%;max-width:400px;max-height:400px;display:block;margin:0 auto;padding-bottom: 30px;" alt="learning cycle">
 							<!-- 	<button  data-dismiss="modal" class="btn1 close"><i style="color: rgba(0,158,227, 0.78);font-size:30px;"class="fa fa-play" aria-hidden="true"></i></button> -->
                            
-							<a class="btn1 fancybox" data-fancybox-group="works" href="https://www.youtube.com/embed/hj6iaKZSllg"><i style="color: rgba(0,158,227, 0.78);font-size:30px;" class="fa fa-play" aria-hidden="true"></i></a>
+							<a class="btn1"  href="https://www.youtube.com/embed/hj6iaKZSllg" data-lity><i style="color: rgba(0,158,227, 0.78);font-size:30px;" class="fa fa-play" aria-hidden="true"></i></a>
 						   </div>	  
 								  <br>
 						       	<a href="https://www.youtube.com/channel/UCNy54QG09WBP7ZU8eOSRntQ" target="_blank" class="btn btn-border btn-effect pull-right"style="float:left;">Quests</a>   
@@ -942,6 +943,7 @@
 				</div>
       </section>
 	  <style>
+		
 				.modal-trigger{
 		text-decoration: none;
 		padding:1rem;
@@ -1251,7 +1253,6 @@
 				<div class="overlay">
 					<div class="container">
 						<div class="row">
-						
 							<div class="sec-title text-center white wow animated fadeInDown">
 								<h2>About</h2>
 							</div>
@@ -1407,12 +1408,16 @@
 								<h2>FOLLOW US</h2>
 								<p>Dream with us and make dreams a reality.</p>
 							</div>
-<!--                            <iframe src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2FVrGeekz%2F%3Ffref%3Dts&width=20&layout=button&action=like&size=small&show_faces=true&share=false&height=65&appId" width="200" height="65" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>-->
-							
+	<!--                            <iframe src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2FVrGeekz%2F%3Ffref%3Dts&width=20&layout=button&action=like&size=small&show_faces=true&share=false&height=65&appId" width="200" height="65" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>-->
+							<style>
+								.social-button  li a:hover {
+									color: white;
+								}
+							</style>
 							<ul class="social-button">
-								<li class="wow animated zoomIn"><a href="https://www.facebook.com/VrGeekz/" target="_blank"><i class="fa fa-facebook fa-2x"></i></a></li>
-                                <li class="wow animated zoomIn" data-wow-delay="0.3s"><a href="https://www.instagram.com/VrGeekz/" target="_blank"><i class="fa fa-instagram fa-2x"></i></a></li>
-								<li class="wow animated zoomIn" data-wow-delay="0.6s"><a href="https://www.youtube.com/channel/UCNy54QG09WBP7ZU8eOSRntQ/videos" target="_blank"><i class="fa fa-youtube-play fa-2x"></i></a></li>							
+								<li class="wow animated zoomIn"><a href="https://www.facebook.com/VrGeekz/" target="_blank" style="background-color: inherit;" ><i class="fa fa-facebook fa-2x"></i></a></li>
+								<li class="wow animated zoomIn" data-wow-delay="0.3s"><a href="https://www.instagram.com/VrGeekz/" target="_blank" style="background-color: inherit;"><i class="fa fa-instagram fa-2x"></i></a></li>
+								<li class="wow animated zoomIn" data-wow-delay="0.6s"><a href="https://www.youtube.com/channel/UCNy54QG09WBP7ZU8eOSRntQ/videos" target="_blank" style="background-color: inherit;"><i class="fa fa-youtube-play fa-2x"></i></a></li>							
 							</ul>
 							
 						</div>
