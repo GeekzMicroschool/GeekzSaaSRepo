@@ -32,6 +32,11 @@ urlpatterns = [
     path('bulk_load',views.bulk_load,name="bulk_load"),
     #path('drag_load',views.drag_load,name="drag_load"),
     path('clear',views.clear_database,name="clear"),
+    path('affliateslist',views.affliateslist,name="affliateslist"),
+    path('affliates_List',views.affliates_List,name="affliates_List"),
+    path('notify',views.notify,name="notify"),
+    path('affliatesform',views.affliates_form,name="affliatesform"),
+    
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

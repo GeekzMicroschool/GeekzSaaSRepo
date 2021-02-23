@@ -31,9 +31,12 @@ from io import BytesIO
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.http import JsonResponse
 from django.views import View
-
 from .forms import PhotoForm
 from .models import Photo_webpage1
+from django.contrib.gis.measure import Distance
+from django.contrib.gis.geos import Point
+from django.db.models.query import QuerySet
+
 
 # Create your views here.
 def searchbar(request):
@@ -993,7 +996,39 @@ def basictables(request):
 
 def index1(request):
     id1 = feedback.objects.all()
+    if request.method == "POST" :
+        SaaSLoc_lat=float(request.POST['loc_lat'])
+        SaaSLoc_long=float(request.POST['loc_long'])
+        user_location = Point(SaaSLoc_long,SaaSLoc_lat)
+        cr = MICRO_APPLY.objects.values()
+        clients = cr.filter(location__distance_lt=(user_location,Distance(m=5000)))
+        print(type(clients))
+        print(clients)
+        cl = list(clients)
+        print('hhhhhhhhhhhhhhhhhhhh',cl)
+        if clients:
+            cl1 = cl[0]
+            cl2 = cl1['uid']
+            print(cl2)
+            cards_obj = INDIVIDUAL_WEBPAGESS1.objects.filter(uid = cl2)
+            print(cards_obj)
+            return render(request,'affliateslist.html',{'clients_within_radius':clients,'cards_obj':cards_obj})
+        else:
+            return render(request,'affliatesnotfound.html')
     return render(request,'index1.html',{'id1':id1})
+
+
+
+#notify view to add email and home to database
+def notify(request):
+    if request.method == "POST" :
+        email = request.POST['email']
+        phone = request.POST['phone']
+        not_obj = notify_users(email = email ,phone= phone )
+        not_obj.save()
+        return render(request,'affliatesnotfound.html')
+
+
     
 def rough2(request):
     return render(request,'rough2.html')    
@@ -1170,6 +1205,34 @@ def clear_database(request):
         photo.file.delete()
         photo.delete()
     return redirect(request.POST.get('next'))
+
+
+def affliateslist(request):
+    return render(request,'affliateslist.html')
+
+def affliates_List(request):
+    return render(request,'affliates_List.html')    
+
+def affliates_form(request):
+    if request.method == "POST" :
+        SaaSLoc_lat=float(request.POST['loc_lat'])
+        SaaSLoc_long=float(request.POST['loc_long'])
+        user_location = Point(SaaSLoc_long,SaaSLoc_lat)
+        cr = MICRO_APPLY.objects.values()
+        clients = cr.filter(location__distance_lt=(user_location,Distance(m=5000)))
+        print(type(clients))
+        print(clients)
+        cl = list(clients)
+        print('hhhhhhhhhhhhhhhhhhhh',cl)
+        if clients:
+            cl1 = cl[0]
+            cl2 = cl1['uid']
+            print(cl2)
+            cards_obj = INDIVIDUAL_WEBPAGESS1.objects.filter(uid = cl2)
+            print(cards_obj)
+            return render(request,'affliateslist.html',{'clients_within_radius':clients,'cards_obj':cards_obj})
+        else:
+            return render(request,'affliatesnotfound.html')        
 
 
 

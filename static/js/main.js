@@ -8,6 +8,12 @@ jQuery(window).load(function(){
 
 });
 
+//=======School Branch Slideshow - Declaring the global variable array ========//
+var slideIndex = new Array(2);
+slideIndex[0]=1;
+slideIndex[1]=1;
+alert('global variable initialized');
+
 /* ========================================================================= */
 /*  Welcome Section Slider
 /* ========================================================================= */
@@ -166,6 +172,10 @@ $(document).ready(function(){
 				}
 			}
 		}
+
+
+
+
     });
     showTab(currentTab); // Display the current tab (for multiple forms in one page)
 
@@ -186,7 +196,16 @@ $(document).ready(function(){
         }
     });
     window.onload(checkfinancialvalue())
+    var m;
+    var slideshows = document.getElementsByClassName("affiliatesSlideshowContainer"); 
+    alert('no of slideshows' + slideshows.length);
+    for(m=0; m < slideshows.length;  m++){
+         showSlides(1,m);
+    }    
+    
+
 });
+
 var wow = new WOW ({
 	offset:       75,          // distance to the element when triggering the animation (default is 0)
 	mobile:       false,       // trigger animations on mobile devices (default is true)
@@ -1158,4 +1177,54 @@ else if (ch9 =='Y'){
  }              
 }
 
+
+  //===============Affiliates Slideshow =================/
+
+// Next/previous controls
+function plusSlides(slideNumber, slideShowNumber) 
+{  
+  slideIndex[slideShowNumber] += slideNumber;
+  showSlides(slideIndex[slideShowNumber], slideShowNumber);
+}
+
+// Thumbnail image controls
+function currentSlide(slideNumber, slideShowNumber) 
+{
+    
+   slideIndex[slideShowNumber] =  slideNumber;
+  showSlides(slideIndex[slideShowNumber], slideShowNumber);
+}
+
+function showSlides(slideNumber, slideShowNumber) {
+  var i;
+    
+  var slideshowName = "slider" + slideShowNumber;
+    //alert('slideshowName = '+ slideshowName);
+  var slides = document.getElementsByName(slideshowName);    
   
+    //alert(slides.length);
+
+  var dotname = "dot" + slideShowNumber;
+  var dots = document.getElementsByName(dotname);
+    
+    //alert('slideNumber = '+slideNumber);
+  if (slideNumber > slides.length) 
+  {
+      slideIndex[slideShowNumber] = 1;
+  }
+  if (slideNumber < 1) 
+  {
+      slideIndex[slideShowNumber] = slides.length;
+    //alert('slideIndex before'+ slideIndex);
+  }
+  for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+  }
+  for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+  }
+  //alert('slideIndex = '+ slideIndex[slideShowNumber]);
+  slides[slideIndex[slideShowNumber]-1].style.display = "block";
+  dots[slideIndex[slideShowNumber]-1].className += " active";
+}
+

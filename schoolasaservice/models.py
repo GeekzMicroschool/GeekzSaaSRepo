@@ -181,6 +181,10 @@ class feedback(models.Model):
     name = models.CharField(max_length=250)  
     feedback = models.CharField(max_length=700) 
 
+
+STORAGE = ImgurStorage()
+# the storage  calls the storage function in imgurpython present in env/src/imgurpython
+
 '''def user_directory_path(instance, filename):
     # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
     return 'user_{0}/{1}'.format(instance.user.id, filename) '''   
@@ -206,10 +210,10 @@ class INDIVIDUAL_WEBPAGESS1(models.Model):
     AMENITIES_is_Daycare = models.CharField(max_length=1, default="N")
     AMENITIES_is_After_School = models.CharField(max_length=1, default="N")
     AMENITIES_is_Residential = models.CharField(max_length=1, default="N")
-    BANNER1 = models.ImageField(upload_to=user_directory_path,blank=True , null=True)
-    BANNER2 = models.ImageField(upload_to=user_directory_path,blank=True , null=True)
-    BANNER3 =  models.ImageField(upload_to=user_directory_path,blank=True , null=True)
-    BANNER4 = models.ImageField(upload_to=user_directory_path,blank=True , null=True)
+    BANNER1 = models.ImageField(upload_to='geekz', storage=STORAGE, null=True, blank=True)
+    BANNER2 = models.ImageField(upload_to='geekz', storage=STORAGE, null=True, blank=True)
+    BANNER3 =  models.ImageField(upload_to='geekz', storage=STORAGE, null=True, blank=True)
+    BANNER4 = models.ImageField(upload_to='geekz', storage=STORAGE, null=True, blank=True)
     GOOGLE_REVIEWS_LINK = models.URLField(max_length=300)
     FOUNDER_NAME = models.CharField(max_length=250) 
     DESIGNATION = models.CharField(max_length=250) 
@@ -249,7 +253,9 @@ class INDIVIDUAL_WEBPAGESS1(models.Model):
         return BANNER1 '''
 
 
-
+class notify_users(models.Model):
+    email = models.CharField(max_length=300)
+    phone = models.BigIntegerField()
 
 class Country(models.Model):
     name = models.CharField(max_length=30)
@@ -274,8 +280,7 @@ def user_directory_path_gala(instance, filename):
     # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
     return 'micro_{0}{1}'.format(instance.gala_admin.SCHOOL_NAME , filename)   
 
-STORAGE = ImgurStorage()
-# the storage  calls the storage function in imgurpython present in env/src/imgurpython
+
 
 class Photo_webpage1(models.Model):
     title = models.CharField(max_length=255, blank=True)

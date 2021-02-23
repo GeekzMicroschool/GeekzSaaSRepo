@@ -1,0 +1,203 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section id="affiliates">
+    <div class="container">
+        <div class="row">
+        
+            <div class="sec-title text-center wow animated fadeInDown">
+                <h2>Geekz Affiliates</h2>
+                <p>Leading Lines of the Campus Countenance</p>
+                <br><br>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyAhy_mC_xNa374iO1IAFuoioiNHYM9oYpw"></script>
+<form action="affliates_form" class="example"  style="margin:auto;max-width:500px">
+<input type="text"  name="SaaSSchoolArea" id="SaaSSchoolArea" placeholder="School Locality...." >
+<input type="hidden" name="loc_lat"  id="loc_lat" />
+<input type="hidden" name="loc_long" id="loc_long" />
+<button type="submit"><i class="fa fa-search"></i></button>
+</form>
+
+<!-- Remove powered by gogle -->
+<style>
+            .pac-container:after{
+            background-image: none!important;
+            height:0px;
+            }
+
+            * {
+              box-sizing: border-box;
+            }
+            
+            form.example input[type=text] {
+              padding: 10px;
+              font-size: 17px;
+              border: 1px solid #ececec;
+              float: left;
+              width: 80%;
+              background: white;
+            }
+            form.example input[type=text]:hover{
+                border: 2px solid #008ECC;
+            }
+            
+            form.example button {
+              float: left;
+              width: 20%;
+              padding: 10px;
+              background: #2196F3;
+              color: white;
+              font-size: 17px;
+              border: 2px solid #008ECC;
+              border-left: none;
+              cursor: pointer;
+            }
+            
+            form.example button:hover {
+              background: #0b7dda;
+            }
+            
+            form.example::after {
+              content: "";
+              clear: both;
+              display: table;
+            }
+</style>
+
+<!-- google map places api js -->
+<script>
+var searchInput = 'SaaSSchoolArea';
+
+$(document).ready(function () {
+var autocomplete;
+autocomplete = new google.maps.places.Autocomplete((document.getElementById(searchInput)), {
+types: ['geocode'],
+});
+
+google.maps.event.addListener(autocomplete, 'place_changed', function () {
+var near_place = autocomplete.getPlace();
+var lat =  document.getElementById('loc_lat').value = near_place.geometry.location.lat();
+var long = document.getElementById('loc_long').value = near_place.geometry.location.lng();
+document.getElementById("loc_lat").defaultValue=float(lat);
+document.getElementById("loc_long").defaultValue=float(long);
+
+document.getElementById('latitude_view').innerHTML = near_place.geometry.location.lat();
+document.getElementById('longitude_view').innerHTML = near_place.geometry.location.lng();
+});
+});
+$(document).on('change', '#'+searchInput, function () {
+document.getElementById('latitude_input').value = '';
+document.getElementById('longitude_input').value = '';
+
+document.getElementById('latitude_view').innerHTML = '';
+document.getElementById('longitude_view').innerHTML = '';
+});
+</script>	
+ </div>
+ <div class="container">
+     <div class="row">
+         <div class="col-md-6">
+            <div class="service-item">
+                <center>
+                <h3>Don't see a Microschool near you?</h3>
+                <p>Do you believe your people are capable of doing remarkable things? </p><br>
+                <a class ="btn btn-blue btn-effect " href = "/schoolasaservice">Become a Microschool</a></center>
+            </div>
+          
+         </div>
+         <div class="col-md-6">
+            <div class="service-item">
+                <center>
+                <h3>Sign up to be notified about your city</h3>
+                <p>We will email you as soon as we launch</p><br>
+                <button type="button" onclick="reasonform(1)" id ="reschedule" class="btn btn-blue btn-effect">Notify You</button></center>
+                <br><br>
+                <center>
+                    <form action ="notify" id = "notify" method ="POST" class="subscribe-form wow animated fadeInUp">
+                        {% csrf_token %}
+                        <div class="input-field">
+                            <input type="email" id="Email" name="email" class="subscribe form-control" placeholder="Enter Your Email..." required>
+                        </div>
+                        <div class="input-field">
+                            <input type="number" id="phone" name="phone" class="subscribe form-control" placeholder="Enter Your WhatsApp No...." required>
+                        </div>   
+                            <button type="submit" class ="btn btn-blue btn-effect " >
+                                Send
+                            </button>
+                            <span id="subscribed" style="width:100px"></span>
+                        </div>
+                    </form>
+                    </center>
+            </div>
+         </div>
+
+     </div>
+
+ </div>
+ <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+ <script>
+        window.onload = function() {
+        
+        document.getElementById("notify").style.display = "none";
+        
+        };
+        function reasonform(a) {
+        
+        if (a == 1) {
+            document.getElementById("notify").style.display = "block";
+        } else {
+            document.getElementById("notify").style.display = "none";
+        }
+            
+        }
+            
+ </script>
+{% endblock %}
+{% block footer %}
+<footer id="footer">
+    <div class="container">
+        <div class="row text-center">
+            <div class="footer-content">
+                
+                <div class="footer-social">
+                    <ul>
+                        <style>
+                            .footer-social ul li a:hover {
+                                color: white;
+                            }
+                        </style>
+                        <li class="wow animated zoomIn"><a href="https://www.facebook.com/VrGeekz/" target="_blank" style="background-color: inherit;"><i class="fa fa-facebook fa-3x"></i></a></li>
+                        <li class="wow animated zoomIn" data-wow-delay="0.3s"><a href="https://www.instagram.com/vrgeekz/" target="_blank" style="background-color: inherit;"><i class="fa fa-instagram fa-3x"></i></a></li>
+                        <li class="wow animated zoomIn" data-wow-delay="0.6s"><a href="https://www.youtube.com/channel/UCNy54QG09WBP7ZU8eOSRntQ/videos" target="_blank" style="background-color: inherit;"><i class="fa fa-youtube-play fa-3x"></i></a></li>
+                        <li class="wow animated zoomIn" data-wow-delay="0.9s"><a href="https://twitter.com/VrGeekz" target="_blank" style="background-color: inherit;"><i class="fa fa-twitter fa-3x"></i></a></li>
+                        <!-- <li class="wow animated zoomIn" data-wow-delay="0.9s"><a href="https://thegeekstudio.wordpress.com/" target="_blank" style="background-color: inherit;"><i class="fa fa-rss fa-3x"></i></a></li> -->
+                    </ul>
+                </div>
+                
+                <p>Copyright &copy; 2020 by Geekz. All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+{% endblock footer %}
+<script src="{% static 'js/jquery-1.11.1.min.js' %}"></script>
+<!-- Twitter Bootstrap -->
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<!-- Single Page Nav -->
+<script src="{% static 'js/jquery.singlePageNav.min.js' %}"></script>
+<!-- jquery.fancybox.pack -->
+<script src="{% static 'js/jquery.fancybox.pack.js' %}"></script>
+<!-- Google Map API -->
+
+<!-- Owl Carousel -->
+<script src="{% static 'js/owl.carousel.min.js' %}"></script>
+<!-- jquery easing -->
+<script src="{% static 'js/jquery.easing.min.js' %}"></script>
+<!-- Fullscreen slider -->
+<script src="{% static 'js/jquery.slitslider.js' %}"></script>
+<script src="{% static 'js/jquery.ba-cond.min.js' %}"></script>
+<!-- onscroll animation -->
+<script src="{% static 'js/wow.min.js' %}"></script>
+<!-- Custom Functions -->
+<script src="{% static 'js/main.js' %}"></script>
