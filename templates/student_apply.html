@@ -1,0 +1,192 @@
+{% extends 'base.html' %}
+{% load static %}
+ 
+{% block content %}
+<main class="site-content" role="main">
+  <section id="contact" >
+    <div class="container">
+      <div class="sec-title text-center wow animated fadeInDown">
+        <span>&nbsp;</span><p>&nbsp;</p>
+        <h2>START YOUR GEEKZ JOURNEY!</h2>
+        <p id="geekzapply">Get affiliated. Welcome your first geek.</p>
+    </div>
+    
+    {%if webform_done == 'done' %}
+					<div class="sec-title text-center wow animated fadeInDown">
+						<p>Your message on its way. Geekz support team will be in touch with you shortly. <br />Good luck!'</p>
+          </div>
+          {% else %}
+        <div class="row">
+            <div class="col-md-12 contact-form wow animated fadeInLeft">
+                
+                <form id="inquiry"  method="post" enctype="multipart/form-data"> {% csrf_token %}
+                    <h3><b>Student Information</b></h3>
+								<div class="input-field">
+									<input type="hidden"  name="first_name" class="form-control" placeholder="First Name...." required>
+								</div>
+								<div class="input-field">
+									<input type="text" id="LastName" name="s_name" class="form-control" placeholder="Last Name..." required>
+								</div>
+                                <div class="input-field">
+									<select id="HSGrade" name="gender" class="form-control" required>
+                                        <option selected disabled>Gender...</option>
+                                        <option>Boy</option>
+                                        <option>Girl</option>
+									</select>
+									<div style="display: none;" id="errmsgltb">
+										<p style="color: red; font-size:10px;">Please select an item in the list.</p>
+									</div>
+								</div>
+                                <div class="input-field">
+                                    <input type="text" id="SaaSDOB" name="SaaSDOB" class="form-control" placeholder="Date of Birth..." onfocus="(this.type='date')" required>
+                                    <div style="display: none;" id="errmsgdob">
+                                        <p style="color: red; font-size:10px;">Please fill out this field.</p>
+                                    </div>
+                                </div>
+                                <div class="input-field">
+									<select id="HSGrade" name="enrolling_grade" class="form-control" required>
+                                        <option selected disabled>Enrolling Grade...</option>
+                                        <option>Pre-K</option>
+                                        <option>Jr-K</option>
+                                        <option>Sr-K</option>
+                                        <option>1st Grade</option>
+                                        <option>2nd Grade</option>
+                                        <option>3rd Grade</option>
+                                        <option>4th Grade</option>
+                                        <option>5th Grade</option>
+									</select>
+									<div style="display: none;" id="errmsgltb">
+										<p style="color: red; font-size:10px;">Please select an item in the list.</p>
+									</div>
+								</div>
+                                
+                                <div class="input-field">
+									<input type="text" id="attendedschool" name="attendedschool" class="form-control"  placeholder="Recently Attended School..." required>
+								</div>
+
+                                <h3><b>Student Information</b></h3>
+
+								<div class="input-field">
+									<input type="text" id="Fathersname" name="Fathersname" class="form-control"  placeholder="Father's Name..." required>
+								</div>
+                                <div class="input-field">
+									<input type="text" id="Fathersoccupation" name="Fathersoccupation" class="form-control"  placeholder="Father's Occupation & Employer.." required>
+								</div>
+                                <div class="input-field">
+									<input type="text" id="Mothersname" name="Mothersname" class="form-control"  placeholder="Mother's Name..." required>
+								</div>
+                                <div class="input-field">
+									<input type="text" id="Mothersoccupation" name="Mothersoccupation" class="form-control"  placeholder="Mother's Occupation & Employer..." required>
+								</div>
+                                <div class="input-field">
+									<input type="text" id="Mothersoccupation" name="Mothersoccupation" class="form-control"  placeholder="Mother's Occupation & Employer..." required>
+								</div>
+                                <div class="input-field">
+									<input type="number" id="income" name="income" class="form-control"  placeholder="Annual Household income(Rs)..." required>
+								</div>
+                                <h3><b>Contact Information</b></h3>
+                                <div class="input-field">
+                                    <textarea id = "address" name="address" class="form-control" placeholder="Address(Street,City,State,Zicode)..." required></textarea>
+                                </div>
+                                <div class="input-field">
+                                    <input type="email" id = "email" name="email" class="form-control" placeholder="Your Email..." required></textarea>
+                                </div>
+                                <div class="input-field">
+                                    <input type="number" id = "number" name="number" class="form-control" placeholder="Phone..." required></textarea>
+                                </div>
+
+                                <h3><b>Commute Information</b></h3>
+
+                                <div class="input-field">
+									<select id="geekzcommute" name="geekzcommute" class="form-control" required>
+                                        <option selected disabled>Do you need Geekz commute...</option>
+                                        <option>Yes</option>
+                                        <option>No</option>
+									</select>
+									<div style="display: none;" id="errmsgltb1">
+										<p style="color: red; font-size:10px;">Please select an item in the list.</p>
+									</div>
+								</div>
+                                <div class="input-field">
+									<input type="text" id="yescommutelocation" name="yescommutelocation" class="form-control"  placeholder="If yes share pick up location..." >
+								</div>
+
+                                <h3><b>More Information</b></h3>
+
+                                <div class="input-field">
+                                    <textarea id = "childproud" name="childproud" class="form-control" placeholder="What is something your child is proud of..." required></textarea>
+                                </div>
+                                <div class="input-field">
+                                    <textarea id = "familyactivities" name="familyactivities" class="form-control" placeholder="What activities do you enjoy as a Family to spend Together..." required></textarea>
+                                </div>
+                                <div class="input-field">
+                                    <textarea id = "childsinterests" name="childsinterests" class="form-control" placeholder="Share your child’s interests,passions,strengths and areas where Geeks Can Help Them grow..." required></textarea>
+                                </div>
+                                <div class="input-field">
+                                    <textarea id = "yourdreams" name="yourdreams" class="form-control" placeholder="Share your dreams & priorities on your childs education(Academic,sports,social skills)..." required></textarea>
+                                </div>
+                                <div class="input-field">
+                                    <textarea id = "medicalcondition" name="medicalcondition" class="form-control" placeholder="Does your Child have a medical condition that requires care at school ..." required></textarea>
+                                </div>
+                                <div class="input-field">
+                                    <textarea id = "childsuspended" name="childsuspended" class="form-control" placeholder="Has your Child Ever Suspended or Terminated From School ..." required></textarea>
+                                </div>
+                                <div class="input-field">
+                                    <textarea id = "anythingelse" name="anythingelse" class="form-control" placeholder="Anything Else You would like us to know About Your Child ..." required></textarea>
+                                </div>
+                                <div class="input-field">
+									<select id="HSBranding" name="hear_about" class="form-control" required>
+                                        <option selected disabled>How Did You Hear About Geekz...</option>
+                                        <option>Facebook</option>
+                                        <option>Twitter</option>
+                                        <option>Youtube</option>
+                                        <option>Previous School Students/Families</option>
+                                        <option>Geekz Students/Families</option>
+                                        <option>Friend/Acquaintance</option>
+                                        <option>Geekz Website</option>
+                                        <option>Web Search</option>
+                                        <option>Print Ad</option>
+                                        <option>News Article</option>
+									</select>
+									<div style="display: none;" id="errmsgltb1">
+										<p style="color: red; font-size:10px;">Please select an item in the list.</p>
+									</div>
+								</div>
+
+                      <button type="submit" id="submit" class="btn btn-blue btn-effect">SEND</button>
+                </form>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>
+</main>
+{% endblock content %}
+{% block footer %}
+<footer id="footer">
+    <div class="container">
+        <div class="row text-center">
+            <div class="footer-content">
+                
+                <div class="footer-social">
+                    <ul>
+                        <style>
+                            .footer-social ul li a:hover {
+                                color: white;
+                            }
+                        </style>
+                        <li class="wow animated zoomIn"><a href="https://www.facebook.com/VrGeekz/" target="_blank" style="background-color: inherit;"><i class="fa fa-facebook fa-3x"></i></a></li>
+                        <li class="wow animated zoomIn" data-wow-delay="0.3s"><a href="https://www.instagram.com/vrgeekz/" target="_blank" style="background-color: inherit;"><i class="fa fa-instagram fa-3x"></i></a></li>
+                        <li class="wow animated zoomIn" data-wow-delay="0.6s"><a href="https://www.youtube.com/channel/UCNy54QG09WBP7ZU8eOSRntQ/videos" target="_blank" style="background-color: inherit;"><i class="fa fa-youtube-play fa-3x"></i></a></li>
+                        <li class="wow animated zoomIn" data-wow-delay="0.9s"><a href="https://twitter.com/VrGeekz" target="_blank" style="background-color: inherit;"><i class="fa fa-twitter fa-3x"></i></a></li>
+                        <!-- <li class="wow animated zoomIn" data-wow-delay="0.9s"><a href="https://thegeekstudio.wordpress.com/" target="_blank" style="background-color: inherit;"><i class="fa fa-rss fa-3x"></i></a></li> -->
+                    </ul>
+                </div>
+                
+                <p>Copyright &copy; 2020 by Geekz. All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+{% endblock footer %}
+

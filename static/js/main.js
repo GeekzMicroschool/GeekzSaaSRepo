@@ -12,7 +12,7 @@ jQuery(window).load(function(){
 var slideIndex = new Array(2);
 slideIndex[0]=1;
 slideIndex[1]=1;
-alert('global variable initialized');
+//alert('global variable initialized');
 
 /* ========================================================================= */
 /*  Welcome Section Slider

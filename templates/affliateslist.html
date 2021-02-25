@@ -152,315 +152,44 @@
 			
 			<!-- Affiliates section -->
 			
-            <section id="affiliates">
+			<section id="affiliates">
 				<div class="container">
 					<div class="row">
 					
 						<div class="sec-title text-center wow animated fadeInDown">
 							<h2>Geekz Affiliates</h2>
 							<p>Leading Lines of the Campus Countenance</p>
-                            <br><br>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyAhy_mC_xNa374iO1IAFuoioiNHYM9oYpw"></script>
-<form method="affliates_form" class="example"  style="margin:auto;max-width:500px">
-    <input type="text"  name="SaaSSchoolArea" id="SaaSSchoolArea" placeholder="School Locality...." >
-    <input type="hidden" name="loc_lat"  id="loc_lat" />
-    <input type="hidden" name="loc_long" id="loc_long" />
-    <button type="submit"><i class="fa fa-search"></i></button>
-</form>
-
-<!-- Remove powered by gogle -->
-<style>
-    .pac-container:after{
-        background-image: none!important;
-        height:0px;
-    }
-</style>
-
-<!-- google map places api js -->
-<script>
-  var searchInput = 'SaaSSchoolArea';
-
-$(document).ready(function () {
-    var autocomplete;
-    autocomplete = new google.maps.places.Autocomplete((document.getElementById(searchInput)), {
-        types: ['geocode'],
-    });
-	
-    google.maps.event.addListener(autocomplete, 'place_changed', function () {
-        var near_place = autocomplete.getPlace();
-        var lat =  document.getElementById('loc_lat').value = near_place.geometry.location.lat();
-        var long = document.getElementById('loc_long').value = near_place.geometry.location.lng();
-	    document.getElementById("loc_lat").defaultValue=float(lat);
-        document.getElementById("loc_long").defaultValue=float(long);
-		
-        document.getElementById('latitude_view').innerHTML = near_place.geometry.location.lat();
-        document.getElementById('longitude_view').innerHTML = near_place.geometry.location.lng();
-    });
-});
-$(document).on('change', '#'+searchInput, function () {
-    document.getElementById('latitude_input').value = '';
-    document.getElementById('longitude_input').value = '';
-	
-    document.getElementById('latitude_view').innerHTML = '';
-    document.getElementById('longitude_view').innerHTML = '';
-});
-</script>	
 						</div>
-                       
+						
+                    
                         <!-- Code for creating affiliates slideshow -->
                         
-                           {% for m in cards_obj %}
-
-                        
                         <ul class="project-wrapper wow animated fadeInUp">
-							<li class="portfolio-item">    
+							{% for m  in cards_obj %}
+							   {% for k in m %}
+							<li class="portfolio-item" >    
                                 <!-- Slideshow container -->
-                                <div class="Container">
+                                <div class="Container" >
 
                                     <!-- Full-width images with number and caption text -->
                                   <!--  <div class="project-wrapper wow animated fadeInUp">
                                         <div class="portfolio-item-affiliates affCampusSlides"> -->
-                                    <div>     
-									  <img src="{{m.BANNER1.url}}"style="width:100%">
+                                    <div>   
+										<img src="{{k.BANNER1.url}}"style="width:100%">
+                                           
                                     </div>
+                                      
+                                <br><br>
                                 
-                                </div>
-                                <br>
-                                <!-- The dots/circles -->
-								<div class="review-count rating">
-									<i  class="fas fa-star filled"></i> 5.0(30)
-								</div>	 
-								<br>
-                              <a href ="microschool/{{m.LOCALITY}}" style="text-decoration: none;" > <div class="text"> {{m.SCHOOL_NAME}} </div> </a>
-                            
+							<a href ="microschool/{{k.LOCALITY}}" style="text-decoration: none;" > <div class="text"> {{k.SCHOOL_NAME}} </div> </a>	
+                            </div>
                             </li>
-                             {% endfor %}
-                           
+							{% endfor %}
+							 {% endfor %}
         
                     </ul>
                     
-                        
-                        <!--
-						<ul class="project-wrapper wow animated fadeInUp">
-							<li class="portfolio-item">
-								<img src="img/compImages/Swimming%20Lawn.jpg" class="img-responsive" alt="">
-								<figcaption class="mask">
-									<h3>Ninja Play Area & Swimming</h3>
-									<!--p>Ninja Play Area & Swimming</p-->
-						<!--		</figcaption>
-								<ul class="external">
-									<li><a class="fancybox" title="Ninja Play Area & Swimming" data-fancybox-group="works" href="img/portfolio/Swimming%20Lawn.jpg"><i class="fa fa-search"></i></a></li>
-									<li><a href=""><i class="fa fa-link"></i></a></li>
-								</ul>
-							</li> 
-							
-							<li class="portfolio-item">
-								<img src="img/compImages/Flipped%20Classroom.jpg" class="img-responsive" alt="">
-								<figcaption class="mask">
-									<h3>Flipped Classroom</h3>
-									<!--p>Lorem Ipsum is simply dummy text of the printing and typesetting ndustry. </p-->
-							<!--	</figcaption>
-								<ul class="external">
-									<li><a class="fancybox" title="Flipped Classroom" href="img/portfolio/Flipped%20Classroom.jpg" data-fancybox-group="works" ><i class="fa fa-search"></i></a></li>
-									<li><a href=""><i class="fa fa-link"></i></a></li>
-								</ul>
-							</li>
-							
-							<li class="portfolio-item">
-								<img src="img/compImages/Library.jpg" class="img-responsive" alt="">
-								<figcaption class="mask">
-									<h3>Library</h3>
-									<!--p>Lorem Ipsum is simply dummy text of the printing and typesetting ndustry. </p-->
-						<!--		</figcaption>
-								<ul class="external">
-									<li><a class="fancybox" title="Library" data-fancybox-group="works" href="img/portfolio/Library.jpg"><i class="fa fa-search"></i></a></li>
-									<li><a href=""><i class="fa fa-link"></i></a></li>
-								</ul>
-							</li>
-							
-							<li class="portfolio-item">
-								<img src="img/compImages/3D%20Printing.jpg" class="img-responsive" alt="">
-								<figcaption class="mask">
-									<h3>3D Printing</h3>
-									<!--p>Lorem Ipsum is simply dummy text of the printing and typesetting ndustry. </p-->
-					 <!--			</figcaption>
-								<ul class="external">
-									<li><a class="fancybox" title="3D Printing" data-fancybox-group="works" href="img/portfolio/3D%20Printing.jpg"><i class="fa fa-search"></i></a></li>
-									<li><a href=""><i class="fa fa-link"></i></a></li>
-								</ul>
-							</li>
-							
-							<li class="portfolio-item">
-								<img src="img/compImages/Dot%20&%20Dash%20Robot.jpg" class="img-responsive" alt="">
-								<figcaption class="mask">
-									<h3>Robotics</h3>
-									<!--p>Lorem Ipsum is simply dummy text of the printing and typesetting ndustry. </p-->
-						<!--		</figcaption>
-								<ul class="external">
-									<li><a class="fancybox" title="Robotics" data-fancybox-group="works" href="img/portfolio/Dot%20&%20Dash%20Robot.jpg"><i class="fa fa-search"></i></a></li>
-									<li><a href=""><i class="fa fa-link"></i></a></li>
-								</ul>
-							</li>
-							
-							<li class="portfolio-item">
-								<img src="img/compImages/Gym.jpeg" class="img-responsive" alt="">
-								<figcaption class="mask">
-									<h3>Gym</h3>
-									<!--p>Lorem Ipsum is simply dummy text of the printing and typesetting ndustry. </p-->
-						<!--		</figcaption>
-								<ul class="external">
-									<li><a class="fancybox" title="Gym" data-fancybox-group="works" href="img/portfolio/Gym.jpeg"><i class="fa fa-search"></i></a></li>
-									<li><a href=""><i class="fa fa-link"></i></a></li>
-								</ul>
-							</li>
-                            
-                            <li class="portfolio-item">
-								<img src="img/compImages/Art.jpg" class="img-responsive" alt="">
-								<figcaption class="mask">
-									<h3>Art</h3>
-									<!--p>Lorem Ipsum is simply dummy text of the printing and typesetting ndustry. </p-->
-						<!--		</figcaption>
-								<ul class="external">
-									<li><a class="fancybox" title="Art" data-fancybox-group="works" href="img/portfolio/Art.jpg"><i class="fa fa-search"></i></a></li>
-									<li><a href=""><i class="fa fa-link"></i></a></li>
-								</ul>
-							</li>
-                            
-                            <li class="portfolio-item">
-								<img src="img/compImages/Science%20Lab.jpg" class="img-responsive" alt="">
-								<figcaption class="mask">
-									<h3>Science Lab</h3>
-									<!--p>Lorem Ipsum is simply dummy text of the printing and typesetting ndustry. </p-->
-						<!--		</figcaption>
-								<ul class="external">
-									<li><a class="fancybox" title="Science Lab" data-fancybox-group="works" href="img/portfolio/Science%20Lab.jpg"><i class="fa fa-search"></i></a></li>
-									<li><a href=""><i class="fa fa-link"></i></a></li>
-								</ul>
-							</li>
-                            
-                            <li class="portfolio-item">
-								<img src="img/compImages/Office.jpg" class="img-responsive" alt="">
-								<figcaption class="mask">
-									<h3>Office</h3>
-									<!--p>Lorem Ipsum is simply dummy text of the printing and typesetting ndustry. </p-->
-						<!--		</figcaption>
-								<ul class="external">
-									<li><a class="fancybox" title="Office" data-fancybox-group="works" href="img/portfolio/Office.jpg"><i class="fa fa-search"></i></a></li>
-									<li><a href=""><i class="fa fa-link"></i></a></li>
-								</ul>
-							</li>
-                            
-                            <li class="portfolio-item">
-								<img src="img/compImages/Kitchen%20Play%20Set.jpg" class="img-responsive" alt="">
-								<figcaption class="mask">
-									<h3>Kitchen</h3>
-									<!--p>Lorem Ipsum is simply dummy text of the printing and typesetting ndustry. </p-->
-						<!--		</figcaption>
-								<ul class="external">
-									<li><a class="fancybox" title="Kitchen" data-fancybox-group="works" href="img/portfolio/Kitchen%20Play%20Set.jpg"><i class="fa fa-search"></i></a></li>
-									<li><a href=""><i class="fa fa-link"></i></a></li>
-								</ul>
-							</li>
-                            
-                            <li class="portfolio-item">
-								<img src="img/compImages/Ball%20Pool.jpg" class="img-responsive" alt="">
-								<figcaption class="mask">
-									<h3>Ball Pool</h3>
-									<!--p>Lorem Ipsum is simply dummy text of the printing and typesetting ndustry. </p-->
-						<!--		</figcaption>
-								<ul class="external">
-									<li><a class="fancybox" title="Ball Pool" data-fancybox-group="works" href="img/portfolio/Ball%20Pool.jpg"><i class="fa fa-search"></i></a></li>
-									<li><a href=""><i class="fa fa-link"></i></a></li>
-								</ul>
-							</li>
-                            
-                            <li class="portfolio-item">
-								<img src="img/compImages/VR.jpg" class="img-responsive" alt="">
-								<figcaption class="mask">
-									<h3>Virtual Reality</h3>
-									<!--p>Lorem Ipsum is simply dummy text of the printing and typesetting ndustry. </p-->
-						<!--		</figcaption>
-								<ul class="external">
-									<li><a class="fancybox" title="Virtual Reality" data-fancybox-group="works" href="img/portfolio/VR.jpg"><i class="fa fa-search"></i></a></li>
-									<li><a href=""><i class="fa fa-link"></i></a></li>
-								</ul>
-							</li>
-                            
-                            <li class="portfolio-item">
-								<img src="img/compImages/3D%20Pen.jpg" class="img-responsive" alt="">
-								<figcaption class="mask">
-									<h3>3D Pen</h3>
-									<!--p>Lorem Ipsum is simply dummy text of the printing and typesetting ndustry. </p-->
-						<!--		</figcaption>
-								<ul class="external">
-									<li><a class="fancybox" title="3D Pen" data-fancybox-group="works" href="img/portfolio/3D%20Pen.jpg"><i class="fa fa-search"></i></a></li>
-									<li><a href=""><i class="fa fa-link"></i></a></li>
-								</ul>
-							</li>
-                            
-                            <li class="portfolio-item">
-								<img src="img/compImages/3D%20Print.jpg" class="img-responsive" alt="">
-								<figcaption class="mask">
-									<h3>3D Print</h3>
-									<!--p>Lorem Ipsum is simply dummy text of the printing and typesetting ndustry. </p-->
-						<!--		</figcaption>
-								<ul class="external">
-									<li><a class="fancybox" title="3D Print" data-fancybox-group="works" href="img/portfolio/3D%20Print.jpg"><i class="fa fa-search"></i></a></li>
-									<li><a href=""><i class="fa fa-link"></i></a></li>
-								</ul>
-							</li>
-                            
-                            <li class="portfolio-item">
-								<img src="img/compImages/Play%20Area.jpg" class="img-responsive" alt="">
-								<figcaption class="mask">
-									<h3>Play Area</h3>
-									<!--p>Lorem Ipsum is simply dummy text of the printing and typesetting ndustry. </p-->
-						<!--		</figcaption>
-								<ul class="external">
-									<li><a class="fancybox" title="Play Area" data-fancybox-group="works" href="img/portfolio/Play%20Area.jpg"><i class="fa fa-search"></i></a></li>
-									<li><a href=""><i class="fa fa-link"></i></a></li>
-								</ul>
-							</li>
-                            
-                            <li class="portfolio-item">
-								<img src="img/compImages/Crafting%20Ganesha.jpg" class="img-responsive" alt="">
-								<figcaption class="mask">
-									<h3>Ganesha Crafting</h3>
-									<!--p>Lorem Ipsum is simply dummy text of the printing and typesetting ndustry. </p-->
-						<!--		</figcaption>
-								<ul class="external">
-									<li><a class="fancybox" title="Ganesha Crafting" data-fancybox-group="works" href="img/portfolio/Crafting%20Ganesha.jpg"><i class="fa fa-search"></i></a></li>
-									<li><a href=""><i class="fa fa-link"></i></a></li>
-								</ul>
-							</li>
-                            
-                            <li class="portfolio-item">
-								<img src="img/compImages/Pottery.jpg" class="img-responsive" alt="">
-								<figcaption class="mask">
-									<h3>Pottery</h3>
-									<!--p>Lorem Ipsum is simply dummy text of the printing and typesetting ndustry. </p-->
-						<!--		</figcaption>
-								<ul class="external">
-									<li><a class="fancybox" title="Pottery" data-fancybox-group="works" href="img/portfolio/Pottery.jpg"><i class="fa fa-search"></i></a></li>
-									<li><a href=""><i class="fa fa-link"></i></a></li>
-								</ul>
-							</li>
-                            
-                            <li class="portfolio-item">
-								<img src="img/compImages/Bon%20Fire%20Tales.jpg" class="img-responsive" alt="">
-								<figcaption class="mask">
-									<h3>Bonfire Tales</h3>
-									<!--p>Lorem Ipsum is simply dummy text of the printing and typesetting ndustry. </p-->
-						<!--		</figcaption>
-								<ul class="external">
-									<li><a class="fancybox" title="Bonfire Tales" data-fancybox-group="works" href="img/portfolio/Bon%20Fire%20Tales.jpg"><i class="fa fa-search"></i></a></li>
-									<li><a href=""><i class="fa fa-link"></i></a></li>
-								</ul>
-							</li>
-                            
-						</ul> -->
-                        
+                      
 					</div>
 
 			</section>

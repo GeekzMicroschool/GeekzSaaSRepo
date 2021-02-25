@@ -375,13 +375,13 @@ def audition(request):
     user_id=request.session['user_id']
     user=User.objects.get(id=user_id)
     if USER_DETAILS.objects.filter(USER_EMAIL=user.email):
-        user_details=USER_DETAILS.objects.get(USER_EMAIL=user.email)
-        micro_audition = MICRO_AUDN.objects.get(uid = user_details.uid)                
+        user_details=USER_DETAILS.objects.get(USER_EMAIL=user.email)              
         if user_details.IS_MICROSCHOOL=="Y" or user_details.IS_QUESTSCHOOL=="Y":
             #only show audition form if one of the application is submitted
             if user_details.IS_MICROSCHOOL=="Y":
                 #ask for financial field in form because it is microschool
                 if MICRO_AUDN.objects.filter(uid=user_details.uid):
+                    micro_audition = MICRO_AUDN.objects.get(uid = user_details.uid) 
                     #check if user has already submitted audition
                     #pass a variable with done so that it can be used in frontend to show message that this user is already registered
                     if micro_audition.IS_APPROVED =='N':
@@ -713,7 +713,7 @@ def saasappointment(request):
                     "reminders": {"useDefault": True},
                     "attendees":user.email,
 
-                        },conferenceDataVersion=1).execute() )       
+                        },conferenceDataVersion=1).execute())     
                     print("ee",event_cal) 
                     create_event.link = event_cal['hangoutLink'] ##  fetch google meet link from event_cal 
                     profiling_obj = MICRO_PROFILIN(uid = user_details.uid, IS_PROFILINGCOMPLETE='Y',USER = user.email , EVENT_ID = event_cal['id'],ICalUID=event_cal['iCalUID'],hangoutLink = create_event.link,START_TIME= event_cal['start']['dateTime'],END_TIME = event_cal['end']['dateTime'],HEADING= heading,slot= qq,schedule_date= schedule_date)
@@ -945,14 +945,10 @@ def webpage(request,LOCALITY):
         l = INDIVIDUAL_WEBPAGESS1.objects.filter(LOCALITY=LOCALITY)
         user_id=request.session['user_id']
         user=User.objects.get(id=user_id) 
-        s_inquiry = Inquiry.objects.filter(uid = user.id)
+        s_inquiry = InquiryS.objects.filter(uid = user.id)
         if s_inquiry:
-            l= INDIVIDUAL_WEBPAGESS1.objects.filter(LOCALITY=LOCALITY)
-            location = INDIVIDUAL_WEBPAGESS1.objects.get(LOCALITY=LOCALITY)
-            latitude = location.LATITUDE
-            longitude = location.LONGITUDE
-            print(type(latitude))
-            return render(request, 'webpage.html',{'webform_done':'done','l':l,'latitude':latitude,'longitude':longitude})
+            l= INDIVIDUAL_WEBPAGESS1.objects.filter(LOCALITY=LOCALITY) 
+            return render(request, 'webpage.html',{'webform_done':'done','l':l})
         else:
             if request.method == "POST" :
                 user_id=request.session['user_id']
@@ -963,8 +959,8 @@ def webpage(request,LOCALITY):
                 email = request.POST['email']
                 phone = request.POST['phone']
                 hear_about = request.POST['hear_about']
-                microschool = 'gujrat'
-                inquiry_obj = Inquiry(uid=user.id,studentName=name,enrolling_grade=enrolling_grade,email=email,phone=phone,hear_about_us=hear_about,microschool=microschool)
+                school_name = request.POST['school_name']
+                inquiry_obj = InquiryS(uid=user.id,studentName=name,enrolling_grade=enrolling_grade,email=email,phone=phone,hear_about_us=hear_about,microschool=school_name)
                 inquiry_obj.save()
                 subject='Inquiry Mail'
                 html_template='socialaccount/email/inquirymail.html'
@@ -977,8 +973,9 @@ def webpage(request,LOCALITY):
                 latitude = location.LATITUDE
                 longitude = location.LONGITUDE
                 print(type(latitude))
-                return render(request, 'webpage.html',{'l':l,'latitude':latitude,'longitude':longitude})  
+                return redirect('webpage',LOCALITY=location.LOCALITY)
         return render(request, 'webpage.html',{'l':l})
+
 
 def superAdmin_dashboard(request):
     '''for p in User.objects.raw('SELECT * FROM auth_user'):
@@ -994,8 +991,38 @@ def basictables(request):
     auth_obj1 = User.objects.all() 
     return render(request,"bs-basic-table.html",{'auth_obj1':auth_obj1})
 
+def individualAdmin_dashboard(request):
+    return render(request,'individualAdmin_dashboard.html')
+
+def individualAdmin_approvels(request):
+    user_id=request.session['user_id']
+    user=User.objects.get(id=user_id)
+    uid_obj = USER_DETAILS.objects.get(USER_EMAIL=user.email)
+    admin_web = INDIVIDUAL_WEBPAGESS1.objects.get(uid = uid_obj.uid)
+    inquirys = InquiryS.objects.filter(microschool=admin_web.SCHOOL_NAME,ISAPPROVED='N')
+    return render(request,"bs-basicApprovel.html",{'inquirys':inquirys})
+
+
+def inquiryApprove(request):
+    user_id=request.session['user_id']
+    user=User.objects.get(id=user_id)
+    uid_obj = USER_DETAILS.objects.get(USER_EMAIL=user.email)
+    admin_web = INDIVIDUAL_WEBPAGESS1.objects.get(uid = uid_obj.uid)
+    inquirys = InquiryS.objects.get(microschool=admin_web.SCHOOL_NAME)
+    inquirys.ISAPPROVED ='Y'
+    inquirys.save(update_fields=['ISAPPROVED'])
+    inquirys_updated = InquiryS.objects.filter(microschool=admin_web.SCHOOL_NAME,ISAPPROVED='N')
+    subject='Student Application'
+    html_template='socialaccount/email/student_application.html'
+    html_message=render_to_string(html_template)
+    to_email= inquirys.email
+    message=EmailMessage(subject, html_message, settings.EMAIL_HOST_USER, [to_email])
+    message.content_subtype='html'
+    message.send()
+    return render(request,'bs-basicApprovel.html',{'inquirys': inquirys_updated })
+
+
 def index1(request):
-    id1 = feedback.objects.all()
     if request.method == "POST" :
         SaaSLoc_lat=float(request.POST['loc_lat'])
         SaaSLoc_long=float(request.POST['loc_long'])
@@ -1003,19 +1030,41 @@ def index1(request):
         cr = MICRO_APPLY.objects.values()
         clients = cr.filter(location__distance_lt=(user_location,Distance(m=5000)))
         print(type(clients))
-        print(clients)
+        print("data",clients)
         cl = list(clients)
         print('hhhhhhhhhhhhhhhhhhhh',cl)
+        uid_list = []
         if clients:
+            for c in cl:
+                print("for loo",c)
+                uid_list.append(c['uid'])
+            print(uid_list)    
             cl1 = cl[0]
+            print(cl1)
             cl2 = cl1['uid']
             print(cl2)
-            cards_obj = INDIVIDUAL_WEBPAGESS1.objects.filter(uid = cl2)
+            cards = []
+            feeds = []
+            for k in uid_list:
+                cards_obj = INDIVIDUAL_WEBPAGESS1.objects.filter(uid = k)
+                cards_obj1 = INDIVIDUAL_WEBPAGESS1.objects.get(uid = k)
+                #feed_obj = feedback_users.objects.filter(school_name=cards_obj1.SCHOOL_NAME).order_by('rating')
+                #if feed_obj:
+                    #feeds.append(feed_obj)
+                cards.append(cards_obj)
+            print('objects',cards) 
+            #print('feed',feeds)   
+            #cards_obj = INDIVIDUAL_WEBPAGESS1.objects.filter(uid = cl2)
+            #cards_obj1 = INDIVIDUAL_WEBPAGESS1.objects.get(uid = cl2)
+            #feed_obj = feedback_users.objects.filter(school_name=cards_obj1.SCHOOL_NAME).order_by('rating')
+            #fed = list(feed_obj)
+            #fed1 =fed[0]
+            #print(fed1.rating)
             print(cards_obj)
-            return render(request,'affliateslist.html',{'clients_within_radius':clients,'cards_obj':cards_obj})
+            return render(request,'affliateslist.html',{'cards_obj':cards})
         else:
             return render(request,'affliatesnotfound.html')
-    return render(request,'index1.html',{'id1':id1})
+    return render(request,'index1.html')
 
 
 
@@ -1235,5 +1284,28 @@ def affliates_form(request):
             return render(request,'affliatesnotfound.html')        
 
 
+def feedback_form(request):
+    user_id=request.session['user_id']
+    user=User.objects.get(id=user_id)
+    SCHOOL_NAME = request.GET.get('SCHOOL_NAME')
+    school_names = INDIVIDUAL_WEBPAGESS1.objects.all().values('SCHOOL_NAME').distinct()
+    if request.method == "POST" :
+        user_id=request.session['user_id']
+        user=User.objects.get(id=user_id)
+        ud = user.id
+        name = request.POST['name']
+        review = request.POST['review']
+        rating = request.POST['rating']
+        school_names = INDIVIDUAL_WEBPAGESS1.objects.all().values('SCHOOL_NAME').distinct()
+        schools = request.POST['schools']
+        OBJ = INDIVIDUAL_WEBPAGESS1.objects.filter(SCHOOL_NAME=schools)
+        obj = list(OBJ)
+        obj = obj[0]
+        obj, created = feedback_user.objects.update_or_create(user_id=ud,defaults={"name":name,"feedback":review,"rating":rating,"SCHOOL":schools,"school_name":obj})
+        return render(request,'feedback_form.html')
+    return render(request,'feedback_form.html',{'school_name':school_names})   
 
+
+def student_apply(request):
+    return render(request,'student_apply.html') 
  ###########################################3       

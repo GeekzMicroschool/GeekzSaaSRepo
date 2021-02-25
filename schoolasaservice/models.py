@@ -173,13 +173,24 @@ class MICRO_PROFILIN(models.Model):
     END_TIME = models.CharField(max_length=250)
     HEADING = models.CharField(max_length=300)
 
+class MICRO_PROFILING(models.Model):
+    uid=models.CharField(max_length=50, primary_key=True)
+    IS_PROFILINGCOMPLETE=models.CharField(max_length=1, default="N")
+    IS_APPROVED=models.CharField(max_length=1, default="N")
+    slot = models.ForeignKey(SLOTS_DAY, on_delete=models.CASCADE)
+    schedule_date = models.DateField()
+    USER = models.CharField(max_length=250)
+    EVENT_ID = models.CharField(max_length=600)
+    ICalUID = models.CharField(max_length=600)
+    hangoutLink = models.CharField(max_length=600)
+    START_TIME = models.CharField(max_length=250)
+    END_TIME = models.CharField(max_length=250)
+    HEADING = models.CharField(max_length=300)    
+
 class RESCHEDULE_REASON(models.Model):
     uid =  models.CharField(max_length=50, primary_key=True)
     reason = models.CharField(max_length=10000)  
 
-class feedback(models.Model):
-    name = models.CharField(max_length=250)  
-    feedback = models.CharField(max_length=700) 
 
 
 STORAGE = ImgurStorage()
@@ -253,6 +264,15 @@ class INDIVIDUAL_WEBPAGESS1(models.Model):
         return BANNER1 '''
 
 
+class feedback_user(models.Model):
+    name = models.CharField(max_length=250)  
+    feedback = models.CharField(max_length=700) 
+    rating = models.IntegerField()
+    user_id = models.CharField(max_length=100)
+    SCHOOL = models.CharField(max_length=100)
+    school_name = models.ForeignKey(INDIVIDUAL_WEBPAGESS1, on_delete=models.CASCADE)
+
+
 class notify_users(models.Model):
     email = models.CharField(max_length=300)
     phone = models.BigIntegerField()
@@ -265,14 +285,14 @@ class City(models.Model):
     country = models.ForeignKey(Country, on_delete=models.CASCADE)
     population = models.PositiveIntegerField()    
 
-class Inquiry(models.Model):
+class InquiryS(models.Model):
     uid = models.CharField(max_length=50, primary_key=True)
     date = models.DateTimeField(default=datetime.now(), blank=True)
     studentName = models.CharField(max_length=250)
     enrolling_grade = models.CharField(max_length=250)
     email = models.EmailField(max_length=250)
     phone = models.BigIntegerField()
-    message = models.CharField(max_length=700) 
+    ISAPPROVED = models.CharField(max_length=1, default="N")
     hear_about_us = models.CharField(max_length=250) 
     microschool = models.CharField(max_length=250) 
 
@@ -289,6 +309,8 @@ class Photo_webpage1(models.Model):
     uploaded_at = models.DateTimeField(auto_now_add=True)
 
 ##https://geekzmicroschoolgallery.imgur.com/all/  the link to imgur api  
+
+
 
 
      

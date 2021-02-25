@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load socialaccount %}
+{% block title %}Apply | Geekz School-as-a-Service{% endblock title %}
+{% block metadescription %}
+    <meta name="description" content="Geekz School-As-A-Service Application.">
+{% endblock metadescription %}
+{% block metakeywords %}
+    <meta name="keywords" content="geekz, geeks, school, reimagined school, alternate school, international, velachery, chennai, india, personalized, curriculum, self paced, learning, mastery, khan academy, duolingo, Microsoft, Program Manager, application, apply, micro-school, microschool, micro school, micro, School As A Service, SaaS, Affiliation, Quest, Questschool, Quest School, Work From Home, WFH, Part Time Job, Jobs">
+{% endblock metakeywords %}
+
+
+
+{% block content %}
+<main class="site-content" role="main">
+		
+			
+    <!-- Contact section -->
+    <section id="contact" >
+        <div class="container">
+            <div class="row">
+                
+                <div class="sec-title text-center wow animated fadeInDown">
+                    <span>&nbsp;</span><p>&nbsp;</p>
+                    <h2>START YOUR GEEKZ JOURNEY!</h2>
+                    <p id="geekzapply">Get affiliated. Welcome your first geek.</p>
+                </div>
+<form  method="post" > {% csrf_token %}
+    <div class="input-field">
+        <input type="text" id="name" name="name" class="form-control" placeholder="Your  Name..." required>
+    </div>
+    <div class="input-field">
+    <textarea id = "review" name="review" class="form-control" placeholder="Your Review..." required></textarea>
+    </div>
+    <div class="input-field">
+        <input type="radio" id="one" name="rating" value="1" checked required>
+        <label for="one">1<i  style="color:#FFD700;" class="fas fa-star filled"></i></label>&nbsp;
+        <input type="radio" id="two" name="rating" value="2">
+        <label for="two">2<i style="color:#FFD700;" class="fas fa-star filled"></i></label>&nbsp;
+        <input type="radio" id="three" name="rating" value="3">
+        <label for="three">3<i style="color:#FFD700;" class="fas fa-star filled"></i></label>&nbsp;
+        <input type="radio" id="four" name="rating" value="4">
+        <label for="four">4<i style="color:#FFD700;" class="fas fa-star filled"></i></label>&nbsp;
+        <input type="radio" id="five" name="rating" value="5">
+        <label for="five">5<i style="color:#FFD700;" class="fas fa-star filled"></i></label>&nbsp;
+    </div>
+    <div class="input-field">
+    <label for="schools">Choose Microschool:</label>
+  <select name="schools" id="schools" class="form-control">
+      {% for s in school_name %}
+    <option value="{{s.SCHOOL_NAME}}">{{s.SCHOOL_NAME}}</option>
+    {% endfor %}
+  </select>
+  </div>
+  <br><br>
+    <button type="submit" class="btn btn-blue btn-effect">SEND</button>
+</form>   
+</div>
+</div>
+</section> 
+{% endblock %}
+
+{% block footer %}
+<footer id="footer">
+    <div class="container">
+        <div class="row text-center">
+            <div class="footer-content">
+                
+                <div class="footer-social">
+                    <ul>
+                        <style>
+                            .footer-social ul li a:hover {
+                                color: white;
+                            }
+                        </style>
+                        <li class="wow animated zoomIn"><a href="https://www.facebook.com/VrGeekz/" target="_blank" style="background-color: inherit;"><i class="fa fa-facebook fa-3x"></i></a></li>
+                        <li class="wow animated zoomIn" data-wow-delay="0.3s"><a href="https://www.instagram.com/vrgeekz/" target="_blank" style="background-color: inherit;"><i class="fa fa-instagram fa-3x"></i></a></li>
+                        <li class="wow animated zoomIn" data-wow-delay="0.6s"><a href="https://www.youtube.com/channel/UCNy54QG09WBP7ZU8eOSRntQ/videos" target="_blank" style="background-color: inherit;"><i class="fa fa-youtube-play fa-3x"></i></a></li>
+                        <li class="wow animated zoomIn" data-wow-delay="0.9s"><a href="https://twitter.com/VrGeekz" target="_blank" style="background-color: inherit;"><i class="fa fa-twitter fa-3x"></i></a></li>
+                        <!-- <li class="wow animated zoomIn" data-wow-delay="0.9s"><a href="https://thegeekstudio.wordpress.com/" target="_blank" style="background-color: inherit;"><i class="fa fa-rss fa-3x"></i></a></li> -->
+                    </ul>
+                </div>
+                
+                <p>Copyright &copy; 2020 by Geekz. All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+{% endblock footer %}

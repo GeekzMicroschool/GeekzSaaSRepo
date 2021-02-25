@@ -21,8 +21,11 @@ urlpatterns = [
     path('webpage',views.webpage,name='webpage'),
     path('microschool/<LOCALITY>',views.webpage, name='webpage'),
     path('deletevent',views.deletevent,name="delete"),
-    path('superAdmin_dashboard',views.superAdmin_dashboard,name="delete"),
-    path('bs-basic-table',views.basictables,name="delete"),
+    path('superAdmin_dashboard',views.superAdmin_dashboard,name="superAdmin_dashboard"),
+    path('individualAdmin_dashboard',views.individualAdmin_dashboard,name="individualAdmin_dashboard"),
+    path('bs-basic-table',views.basictables,name="bs-basic-table"),
+    path('bs-basicApprovel',views.individualAdmin_approvels,name="individualAdmin_approvels"),
+    path('inquiryApprove',views.inquiryApprove,name="inquiryApprove"),
     path('invoice',views.GeneratePdf,name="generatepdf"),
     path('create_pdf',views.create_pdf,name="create_pdf"),
     path('index1',views.index1,name="index1"),
@@ -35,7 +38,9 @@ urlpatterns = [
     path('affliateslist',views.affliateslist,name="affliateslist"),
     path('affliates_List',views.affliates_List,name="affliates_List"),
     path('notify',views.notify,name="notify"),
-    path('affliatesform',views.affliates_form,name="affliatesform"),
+    path('affliates_form',views.affliates_form,name="affliatesform"),
+    path('feedback_form',views.feedback_form,name="feedback_users"),
+    path('student_apply',views.student_apply,name="student_apply"),
     
 ]
 if settings.DEBUG:

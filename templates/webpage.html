@@ -106,7 +106,7 @@
                         <li><a href="#about">Quests</a></li>
                         <li><a href="#studio">Studios</a></li>
                         <li><a href="#curriculum">Curriculum</a></li>
-                        <li><a href="#price">Reviews</a></li>
+                        <li><a href="feedback_form/?name={{m.SCHOOL_NAME}}">Reviews</a></li>
                         <!--<li><a href="#contact">Contact</a></li>-->
                         
                         <!--<li><a href="Affiliate.html" class="btn btn-blue btn-effect">Launch Your Own Geekz</a></li>
@@ -1432,6 +1432,9 @@
           {% else %}
 							<form id="homeschool"  method="post">{% csrf_token %}
                                 <h3><b>Student Information</b></h3>
+								<div class="input-field">
+									<input type="hidden"  name="school_name" class="form-control" value="{{m.SCHOOL_NAME}}" required>
+								</div>
 								<div class="input-field">
 									<input type="text" id="HSFullName" name="s_name" class="form-control" placeholder="Your Name..." required>
 								</div>
