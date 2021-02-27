@@ -17,7 +17,7 @@ import httplib2
 from googleapiclient.discovery import build  #pip install google-api-python-client
 from oauth2client.service_account import ServiceAccountCredentials #pip install oauth2client
 from .models import *
-from .forms import SlotCreationForm
+from .forms import SlotCreationForm,IndividualSlotCreationForm
 from uuid import uuid4
 import datetime
 from django.http import JsonResponse
@@ -1014,7 +1014,7 @@ def inquiryApprove(request):
     inquirys_updated = InquiryS.objects.filter(microschool=admin_web.SCHOOL_NAME,ISAPPROVED='N')
     subject='Student Application'
     html_template='socialaccount/email/student_application.html'
-    html_message=render_to_string(html_template)
+    html_message=render_to_string(html_template,{'microschool': inquirys.microschool})
     to_email= inquirys.email
     message=EmailMessage(subject, html_message, settings.EMAIL_HOST_USER, [to_email])
     message.content_subtype='html'
@@ -1305,7 +1305,77 @@ def feedback_form(request):
         return render(request,'feedback_form.html')
     return render(request,'feedback_form.html',{'school_name':school_names})   
 
-
-def student_apply(request):
+@login_required
+def student_apply(request,SCHOOL_NAME):
+    if request.method == "POST" :
+        print('hi')
+        print(SCHOOL_NAME)
+        user_id=request.session['user_id']
+        user=User.objects.get(id=user_id)
+        print(user.id)
+        first_name = request.POST['first_name']
+        last_name = request.POST['last_name']
+        gender = request.POST['gender']
+        SaaSDOB = request.POST['SaaSDOB']
+        enrolling_grade = request.POST['enrolling_grade']
+        attendedschool = request.POST['attendedschool']
+        Fathersname = request.POST['Fathersname']
+        Fathersoccupation = request.POST['Fathersoccupation']
+        Mothersname = request.POST['Mothersname']
+        Mothersoccupation = request.POST['Mothersoccupation']
+        income = request.POST['income']
+        address = request.POST['address']
+        email = request.POST['email']
+        number = request.POST['number']
+        geekzcommute = request.POST['geekzcommute']
+        yescommutelocation = request.POST['yescommutelocation']
+        childproud = request.POST['childproud']
+        familyactivities = request.POST['familyactivities']
+        childsinterests = request.POST['childsinterests']
+        yourdreams = request.POST['yourdreams']
+        medicalcondition = request.POST['medicalcondition']
+        childsuspended = request.POST['childsuspended']
+        anythingelse = request.POST['anythingelse']
+        hear_about = request.POST['hear_about']
+        micro_web = INDIVIDUAL_WEBPAGESS1.objects.filter(SCHOOL_NAME=SCHOOL_NAME)
+        micro_web1 = list(micro_web)
+        micro_web1 = micro_web1[0]
+        application_obj = studentApplication(email=email,phone= number,enrolling_grade=enrolling_grade,first_name=first_name,last_name=last_name,gender=gender,SaaSDOB=SaaSDOB,attendedschool=attendedschool,Fathersname=Fathersname,Fathersoccupation=Fathersoccupation,Mothersname=Mothersname,Mothersoccupation=Mothersoccupation,income=income,address=address,geekzcommute=geekzcommute,yescommutelocation=yescommutelocation,childproud=childproud,familyactivities=familyactivities,childsinterests=childsinterests,yourdreams=yourdreams,medicalcondition=medicalcondition,childsuspended=childsuspended,anythingelse=anythingelse,hear_about=hear_about,IS_COMPLETE='Y',student_id=user.id,microschool= micro_web1)
+        application_obj.save()
+        return render(request,'student_profiling.html') 
     return render(request,'student_apply.html') 
+
+def student_profiling(request):
+    form = IndividualSlotCreationForm()
+    return render(request,'student_profiling.html',{'form':form})  
+
+def individualAdminSlots(request):
+    if request.method == "POST" :
+        user_id=request.session['user_id']
+        user=User.objects.get(id=user_id)
+        uid_obj = USER_DETAILS.objects.get(USER_EMAIL=user.email)
+        admin_id = INDIVIDUAL_WEBPAGESS1.objects.filter(uid= uid_obj.uid)
+        admin_id = list(admin_id)
+        admin_id = admin_id[0]
+        time_duration = float(request.POST['duration'])
+        start_time = request.POST['Start-time']
+        end_time = request.POST['End-time']
+        day = request.POST['Days']
+        start_datetime_object =  datetime.datetime.strptime(start_time, '%H:%M')
+        end_datetime_object =  datetime.datetime.strptime(end_time, '%H:%M')
+        start_datetime_object = start_datetime_object.strftime("%I:%M %p")
+        end_datetime_object = end_datetime_object.strftime("%I:%M %p")
+        start_datetime_object =  datetime.datetime.strptime(start_datetime_object, '%I:%M %p')
+        end_datetime_object =  datetime.datetime.strptime(end_datetime_object, '%I:%M %p')
+        def time_slots(start_datetime_object, end_datetime_object,duration):
+            t = start_datetime_object
+            while t < end_datetime_object:
+                yield t.strftime('%I:%M %p')
+                slot_obj = Individual_admin_slots(slot=t.strftime('%I:%M %p'),day=day,duration=time_duration,admin_id=admin_id)
+                t += datetime.timedelta(minutes=time_duration)
+                slot_obj.save()
+                print(t.strftime('%I:%M %p'))
+        print(list(time_slots(start_datetime_object, end_datetime_object,time_duration)))
+        return render(request,'individualAdminSlots.html')
+    return render(request,'individualAdminSlots.html')      
  ###########################################3       

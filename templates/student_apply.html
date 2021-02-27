@@ -9,23 +9,18 @@
         <span>&nbsp;</span><p>&nbsp;</p>
         <h2>START YOUR GEEKZ JOURNEY!</h2>
         <p id="geekzapply">Get affiliated. Welcome your first geek.</p>
-    </div>
+      </div>
     
-    {%if webform_done == 'done' %}
-					<div class="sec-title text-center wow animated fadeInDown">
-						<p>Your message on its way. Geekz support team will be in touch with you shortly. <br />Good luck!'</p>
-          </div>
-          {% else %}
         <div class="row">
             <div class="col-md-12 contact-form wow animated fadeInLeft">
                 
-                <form id="inquiry"  method="post" enctype="multipart/form-data"> {% csrf_token %}
+                <form method="POST"> {% csrf_token %}
                     <h3><b>Student Information</b></h3>
 								<div class="input-field">
-									<input type="hidden"  name="first_name" class="form-control" placeholder="First Name...." required>
+									<input type="text"  name="first_name" class="form-control" placeholder="First Name...." required>
 								</div>
 								<div class="input-field">
-									<input type="text" id="LastName" name="s_name" class="form-control" placeholder="Last Name..." required>
+									<input type="text" id="LastName" name="last_name" class="form-control" placeholder="Last Name..." required>
 								</div>
                                 <div class="input-field">
 									<select id="HSGrade" name="gender" class="form-control" required>
@@ -39,9 +34,6 @@
 								</div>
                                 <div class="input-field">
                                     <input type="text" id="SaaSDOB" name="SaaSDOB" class="form-control" placeholder="Date of Birth..." onfocus="(this.type='date')" required>
-                                    <div style="display: none;" id="errmsgdob">
-                                        <p style="color: red; font-size:10px;">Please fill out this field.</p>
-                                    </div>
                                 </div>
                                 <div class="input-field">
 									<select id="HSGrade" name="enrolling_grade" class="form-control" required>
@@ -64,7 +56,7 @@
 									<input type="text" id="attendedschool" name="attendedschool" class="form-control"  placeholder="Recently Attended School..." required>
 								</div>
 
-                                <h3><b>Student Information</b></h3>
+                                <h3><b> Parent Information</b></h3>
 
 								<div class="input-field">
 									<input type="text" id="Fathersname" name="Fathersname" class="form-control"  placeholder="Father's Name..." required>
@@ -74,9 +66,6 @@
 								</div>
                                 <div class="input-field">
 									<input type="text" id="Mothersname" name="Mothersname" class="form-control"  placeholder="Mother's Name..." required>
-								</div>
-                                <div class="input-field">
-									<input type="text" id="Mothersoccupation" name="Mothersoccupation" class="form-control"  placeholder="Mother's Occupation & Employer..." required>
 								</div>
                                 <div class="input-field">
 									<input type="text" id="Mothersoccupation" name="Mothersoccupation" class="form-control"  placeholder="Mother's Occupation & Employer..." required>
@@ -103,9 +92,6 @@
                                         <option>Yes</option>
                                         <option>No</option>
 									</select>
-									<div style="display: none;" id="errmsgltb1">
-										<p style="color: red; font-size:10px;">Please select an item in the list.</p>
-									</div>
 								</div>
                                 <div class="input-field">
 									<input type="text" id="yescommutelocation" name="yescommutelocation" class="form-control"  placeholder="If yes share pick up location..." >
@@ -148,16 +134,12 @@
                                         <option>Print Ad</option>
                                         <option>News Article</option>
 									</select>
-									<div style="display: none;" id="errmsgltb1">
-										<p style="color: red; font-size:10px;">Please select an item in the list.</p>
-									</div>
+									
 								</div>
-
-                      <button type="submit" id="submit" class="btn btn-blue btn-effect">SEND</button>
+                      <input type="submit" value="SEND" class="btn btn-blue btn-effect">
                 </form>
             </div>
         </div>
-        {% endif %}
     </div>
 </section>
 </main>

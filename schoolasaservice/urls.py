@@ -40,8 +40,9 @@ urlpatterns = [
     path('notify',views.notify,name="notify"),
     path('affliates_form',views.affliates_form,name="affliatesform"),
     path('feedback_form',views.feedback_form,name="feedback_users"),
-    path('student_apply',views.student_apply,name="student_apply"),
-    
+    path('student_apply/<SCHOOL_NAME>',views.student_apply,name="student_apply"),
+    path('student_profiling',views.student_profiling,name="student_profiling"),
+    path('individualAdminSlots',views.individualAdminSlots,name="individualAdminSlots"),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -311,6 +311,63 @@ class Photo_webpage1(models.Model):
 ##https://geekzmicroschoolgallery.imgur.com/all/  the link to imgur api  
 
 
+class studentApplication(models.Model):
+    first_name = models.CharField(max_length=250)
+    last_name = models.CharField(max_length=250)
+    gender = models.CharField(max_length=250)
+    SaaSDOB = models.DateField()
+    enrolling_grade = models.CharField(max_length=250)
+    attendedschool = models.CharField(max_length=250)
+    Fathersname = models.CharField(max_length=250)
+    Fathersoccupation = models.CharField(max_length=250)
+    Mothersname = models.CharField(max_length=250)
+    Mothersoccupation = models.CharField(max_length=250)
+    income = models.CharField(max_length=250)
+    address = models.CharField(max_length=800)
+    email = models.EmailField(max_length=250)
+    phone = models.BigIntegerField()
+    geekzcommute = models.CharField(max_length=250)
+    yescommutelocation = models.CharField(max_length=250)
+    childproud = models.CharField(max_length=800)
+    familyactivities = models.CharField(max_length=800)
+    childsinterests = models.CharField(max_length=800)
+    yourdreams = models.CharField(max_length=800)
+    medicalcondition = models.CharField(max_length=800)
+    childsuspended = models.CharField(max_length=800)
+    anythingelse = models.CharField(max_length=800)
+    hear_about = models.CharField(max_length=100)
+    IS_COMPLETE= models.CharField(max_length=1, default="N")
+    microschool = models.ForeignKey(INDIVIDUAL_WEBPAGESS1, on_delete=models.CASCADE)
+    student_id = models.CharField(max_length=100)
+
+
+class Individual_admin_slots(models.Model):
+    admin_id = models.ForeignKey(INDIVIDUAL_WEBPAGESS1, on_delete=models.CASCADE)
+    slot = models.TextField()
+    day = models.TextField() 
+    duration = models.TextField()
+
+class StudentProfiling(models.Model):
+    uid=models.CharField(max_length=50, primary_key=True)
+    IS_PROFILINGCOMPLETE=models.CharField(max_length=1, default="N")
+    IS_APPROVED=models.CharField(max_length=1, default="N")
+    slot = models.ForeignKey(Individual_admin_slots, on_delete=models.CASCADE)
+    schedule_date = models.DateField()
+    USER = models.CharField(max_length=250)
+    EVENT_ID = models.CharField(max_length=600)
+    ICalUID = models.CharField(max_length=600)
+    hangoutLink = models.CharField(max_length=600)
+    START_TIME = models.CharField(max_length=250)
+    END_TIME = models.CharField(max_length=250)
+    HEADING = models.CharField(max_length=300)    
+
+
+
+
+
+
+
+
 
 
      
