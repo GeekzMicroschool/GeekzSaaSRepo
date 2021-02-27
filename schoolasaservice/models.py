@@ -361,6 +361,16 @@ class StudentProfiling(models.Model):
     END_TIME = models.CharField(max_length=250)
     HEADING = models.CharField(max_length=300)    
 
+class InvoiceRequest(models.Model):
+    first_name = models.CharField(max_length=250)
+    last_name = models.CharField(max_length=250)
+    Fathersname = models.CharField(max_length=250)
+    address = models.CharField(max_length=800)
+    email = models.EmailField(max_length=250)
+    microschool = models.CharField(max_length=800)
+    student_id = models.CharField(max_length=100)
+    IS_COMPLETE= models.CharField(max_length=1, default="N")
+
 
 
 

@@ -304,6 +304,13 @@
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                 </li>
+                                <li class="active">
+                                    <a href="bs-basicInvoice">
+                                        <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
+                                        <span class="pcoded-mtext" data-i18n="nav.form-components.main">Invoices</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                </li>
                                 
                             </ul>
 
@@ -425,24 +432,24 @@
                                                     <thead>
                                                         <tr>
                                                             <th>#</th>
-                                                            <th>Student Name</th>
-                                                            <th>Enrolling Grade</th>
+                                                            <th>First Name</th>
+                                                            <th>Last Name</th>
+                                                            <th>Father Name</th>
                                                             <th>Email</th>
-                                                            <th>Phone</th>
-                                                            <th>Hear About Us</th>
-                                                            <th>Approve</th>
+                                                            <th>Address</th>
+                                                            <th>Generate Invoice</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        {% for i in inquirys %}
+                                                        {% for i in invoice %}
                                                         <tr>
                                                             <th scope="row">1</th>
-                                                            <td>{{i.studentName}}</td>
-                                                            <td>{{i.enrolling_grade}}</td>
+                                                            <td>{{i.first_name}}</td>
+                                                            <td>{{i.last_name}}</td>
+                                                            <td>{{i.Fathersname}}</td>
                                                             <td>{{i.email}}</td>
-                                                            <td>{{i.phone}}</td>
-                                                            <td>{{i.hear_about_us}}</td>
-                                                            <td><a href="inquiryApprove/{{i.uid}}"><button type="button">Approve</button></a></td>
+                                                            <td>{{i.address}}</td>
+                                                            <td><a href="invoice_pdf/{{i.student_id}}"><button type="button">Approve</button></a></td>
                                                         </tr>
                                                         {% endfor %}
                                                     </tbody>

@@ -545,6 +545,7 @@ def student_profileEdit(request):
     print(user)
     user_details=USER_DETAILS.objects.filter(USER_EMAIL=user.email)    
     print(user_details) 
+    student_obj = studentApplication.objects.filter(student_id = user.id)
     if request.method == "POST":
         SaaSName=request.POST['SaaSName']
         #SaaSEmail=request.POST['SaaSEmail']
@@ -556,7 +557,7 @@ def student_profileEdit(request):
         user_details.CONTACT_PHONE = SaaSPhone
         user_details.save(update_fields=['FULL_NAME','CONTACT_PHONE'])
         return redirect('index')
-    return render(request,"student_profileEdit.html",{"object_details":user_details})  
+    return render(request,"student_profileEdit.html",{"object_details":user_details,'student_obj':student_obj})  
 
 
 ####################Django calendar #########################
@@ -1003,12 +1004,12 @@ def individualAdmin_approvels(request):
     return render(request,"bs-basicApprovel.html",{'inquirys':inquirys})
 
 
-def inquiryApprove(request):
+def inquiryApprove(request,uid):
     user_id=request.session['user_id']
     user=User.objects.get(id=user_id)
     uid_obj = USER_DETAILS.objects.get(USER_EMAIL=user.email)
     admin_web = INDIVIDUAL_WEBPAGESS1.objects.get(uid = uid_obj.uid)
-    inquirys = InquiryS.objects.get(microschool=admin_web.SCHOOL_NAME)
+    inquirys = InquiryS.objects.get(microschool=admin_web.SCHOOL_NAME,uid=uid)
     inquirys.ISAPPROVED ='Y'
     inquirys.save(update_fields=['ISAPPROVED'])
     inquirys_updated = InquiryS.objects.filter(microschool=admin_web.SCHOOL_NAME,ISAPPROVED='N')
@@ -1379,3 +1380,59 @@ def individualAdminSlots(request):
         return render(request,'individualAdminSlots.html')
     return render(request,'individualAdminSlots.html')      
  ###########################################3       
+
+
+ # ajax view to get slots and populate in dropdown and reading calendar to filter slots
+def individual_load_slots(request):
+    print("individual_slot")
+    date = request.GET.get('day_id')
+    print(date)
+    def findDay(date):
+        born = datetime.datetime.strptime(date, '%Y-%m-%d').weekday() 
+        return (calendar.day_name[born])
+    slots = Individual_admin_slots.objects.filter(day=findDay(date)).all()
+    return render(request, 'slots_dropdown_list_options.html', {'slots': slots}) 
+
+def invoice(request):
+    return render(request,'invoice.html')
+
+def invoice_pdf(request,student_id):
+    ob = studentApplication.objects.get(student_id=student_id)
+    print(ob.last_name)
+    data = {
+            'geekName': ob.first_name , 
+            'fathername': ob.Fathersname,
+            'address': ob.address,
+           
+    }
+    invoice = InvoiceRequest.objects.get(student_id=ob.student_id)
+    invoice.IS_COMPLETE = 'Y'
+    invoice.save(update_fields=['IS_COMPLETE'])
+    pdf = render_to_pdf('invoice.html',data)
+    return HttpResponse(pdf, content_type='application/pdf')
+
+
+def Invoice_requests(request):
+    user_id=request.session['user_id']
+    user=User.objects.get(id=user_id)
+    print(user)
+    student_obj = studentApplication.objects.get(student_id=user.id)
+    invoice_obj = InvoiceRequest(email= student_obj.email,first_name=student_obj.first_name,last_name=student_obj.last_name,Fathersname=student_obj.Fathersname,address=student_obj.address,microschool=student_obj.microschool.SCHOOL_NAME,student_id=user.id)
+    invoice_obj.save()
+    print('HIIIIII')
+    user_details=USER_DETAILS.objects.filter(USER_EMAIL=user.email)  
+    location = INDIVIDUAL_WEBPAGESS1.objects.get(SCHOOL_NAME=student_obj.microschool.SCHOOL_NAME)
+    return redirect('webpage',LOCALITY=location.LOCALITY)
+
+def bsbasicInvoice(request):
+    user_id=request.session['user_id']
+    user=User.objects.get(id=user_id)
+    uid_obj = USER_DETAILS.objects.get(USER_EMAIL=user.email)
+    sch = INDIVIDUAL_WEBPAGESS1.objects.get(uid = uid_obj.uid)
+    invoice = InvoiceRequest.objects.filter(microschool=sch.SCHOOL_NAME,IS_COMPLETE='N')
+    return render(request,'bs-basicInvoice.html',{'invoice':invoice})
+
+   
+    
+
+

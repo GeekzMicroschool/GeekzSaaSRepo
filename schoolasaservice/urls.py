@@ -25,7 +25,7 @@ urlpatterns = [
     path('individualAdmin_dashboard',views.individualAdmin_dashboard,name="individualAdmin_dashboard"),
     path('bs-basic-table',views.basictables,name="bs-basic-table"),
     path('bs-basicApprovel',views.individualAdmin_approvels,name="individualAdmin_approvels"),
-    path('inquiryApprove',views.inquiryApprove,name="inquiryApprove"),
+    path('inquiryApprove/<uid>',views.inquiryApprove,name="inquiryApprove"),
     path('invoice',views.GeneratePdf,name="generatepdf"),
     path('create_pdf',views.create_pdf,name="create_pdf"),
     path('index1',views.index1,name="index1"),
@@ -43,6 +43,12 @@ urlpatterns = [
     path('student_apply/<SCHOOL_NAME>',views.student_apply,name="student_apply"),
     path('student_profiling',views.student_profiling,name="student_profiling"),
     path('individualAdminSlots',views.individualAdminSlots,name="individualAdminSlots"),
+    path('ajax/individual_load_slots/', views.individual_load_slots, name='ajax_individual_load_slots'), # AJAX
+    path('invoicees',views.invoice,name="invoice"),
+    path('invoice_pdf/<student_id>',views.invoice_pdf,name="invoice_pdf"),
+    path('Invoice_requests',views.Invoice_requests,name="invoice_requests"),
+    path('bs-basicInvoice',views.bsbasicInvoice,name="bs-basicInvoice"),
+
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

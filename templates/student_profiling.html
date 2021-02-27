@@ -94,7 +94,7 @@
                     input { margin-bottom: 10px; width:40px; }
                 </style>  
                 <div class="col-md-6 contact-form wow animated fadeInLeft">
-                    <form action="saasappointment" id="slot_form" method="POST">
+                    <form action="" id="slot_form" method="POST">
                         {% csrf_token %}
                         <div>
                            <h3><b>Profiling Information</b></h3>
@@ -139,7 +139,7 @@
 
         
         $.ajax({                       // initialize an AJAX request
-            url: 'ajax/load_slots/',                    // set the url of the request (= /persons/ajax/load-cities/ )
+            url: 'ajax/individual_load_slots/',                    // set the url of the request (= /persons/ajax/load-cities/ )
             data: {
                 'day_id': dayId,       // add the country id to the GET parameters
             },
