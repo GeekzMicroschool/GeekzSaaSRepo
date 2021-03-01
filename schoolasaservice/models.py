@@ -316,6 +316,7 @@ class studentApplication(models.Model):
     last_name = models.CharField(max_length=250)
     gender = models.CharField(max_length=250)
     SaaSDOB = models.DateField()
+    enrolling_year = models.CharField(max_length=250)
     enrolling_grade = models.CharField(max_length=250)
     attendedschool = models.CharField(max_length=250)
     Fathersname = models.CharField(max_length=250)
@@ -338,8 +339,12 @@ class studentApplication(models.Model):
     hear_about = models.CharField(max_length=100)
     IS_COMPLETE= models.CharField(max_length=1, default="N")
     microschool = models.ForeignKey(INDIVIDUAL_WEBPAGESS1, on_delete=models.CASCADE)
+    status = models.CharField(max_length=250)
     student_id = models.CharField(max_length=100)
-
+    Profiling_scheduled = models.CharField(max_length=1, default="N")
+    Profiling_complete = models.CharField(max_length=1, default="N")
+    Profiling_approved = models.CharField(max_length=1, default="N")
+    
 
 class Individual_admin_slots(models.Model):
     admin_id = models.ForeignKey(INDIVIDUAL_WEBPAGESS1, on_delete=models.CASCADE)
@@ -370,6 +375,18 @@ class InvoiceRequest(models.Model):
     microschool = models.CharField(max_length=800)
     student_id = models.CharField(max_length=100)
     IS_COMPLETE= models.CharField(max_length=1, default="N")
+
+class transcriptsRequest(models.Model):
+    first_name = models.CharField(max_length=250)
+    last_name = models.CharField(max_length=250)
+    Fathersname = models.CharField(max_length=250)
+    address = models.CharField(max_length=800)
+    email = models.EmailField(max_length=250)
+    microschool = models.CharField(max_length=800)
+    student_id = models.CharField(max_length=100)
+    payment_complete = models.CharField(max_length=1, default="N")
+    IS_COMPLETE= models.CharField(max_length=1, default="N")
+
 
 
 

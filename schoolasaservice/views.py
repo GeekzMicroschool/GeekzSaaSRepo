@@ -1112,7 +1112,7 @@ def create_pdf(request):
             'customer_name': 'Cooper Mann',
             'order_id': 1233434,
     }
-    pdf = render_to_pdf('create_pdf.html',data)
+    pdf = render_to_pdf('invoice.html',data)
     return HttpResponse(pdf, content_type='application/pdf')
 
     
@@ -1338,12 +1338,14 @@ def student_apply(request,SCHOOL_NAME):
         childsuspended = request.POST['childsuspended']
         anythingelse = request.POST['anythingelse']
         hear_about = request.POST['hear_about']
+        year = request.POST['year']
         micro_web = INDIVIDUAL_WEBPAGESS1.objects.filter(SCHOOL_NAME=SCHOOL_NAME)
         micro_web1 = list(micro_web)
         micro_web1 = micro_web1[0]
-        application_obj = studentApplication(email=email,phone= number,enrolling_grade=enrolling_grade,first_name=first_name,last_name=last_name,gender=gender,SaaSDOB=SaaSDOB,attendedschool=attendedschool,Fathersname=Fathersname,Fathersoccupation=Fathersoccupation,Mothersname=Mothersname,Mothersoccupation=Mothersoccupation,income=income,address=address,geekzcommute=geekzcommute,yescommutelocation=yescommutelocation,childproud=childproud,familyactivities=familyactivities,childsinterests=childsinterests,yourdreams=yourdreams,medicalcondition=medicalcondition,childsuspended=childsuspended,anythingelse=anythingelse,hear_about=hear_about,IS_COMPLETE='Y',student_id=user.id,microschool= micro_web1)
+        application_obj = studentApplication(email=email,phone= number,enrolling_grade=enrolling_grade,first_name=first_name,last_name=last_name,gender=gender,SaaSDOB=SaaSDOB,attendedschool=attendedschool,Fathersname=Fathersname,Fathersoccupation=Fathersoccupation,Mothersname=Mothersname,Mothersoccupation=Mothersoccupation,income=income,address=address,geekzcommute=geekzcommute,yescommutelocation=yescommutelocation,childproud=childproud,familyactivities=familyactivities,childsinterests=childsinterests,yourdreams=yourdreams,medicalcondition=medicalcondition,childsuspended=childsuspended,anythingelse=anythingelse,hear_about=hear_about,IS_COMPLETE='Y',student_id=user.id,microschool= micro_web1,enrolling_year=year)
         application_obj.save()
-        return render(request,'student_profiling.html') 
+        form = IndividualSlotCreationForm()
+        return render(request,'student_profiling.html',{'form':form}) 
     return render(request,'student_apply.html') 
 
 def student_profiling(request):
@@ -1400,10 +1402,9 @@ def invoice_pdf(request,student_id):
     ob = studentApplication.objects.get(student_id=student_id)
     print(ob.last_name)
     data = {
-            'geekName': ob.first_name , 
+            'geekName': ob.first_name, 
             'fathername': ob.Fathersname,
-            'address': ob.address,
-           
+            'address': ob.address,      
     }
     invoice = InvoiceRequest.objects.get(student_id=ob.student_id)
     invoice.IS_COMPLETE = 'Y'
@@ -1420,7 +1421,6 @@ def Invoice_requests(request):
     invoice_obj = InvoiceRequest(email= student_obj.email,first_name=student_obj.first_name,last_name=student_obj.last_name,Fathersname=student_obj.Fathersname,address=student_obj.address,microschool=student_obj.microschool.SCHOOL_NAME,student_id=user.id)
     invoice_obj.save()
     print('HIIIIII')
-    user_details=USER_DETAILS.objects.filter(USER_EMAIL=user.email)  
     location = INDIVIDUAL_WEBPAGESS1.objects.get(SCHOOL_NAME=student_obj.microschool.SCHOOL_NAME)
     return redirect('webpage',LOCALITY=location.LOCALITY)
 
@@ -1431,6 +1431,54 @@ def bsbasicInvoice(request):
     sch = INDIVIDUAL_WEBPAGESS1.objects.get(uid = uid_obj.uid)
     invoice = InvoiceRequest.objects.filter(microschool=sch.SCHOOL_NAME,IS_COMPLETE='N')
     return render(request,'bs-basicInvoice.html',{'invoice':invoice})
+
+def Transcript_PDF(request,student_id):
+    ob = studentApplication.objects.get(student_id=student_id)
+    print(ob.last_name)
+    data = {
+            'geekName': ob.first_name, 
+            'fathername': ob.Fathersname,
+            'address': ob.address,      
+    }
+    trans = transcriptsRequest.objects.get(student_id=ob.student_id)
+    trans.IS_COMPLETE = 'Y'
+    trans.save(update_fields=['IS_COMPLETE'])
+    pdf = render_to_pdf('transcripts.html',data)
+    return HttpResponse(pdf, content_type='application/pdf')
+
+def transcriptsApprove(request):
+    user_id=request.session['user_id']
+    user=User.objects.get(id=user_id)
+    uid_obj = USER_DETAILS.objects.get(USER_EMAIL=user.email)
+    sch = INDIVIDUAL_WEBPAGESS1.objects.get(uid = uid_obj.uid)
+    transcripts = transcriptsRequest.objects.filter(microschool=sch.SCHOOL_NAME,IS_COMPLETE='N',payment_complete='Y')
+    return render(request,"transcriptsApprove.html",{'transcripts': transcripts})
+
+
+def transcripts_request(request):
+    user_id=request.session['user_id']
+    user=User.objects.get(id=user_id)
+    print(user)
+    student_obj = studentApplication.objects.get(student_id=user.id)
+    trans_obj = transcriptsRequest(email=student_obj.email,first_name=student_obj.first_name,last_name=student_obj.last_name,Fathersname=student_obj.Fathersname,address=student_obj.address,microschool=student_obj.microschool.SCHOOL_NAME,student_id=user.id,payment_complete='Y')
+    trans_obj.save()
+    location = INDIVIDUAL_WEBPAGESS1.objects.get(SCHOOL_NAME=student_obj.microschool.SCHOOL_NAME)
+    return redirect('webpage',LOCALITY=location.LOCALITY)
+
+def newApplications(request):
+    user_id=request.session['user_id']
+    user=User.objects.get(id=user_id)
+    uid_obj = USER_DETAILS.objects.get(USER_EMAIL=user.email)
+    sch = INDIVIDUAL_WEBPAGESS1.objects.filter(uid = uid_obj.uid)
+    sch1 = list(sch)
+    sch1 = sch1[0]
+    student_obj = studentApplication.objects.filter(microschool=sch1)
+    return render(request,'newApplications.html',{'student_obj': student_obj})
+
+
+
+
+
 
    
     

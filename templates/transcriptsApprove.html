@@ -327,13 +327,6 @@
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                 </li>
-                                <li class="active">
-                                    <a href="bs-basicInvoice">
-                                        <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
-                                        <span class="pcoded-mtext" data-i18n="nav.form-components.main">Invoices</span>
-                                        <span class="pcoded-mcaret"></span>
-                                    </a>
-                                </li>
                                 
                             </ul>
 
@@ -460,11 +453,11 @@
                                                             <th>Father Name</th>
                                                             <th>Email</th>
                                                             <th>Address</th>
-                                                            <th>Generate Invoice</th>
+                                                            <th>Transcripts Pdf</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        {% for i in invoice %}
+                                                        {% for i in transcripts %}
                                                         <tr>
                                                             <th scope="row">1</th>
                                                             <td>{{i.first_name}}</td>
@@ -472,7 +465,7 @@
                                                             <td>{{i.Fathersname}}</td>
                                                             <td>{{i.email}}</td>
                                                             <td>{{i.address}}</td>
-                                                            <td><a href="invoice_pdf/{{i.student_id}}"><button type="button">Approve</button></a></td>
+                                                            <td><a href="Transcript_PDF/{{i.student_id}}"><button type="button">Approve</button></a></td>
                                                         </tr>
                                                         {% endfor %}
                                                     </tbody>

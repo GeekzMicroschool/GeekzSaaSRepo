@@ -48,7 +48,10 @@ urlpatterns = [
     path('invoice_pdf/<student_id>',views.invoice_pdf,name="invoice_pdf"),
     path('Invoice_requests',views.Invoice_requests,name="invoice_requests"),
     path('bs-basicInvoice',views.bsbasicInvoice,name="bs-basicInvoice"),
-
+    path('transcriptsApprove',views.transcriptsApprove,name="transcriptsApprove"),
+    path('Transcript_PDF/<student_id>',views.Transcript_PDF,name="transcript_PDF"),
+    path('transcripts_request',views.transcripts_request,name="transcripts_request"),
+    path('newApplications',views.newApplications,name="newApplications"),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
