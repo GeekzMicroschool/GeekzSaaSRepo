@@ -32,6 +32,7 @@ urlpatterns = [
     path('geekzmicro',views.school_template,name="geekzmicro"),
     path('web1',views.web1,name="web1"),
     path('rough2',views.rough2,name="rough2"),
+    path('IndividualFeedetails',views.IndividualFeedetails,name="IndividualFeedetails"),
     path('bulk_load',views.bulk_load,name="bulk_load"),
     #path('drag_load',views.drag_load,name="drag_load"),
     path('clear',views.clear_database,name="clear"),
@@ -52,6 +53,10 @@ urlpatterns = [
     path('Transcript_PDF/<student_id>',views.Transcript_PDF,name="transcript_PDF"),
     path('transcripts_request',views.transcripts_request,name="transcripts_request"),
     path('newApplications',views.newApplications,name="newApplications"),
+    path('IndividualApproveProfiling',views.IndividualApproveProfiling,name="IndividualApproveProfiling"),
+    path('complete_profiling/<student_id>',views.complete_profiling,name="complete_profiling"),
+    path('approve_profiling/<student_id>',views.approve_profiling,name="approve_profiling"),
+    path('reject_profiling/<student_id>',views.reject_profiling,name="reject_profiling")
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

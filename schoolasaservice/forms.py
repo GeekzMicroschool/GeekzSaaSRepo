@@ -60,7 +60,10 @@ class IndividualSlotCreationForm(forms.ModelForm):
     "placeholder":"%Y-%m-%d",
     "class":"form-control"
   }))'''
-  
+  mode = [('online','ONLINE'),
+            ('offline','OFFLINE'),
+            ('both','BOTH')]
+  modeofprofiling = forms.CharField(widget=forms.Select(choices= mode,attrs={'class':'form-control'}))
   class Meta:
     model = StudentProfiling
     fields = ['schedule_date','slot']

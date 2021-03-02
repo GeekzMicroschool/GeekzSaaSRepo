@@ -300,6 +300,12 @@ def user_directory_path_gala(instance, filename):
     # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
     return 'micro_{0}{1}'.format(instance.gala_admin.SCHOOL_NAME , filename)   
 
+class individual_feedetails(models.Model):
+    admin = models.ForeignKey(INDIVIDUAL_WEBPAGESS1, on_delete=models.CASCADE)
+    annualFee = models.IntegerField()
+    fee_TERM1 = models.IntegerField()
+    fee_TERM2 =  models.IntegerField()
+    fee_TERM3 = models.IntegerField()
 
 
 class Photo_webpage1(models.Model):
@@ -340,7 +346,7 @@ class studentApplication(models.Model):
     IS_COMPLETE= models.CharField(max_length=1, default="N")
     microschool = models.ForeignKey(INDIVIDUAL_WEBPAGESS1, on_delete=models.CASCADE)
     status = models.CharField(max_length=250)
-    student_id = models.CharField(max_length=100)
+    student_id = models.CharField(max_length=100,primary_key=True)
     Profiling_scheduled = models.CharField(max_length=1, default="N")
     Profiling_complete = models.CharField(max_length=1, default="N")
     Profiling_approved = models.CharField(max_length=1, default="N")
@@ -353,7 +359,7 @@ class Individual_admin_slots(models.Model):
     duration = models.TextField()
 
 class StudentProfiling(models.Model):
-    uid=models.CharField(max_length=50, primary_key=True)
+    uid=models.ForeignKey(studentApplication, on_delete=models.CASCADE)
     IS_PROFILINGCOMPLETE=models.CharField(max_length=1, default="N")
     IS_APPROVED=models.CharField(max_length=1, default="N")
     slot = models.ForeignKey(Individual_admin_slots, on_delete=models.CASCADE)
@@ -364,7 +370,8 @@ class StudentProfiling(models.Model):
     hangoutLink = models.CharField(max_length=600)
     START_TIME = models.CharField(max_length=250)
     END_TIME = models.CharField(max_length=250)
-    HEADING = models.CharField(max_length=300)    
+    HEADING = models.CharField(max_length=300)  
+    modeofprofiling =  models.CharField(max_length=300) 
 
 class InvoiceRequest(models.Model):
     first_name = models.CharField(max_length=250)
@@ -376,6 +383,8 @@ class InvoiceRequest(models.Model):
     student_id = models.CharField(max_length=100)
     IS_COMPLETE= models.CharField(max_length=1, default="N")
 
+
+
 class transcriptsRequest(models.Model):
     first_name = models.CharField(max_length=250)
     last_name = models.CharField(max_length=250)
@@ -386,6 +395,15 @@ class transcriptsRequest(models.Model):
     student_id = models.CharField(max_length=100)
     payment_complete = models.CharField(max_length=1, default="N")
     IS_COMPLETE= models.CharField(max_length=1, default="N")
+
+class enrolledStudents(models.Model):
+    student_enrolled = models.ForeignKey(studentApplication, on_delete=models.CASCADE)
+    active_status = models.CharField(max_length=1, default="N")
+    fees_paid  =   models.CharField(max_length=1, default="N")
+    
+
+    
+
 
 
 

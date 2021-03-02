@@ -2,6 +2,7 @@
 <select class="form-control" style="width:100%" >
 <option   value="">-------------------------------------Select slot----------------------------------------------------</option>
 {% for s in slots %}
-<option class="form-control" style="width:21%"value="{{ s.pk }}">{{ s.slot}} </option>
+<option class="form-control" style="width:100%"value="{{ s.pk }}">{{ s.slot}} </option>
 {% endfor %}
 </select>
+<br>

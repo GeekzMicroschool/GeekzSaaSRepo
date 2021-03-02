@@ -912,11 +912,27 @@ def web_form(request):
             ob = INDIVIDUAL_WEBPAGESS1(uid = user_details.uid,SCHOOL_NAME = school_name ,LOCALITY = locality ,AMENITIES_is_Spacious_Studio=is_Spacious_Studio ,AMENITIES_is_Outdoor_PlayLawn=is_Outdoor_PlayLawn,AMENITIES_is_Commute = is_Commute,AMENITIES_is_CCTV = is_CCTV,AMENITIES_is_WiFi=is_WiFi,AMENITIES_is_Device=is_Device,AMENITIES_is_Food=is_Food,AMENITIES_is_Daycare=is_Daycare,AMENITIES_is_After_School=is_After_School,AMENITIES_is_Residential= is_Residential,BANNER1=banner11,BANNER2=banner2, BANNER3=banner3,BANNER4=banner4, GOOGLE_REVIEWS_LINK =googlereview,FOUNDER_NAME=founder_name1,DESIGNATION=founder_designation,CO_FOUNDER1=founder_name2,DESIGNATION_CO1=founder_designation1,CONTENT1=about_founder1,CONTENT2=about_founder2,ADDRESS1=address1,ADDRESS2=address2,SCHOOL_LOCALITY =SchoolArea,SCHOOL_PHONE=phone,SCHOOL_PHONE1=phone1,SCHOOL_EMAIL=email,SCHOOL_HOURS_KS=time_from+' to '+ time_to,SCHOOL_HOURS_ES=time1_from+' to '+ time1_to,IS_COMPLETE='Y',LATITUDE=latitude,LONGITUDE=longitude)
             ob.save()
             #OBJ = webdata2.objects.filter(url=url)
-            return render(request,'bulk_load.html')
+            return render(request,'individual_feedetails.html')
     
     return render(request,'web_form.html')
 
 
+def IndividualFeedetails(request):
+    if request.method == "POST":
+        user_id=request.session['user_id']
+        user=User.objects.get(id=user_id)
+        user_details=USER_DETAILS.objects.get(USER_EMAIL=user.email)
+        iw = INDIVIDUAL_WEBPAGESS1.objects.filter(uid = user_details.uid)
+        iw1 = list(iw)
+        iw1 = iw1[0]
+        annualfee = request.POST['annualfee']
+        fees_term1 = request.POST['fees_term1']
+        fees_term2 = request.POST['fees_term2']
+        fees_term3 = request.POST['fees_term3']
+        fee_obj = individual_feedetails(admin=iw1,annualFee=annualfee,fee_TERM1=fees_term1,fee_TERM2=fees_term2,fee_TERM3=fees_term3)
+        fee_obj.save()
+        return render(request,'bulk_load.html')
+    return render(request,'individual_feedetails.html')
 
 def web1(request):
     if request.method == "POST" :
@@ -1348,8 +1364,83 @@ def student_apply(request,SCHOOL_NAME):
         return render(request,'student_profiling.html',{'form':form}) 
     return render(request,'student_apply.html') 
 
-def student_profiling(request):
+def student_profiling(request): 
     form = IndividualSlotCreationForm()
+    if request.method == 'POST':
+        print("inside  profiling")
+        form = IndividualSlotCreationForm(request.POST)
+        if form.is_valid():
+            schedule_date = form.cleaned_data['schedule_date']
+            slot = form.cleaned_data['slot']
+            modeofprofiling = form.cleaned_data['modeofprofiling']
+            user_id=request.session['user_id']
+            user=User.objects.get(id=user_id)
+            slot_obj = Individual_admin_slots.objects.filter(id=slot.id)
+            print('slot_obj',slot_obj)
+            qq = list(slot_obj)
+            print(qq)
+            qq = qq[0]
+            nn = qq.duration
+            start_time = qq.slot
+            now = datetime.datetime.now()
+            date_obj = schedule_date.strftime("%Y-%m-%d")
+            datee = schedule_date.strftime("%b %d %Y")
+            print(datee)
+            print(type(date_obj))
+            print(type(qq.slot))
+            start = datetime.datetime.strptime(qq.slot, '%I:%M %p')
+            end = start + datetime.timedelta(minutes=float(nn))
+            start = start.strftime("%I:%M %p")
+            end = end.strftime("%I:%M %p")
+            start_time = date_obj + " "+ start_time 
+            start_time = datetime.datetime.strptime(start_time, '%Y-%m-%d %I:%M %p')
+            end_time = start_time + datetime.timedelta(minutes=float(nn))
+            start_time = start_time.astimezone(timezone('Asia/Kolkata')) # time zone attached
+            end_time = end_time.astimezone(timezone('Asia/Kolkata'))   # time zone attached
+            print('st',start)
+            print('et', end_time)
+            print("type",type(start_time))
+            heading = qq.day + " " + datee + " " + "at" + " " + start + " " + "to" + " " + end
+            service_account_email = "geekz-145@geekz-297209.iam.gserviceaccount.com"
+            SCOPES = ["https://www.googleapis.com/auth/calendar"]
+            credentials = ServiceAccountCredentials.from_json_keyfile_name( filename="client_secret.json", scopes=SCOPES )
+            def build_service():
+                service = build("calendar", "v3", credentials=credentials)
+                return service
+                
+            def create_event():
+                service = build_service()
+                event_cal = (service.events().insert(calendarId="c27hrqb165rc6s5mgoqq5l1e4c@group.calendar.google.com",body={
+                "summary": "GEEKZ",
+                "description": "GEEKZ INTERVIEW FOR STUDENT ADMISSION",
+                "start":{"dateTime":start_time.isoformat()}, 
+                "end": {
+                    "dateTime": end_time.isoformat()
+                        },
+                "reminders": {"useDefault": True},
+                "attendees":user.email,
+
+                    }).execute())     
+                print("ee",event_cal) 
+                student_obj = studentApplication.objects.filter(student_id=user.id)
+                s = list(student_obj)
+                s = s[0]
+                #create_event.link = event_cal['hangoutLink'] ##  fetch google meet link from event_cal 
+                profiling_obj = StudentProfiling(uid =s, IS_PROFILINGCOMPLETE='Y',USER = user.email , EVENT_ID = event_cal['id'],ICalUID=event_cal['iCalUID'],START_TIME= event_cal['start']['dateTime'],END_TIME = event_cal['end']['dateTime'],HEADING= heading,slot= qq,schedule_date= schedule_date,modeofprofiling=modeofprofiling)
+                profiling_obj.save()
+                subject='Geekz SaaS Profiling Confirmation'
+                html_template='socialaccount/email/SaaS_profiling_copy.html'
+                html_message=render_to_string(html_template,{'heading':heading})
+                to_email= user.email
+                message=EmailMessage(subject, html_message, settings.EMAIL_HOST_USER, [to_email])
+                message.content_subtype='html' 
+                message.send()
+            create_event()
+            student_obj = studentApplication.objects.get(student_id=user.id)
+            student_obj.Profiling_scheduled ='Y'
+            student_obj.save(update_fields=['Profiling_scheduled'])
+            location = INDIVIDUAL_WEBPAGESS1.objects.get(SCHOOL_NAME=student_obj.microschool.SCHOOL_NAME)
+            return redirect('webpage',LOCALITY=location.LOCALITY)
     return render(request,'student_profiling.html',{'form':form})  
 
 def individualAdminSlots(request):
@@ -1474,6 +1565,56 @@ def newApplications(request):
     sch1 = sch1[0]
     student_obj = studentApplication.objects.filter(microschool=sch1)
     return render(request,'newApplications.html',{'student_obj': student_obj})
+
+def IndividualApproveProfiling(request):
+    user_id=request.session['user_id']
+    user=User.objects.get(id=user_id)
+    uid_obj = USER_DETAILS.objects.get(USER_EMAIL=user.email)
+    ud = INDIVIDUAL_WEBPAGESS1.objects.filter(uid = uid_obj.uid)
+    ud1 = list(ud)
+    ud1 = ud1[0]
+    obj = studentApplication.objects.filter(microschool= ud1)
+    o = list(obj)
+    o = o[0]
+    objectProf = StudentProfiling.objects.filter(uid = o, IS_APPROVED='N')
+    return render(request,'individualprofiling.html',{'objectProf':objectProf})
+
+def complete_profiling(request,student_id):
+    student_obj = studentApplication.objects.get(student_id=student_id)
+    student_obj.Profiling_complete ='Y'
+    student_obj.save(update_fields=['Profiling_complete'])
+    student_objj = studentApplication.objects.filter(student_id=student_id)
+    o = list(student_objj)
+    o = o[0]
+    objectProf = StudentProfiling.objects.filter(uid = o)
+    return redirect('IndividualApproveProfiling')
+
+def approve_profiling(request,student_id):
+    student_obj = studentApplication.objects.get(student_id=student_id)
+    student_obj.Profiling_approved ='Y'
+    student_obj.save(update_fields=['Profiling_approved'])
+    student_objj = studentApplication.objects.filter(student_id=student_id)
+    o = list(student_objj)
+    o = o[0]
+    Prof = StudentProfiling.objects.get(uid = o)
+    Prof.IS_APPROVED = 'Y'
+    Prof.save(update_fields=['IS_APPROVED'])
+    objectProf = StudentProfiling.objects.filter(uid = o)
+    return redirect('IndividualApproveProfiling')
+
+def reject_profiling(request,student_id):
+    student_obj = studentApplication.objects.get(student_id=student_id)
+    student_obj.Profiling_approved ='N'
+    student_obj.save(update_fields=['Profiling_approved'])
+    student_objj = studentApplication.objects.filter(student_id=student_id)
+    o = list(student_objj)
+    o = o[0]
+    Prof = StudentProfiling.objects.get(uid = o)
+    Prof.IS_APPROVED = 'Y'
+    Prof.save(update_fields=['IS_APPROVED'])
+    objectProf = StudentProfiling.objects.filter(uid = o)
+    return redirect('IndividualApproveProfiling')  
+
 
 
 
