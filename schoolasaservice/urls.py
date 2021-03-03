@@ -56,7 +56,14 @@ urlpatterns = [
     path('IndividualApproveProfiling',views.IndividualApproveProfiling,name="IndividualApproveProfiling"),
     path('complete_profiling/<student_id>',views.complete_profiling,name="complete_profiling"),
     path('approve_profiling/<student_id>',views.approve_profiling,name="approve_profiling"),
-    path('reject_profiling/<student_id>',views.reject_profiling,name="reject_profiling")
+    path('reject_profiling/<student_id>',views.reject_profiling,name="reject_profiling"),
+    path('studentedit_admin/<student_id>',views.studentedit_admin,name="studentedit_admin"),
+    path('auditionApprove',views.auditionApprove,name="auditionApprove"),
+    path('audition_accept/<uid>',views.audition_accept,name="audition_accept"),
+    path('Affliatestracker',views.Affliatestracker,name="Affliatestracker"),
+    path('Profiling_saas',views.Profiling_saas,name="Profiling_saas"),
+    path('Profiling_accept/<uid>',views.Profiling_accept,name="Profiling_accept"),
+
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

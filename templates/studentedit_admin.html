@@ -313,17 +313,17 @@
                             </ul>
                             <div class="pcoded-navigatio-lavel" data-i18n="nav.category.forms">Forms &amp; Tables</div>
                             <ul class="pcoded-item pcoded-left-item">
-                                <li>
+                                <li class="active">
                                     <a href="individualAdminSlots">
                                         <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
                                         <span class="pcoded-mtext" data-i18n="nav.form-components.main">Add Slots</span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                 </li>
-                                <li class="active">
+                                <li>
                                     <a href="bs-basicApprovel">
                                         <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
-                                        <span class="pcoded-mtext" data-i18n="nav.form-components.main">Approvel</span>
+                                        <span class="pcoded-mtext" data-i18n="nav.form-components.main"> Inquiry Approvel</span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                 </li>
@@ -426,171 +426,152 @@
                     </nav>
                     <div class="pcoded-content">
                         <div class="pcoded-inner-content">
+
                             <!-- Main-body start -->
                             <div class="main-body">
                                 <div class="page-wrapper">
                                     <!-- Page-header start -->
                                    
-                                <!-- Page-header end -->
-                                <style>
-                                .modal {
-                                display: none; /* Hidden by default */
-                                position: fixed; /* Stay in place */
-                                z-index: 1; /* Sit on top */
-                                padding-top: 100px; /* Location of the box */
-                                left: 0;
-                                top: 0;
-                                width: 100%; /* Full width */
-                                height: 100%; /* Full height */
-                                overflow: auto; /* Enable scroll if needed */
-                                background-color: rgb(0,0,0); /* Fallback color */
-                                background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-                                }
+                                    <!-- Page-header end -->
 
-                                /* Modal Content */
-                                .modal-content {
-                                background-color: #fefefe;
-                                margin: auto;
-                                padding: 20px;
-                                border: 1px solid #888;
-                                width: 80%;
-                                }
+                                    <!-- Page body start -->
+                                    <div class="page-body">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <!-- Basic Form Inputs card start -->
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <h5>Add Slots</h5>
+                                                       
+                                                        <div class="card-header-right"><i
+                                                            class="icofont icofont-spinner-alt-5"></i></div>
 
-                                /* The Close Button */
-                                .close {
-                                color: #aaaaaa;
-                                float: right;
-                                font-size: 28px;
-                                font-weight: bold;
-                                }
+                                                            <div class="card-header-right">
+                                                                <i class="icofont icofont-spinner-alt-5"></i>
+                                                            </div>
 
-                                .close:hover,
-                                .close:focus {
-                                color: #000;
-                                text-decoration: none;
-                                cursor: pointer;
-                                }
-                                </style> 
-                                <script>
-                                    // Get the modal
-                                    var modal = document.getElementById("myModal");
-
-                                    // Get the button that opens the modal
-                                    var btn = document.getElementById("myBtn");
-
-                                    // Get the <span> element that closes the modal
-                                    var span = document.getElementsByClassName("close")[0];
-
-                                    // When the user clicks the button, open the modal 
-                                    btn.onclick = function() {
-                                    modal.style.display = "block";
-                                    }
-
-                                    // When the user clicks on <span> (x), close the modal
-                                    span.onclick = function() {
-                                    modal.style.display = "none";
-                                    }
-
-                                    // When the user clicks anywhere outside of the modal, close it
-                                    window.onclick = function(event) {
-                                    if (event.target == modal) {
-                                        modal.style.display = "none";
-                                    }
-                                    }
-                                    </script>
-  
-                                <!-- Page-body start -->
-                                <div class="page-body">
-                                    <!-- Basic table card start -->
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <h5>New Applications</h5>
-                                           
-                                            <div class="card-header-right">    <ul class="list-unstyled card-option">        <li><i class="icofont icofont-simple-left "></i></li>        <li><i class="icofont icofont-maximize full-card"></i></li>        <li><i class="icofont icofont-minus minimize-card"></i></li>        <li><i class="icofont icofont-refresh reload-card"></i></li>        <li><i class="icofont icofont-error close-card"></i></li>    </ul></div>
-                                        </div>
-                                        <div class="card-block table-border-style">
-                                            <div class="table-responsive">
-                                                <table class="table">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>#</th>
-                                                            <th>Student id</th>
-                                                            <th>First Name</th>
-                                                            <th>Last Name</th>
-                                                            <th>Father Name</th>
-                                                            <th>Mother Name</th>
-                                                            <th>Email</th>
-                                                            <th>Address</th>
-                                                            <th>Phone</th>
-                                                            <th>Geekz Commute</th>
-                                                            <th>Commute Location</th>
-                                                            <th>Enrolling year</th>
-                                                            <th>Enrolling Grade</th>
-                                                            <th>Profiling scheduled</th>
-                                                            <th>Profiling Complete</th>
-                                                            <th>Profiling Approved</th>
-                                                            <th>Enrolled</th>
-                                                            <th>Edit</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
+                                                        </div>
                                                         {% for i in student_obj %}
-                                                        <tr>
-                                                            <th scope="row">1</th>
-                                                            <td>{{i.student_id}}</td>
-                                                            <td>{{i.first_name}}</td>
-                                                            <td>{{i.last_name}}</td>
-                                                            <td>{{i.Fathersname}}</td>
-                                                            <td>{{i.Mothersname}}</td>
-                                                            <td>{{i.email}}</td>
-                                                            <td>{{i.address}}</td>
-                                                            <td>{{i.phone}}</td>
-                                                            <td>{{i.geekzcommute}}</td>
-                                                            <td>{{i.yescommutelocation}}</td>
-                                                            <td>{{i.enrolling_year}}</td>
-                                                            <td>{{i.enrolling_grade}}</td>
-                                                            <td>{{i.Profiling_scheduled}}</td>
-                                                            <td>{{i.Profiling_complete}}</td>
-                                                            <td>{{i.Profiling_approved}}</td>
-                                                            <td>{{i.Enrolled}}</td>
-                                                            <td><a href="studentedit_admin/{{i.student_id}}"><button  type="button">Edit</button></td>
-                                                        </tr>
-                                                        {% endfor %}
-                                                    </tbody>
-                                                </table>
+                                                        <div class="card-block">
+                                                            <form method = "POST"> {% csrf_token %}
+                                                                <div class="form-group row">
+                                                                    <label class="col-sm-2 col-form-label">First Name</label>
+                                                                    <div class="col-sm-10">
+                                                                        <input type="text" class="form-control" name="first_name" value="{{i.first_name}}" required>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group row">
+                                                                    <label class="col-sm-2 col-form-label">Last Name</label>
+                                                                    <div class="col-sm-10">
+                                                                        <input type="text" class="form-control"  name="last_name"  value="{{i.last_name}}" required>
+                                                                    </div>
+                                                                </div>
+                                                                
+                                                                <div class="form-group row">
+                                                                    <label class="col-sm-2 col-form-label">Father Name</label>
+                                                                    <div class="col-sm-10">
+                                                                        <input type="text" class="form-control" name="Fathersname" value="{{i.Fathersname}}" required>
+                                                                    </div>
+                                                                </div>
+                                                                 <div class="form-group row">
+                                                                    <label class="col-sm-2 col-form-label">Fathers occupation</label>
+                                                                    <div class="col-sm-10">
+                                                                        <input type="text" class="form-control" name="Fathersoccupation" value="{{i.Fathersoccupation}}" required>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group row">
+                                                                    <label class="col-sm-2 col-form-label">Mother Name</label>
+                                                                    <div class="col-sm-10">
+                                                                        <input type="text" class="form-control" name="Mothersname" value="{{i.Mothersname}}" required>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group row">
+                                                                    <label class="col-sm-2 col-form-label">Mother Occupation</label>
+                                                                    <div class="col-sm-10">
+                                                                        <input type="text" class="form-control" name="Mothersoccupation" value="{{i.Mothersoccupation}}" required>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group row">
+                                                                    <label class="col-sm-2 col-form-label">Email</label>
+                                                                    <div class="col-sm-10">
+                                                                        <input type="text" class="form-control" name="email" value="{{i.email}}" required>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group row">
+                                                                    <label class="col-sm-2 col-form-label">Enrolling Grade</label>
+                                                                    <div class="col-sm-10">
+                                                                        <select name="enrolling_grade" class="form-control">
+                                                                            <option selected >{{i.enrolling_grade}}</option>
+                                                                            <option>Pre-K</option>
+                                                                            <option>Jr-K</option>
+                                                                            <option>Sr-K</option>
+                                                                            <option>1st Grade</option>
+                                                                            <option>2nd Grade</option>
+                                                                            <option>3rd Grade</option>
+                                                                            <option>4th Grade</option>
+                                                                            <option>5th Grade</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group row">
+                                                                    <label class="col-sm-2 col-form-label">Enrolling Year</label>
+                                                                    <div class="col-sm-10">
+                                                                        <input type="text" class="form-control"  name="year" value="{{i.enrolling_year}}" required>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group row">
+                                                                    <label class="col-sm-2 col-form-label">Address</label>
+                                                                    <div class="col-sm-10">
+                                                                        <input type="text" class="form-control" name="address" value="{{i.address}}" required>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group row">
+                                                                    <label class="col-sm-2 col-form-label">Phone</label>
+                                                                    <div class="col-sm-10">
+                                                                        <input type="text" class="form-control" name="number" value="{{i.phone}}" required>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group row">
+                                                                    <label class="col-sm-2 col-form-label">Geekz Commute</label>
+                                                                    <div class="col-sm-10">
+                                                                        <input type="text" class="form-control" name="geekzcommute" value="{{i.geekzcommute}}" required>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group row">
+                                                                    <label class="col-sm-2 col-form-label">Commute Location</label>
+                                                                    <div class="col-sm-10">
+                                                                        <input type="text" class="form-control" name="yescommutelocation" value="{{i.yescommutelocation}}" required>
+                                                                    </div>
+                                                                </div>
+                                                                
+
+                                                                <button type="submit" class="btn btn-primary">Update</button> 
+                                                                <a href="newApplications"><button type="submit" class="btn btn-primary">Cancel</button> </a>
+                                                            </form>
+                                                         {% endfor %}
+                                                                    </div>
+                                                                </div>
+                             
+                             
+                                                                <!-- Main-body end -->
+                                                                <div id="styleSelector">
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    
-                                    <!-- Background Utilities table end -->
-                                </div>
-                                <!-- Page-body end -->
-                            </div>
-                        </div>
-                        <!-- Main-body end -->
-
-                        <div id="styleSelector">
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="fixed-button">
-	<a href="https://codedthemes.com/item/guru-able-admin-template/" target="_blank" class="btn btn-md btn-primary">
-	  <i class="fa fa-shopping-cart" aria-hidden="true"></i> Upgrade To Pro
-	</a>
-</div>
 
 
-<!-- Warning Section Starts -->
-<!-- Older IE warning message -->
-    <!--[if lt IE 9]>
+                                        <!-- Warning Section Starts -->
+                                        <!-- Older IE warning message -->
+<!--[if lt IE 9]>
 <div class="ie-warning">
     <h1>Warning!!</h1>
-    <p>You are using an outdated version of Internet Explorer, please upgrade <br/>to any of the following web browsers to access this website.</p>
+    <p>You are using an outdated version of Internet Explorer, please upgrade <br/>to any of the following web browsers
+        to access this website.</p>
     <div class="iew-container">
         <ul class="iew-download">
             <li>
@@ -633,22 +614,16 @@
 <script type="text/javascript" src='{% static "assets1/js/jquery/jquery.min.js" %}'></script>
 <script type="text/javascript" src='{% static "assets1/js/jquery-ui/jquery-ui.min.js" %}'></script>
 <script type="text/javascript" src='{% static "assets1/js/popper.js/popper.min.js" %}'></script>
-<script type="text/javascript" src= '{% static "assets1/js/bootstrap/js/bootstrap.min.js" %}'></script>
+<script type="text/javascript" src='{% static "assets1/js/bootstrap/js/bootstrap.min.js" %}'></script>
 <!-- jquery slimscroll js -->
-<script type="text/javascript" src= '{% static "assets1/js/jquery-slimscroll/jquery.slimscroll.js" %}'></script>
+<script type="text/javascript" src='{% static "assets1/js/jquery-slimscroll/jquery.slimscroll.js" %}'></script>
 <!-- modernizr js -->
 <script type="text/javascript" src='{% static "assets1/js/modernizr/modernizr.js" %}'></script>
 <script type="text/javascript" src='{% static "assets1/js/modernizr/css-scrollbars.js" %}'></script>
-<!-- am chart -->
+<!-- classie js -->
 <script type="text/javascript" src='{% static "assets1/js/classie/classie.js" %}'></script>
-<script src='{% static "assets1/pages/widget/amchart/amcharts.min.js" %}'></script>
-<script src='{% static "assets1/pages/widget/amchart/serial.min.js" %}'></script>
-<!-- Todo js -->
-<script type="text/javascript " src='{% static "assets1/pages/todo/todo.js" %}'></script>
 <!-- Custom js -->
-<script type="text/javascript" src='{% static "assets1/pages/dashboard/custom-dashboard.js" %}'></script>
 <script type="text/javascript" src='{% static "assets1/js/script.js" %}'></script>
-<script type="text/javascript " src='{% static "assets1/js/SmoothScroll.js" %}'></script>
 <script src='{% static "assets1/js/pcoded.min.js" %}'></script>
 <script src='{% static "assets1/js/demo-12.js" %}'></script>
 <script src='{% static "assets1/js/jquery.mCustomScrollbar.concat.min.js" %}'></script>

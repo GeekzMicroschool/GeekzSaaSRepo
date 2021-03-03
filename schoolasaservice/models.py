@@ -350,7 +350,7 @@ class studentApplication(models.Model):
     Profiling_scheduled = models.CharField(max_length=1, default="N")
     Profiling_complete = models.CharField(max_length=1, default="N")
     Profiling_approved = models.CharField(max_length=1, default="N")
-    
+    Enrolled = models.CharField(max_length=1, default="N")
 
 class Individual_admin_slots(models.Model):
     admin_id = models.ForeignKey(INDIVIDUAL_WEBPAGESS1, on_delete=models.CASCADE)

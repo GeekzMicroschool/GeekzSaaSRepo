@@ -1613,11 +1613,74 @@ def reject_profiling(request,student_id):
     Prof.IS_APPROVED = 'Y'
     Prof.save(update_fields=['IS_APPROVED'])
     objectProf = StudentProfiling.objects.filter(uid = o)
-    return redirect('IndividualApproveProfiling')  
+    return redirect('IndividualApproveProfiling')   
 
 
+def studentedit_admin(request,student_id):
+    student_obj = studentApplication.objects.filter(student_id=student_id)
+    student_obj1 = list(student_obj)
+    student_obj1 = student_obj1[0]
+    DOB = student_obj1. SaaSDOB 
+    print(student_obj1. SaaSDOB )
+    if request.method == "POST" :
+        first_name = request.POST['first_name']
+        last_name = request.POST['last_name']
+        #SaaSDOB = request.POST['SaaSDOB']
+        enrolling_grade = request.POST['enrolling_grade']
+        Fathersname = request.POST['Fathersname']
+        Fathersoccupation = request.POST['Fathersoccupation']
+        Mothersname = request.POST['Mothersname']
+        Mothersoccupation = request.POST['Mothersoccupation']
+        address = request.POST['address']
+        email = request.POST['email']
+        number = request.POST['number']
+        geekzcommute = request.POST['geekzcommute']
+        yescommutelocation = request.POST['yescommutelocation']
+        year = request.POST['year']
+        student_edit = studentApplication.objects.get(student_id=student_id)
+        student_edit.first_name = first_name
+        student_edit.last_name = last_name
+        #student_edit.SaaSDOB = SaaSDOB
+        student_edit.enrolling_grade = enrolling_grade
+        student_edit.Fathersname = Fathersname
+        student_edit.Fathersoccupation = Fathersoccupation
+        student_edit.Mothersname = Mothersname
+        student_edit.address = address
+        student_edit.email = email
+        student_edit.phone = number
+        student_edit. geekzcommute = geekzcommute
+        student_edit.yescommutelocation  = yescommutelocation 
+        student_edit.enrolling_year = year
+        student_edit.save(update_fields=['first_name','last_name','enrolling_grade','Fathersname','Fathersoccupation','Mothersname','address','email','phone','geekzcommute','yescommutelocation','enrolling_year'])
+        return redirect('newApplications')
+    return render(request,'studentedit_admin.html',{'student_obj': student_obj,'DOB':DOB})
 
 
+def auditionApprove(request):
+    personal_info = MICRO_APPLY.objects.all()
+    audition = MICRO_AUDN.objects.filter(IS_COMPLETE='Y',IS_APPROVED='N')
+    return render(request,'superAdminDashboard/auditionApprove.html',{'audition':audition})    
+
+def Affliatestracker(request):
+    personal_info = MICRO_APPLY.objects.all()
+    audition = MICRO_AUDN.objects.all()
+    return render(request,'superAdminDashboard/Affliatestracker.html',{'audition':audition,'personal_info':personal_info})
+
+def audition_accept(request,uid):
+    aud = MICRO_AUDN.objects.filter(uid = uid)
+    aud.IS_APPROVED='Y'
+    aud.save(update_fields=['IS_APPROVED'])
+    return rendirect('auditionApprove')
+
+def Profiling_saas(request):
+    micro = MICRO_PROFILING.objects.all()
+    return render(request,'superAdminDashboard/Profiling_saas.html',{'micro':micro})
+
+def Profiling_accept(request,uid):
+    aud =  MICRO_PROFILING.objects.filter(uid = uid)
+    aud.IS_APPROVED='Y'
+    aud.save(update_fields=['IS_APPROVED'])
+    return rendirect('Profiling_saas')
 
 
 
