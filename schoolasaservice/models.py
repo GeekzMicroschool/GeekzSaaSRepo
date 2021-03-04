@@ -300,13 +300,17 @@ def user_directory_path_gala(instance, filename):
     # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
     return 'micro_{0}{1}'.format(instance.gala_admin.SCHOOL_NAME , filename)   
 
-class individual_feedetails(models.Model):
+class individual_feedetail(models.Model):
     admin = models.ForeignKey(INDIVIDUAL_WEBPAGESS1, on_delete=models.CASCADE)
-    annualFee = models.IntegerField()
-    fee_TERM1 = models.IntegerField()
-    fee_TERM2 =  models.IntegerField()
-    fee_TERM3 = models.IntegerField()
-
+    fullYear_kindergarten = models.IntegerField()
+    fall_kindergarten= models.IntegerField()
+    spring_kindergarten =  models.IntegerField()
+    fullYear_lowerElementary = models.IntegerField()
+    fall_lowerElementary = models.IntegerField()
+    spring_lowerElementary =  models.IntegerField()
+    fullYear_UpperElementary = models.IntegerField()
+    fall_UpperElementary = models.IntegerField()
+    spring_UpperElementary =  models.IntegerField()
 
 class Photo_webpage1(models.Model):
     title = models.CharField(max_length=255, blank=True)

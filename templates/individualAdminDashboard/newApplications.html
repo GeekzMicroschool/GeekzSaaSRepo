@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Super Admin Dashboard {% load static %} </title>
+    <title>School Admin Dashboard {% load static %} </title>
     <!-- HTML5 Shim and Respond.js IE9 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -109,15 +109,15 @@
                             </li>
                         </ul>
                         <ul class="nav-right">
-                    
+                           
                             <li class="user-profile header-notification">
                                 <a href="#!">
-                                   
+                                    
                                     <span>John Doe</span>
                                     <i class="ti-angle-down"></i>
                                 </a>
                                 <ul class="show-notification profile-notification">
-                                    
+                                   
                                     <li>
                                         <a href="#">
                                             <i class="ti-user"></i> Profile
@@ -141,13 +141,7 @@
                         <div class="sidebar_toggle"><a href="#"><i class="icon-close icons"></i></a></div>
                         <div class="pcoded-inner-navbar main-menu">
                             
-                            <div class="pcoded-search">
-                                <span class="searchbar-toggle">  </span>
-                                <div class="pcoded-search-box ">
-                                    <input type="text" placeholder="Search">
-                                    <span class="search-icon"><i class="ti-search" aria-hidden="true"></i></span>
-                                </div>
-                            </div>
+                            
                             <div class="pcoded-navigatio-lavel" data-i18n="nav.category.navigation">Layout</div>
                             <ul class="pcoded-item pcoded-left-item">
                                 <li class="active">
@@ -172,14 +166,7 @@
                                             </a>
                                         </li>
                                         <li class=" ">
-                                            <a href="auditionApprove">
-                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert"> Audition </span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                        <li class=" ">
-                                            <a href="Profiling_saas">
+                                            <a href="IndividualApproveProfiling">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                 <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Profiling</span>
                                                 <span class="pcoded-mcaret"></span>
@@ -209,9 +196,9 @@
                                     </a>
                                     <ul class="pcoded-submenu">
                                         <li class=" ">
-                                            <a href="Affliatestracker">
+                                            <a href="newApplications">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Affliates </span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">New  Applications </span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
@@ -249,16 +236,16 @@
                             <div class="pcoded-navigatio-lavel" data-i18n="nav.category.forms">Forms &amp; Tables</div>
                             <ul class="pcoded-item pcoded-left-item">
                                 <li>
-                                    <a href="form-elements-component.html">
+                                    <a href="individualAdminSlots">
                                         <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
-                                        <span class="pcoded-mtext" data-i18n="nav.form-components.main">Form Components</span>
+                                        <span class="pcoded-mtext" data-i18n="nav.form-components.main">Admin Slots</span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="bs-basic-table">
+                                    <a href="bs-basicApprovel">
                                         <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
-                                        <span class="pcoded-mtext" data-i18n="nav.form-components.main">Basic Table</span>
+                                        <span class="pcoded-mtext" data-i18n="nav.form-components.main">Fee Structure</span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                 </li>
@@ -367,15 +354,79 @@
                                     <!-- Page-header start -->
                                    
                                 <!-- Page-header end -->
-                                
+                                <style>
+                                .modal {
+                                display: none; /* Hidden by default */
+                                position: fixed; /* Stay in place */
+                                z-index: 1; /* Sit on top */
+                                padding-top: 100px; /* Location of the box */
+                                left: 0;
+                                top: 0;
+                                width: 100%; /* Full width */
+                                height: 100%; /* Full height */
+                                overflow: auto; /* Enable scroll if needed */
+                                background-color: rgb(0,0,0); /* Fallback color */
+                                background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+                                }
+
+                                /* Modal Content */
+                                .modal-content {
+                                background-color: #fefefe;
+                                margin: auto;
+                                padding: 20px;
+                                border: 1px solid #888;
+                                width: 80%;
+                                }
+
+                                /* The Close Button */
+                                .close {
+                                color: #aaaaaa;
+                                float: right;
+                                font-size: 28px;
+                                font-weight: bold;
+                                }
+
+                                .close:hover,
+                                .close:focus {
+                                color: #000;
+                                text-decoration: none;
+                                cursor: pointer;
+                                }
+                                </style> 
+                                <script>
+                                    // Get the modal
+                                    var modal = document.getElementById("myModal");
+
+                                    // Get the button that opens the modal
+                                    var btn = document.getElementById("myBtn");
+
+                                    // Get the <span> element that closes the modal
+                                    var span = document.getElementsByClassName("close")[0];
+
+                                    // When the user clicks the button, open the modal 
+                                    btn.onclick = function() {
+                                    modal.style.display = "block";
+                                    }
+
+                                    // When the user clicks on <span> (x), close the modal
+                                    span.onclick = function() {
+                                    modal.style.display = "none";
+                                    }
+
+                                    // When the user clicks anywhere outside of the modal, close it
+                                    window.onclick = function(event) {
+                                    if (event.target == modal) {
+                                        modal.style.display = "none";
+                                    }
+                                    }
+                                    </script>
   
                                 <!-- Page-body start -->
                                 <div class="page-body">
                                     <!-- Basic table card start -->
-                                 
-                                     <div class="card">
+                                    <div class="card">
                                         <div class="card-header">
-                                            <h5>Audition Info</h5>
+                                            <h5>New Applications</h5>
                                            
                                             <div class="card-header-right">    <ul class="list-unstyled card-option">        <li><i class="icofont icofont-simple-left "></i></li>        <li><i class="icofont icofont-maximize full-card"></i></li>        <li><i class="icofont icofont-minus minimize-card"></i></li>        <li><i class="icofont icofont-refresh reload-card"></i></li>        <li><i class="icofont icofont-error close-card"></i></li>    </ul></div>
                                         </div>
@@ -385,33 +436,50 @@
                                                     <thead>
                                                         <tr>
                                                             <th>#</th>
-                                                            <th>admin id</th>
-                                                            <th>Slot</th>
-                                                            <th>Schedule_date</th>
-                                                            <th>EVENT_ID</th>
-                                                            <th>HangoutLink</th>
-                                                            <th>HEADING</th>
-                                                            <th>Approve</th>
+                                                            <th>Student id</th>
+                                                            <th>First Name</th>
+                                                            <th>Last Name</th>
+                                                            <th>Father Name</th>
+                                                            <th>Mother Name</th>
+                                                            <th>Email</th>
+                                                            <th>Address</th>
+                                                            <th>Phone</th>
+                                                            <th>Geekz Commute</th>
+                                                            <th>Commute Location</th>
+                                                            <th>Enrolling year</th>
+                                                            <th>Enrolling Grade</th>
+                                                            <th>Profiling scheduled</th>
+                                                            <th>Profiling Complete</th>
+                                                            <th>Profiling Approved</th>
+                                                            <th>Enrolled</th>
+                                                            <th>Edit</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        {% for i in micro %}
+                                                        {% for i in student_obj %}
                                                         <tr>
                                                             <th scope="row">1</th>
-                                                            <td>{{i.uid}}</td>
-                                                            <td>{{i.slot}}</td>
-                                                            <td>{{i.schedule_date}}</td>
-                                                            <td>{{i.EVENT_ID}}</td>
-                                                            <td>{{i.hangoutLink}}</td>
-                                                            <td>{{i.HEADING}}</td>
-                                                            {% if IS_APPROVED == 'N' %}
-                                                            <td><a href="Profiling_accept/{{i.uid}}"><button  type="button">Approve</button></td>
-                                                            {% endif %}
+                                                            <td>{{i.student_id}}</td>
+                                                            <td>{{i.first_name}}</td>
+                                                            <td>{{i.last_name}}</td>
+                                                            <td>{{i.Fathersname}}</td>
+                                                            <td>{{i.Mothersname}}</td>
+                                                            <td>{{i.email}}</td>
+                                                            <td>{{i.address}}</td>
+                                                            <td>{{i.phone}}</td>
+                                                            <td>{{i.geekzcommute}}</td>
+                                                            <td>{{i.yescommutelocation}}</td>
+                                                            <td>{{i.enrolling_year}}</td>
+                                                            <td>{{i.enrolling_grade}}</td>
+                                                            <td>{{i.Profiling_scheduled}}</td>
+                                                            <td>{{i.Profiling_complete}}</td>
+                                                            <td>{{i.Profiling_approved}}</td>
+                                                            <td>{{i.Enrolled}}</td>
+                                                            <td><a href="studentedit_admin/{{i.student_id}}"><button  type="button">Edit</button></td>
                                                         </tr>
                                                         {% endfor %}
                                                     </tbody>
                                                 </table>
-                                                
                                             </div>
                                         </div>
                                     </div>

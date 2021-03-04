@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Super Admin Dashboard {% load static %} </title>
+    <title>School Admin Dashboard {% load static %} </title>
     <!-- HTML5 Shim and Respond.js IE9 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -109,15 +109,15 @@
                             </li>
                         </ul>
                         <ul class="nav-right">
-                    
+                           
                             <li class="user-profile header-notification">
                                 <a href="#!">
-                                   
+                                    
                                     <span>John Doe</span>
                                     <i class="ti-angle-down"></i>
                                 </a>
                                 <ul class="show-notification profile-notification">
-                                    
+                                   
                                     <li>
                                         <a href="#">
                                             <i class="ti-user"></i> Profile
@@ -141,13 +141,7 @@
                         <div class="sidebar_toggle"><a href="#"><i class="icon-close icons"></i></a></div>
                         <div class="pcoded-inner-navbar main-menu">
                             
-                            <div class="pcoded-search">
-                                <span class="searchbar-toggle">  </span>
-                                <div class="pcoded-search-box ">
-                                    <input type="text" placeholder="Search">
-                                    <span class="search-icon"><i class="ti-search" aria-hidden="true"></i></span>
-                                </div>
-                            </div>
+                            
                             <div class="pcoded-navigatio-lavel" data-i18n="nav.category.navigation">Layout</div>
                             <ul class="pcoded-item pcoded-left-item">
                                 <li class="active">
@@ -172,14 +166,7 @@
                                             </a>
                                         </li>
                                         <li class=" ">
-                                            <a href="auditionApprove">
-                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert"> Audition </span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                        <li class=" ">
-                                            <a href="Profiling_saas">
+                                            <a href="IndividualApproveProfiling">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                 <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Profiling</span>
                                                 <span class="pcoded-mcaret"></span>
@@ -209,9 +196,9 @@
                                     </a>
                                     <ul class="pcoded-submenu">
                                         <li class=" ">
-                                            <a href="Affliatestracker">
+                                            <a href="newApplications">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Affliates </span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">New  Applications </span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
@@ -249,16 +236,16 @@
                             <div class="pcoded-navigatio-lavel" data-i18n="nav.category.forms">Forms &amp; Tables</div>
                             <ul class="pcoded-item pcoded-left-item">
                                 <li>
-                                    <a href="form-elements-component.html">
+                                    <a href="individualAdminSlots">
                                         <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
-                                        <span class="pcoded-mtext" data-i18n="nav.form-components.main">Form Components</span>
+                                        <span class="pcoded-mtext" data-i18n="nav.form-components.main">Admin Slots</span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="bs-basic-table">
+                                    <a href="bs-basicApprovel">
                                         <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
-                                        <span class="pcoded-mtext" data-i18n="nav.form-components.main">Basic Table</span>
+                                        <span class="pcoded-mtext" data-i18n="nav.form-components.main">Fee Structure</span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                 </li>
@@ -361,90 +348,98 @@
                     </nav>
                     <div class="pcoded-content">
                         <div class="pcoded-inner-content">
+
                             <!-- Main-body start -->
                             <div class="main-body">
                                 <div class="page-wrapper">
                                     <!-- Page-header start -->
                                    
-                                <!-- Page-header end -->
-                                
-  
-                                <!-- Page-body start -->
-                                <div class="page-body">
-                                    <!-- Basic table card start -->
-                                 
-                                     <div class="card">
-                                        <div class="card-header">
-                                            <h5>Audition Info</h5>
-                                           
-                                            <div class="card-header-right">    <ul class="list-unstyled card-option">        <li><i class="icofont icofont-simple-left "></i></li>        <li><i class="icofont icofont-maximize full-card"></i></li>        <li><i class="icofont icofont-minus minimize-card"></i></li>        <li><i class="icofont icofont-refresh reload-card"></i></li>        <li><i class="icofont icofont-error close-card"></i></li>    </ul></div>
-                                        </div>
-                                        <div class="card-block table-border-style">
-                                            <div class="table-responsive">
-                                                <table class="table">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>#</th>
-                                                            <th>admin id</th>
-                                                            <th>Slot</th>
-                                                            <th>Schedule_date</th>
-                                                            <th>EVENT_ID</th>
-                                                            <th>HangoutLink</th>
-                                                            <th>HEADING</th>
-                                                            <th>Approve</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        {% for i in micro %}
-                                                        <tr>
-                                                            <th scope="row">1</th>
-                                                            <td>{{i.uid}}</td>
-                                                            <td>{{i.slot}}</td>
-                                                            <td>{{i.schedule_date}}</td>
-                                                            <td>{{i.EVENT_ID}}</td>
-                                                            <td>{{i.hangoutLink}}</td>
-                                                            <td>{{i.HEADING}}</td>
-                                                            {% if IS_APPROVED == 'N' %}
-                                                            <td><a href="Profiling_accept/{{i.uid}}"><button  type="button">Approve</button></td>
-                                                            {% endif %}
-                                                        </tr>
-                                                        {% endfor %}
-                                                    </tbody>
-                                                </table>
-                                                
+                                    <!-- Page-header end -->
+
+                                    <!-- Page body start -->
+                                    <div class="page-body">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <!-- Basic Form Inputs card start -->
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <h5>Add Slots</h5>
+                                                       
+                                                        <div class="card-header-right"><i
+                                                            class="icofont icofont-spinner-alt-5"></i></div>
+
+                                                            <div class="card-header-right">
+                                                                <i class="icofont icofont-spinner-alt-5"></i>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="card-block">
+                                                            <form method = "POST"> {% csrf_token %}
+                                                                <div class="form-group row">
+                                                                    <label class="col-sm-2 col-form-label">Select Duration</label>
+                                                                    <div class="col-sm-10">
+                                                                        <select name="duration" class="form-control" required>
+                                                                            <option>-</option>
+                                                                            <option value="15" >15 </option>
+                                                                            <option value="30" selected="selected">30 </option>  
+                                                                            <option value="45">45 </option>
+                                                                            <option value="60">60</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group row">
+                                                                    <label class="col-sm-2 col-form-label">Start-time</label>
+                                                                    <div class="col-sm-10">
+                                                                        <input type="time" name="Start-time" class="form-control" req>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group row">
+                                                                    <label class="col-sm-2 col-form-label">End-time</label>
+                                                                    <div class="col-sm-10">
+                                                                        <input type="time" name="End-time" class="form-control" required>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group row">
+                                                                    <label class="col-sm-2 col-form-label">Select Day</label>
+                                                                    <div class="col-sm-10">
+                                                                        <select name="Days" class="form-control">
+                                                                            <option selected disabled>Day...</option>
+                                                                            <option>-</option>
+                                                                            <option value="Monday">Monday</option>
+                                                                            <option value="Tuesday">Tuesday</option>  
+                                                                            <option value="Wednesday">Wednesday</option>
+                                                                            <option value="Thursday">Thursday</option>
+                                                                            <option value="Friday">Friday</option>
+                                                                            <option value="Saturday">Saturday</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                                <button type="submit" class="btn btn-primary">SEND</button>
+                                                            </form>
+                                                         
+                                                                    </div>
+                                                                </div>
+                             
+                             
+                                                                <!-- Main-body end -->
+                                                                <div id="styleSelector">
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    
-                                    <!-- Background Utilities table end -->
-                                </div>
-                                <!-- Page-body end -->
-                            </div>
-                        </div>
-                        <!-- Main-body end -->
-
-                        <div id="styleSelector">
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="fixed-button">
-	<a href="https://codedthemes.com/item/guru-able-admin-template/" target="_blank" class="btn btn-md btn-primary">
-	  <i class="fa fa-shopping-cart" aria-hidden="true"></i> Upgrade To Pro
-	</a>
-</div>
 
 
-<!-- Warning Section Starts -->
-<!-- Older IE warning message -->
-    <!--[if lt IE 9]>
+                                        <!-- Warning Section Starts -->
+                                        <!-- Older IE warning message -->
+<!--[if lt IE 9]>
 <div class="ie-warning">
     <h1>Warning!!</h1>
-    <p>You are using an outdated version of Internet Explorer, please upgrade <br/>to any of the following web browsers to access this website.</p>
+    <p>You are using an outdated version of Internet Explorer, please upgrade <br/>to any of the following web browsers
+        to access this website.</p>
     <div class="iew-container">
         <ul class="iew-download">
             <li>
@@ -487,22 +482,16 @@
 <script type="text/javascript" src='{% static "assets1/js/jquery/jquery.min.js" %}'></script>
 <script type="text/javascript" src='{% static "assets1/js/jquery-ui/jquery-ui.min.js" %}'></script>
 <script type="text/javascript" src='{% static "assets1/js/popper.js/popper.min.js" %}'></script>
-<script type="text/javascript" src= '{% static "assets1/js/bootstrap/js/bootstrap.min.js" %}'></script>
+<script type="text/javascript" src='{% static "assets1/js/bootstrap/js/bootstrap.min.js" %}'></script>
 <!-- jquery slimscroll js -->
-<script type="text/javascript" src= '{% static "assets1/js/jquery-slimscroll/jquery.slimscroll.js" %}'></script>
+<script type="text/javascript" src='{% static "assets1/js/jquery-slimscroll/jquery.slimscroll.js" %}'></script>
 <!-- modernizr js -->
 <script type="text/javascript" src='{% static "assets1/js/modernizr/modernizr.js" %}'></script>
 <script type="text/javascript" src='{% static "assets1/js/modernizr/css-scrollbars.js" %}'></script>
-<!-- am chart -->
+<!-- classie js -->
 <script type="text/javascript" src='{% static "assets1/js/classie/classie.js" %}'></script>
-<script src='{% static "assets1/pages/widget/amchart/amcharts.min.js" %}'></script>
-<script src='{% static "assets1/pages/widget/amchart/serial.min.js" %}'></script>
-<!-- Todo js -->
-<script type="text/javascript " src='{% static "assets1/pages/todo/todo.js" %}'></script>
 <!-- Custom js -->
-<script type="text/javascript" src='{% static "assets1/pages/dashboard/custom-dashboard.js" %}'></script>
 <script type="text/javascript" src='{% static "assets1/js/script.js" %}'></script>
-<script type="text/javascript " src='{% static "assets1/js/SmoothScroll.js" %}'></script>
 <script src='{% static "assets1/js/pcoded.min.js" %}'></script>
 <script src='{% static "assets1/js/demo-12.js" %}'></script>
 <script src='{% static "assets1/js/jquery.mCustomScrollbar.concat.min.js" %}'></script>

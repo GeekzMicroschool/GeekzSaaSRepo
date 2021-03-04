@@ -186,6 +186,13 @@
                                             </a>
                                         </li>
                                         <li class=" ">
+                                            <a href="webpage_Approve">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Webpages</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                        <li class=" ">
                                             <a href="transcriptsApprove">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                 <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Transcripts</span>
@@ -372,10 +379,9 @@
                                 <!-- Page-body start -->
                                 <div class="page-body">
                                     <!-- Basic table card start -->
-                                 
-                                     <div class="card">
+                                    <div class="card">
                                         <div class="card-header">
-                                            <h5>Audition Info</h5>
+                                            <h5>Webpage Details</h5>
                                            
                                             <div class="card-header-right">    <ul class="list-unstyled card-option">        <li><i class="icofont icofont-simple-left "></i></li>        <li><i class="icofont icofont-maximize full-card"></i></li>        <li><i class="icofont icofont-minus minimize-card"></i></li>        <li><i class="icofont icofont-refresh reload-card"></i></li>        <li><i class="icofont icofont-error close-card"></i></li>    </ul></div>
                                         </div>
@@ -384,31 +390,81 @@
                                                 <table class="table">
                                                     <thead>
                                                         <tr>
-                                                            <th>#</th>
+                                                            
                                                             <th>admin id</th>
-                                                            <th>Slot</th>
-                                                            <th>Schedule_date</th>
-                                                            <th>EVENT_ID</th>
-                                                            <th>HangoutLink</th>
-                                                            <th>HEADING</th>
+                                                            <th>SCHOOL_NAME</th>
+                                                            <th>LOCALITY</th>
+                                                            <th>is_Spacious_Studio</th>
+                                                            <th>is_Outdoor_PlayLawn</th>
+                                                            <th> is_Commute</th>
+                                                            <th>is_WiFi</th>
+                                                            <th>is_CCTV</th>
+                                                            <th>is_Device</th>
+                                                            <th>is_Food</th>
+                                                            <th>is_Daycare</th>
+                                                            <th>is_After_School</th>
+                                                            <th>is_Residential</th>
+                                                            <th>GOOGLE_REVIEWS_LINK </th>
+                                                            <th>ADDRESS1</th>
+                                                            <th>ADDRESS2</th>
+                                                            <th>SCHOOL_LOCALITY</th>
+                                                            <th>SCHOOL_PHONE</th>
+                                                            <th>SCHOOL_PHONE1</th>
+                                                            <th>SCHOOL_EMAIL</th>
+                                                            <th>SCHOOL_HOURS_KS</th>
+                                                            <th>SCHOOL_HOURS_ES</th>
+                                                            <th>FOUNDER_NAME</th>
+                                                            <th>DESIGNATION</th>
+                                                            <th>CONTENT</th>
+                                                            <th>CO_FOUNDER1</th>
+                                                            <th>DESIGNATION_CO1</th>
+                                                            <th>CONTENT</th>
+                                                            <th>CO_FOUNDER2</th>
+                                                            <th>DESIGNATION_CO2</th>
+                                                            <th>CONTENT</th>
+                                                            <th>Bannners</th>
                                                             <th>Approve</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        {% for i in micro %}
+                                                        {% for i in iw %}
                                                         <tr>
-                                                            <th scope="row">1</th>
+                                                           
                                                             <td>{{i.uid}}</td>
-                                                            <td>{{i.slot}}</td>
-                                                            <td>{{i.schedule_date}}</td>
-                                                            <td>{{i.EVENT_ID}}</td>
-                                                            <td>{{i.hangoutLink}}</td>
-                                                            <td>{{i.HEADING}}</td>
-                                                            {% if IS_APPROVED == 'N' %}
-                                                            <td><a href="Profiling_accept/{{i.uid}}"><button  type="button">Approve</button></td>
-                                                            {% endif %}
+                                                            <td>{{i.SCHOOL_NAME}}</td>
+                                                            <td>{{i.LOCALITY}}</td>
+                                                            <td>{{i.AMENITIES_is_Spacious_Studio}}</td>
+                                                            <td>{{i.AMENITIES_is_Outdoor_PlayLawn}}</td>
+                                                            <td>{{i.AMENITIES_is_Commute}}</td>
+                                                            <td>{{i.AMENITIES_is_WiFi}}</td>
+                                                            <td>{{i.AMENITIES_is_CCTV}}</td>
+                                                            <td>{{i.AMENITIES_is_Food }}</td>
+                                                            <td>{{i.AMENITIES_is_Daycare}}</td>
+                                                            <td>{{i.AMENITIES_is_After_School}}</td>
+                                                            <td>{{i.AMENITIES_is_Residential}}</td>
+                                                            <td>{{i.AMENITIES_is_Device}}</td>
+                                                            <td>{{i.GOOGLE_REVIEWS_LINK}}</td>
+                                                            <td>{{i.ADDRESS1}}</td>
+                                                            <td>{{i.ADDRESS2}}</td>
+                                                            <td>{{i.SCHOOL_LOCALITY}}</td>
+                                                            <td>{{i.SCHOOL_PHONE}}</td>
+                                                            <td>{{i.SCHOOL_PHONE1}}</td>
+                                                            <td>{{i.SCHOOL_EMAIL}}</td>
+                                                            <td>{{i.SCHOOL_HOURS_KS }}</td>
+                                                            <td>{{i.SCHOOL_HOURS_ES}}</td>
+                                                            <td>{{i.FOUNDER_NAME}}</td>
+                                                            <td>{{i.DESIGNATION}}</td>
+                                                            <td>{{i.CONTENT1}}</td>
+                                                            <td>{{i.CO_FOUNDER1}}</td>
+                                                            <td>{{i.DESIGNATION_CO1}}</td>
+                                                            <td>{{i.CONTENT2}}</td>
+                                                            <td>{{i.CO_FOUNDER2}}</td>
+                                                            <td>{{i.DESIGNATION_CO2}}</td>
+                                                            <td>{{i.CONTENT3}}</td>
+                                                            <td><a href="viewbanners/{{i.uid}}"><button  type="button">View Bannners and Gala</button></a></td>
                                                         </tr>
-                                                        {% endfor %}
+                                                      {% endfor %}
+                                                         
                                                     </tbody>
                                                 </table>
                                                 
@@ -416,11 +472,6 @@
                                         </div>
                                     </div>
                                     
-                                    <!-- Background Utilities table end -->
-                                </div>
-                                <!-- Page-body end -->
-                            </div>
-                        </div>
                         <!-- Main-body end -->
 
                         <div id="styleSelector">

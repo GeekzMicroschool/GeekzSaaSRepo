@@ -20,17 +20,40 @@
             <div class="col-md-12 contact-form wow animated fadeInLeft">
                 
                 <form id="inquiry"  method="post" > {% csrf_token %}
+                    <h2>Kindergarten</h2>
+                    
                     <div class="input-field">
-                        <input type="number" id="annualfee" name="annualfee" class="form-control" placeholder="Annual Fee.." required>
+                        <input type="number"  name="fullYear_kindergarten" class="form-control" placeholder="Full Year Fees.." required>
                     </div>
                     <div class="input-field">
-                        <input type="number" id="fees_term1" name="fees_term1" class="form-control" placeholder="Term 1 Fees.." required>
+                      <input type="text" id="fees_term2"  name="fall_kindergarten" class="form-control" placeholder="Fall Fees.." required>
                     </div>
                     <div class="input-field">
-                      <input type="text" id="fees_term2"  name="fees_term2" class="form-control" placeholder="Term 2 Fees" required>
+                        <input type="text" id="fees_term3"  name="spring_kindergarten" class="form-control" placeholder="Spring Fees.." required>
+                    </div>
+
+                    <h2>Lower Elementary</h2>
+                    
+                    <div class="input-field">
+                        <input type="number"  name="fullYear_lowerElementary" class="form-control" placeholder="Full Year Fees.." required>
                     </div>
                     <div class="input-field">
-                        <input type="text" id="fees_term3"  name="fees_term3" class="form-control" placeholder="Term 3 Fees" required>
+                      <input type="text" id="fees_term2"  name="fall_lowerElementary" class="form-control" placeholder="Fall Fees.." required>
+                    </div>
+                    <div class="input-field">
+                        <input type="text" id="fees_term3"  name="spring_lowerElementary" class="form-control" placeholder="Spring Fees.." required>
+                    </div>
+
+                    <h2>Upper Elementary</h2>
+                   
+                    <div class="input-field">
+                        <input type="number"  name="fullYear_UpperElementary" class="form-control" placeholder="Full Year Fees.." required>
+                    </div>
+                    <div class="input-field">
+                      <input type="text" id="fees_term2"  name="fall_UpperElementary" class="form-control" placeholder="Fall Fees.." required>
+                    </div>
+                    <div class="input-field">
+                        <input type="text" id="fees_term3"  name="spring_UpperElementary" class="form-control" placeholder="Spring Fees.." required>
                     </div>
                       <button type="submit" id="submit" class="btn btn-blue btn-effect">Next</button>
                 </form>

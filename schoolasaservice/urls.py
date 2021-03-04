@@ -63,6 +63,8 @@ urlpatterns = [
     path('Affliatestracker',views.Affliatestracker,name="Affliatestracker"),
     path('Profiling_saas',views.Profiling_saas,name="Profiling_saas"),
     path('Profiling_accept/<uid>',views.Profiling_accept,name="Profiling_accept"),
+    path('webpage_Approve',views.webpage_Approve,name="webpage_Approve"),
+    path('viewbanners/<uid>',views.viewbanners,name="viewbanners"),
 
 ]
 if settings.DEBUG:

@@ -831,7 +831,7 @@ def web_form(request):
     IE1 = INDIVIDUAL_WEBPAGESS1.objects.filter(uid=user_details.uid,IS_COMPLETE='Y',IS_APPROVED ='Y') # show webpage
     if IE:
         print('hi')
-        return redirect('bulk_load')
+        return redirect('IndividualFeedetails')
         
     if IE1:
         IEE = INDIVIDUAL_WEBPAGESS1.objects.get(uid=user_details.uid)
@@ -925,11 +925,16 @@ def IndividualFeedetails(request):
         iw = INDIVIDUAL_WEBPAGESS1.objects.filter(uid = user_details.uid)
         iw1 = list(iw)
         iw1 = iw1[0]
-        annualfee = request.POST['annualfee']
-        fees_term1 = request.POST['fees_term1']
-        fees_term2 = request.POST['fees_term2']
-        fees_term3 = request.POST['fees_term3']
-        fee_obj = individual_feedetails(admin=iw1,annualFee=annualfee,fee_TERM1=fees_term1,fee_TERM2=fees_term2,fee_TERM3=fees_term3)
+        fullYear_kindergarten = request.POST['fullYear_kindergarten']
+        fall_kindergarten = request.POST['fall_kindergarten']
+        spring_kindergarten = request.POST['spring_kindergarten']
+        fullYear_lowerElementary = request.POST['fullYear_lowerElementary']
+        fall_lowerElementary = request.POST['fall_lowerElementary']
+        spring_lowerElementary = request.POST['spring_lowerElementary']
+        fullYear_UpperElementary = request.POST['fullYear_UpperElementary']
+        fall_UpperElementary = request.POST['fall_UpperElementary']
+        spring_UpperElementary = request.POST['spring_UpperElementary']
+        fee_obj = individual_feedetail(admin=iw1,fullYear_kindergarten=fullYear_kindergarten,fall_kindergarten=fall_kindergarten,spring_kindergarten=spring_kindergarten,fullYear_lowerElementary=fullYear_lowerElementary,fall_lowerElementary=fall_lowerElementary,spring_lowerElementary=spring_lowerElementary,fullYear_UpperElementary=fullYear_UpperElementary,fall_UpperElementary=fall_UpperElementary,spring_UpperElementary=spring_UpperElementary)
         fee_obj.save()
         return render(request,'bulk_load.html')
     return render(request,'individual_feedetails.html')
@@ -1008,16 +1013,26 @@ def basictables(request):
     auth_obj1 = User.objects.all() 
     return render(request,"bs-basic-table.html",{'auth_obj1':auth_obj1})
 
+
+@login_required
 def individualAdmin_dashboard(request):
-    return render(request,'individualAdmin_dashboard.html')
+    user_id=request.session['user_id']
+    user=User.objects.get(id=user_id)
+    uid_obj = USER_DETAILS.objects.get(USER_EMAIL=user.email)
+    admin_web = INDIVIDUAL_WEBPAGESS1.objects.filter(uid = uid_obj.uid,IS_APPROVED='Y')
+    webform = ''
+    if admin_web:
+        webform = 'done'
+    return render(request,'individualAdmin_dashboard.html',{'webform': webform,'admin_web':admin_web})
 
 def individualAdmin_approvels(request):
+    print('hiiiiii')
     user_id=request.session['user_id']
     user=User.objects.get(id=user_id)
     uid_obj = USER_DETAILS.objects.get(USER_EMAIL=user.email)
     admin_web = INDIVIDUAL_WEBPAGESS1.objects.get(uid = uid_obj.uid)
     inquirys = InquiryS.objects.filter(microschool=admin_web.SCHOOL_NAME,ISAPPROVED='N')
-    return render(request,"bs-basicApprovel.html",{'inquirys':inquirys})
+    return render(request,"individualAdminDashboard/bs-basicApprovel.html",{'inquirys':inquirys})
 
 
 def inquiryApprove(request,uid):
@@ -1036,7 +1051,7 @@ def inquiryApprove(request,uid):
     message=EmailMessage(subject, html_message, settings.EMAIL_HOST_USER, [to_email])
     message.content_subtype='html'
     message.send()
-    return render(request,'bs-basicApprovel.html',{'inquirys': inquirys_updated })
+    return render(request,'individualAdminDashboard/bs-basicApprovel.html',{'inquirys': inquirys_updated })
 
 
 def index1(request):
@@ -1470,8 +1485,8 @@ def individualAdminSlots(request):
                 slot_obj.save()
                 print(t.strftime('%I:%M %p'))
         print(list(time_slots(start_datetime_object, end_datetime_object,time_duration)))
-        return render(request,'individualAdminSlots.html')
-    return render(request,'individualAdminSlots.html')      
+        return render(request,'individualAdminDashboard/individualAdminSlots.html')
+    return render(request,'individualAdminDashboard/individualAdminSlots.html')      
  ###########################################3       
 
 
@@ -1521,7 +1536,7 @@ def bsbasicInvoice(request):
     uid_obj = USER_DETAILS.objects.get(USER_EMAIL=user.email)
     sch = INDIVIDUAL_WEBPAGESS1.objects.get(uid = uid_obj.uid)
     invoice = InvoiceRequest.objects.filter(microschool=sch.SCHOOL_NAME,IS_COMPLETE='N')
-    return render(request,'bs-basicInvoice.html',{'invoice':invoice})
+    return render(request,'individualAdminDashboard/bs-basicInvoice.html',{'invoice':invoice})
 
 def Transcript_PDF(request,student_id):
     ob = studentApplication.objects.get(student_id=student_id)
@@ -1543,7 +1558,7 @@ def transcriptsApprove(request):
     uid_obj = USER_DETAILS.objects.get(USER_EMAIL=user.email)
     sch = INDIVIDUAL_WEBPAGESS1.objects.get(uid = uid_obj.uid)
     transcripts = transcriptsRequest.objects.filter(microschool=sch.SCHOOL_NAME,IS_COMPLETE='N',payment_complete='Y')
-    return render(request,"transcriptsApprove.html",{'transcripts': transcripts})
+    return render(request,"individualAdminDashboard/transcriptsApprove.html",{'transcripts': transcripts})
 
 
 def transcripts_request(request):
@@ -1564,7 +1579,7 @@ def newApplications(request):
     sch1 = list(sch)
     sch1 = sch1[0]
     student_obj = studentApplication.objects.filter(microschool=sch1)
-    return render(request,'newApplications.html',{'student_obj': student_obj})
+    return render(request,'individualAdminDashboard/newApplications.html',{'student_obj': student_obj})
 
 def IndividualApproveProfiling(request):
     user_id=request.session['user_id']
@@ -1577,7 +1592,7 @@ def IndividualApproveProfiling(request):
     o = list(obj)
     o = o[0]
     objectProf = StudentProfiling.objects.filter(uid = o, IS_APPROVED='N')
-    return render(request,'individualprofiling.html',{'objectProf':objectProf})
+    return render(request,'individualAdminDashboard/individualprofiling.html',{'objectProf':objectProf})
 
 def complete_profiling(request,student_id):
     student_obj = studentApplication.objects.get(student_id=student_id)
@@ -1653,7 +1668,7 @@ def studentedit_admin(request,student_id):
         student_edit.enrolling_year = year
         student_edit.save(update_fields=['first_name','last_name','enrolling_grade','Fathersname','Fathersoccupation','Mothersname','address','email','phone','geekzcommute','yescommutelocation','enrolling_year'])
         return redirect('newApplications')
-    return render(request,'studentedit_admin.html',{'student_obj': student_obj,'DOB':DOB})
+    return render(request,'individualAdminDashboard/studentedit_admin.html',{'student_obj': student_obj,'DOB':DOB})
 
 
 def auditionApprove(request):
@@ -1670,6 +1685,13 @@ def audition_accept(request,uid):
     aud = MICRO_AUDN.objects.filter(uid = uid)
     aud.IS_APPROVED='Y'
     aud.save(update_fields=['IS_APPROVED'])
+    subject='Audition accepted'
+    html_template='socialaccount/email/audition_accept.html'
+    html_message=render_to_string(html_template)
+    to_email= email
+    message=EmailMessage(subject, html_message, settings.EMAIL_HOST_USER, [to_email])
+    message.content_subtype='html'
+    message.send()
     return rendirect('auditionApprove')
 
 def Profiling_saas(request):
@@ -1680,7 +1702,31 @@ def Profiling_accept(request,uid):
     aud =  MICRO_PROFILING.objects.filter(uid = uid)
     aud.IS_APPROVED='Y'
     aud.save(update_fields=['IS_APPROVED'])
+    subject='Affliation accepted'
+    html_template='socialaccount/email/saasprofilingaccept.html'
+    html_message=render_to_string(html_template)
+    to_email= email
+    message=EmailMessage(subject, html_message, settings.EMAIL_HOST_USER, [to_email])
+    message.content_subtype='html'
+    message.send()
     return rendirect('Profiling_saas')
+
+def webpage_Approve(request):
+    iww = INDIVIDUAL_WEBPAGESS1.objects.filter(IS_APPROVED='N')
+    return render(request,'superAdminDashboard/webpage_Approve.html',{'iw':iww})
+
+
+def viewbanners(request,uid):
+    iw = INDIVIDUAL_WEBPAGESS1.objects.filter(uid=uid)
+    iw1 = list(iw)
+    iw1 = iw1[0]
+    gala = Photo_webpage1.objects.filter(gala_admin = iw1)
+    return render(request,'superAdminDashboard/viewbanners.html',{'iw':iw,'gala':gala})
+
+
+
+    
+
 
 
 

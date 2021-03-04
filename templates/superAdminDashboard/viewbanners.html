@@ -1,0 +1,103 @@
+      <head>
+      
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      {% load static %}
+        <!-- CSS -->
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="{% static 'assets/plugins/fontawesome/css/fontawesome.min.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/plugins/fontawesome/css/all.min.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+		<!-- Fontawesome Icon font -->
+        <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+		<!-- bootstrap.min -->
+        <link rel="stylesheet" href="{% static 'css/jquery.fancybox.css' %}">
+		<!-- bootstrap.min -->
+        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+		<!-- bootstrap.min -->
+        <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
+		<!-- bootstrap.min -->
+        <link rel="stylesheet" href="{% static 'css/slit-slider.css' %}">
+		<!-- bootstrap.min -->
+        <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+		<!-- Main Stylesheet -->
+        <link rel="stylesheet" href="{% static 'css/main.css' %}">
+        <!--jquery stylesheet for mobile number validation
+        <link rel="stylesheet" href="{% static 'css/intlTelInput.css' %}">-->
+        <link href="{% static 'lity-2.4.1/dist/lity.css' %}" rel="stylesheet">
+		<script src="{% static 'lity-2.4.1/vendor/jquery.js' %}"></script>
+		<script src="{% static 'lity-2.4.1/dist/lity.js' %}"></script>
+		<!-- Modernizer Script for old Browsers -->
+        <script src="{% static 'js/modernizr-2.6.2.min.js' %}"></script>
+
+        <!-- Tab logo-->
+        <link rel="icon" type="image/png" href="{% static 'img/favicon-32x32.png' %}" sizes="32x32">
+
+    </head>
+    <div class="container">
+        <br><br>
+        
+            {% for i in iw %}
+            <center><h3> Admin id {{i.uid}}</h3>
+              <h4>Banner Pictures</h4> 
+            </center>
+
+            <br>
+            <div class="row">
+               
+                <center><div class="col-md-6">
+                    <img src=" {{i.BANNER1.url}}" style= "width:100%;">
+                    </div></center>
+               <center><div class="col-md-6">
+                <img src=" {{i.BANNER2.url}}" style= "width:100%;">
+            </div></center> 
+                
+            </div>
+            <br>
+            <div class="row">
+               <center>
+                <div class="col-md-6">
+                    <img src=" {{i.BANNER3.url}}" style= "width:100%;">
+                 </div>
+                 <div class="col-md-6">
+                    <img src=" {{i.BANNER4.url}}" style= "width:100%;">
+                 </div>
+                </center>
+            </div>
+            {% endfor %}
+        
+    </div>
+    <br><br>
+    <div class="container">
+        <center><h4> Gala Pictures</h4> </center>
+        <div class="row">
+            {% for g in gala %}
+            <center>  <div class="col-md-6">
+                <img src ="{{g.file.url}}" style="width: 100%;">
+               </div>
+            </center>
+          
+            {% endfor %}
+        </div>
+    </div>
+
+<script src="{% static 'js/jquery-1.11.1.min.js' %}"></script>
+		<!-- Twitter Bootstrap -->
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>
+		<!-- Single Page Nav -->
+        <script src="{% static 'js/jquery.singlePageNav.min.js' %}"></script>
+		<!-- jquery.fancybox.pack -->
+        <script src="{% static 'js/jquery.fancybox.pack.js' %}"></script>
+		<!-- Google Map API -->
+		<script src="http://maps.google.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyAhy_mC_xNa374iO1IAFuoioiNHYM9oYpw&sensor=false&callback=init"></script>
+		<!-- Owl Carousel -->
+        <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+        <!-- jquery easing -->
+        <script src="{% static 'js/jquery.easing.min.js' %}"></script>
+        <!-- Fullscreen slider -->
+        <script src="{% static 'js/jquery.slitslider.js' %}"></script>
+        <script src="{% static 'js/jquery.ba-cond.min.js' %}"></script>
+		<!-- onscroll animation -->
+        <script src="{% static 'js/wow.min.js' %}"></script>
+		<!-- Custom Functions -->
+        <script src="{% static 'js/main.js' %}"></script>
+        <script src="{% static 'js/landing_map.js' %}"></script>
