@@ -323,6 +323,63 @@ class Photo_webpage1(models.Model):
 
 ##https://geekzmicroschoolgallery.imgur.com/all/  the link to imgur api  
 
+class AffliatesfeeStructure(models.Model):
+    uid = models.CharField(max_length=50, primary_key=True)
+    school = models.ForeignKey(individual_feedetail, on_delete=models.CASCADE)
+
+    TaxfullYear_kindergarten = models.IntegerField()
+    total_fullYear_kindergarten = models.IntegerField()
+
+    split1_fullYear_kindergarten = models.IntegerField(default=0)
+    split2_fullYear_kindergarten = models.IntegerField(default=0)
+    split3_fullYear_kindergarten = models.IntegerField(default=0)
+
+    Taxfall_kindergarten = models.IntegerField() 
+    total_fall_kindergarten = models.IntegerField()
+
+    split1_fall_kindergarten = models.IntegerField(default=0)
+    split2_fall_kindergarten = models.IntegerField(default=0)
+
+    Taxspring_kindergarten = models.IntegerField()
+    total_spring_kindergarten =  models.IntegerField()
+
+    split1_spring_kindergarten = models.IntegerField(default=0) 
+
+    TaxfullYear_lowerElementary = models.IntegerField()
+    total_fullYear_lowerElementary = models.IntegerField()
+
+    split1_fullYear_lowerElementary = models.IntegerField(default=0)
+    split2_fullYear_lowerElementary = models.IntegerField(default=0)
+    split3_fullYear_lowerElementary = models.IntegerField(default=0)
+
+    Taxfall_lowerElementary = models.IntegerField()
+    total_fall_lowerElementary = models.IntegerField()
+
+    split1_fall_lowerElementary = models.IntegerField(default=0)
+    split2_fall_lowerElementary = models.IntegerField(default=0)
+
+    Taxspring_lowerElementary = models.IntegerField()
+    total_spring_lowerElementary =  models.IntegerField()
+    split1_spring_lowerElementary = models.IntegerField(default=0) 
+
+    TaxfullYear_UpperElementary = models.IntegerField()
+    total_fullYear_UpperElementary = models.IntegerField()
+
+    split1_fullYear_UpperElementary = models.IntegerField(default=0)
+    split2_fullYear_UpperElementary = models.IntegerField(default=0)
+    split3_fullYear_UpperElementary = models.IntegerField(default=0)
+
+    Taxfall_UpperElementary = models.IntegerField()
+    total_fall_UpperElementary = models.IntegerField()
+
+    split1_fall_UpperElementary = models.IntegerField(default=0)
+    split2_fall_UpperElementary = models.IntegerField(default=0)
+
+
+    Taxspring_UpperElementary = models.IntegerField() 
+    total_spring_UpperElementary =  models.IntegerField()
+    split1_spring_UpperElementary = models.IntegerField(default=0) 
+
 
 class studentApplication(models.Model):
     first_name = models.CharField(max_length=250)

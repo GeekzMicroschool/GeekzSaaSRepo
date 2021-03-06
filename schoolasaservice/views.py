@@ -1148,7 +1148,7 @@ def create_pdf(request):
             'customer_name': 'Cooper Mann',
             'order_id': 1233434,
     }
-    pdf = render_to_pdf('invoice.html',data)
+    pdf = render_to_pdf('transcripts.html',data)
     return HttpResponse(pdf, content_type='application/pdf')
 
     
@@ -1561,6 +1561,9 @@ def edit_time_slot(request,pk):
         print(list(time_slots(start_datetime_object, end_datetime_object,time_duration)))
         return redirect('individualAdminSlotsView')
     return render(request,'individualAdminDashboard/edit_time_slot.html',{'ob':obj})
+
+
+
  ###########################################3   
 
 
@@ -1647,6 +1650,85 @@ def superedit_time_slot(request,pk):
         return redirect('SuperAdminSlotsView')
     return render(request,'superAdminDashboard/superedit_time_slot.html',{'ob':obj})
 
+ 
+
+def feedetailsreview(request,uid):
+    obj = INDIVIDUAL_WEBPAGESS1.objects.filter(uid = uid)
+    obj = list(obj)
+    obj = obj[0]
+    objj = individual_feedetail.objects.filter(admin = obj)
+    obj1 = list(objj)
+    obj1 = obj1[0]
+    if request.method == "POST" :
+        fullYear_kindergarten = request.POST['fullYear_kindergarten']
+        TaxfullYear_kindergarten = request.POST['TaxfullYear_kindergarten']
+        val = float(fullYear_kindergarten) * float(TaxfullYear_kindergarten)
+        print(val)
+        val = val/100
+        print(val)
+        total_fullYear_kindergarten = float(fullYear_kindergarten) + val
+        print(total_fullYear_kindergarten)
+        fall_kindergarten = request.POST['fall_kindergarten']
+        Taxfall_kindergarten = request.POST['Taxfall_kindergarten']
+        val1 = float(fall_kindergarten) * float(Taxfall_kindergarten)
+        print(val1)
+        val1 = val1/100
+        print(val1)
+        total_fall_kindergarten = float(fall_kindergarten) + val1 
+        spring_kindergarten = request.POST['spring_kindergarten']
+        Taxspring_kindergarten = request.POST['Taxspring_kindergarten']
+        val2 = float(spring_kindergarten) * float(Taxspring_kindergarten)
+        print(val2)
+        val2 = val2/100
+        print(val2)
+        total_spring_kindergarten = float(spring_kindergarten) + val2 
+        fullYear_lowerElementary = request.POST['fullYear_lowerElementary']
+        TaxfullYear_lowerElementary = request.POST['TaxfullYear_lowerElementary']
+        val3 = float(fullYear_lowerElementary) * float(TaxfullYear_lowerElementary)
+        print(val3)
+        val3 = val3/100
+        print(val3)
+        total_fullYear_lowerElementary = float(fullYear_lowerElementary) + val3
+        fall_lowerElementary = request.POST['fall_lowerElementary']
+        Taxfall_lowerElementary = request.POST['Taxfall_lowerElementary']
+        val4 = float(fall_lowerElementary) * float(Taxfall_lowerElementary)
+        print(val4)
+        val4 = val4/100
+        print(val4)
+        total_fall_lowerElementary = float(fall_lowerElementary) + val4
+        spring_lowerElementary = request.POST['spring_lowerElementary']
+        Taxspring_lowerElementary = request.POST['Taxspring_lowerElementary']
+        val5 = float(spring_lowerElementary) * float(Taxspring_lowerElementary)
+        print(val5)
+        val5 = val5/100
+        print(val5)
+        total_spring_lowerElementary = float(spring_lowerElementary) + val5
+        fullYear_UpperElementary = request.POST['fullYear_UpperElementary']
+        TaxfullYear_UpperElementary = request.POST['TaxfullYear_UpperElementary']
+        val6 = float(fullYear_UpperElementary) * float(TaxfullYear_UpperElementary)
+        print(val6)
+        val6 = val6/100
+        print(val6)
+        total_fullYear_UpperElementary= float(fullYear_UpperElementary) + val6
+        fall_UpperElementary = request.POST['fall_UpperElementary']
+        Taxfall_UpperElementary = request.POST['Taxfall_UpperElementary']
+        val7 = float(fall_UpperElementary) * float(Taxfall_UpperElementary)
+        print(val7)
+        val7 = val7/100
+        print(val7)
+        total_fall_UpperElementary= float(fall_UpperElementary) + val7
+        spring_UpperElementary = request.POST['spring_UpperElementary']
+        Taxspring_UpperElementary = request.POST['Taxspring_UpperElementary']
+        val8 = float(spring_UpperElementary) * float(Taxspring_UpperElementary)
+        print(val8)
+        val8 = val8/100
+        print(val8)
+        total_spring_UpperElementary= float(spring_UpperElementary) + val8 
+        aff = AffliatesfeeStructure(uid = uid,school = obj1,TaxfullYear_kindergarten = TaxfullYear_kindergarten,total_fullYear_kindergarten=total_fullYear_kindergarten,Taxfall_kindergarten=Taxfall_kindergarten,total_fall_kindergarten=total_fall_kindergarten,Taxspring_kindergarten=Taxspring_kindergarten,total_spring_kindergarten=total_spring_kindergarten,TaxfullYear_lowerElementary=TaxfullYear_lowerElementary,total_fullYear_lowerElementary=total_fullYear_lowerElementary,Taxfall_lowerElementary=Taxfall_lowerElementary,total_fall_lowerElementary=total_fall_lowerElementary,Taxspring_lowerElementary=Taxspring_lowerElementary,total_spring_lowerElementary=total_spring_lowerElementary,TaxfullYear_UpperElementary=TaxfullYear_UpperElementary,total_fullYear_UpperElementary=total_fullYear_UpperElementary,Taxfall_UpperElementary=Taxfall_UpperElementary,total_fall_UpperElementary=total_fall_UpperElementary,Taxspring_UpperElementary=Taxspring_UpperElementary,total_spring_UpperElementary=total_spring_UpperElementary)
+        aff.save()
+        return redirect('webpage_Approve')
+    return render(request,'superAdminDashboard/feedetailsreview.html',{'objj':objj})
+    #return render(request,'superAdminDashboard/feedetailsreview.html')
 
  # ajax view to get slots and populate in dropdown and reading calendar to filter slots
 def individual_load_slots(request):
@@ -1838,48 +1920,93 @@ def studentedit_admin(request,student_id):
 
 
 def auditionApprove(request):
+    user_id=request.session['user_id']
+    user=User.objects.get(id=user_id)
+    name = user.first_name
     personal_info = MICRO_APPLY.objects.all()
     audition = MICRO_AUDN.objects.filter(IS_COMPLETE='Y',IS_APPROVED='N')
-    return render(request,'superAdminDashboard/auditionApprove.html',{'audition':audition})    
+    return render(request,'superAdminDashboard/auditionApprove.html',{'audition':audition,'name':name}) 
+
+
 
 def Affliatestracker(request):
+    user_id=request.session['user_id']
+    user=User.objects.get(id=user_id)
+    name = user.first_name
     personal_info = MICRO_APPLY.objects.all()
     audition = MICRO_AUDN.objects.all()
-    return render(request,'superAdminDashboard/Affliatestracker.html',{'audition':audition,'personal_info':personal_info})
+    return render(request,'superAdminDashboard/Affliatestracker.html',{'audition':audition,'personal_info':personal_info,'name':name})
 
 def audition_accept(request,uid):
     aud = MICRO_AUDN.objects.filter(uid = uid)
     aud.IS_APPROVED='Y'
     aud.save(update_fields=['IS_APPROVED'])
+    mob = MICRO_APPLY.objects.get(uid = uid)
     subject='Audition accepted'
     html_template='socialaccount/email/audition_accept.html'
     html_message=render_to_string(html_template)
-    to_email= email
+    to_email=mob.EMAIL
     message=EmailMessage(subject, html_message, settings.EMAIL_HOST_USER, [to_email])
     message.content_subtype='html'
     message.send()
-    return rendirect('auditionApprove')
+    return redirect('auditionApprove')
+
+def audition_reject(request,uid):
+    aud = MICRO_AUDN.objects.filter(uid = uid)
+    aud.IS_APPROVED='R'
+    mob = MICRO_APPLY.objects.get(uid = uid)
+    aud.save(update_fields=['IS_APPROVED'])
+    subject='Audition Rejected'
+    html_template='socialaccount/email/audition_reject.html'
+    html_message=render_to_string(html_template)
+    to_email= mob.EMAIL
+    message=EmailMessage(subject, html_message, settings.EMAIL_HOST_USER, [to_email])
+    message.content_subtype='html'
+    message.send()
+    return redirect('auditionApprove')
+   
 
 def Profiling_saas(request):
+    user_id=request.session['user_id']
+    user=User.objects.get(id=user_id)
+    name = user.first_name
     micro = MICRO_PROFILING.objects.all()
-    return render(request,'superAdminDashboard/Profiling_saas.html',{'micro':micro})
+    return render(request,'superAdminDashboard/Profiling_saas.html',{'micro':micro,'name':name})
 
 def Profiling_accept(request,uid):
     aud =  MICRO_PROFILING.objects.filter(uid = uid)
     aud.IS_APPROVED='Y'
     aud.save(update_fields=['IS_APPROVED'])
+    mob = MICRO_APPLY.objects.get(uid = uid)
     subject='Affliation accepted'
     html_template='socialaccount/email/saasprofilingaccept.html'
     html_message=render_to_string(html_template)
-    to_email= email
+    to_email= mob.EMAIL
     message=EmailMessage(subject, html_message, settings.EMAIL_HOST_USER, [to_email])
     message.content_subtype='html'
     message.send()
-    return rendirect('Profiling_saas')
+    return redirect('Profiling_saas')
+
+def Profiling_reject(request,uid):
+    aud =  MICRO_PROFILING.objects.filter(uid = uid)
+    aud.IS_APPROVED='R'
+    aud.save(update_fields=['IS_APPROVED'])
+    mob = MICRO_APPLY.objects.get(uid = uid)
+    subject='Affliation Rejected'
+    html_template='socialaccount/email/saasprofilingaccept.html'
+    html_message=render_to_string(html_template)
+    to_email= mob.EMAIL
+    message=EmailMessage(subject, html_message, settings.EMAIL_HOST_USER, [to_email])
+    message.content_subtype='html'
+    message.send()
+    return redirect('Profiling_saas')    
 
 def webpage_Approve(request):
+    user_id=request.session['user_id']
+    user=User.objects.get(id=user_id)
+    name = user.first_name
     iww = INDIVIDUAL_WEBPAGESS1.objects.filter(IS_APPROVED='N')
-    return render(request,'superAdminDashboard/webpage_Approve.html',{'iww':iww})
+    return render(request,'superAdminDashboard/webpage_Approve.html',{'iww':iww,'name':name})
 
 
 def viewbanners(request,uid):

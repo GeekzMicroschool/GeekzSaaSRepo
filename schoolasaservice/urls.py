@@ -71,6 +71,7 @@ urlpatterns = [
     path('superAdmin_slots',views.superAdmin_slots,name="superAdmin_slots"),
     path('SuperAdminSlotsView',views.SuperAdminSlotsView,name="SuperAdminSlotsView"),
     path('superedit_time_slot/<pk>',views.superedit_time_slot,name="superedit_time_slot"),
+    path('feedetailsreview/<uid>',views.feedetailsreview,name="feedetailsreview"),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
