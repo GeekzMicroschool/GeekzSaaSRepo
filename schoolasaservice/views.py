@@ -1002,11 +1002,14 @@ def webpage(request,LOCALITY):
 def superAdmin_dashboard(request):
     '''for p in User.objects.raw('SELECT * FROM auth_user'):
         print(p)'''
+    user_id=request.session['user_id']
+    user=User.objects.get(id=user_id)
+    name = user.first_name
     now = datetime.datetime.now()
     auth_obj = User.objects.all().count()   
     auth_obj1 = User.objects.all()  
     print(auth_obj)
-    return render(request,'superAdmin_dashboard.html',{'auth_obj':auth_obj}) 
+    return render(request,'superAdmin_dashboard.html',{'auth_obj':auth_obj,'name': name}) 
 
 
 def basictables(request):
@@ -1019,20 +1022,22 @@ def individualAdmin_dashboard(request):
     user_id=request.session['user_id']
     user=User.objects.get(id=user_id)
     uid_obj = USER_DETAILS.objects.get(USER_EMAIL=user.email)
+    profile = MICRO_APPLY.objects.filter(uid = uid_obj.uid)
     admin_web = INDIVIDUAL_WEBPAGESS1.objects.filter(uid = uid_obj.uid,IS_APPROVED='Y')
     webform = ''
     if admin_web:
         webform = 'done'
-    return render(request,'individualAdmin_dashboard.html',{'webform': webform,'admin_web':admin_web})
+    return render(request,'individualAdmin_dashboard.html',{'webform': webform,'admin_web':admin_web,'profile':profile})
 
 def individualAdmin_approvels(request):
     print('hiiiiii')
     user_id=request.session['user_id']
     user=User.objects.get(id=user_id)
     uid_obj = USER_DETAILS.objects.get(USER_EMAIL=user.email)
+    profile = MICRO_APPLY.objects.filter(uid = uid_obj.uid)
     admin_web = INDIVIDUAL_WEBPAGESS1.objects.get(uid = uid_obj.uid)
     inquirys = InquiryS.objects.filter(microschool=admin_web.SCHOOL_NAME,ISAPPROVED='N')
-    return render(request,"individualAdminDashboard/bs-basicApprovel.html",{'inquirys':inquirys})
+    return render(request,"individualAdminDashboard/bs-basicApprovel.html",{'inquirys':inquirys,'profile':profile})
 
 
 def inquiryApprove(request,uid):
@@ -1458,11 +1463,33 @@ def student_profiling(request):
             return redirect('webpage',LOCALITY=location.LOCALITY)
     return render(request,'student_profiling.html',{'form':form})  
 
+def individualAdminSlotsView(request):
+    user_id=request.session['user_id']
+    user=User.objects.get(id=user_id)
+    uid_obj = USER_DETAILS.objects.get(USER_EMAIL=user.email)
+    Iw = INDIVIDUAL_WEBPAGESS1.objects.filter(uid = uid_obj.uid)
+    Iw1 = list(Iw)
+    Iw1 = Iw1[0]
+    ias = Individual_admin_slots.objects.filter(admin_id = Iw1)
+    slots_monday =Individual_admin_slots.objects.filter(admin_id = Iw1, day='Monday')
+    slots_tuesday = Individual_admin_slots.objects.filter(admin_id = Iw1, day='Tuesday') 
+    slots_wednesday = Individual_admin_slots.objects.filter(admin_id = Iw1, day='Wednesday')
+    slots_thursday = Individual_admin_slots.objects.filter(admin_id = Iw1, day='Thursday')
+    slots_friday = Individual_admin_slots.objects.filter(admin_id = Iw1, day='Friday')
+    slots_saturday = Individual_admin_slots.objects.filter(admin_id = Iw1, day='Saturday')
+    return render(request,'individualAdminDashboard/individualAdminSlotsView.html',{'slots_monday':slots_monday,'slots_tuesday':slots_tuesday,'slots_wednesday':slots_wednesday,'slots_thursday':slots_thursday,'slots_friday':slots_friday,'slots_saturday':slots_saturday,'ias': ias})
+
+
 def individualAdminSlots(request):
+    user_id=request.session['user_id']
+    user=User.objects.get(id=user_id)
+    uid_obj = USER_DETAILS.objects.get(USER_EMAIL=user.email)
+    profile = MICRO_APPLY.objects.filter(uid = uid_obj.uid)
     if request.method == "POST" :
         user_id=request.session['user_id']
         user=User.objects.get(id=user_id)
         uid_obj = USER_DETAILS.objects.get(USER_EMAIL=user.email)
+        profile = MICRO_APPLY.objects.filter(uid = uid_obj.uid)
         admin_id = INDIVIDUAL_WEBPAGESS1.objects.filter(uid= uid_obj.uid)
         admin_id = list(admin_id)
         admin_id = admin_id[0]
@@ -1476,18 +1503,149 @@ def individualAdminSlots(request):
         end_datetime_object = end_datetime_object.strftime("%I:%M %p")
         start_datetime_object =  datetime.datetime.strptime(start_datetime_object, '%I:%M %p')
         end_datetime_object =  datetime.datetime.strptime(end_datetime_object, '%I:%M %p')
+        msg = ''
         def time_slots(start_datetime_object, end_datetime_object,duration):
             t = start_datetime_object
             while t < end_datetime_object:
                 yield t.strftime('%I:%M %p')
-                slot_obj = Individual_admin_slots(slot=t.strftime('%I:%M %p'),day=day,duration=time_duration,admin_id=admin_id)
-                t += datetime.timedelta(minutes=time_duration)
-                slot_obj.save()
-                print(t.strftime('%I:%M %p'))
+                ss = Individual_admin_slots.objects.filter(admin_id= admin_id,slot= t.strftime('%I:%M %p'),day=day)
+                if not ss:
+                    slot_obj = Individual_admin_slots(slot=t.strftime('%I:%M %p'),day=day,duration=time_duration,admin_id=admin_id)
+                    t += datetime.timedelta(minutes=time_duration)
+                    slot_obj.save()
+                    print(t.strftime('%I:%M %p'))
+                else:
+                    pass
+                     
         print(list(time_slots(start_datetime_object, end_datetime_object,time_duration)))
-        return render(request,'individualAdminDashboard/individualAdminSlots.html')
-    return render(request,'individualAdminDashboard/individualAdminSlots.html')      
- ###########################################3       
+        return render(request,'individualAdminDashboard/individualAdminSlots.html',{'profile':profile})
+    return render(request,'individualAdminDashboard/individualAdminSlots.html',{'profile':profile})
+
+
+
+def edit_time_slot(request,pk):
+    ob = Individual_admin_slots.objects.get(pk=pk)
+    obj = Individual_admin_slots.objects.filter(pk=pk)
+    day = ob.day
+    if request.method == "POST" :
+        ob1 = Individual_admin_slots.objects.filter(day = day).delete()
+        user_id=request.session['user_id']
+        user=User.objects.get(id=user_id)
+        uid_obj = USER_DETAILS.objects.get(USER_EMAIL=user.email)
+        profile = MICRO_APPLY.objects.filter(uid = uid_obj.uid)
+        admin_id = INDIVIDUAL_WEBPAGESS1.objects.filter(uid= uid_obj.uid)
+        admin_id = list(admin_id)
+        admin_id = admin_id[0]
+        time_duration = float(request.POST['duration'])
+        start_time = request.POST['Start-time']
+        end_time = request.POST['End-time']
+        day = request.POST['day']
+        start_datetime_object =  datetime.datetime.strptime(start_time, '%H:%M')
+        end_datetime_object =  datetime.datetime.strptime(end_time, '%H:%M')
+        start_datetime_object = start_datetime_object.strftime("%I:%M %p")
+        end_datetime_object = end_datetime_object.strftime("%I:%M %p")
+        start_datetime_object =  datetime.datetime.strptime(start_datetime_object, '%I:%M %p')
+        end_datetime_object =  datetime.datetime.strptime(end_datetime_object, '%I:%M %p')
+        def time_slots(start_datetime_object, end_datetime_object,duration):
+            t = start_datetime_object
+            while t < end_datetime_object:
+                yield t.strftime('%I:%M %p')
+                ss = Individual_admin_slots.objects.filter(admin_id= uid_obj.uid,slot= t.strftime('%I:%M %p'),day=day)
+                if not ss:
+                    slot_obj = Individual_admin_slots(slot=t.strftime('%I:%M %p'),day=day,duration=time_duration,admin_id=admin_id)
+                    t += datetime.timedelta(minutes=time_duration)
+                    slot_obj.save()
+                    print(t.strftime('%I:%M %p'))
+                else:
+                    msg = 'The slot already exist' 
+        print(list(time_slots(start_datetime_object, end_datetime_object,time_duration)))
+        return redirect('individualAdminSlotsView')
+    return render(request,'individualAdminDashboard/edit_time_slot.html',{'ob':obj})
+ ###########################################3   
+
+
+
+def superAdmin_slots(request):
+    user_id=request.session['user_id']
+    user=User.objects.get(id=user_id)
+    name = user.first_name
+    if request.method == "POST" :
+        user_id=request.session['user_id']
+        user=User.objects.get(id=user_id)
+        time_duration = float(request.POST['duration'])
+        start_time = request.POST['Start-time']
+        end_time = request.POST['End-time']
+        day = request.POST['Days']
+        start_datetime_object =  datetime.datetime.strptime(start_time, '%H:%M')
+        end_datetime_object =  datetime.datetime.strptime(end_time, '%H:%M')
+        start_datetime_object = start_datetime_object.strftime("%I:%M %p")
+        end_datetime_object = end_datetime_object.strftime("%I:%M %p")
+        start_datetime_object =  datetime.datetime.strptime(start_datetime_object, '%I:%M %p')
+        end_datetime_object =  datetime.datetime.strptime(end_datetime_object, '%I:%M %p')
+        msg = ''
+        def time_slots(start_datetime_object, end_datetime_object,duration):
+            t = start_datetime_object
+            while t < end_datetime_object:
+                yield t.strftime('%I:%M %p')
+                ss = SLOTS_DAY.objects.filter(admin= user.id,slot= t.strftime('%I:%M %p'),day=day)
+                if not ss:
+                    slot_obj = SLOTS_DAY(slot=t.strftime('%I:%M %p'),day=day,duration=time_duration,admin=user.id)
+                    t += datetime.timedelta(minutes=time_duration)
+                    slot_obj.save()
+                    print(t.strftime('%I:%M %p'))
+                else:
+                    pass
+                     
+        print(list(time_slots(start_datetime_object, end_datetime_object,time_duration)))
+        return render(request,'superAdminDashboard/superAdmin_slots.html',{'name':name})
+    return render(request,'superAdminDashboard/superAdmin_slots.html',{'name':name})
+
+def SuperAdminSlotsView(request):
+    user_id=request.session['user_id']
+    user=User.objects.get(id=user_id)
+    name = user.first_name
+    ias = SLOTS_DAY.objects.filter(admin = user.id)
+    slots_monday =SLOTS_DAY.objects.filter(admin = user.id, day='Monday')
+    slots_tuesday = SLOTS_DAY.objects.filter(admin = user.id, day='Tuesday') 
+    slots_wednesday = SLOTS_DAY.objects.filter(admin = user.id, day='Wednesday')
+    slots_thursday = SLOTS_DAY.objects.filter(admin = user.id, day='Thursday')
+    slots_friday = SLOTS_DAY.objects.filter(admin = user.id, day='Friday')
+    slots_saturday = SLOTS_DAY.objects.filter(admin =user.id, day='Saturday')
+    return render(request,'superAdminDashboard/SuperAdminSlotsView.html',{'slots_monday':slots_monday,'slots_tuesday':slots_tuesday,'slots_wednesday':slots_wednesday,'slots_thursday':slots_thursday,'slots_friday':slots_friday,'slots_saturday':slots_saturday,'ias': ias})
+
+def superedit_time_slot(request,pk):
+    ob = SLOTS_DAY.objects.get(pk=pk)
+    obj = SLOTS_DAY.objects.filter(pk=pk)
+    day = ob.day
+    if request.method == "POST" :
+        ob1 = SLOTS_DAY.objects.filter(day = day).delete()
+        user_id=request.session['user_id']
+        user=User.objects.get(id=user_id)
+        time_duration = float(request.POST['duration'])
+        start_time = request.POST['Start-time']
+        end_time = request.POST['End-time']
+        day = request.POST['day']
+        start_datetime_object =  datetime.datetime.strptime(start_time, '%H:%M')
+        end_datetime_object =  datetime.datetime.strptime(end_time, '%H:%M')
+        start_datetime_object = start_datetime_object.strftime("%I:%M %p")
+        end_datetime_object = end_datetime_object.strftime("%I:%M %p")
+        start_datetime_object =  datetime.datetime.strptime(start_datetime_object, '%I:%M %p')
+        end_datetime_object =  datetime.datetime.strptime(end_datetime_object, '%I:%M %p')
+        def time_slots(start_datetime_object, end_datetime_object,duration):
+            t = start_datetime_object
+            while t < end_datetime_object:
+                yield t.strftime('%I:%M %p')
+                ss = SLOTS_DAY.objects.filter(admin= user.id,slot= t.strftime('%I:%M %p'),day=day)
+                if not ss:
+                    slot_obj = SLOTS_DAY(slot=t.strftime('%I:%M %p'),day=day,duration=time_duration,admin=user.id)
+                    t += datetime.timedelta(minutes=time_duration)
+                    slot_obj.save()
+                    print(t.strftime('%I:%M %p'))
+                else:
+                    msg = 'The slot already exist' 
+        print(list(time_slots(start_datetime_object, end_datetime_object,time_duration)))
+        return redirect('SuperAdminSlotsView')
+    return render(request,'superAdminDashboard/superedit_time_slot.html',{'ob':obj})
 
 
  # ajax view to get slots and populate in dropdown and reading calendar to filter slots
@@ -1534,9 +1692,10 @@ def bsbasicInvoice(request):
     user_id=request.session['user_id']
     user=User.objects.get(id=user_id)
     uid_obj = USER_DETAILS.objects.get(USER_EMAIL=user.email)
+    profile = MICRO_APPLY.objects.filter(uid = uid_obj.uid)
     sch = INDIVIDUAL_WEBPAGESS1.objects.get(uid = uid_obj.uid)
     invoice = InvoiceRequest.objects.filter(microschool=sch.SCHOOL_NAME,IS_COMPLETE='N')
-    return render(request,'individualAdminDashboard/bs-basicInvoice.html',{'invoice':invoice})
+    return render(request,'individualAdminDashboard/bs-basicInvoice.html',{'invoice':invoice,'profile':profile})
 
 def Transcript_PDF(request,student_id):
     ob = studentApplication.objects.get(student_id=student_id)
@@ -1556,9 +1715,10 @@ def transcriptsApprove(request):
     user_id=request.session['user_id']
     user=User.objects.get(id=user_id)
     uid_obj = USER_DETAILS.objects.get(USER_EMAIL=user.email)
+    profile = MICRO_APPLY.objects.filter(uid = uid_obj.uid)
     sch = INDIVIDUAL_WEBPAGESS1.objects.get(uid = uid_obj.uid)
     transcripts = transcriptsRequest.objects.filter(microschool=sch.SCHOOL_NAME,IS_COMPLETE='N',payment_complete='Y')
-    return render(request,"individualAdminDashboard/transcriptsApprove.html",{'transcripts': transcripts})
+    return render(request,"individualAdminDashboard/transcriptsApprove.html",{'transcripts': transcripts,'profile':profile})
 
 
 def transcripts_request(request):
@@ -1575,16 +1735,18 @@ def newApplications(request):
     user_id=request.session['user_id']
     user=User.objects.get(id=user_id)
     uid_obj = USER_DETAILS.objects.get(USER_EMAIL=user.email)
+    profile = MICRO_APPLY.objects.filter(uid = uid_obj.uid)
     sch = INDIVIDUAL_WEBPAGESS1.objects.filter(uid = uid_obj.uid)
     sch1 = list(sch)
     sch1 = sch1[0]
     student_obj = studentApplication.objects.filter(microschool=sch1)
-    return render(request,'individualAdminDashboard/newApplications.html',{'student_obj': student_obj})
+    return render(request,'individualAdminDashboard/newApplications.html',{'student_obj': student_obj,'profile':profile})
 
 def IndividualApproveProfiling(request):
     user_id=request.session['user_id']
     user=User.objects.get(id=user_id)
     uid_obj = USER_DETAILS.objects.get(USER_EMAIL=user.email)
+    profile = MICRO_APPLY.objects.filter(uid = uid_obj.uid)
     ud = INDIVIDUAL_WEBPAGESS1.objects.filter(uid = uid_obj.uid)
     ud1 = list(ud)
     ud1 = ud1[0]
@@ -1592,7 +1754,7 @@ def IndividualApproveProfiling(request):
     o = list(obj)
     o = o[0]
     objectProf = StudentProfiling.objects.filter(uid = o, IS_APPROVED='N')
-    return render(request,'individualAdminDashboard/individualprofiling.html',{'objectProf':objectProf})
+    return render(request,'individualAdminDashboard/individualprofiling.html',{'objectProf':objectProf,'profile':profile})
 
 def complete_profiling(request,student_id):
     student_obj = studentApplication.objects.get(student_id=student_id)
@@ -1632,6 +1794,10 @@ def reject_profiling(request,student_id):
 
 
 def studentedit_admin(request,student_id):
+    user_id=request.session['user_id']
+    user=User.objects.get(id=user_id)
+    uid_obj = USER_DETAILS.objects.get(USER_EMAIL=user.email)
+    profile = MICRO_APPLY.objects.filter(uid = uid_obj.uid)
     student_obj = studentApplication.objects.filter(student_id=student_id)
     student_obj1 = list(student_obj)
     student_obj1 = student_obj1[0]
@@ -1668,7 +1834,7 @@ def studentedit_admin(request,student_id):
         student_edit.enrolling_year = year
         student_edit.save(update_fields=['first_name','last_name','enrolling_grade','Fathersname','Fathersoccupation','Mothersname','address','email','phone','geekzcommute','yescommutelocation','enrolling_year'])
         return redirect('newApplications')
-    return render(request,'individualAdminDashboard/studentedit_admin.html',{'student_obj': student_obj,'DOB':DOB})
+    return render(request,'individualAdminDashboard/studentedit_admin.html',{'student_obj': student_obj,'DOB':DOB,'profile':profile})
 
 
 def auditionApprove(request):
@@ -1713,7 +1879,7 @@ def Profiling_accept(request,uid):
 
 def webpage_Approve(request):
     iww = INDIVIDUAL_WEBPAGESS1.objects.filter(IS_APPROVED='N')
-    return render(request,'superAdminDashboard/webpage_Approve.html',{'iw':iww})
+    return render(request,'superAdminDashboard/webpage_Approve.html',{'iww':iww})
 
 
 def viewbanners(request,uid):
@@ -1722,6 +1888,24 @@ def viewbanners(request,uid):
     iw1 = iw1[0]
     gala = Photo_webpage1.objects.filter(gala_admin = iw1)
     return render(request,'superAdminDashboard/viewbanners.html',{'iw':iw,'gala':gala})
+
+
+def adminprofileEdit(request,uid):
+    info = MICRO_APPLY.objects.filter(uid=uid)
+    if request.method == "POST" :
+        NAME = request.POST['first_name']
+        EMAIL= request.POST['EMAIL']
+        COUNTRY_CODE = request.POST['COUNTRY_CODE']
+        PHONE = request.POST['PHONE']
+        info = MICRO_APPLY.objects.get(uid=uid)
+        info.NAME=NAME
+        info.EMAIL = EMAIL
+        info.COUNTRY_CODE = COUNTRY_CODE
+        info.PHONE = PHONE
+        info.save(update_fields=['NAME','EMAIL','COUNTRY_CODE','PHONE'])
+        return redirect('individualAdmin_dashboard')
+    return render(request,'individualAdminDashboard/adminprofileEdit.html',{'info':info})
+
 
 
 

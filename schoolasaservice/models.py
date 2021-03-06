@@ -119,9 +119,12 @@ class MICRO_APPLY(models.Model):
 
 class SLOTS_DAY(models.Model):
     admin = models.CharField(max_length=200)
-    slot = models.TextField()
-    day = models.TextField() 
-    duration = models.TextField()
+    slot = models.CharField(max_length=200)
+    day = models.CharField(max_length=200) 
+    duration = models.CharField(max_length=200)
+    class Meta:
+        unique_together = ('admin','slot','day',)
+
 
 class EVENTS_SCHEDULE(models.Model):
     user_details = models.ForeignKey(USER_DETAILS,on_delete=models.CASCADE)
@@ -361,6 +364,8 @@ class Individual_admin_slots(models.Model):
     slot = models.TextField()
     day = models.TextField() 
     duration = models.TextField()
+    class Meta:
+        unique_together = ('admin_id','slot','day',)
 
 class StudentProfiling(models.Model):
     uid=models.ForeignKey(studentApplication, on_delete=models.CASCADE)

@@ -1,0 +1,246 @@
+<!DOCTYPE html> 
+<html lang="en">
+	
+<!-- doccure/schedule-timings.html  30 Nov 2019 04:12:09 GMT -->
+<head>
+         {% load static %}
+		<meta charset="utf-8">
+		<title>Doccure</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+		
+		<!-- Favicons -->
+		<link href="{% static 'assets/img/favicon.png' %}" rel="icon">
+		
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+		
+		<!-- Fontawesome CSS -->
+		<link rel="stylesheet" href='{% static "assets/plugins/fontawesome/css/fontawesome.min.css" %}'>
+		<link rel="stylesheet" href='{% static "assets/plugins/fontawesome/css/all.min.css" %}'>
+		
+		<!-- Select2 CSS -->
+		<link rel="stylesheet" href='{% static "assets/plugins/select2/css/select2.min.css" %}'>
+		
+		<!-- Main CSS -->
+		<link rel="stylesheet" href='{% static "assets/css/style.css" %}'>
+		
+		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+			<script src="assets/js/html5shiv.min.js"></script>
+			<script src="assets/js/respond.min.js"></script>
+		<![endif]-->
+	
+	</head>
+	<body>
+
+		<!-- Main Wrapper -->
+		<div class="main-wrapper">
+
+
+
+<div class="container">
+    <br><br><br><br><br>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card schedule-widget mb-0">
+            <h1>Slots available for Scheduling Profiling</h1>
+            <!-- Schedule Header -->
+            <div class="schedule-header">
+                <br><br><br>
+                <!-- Schedule Nav -->
+                <div class="schedule-nav">
+                    <ul class="nav nav-tabs nav-justified">
+                        
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#slot_monday">Monday</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#slot_tuesday">Tuesday</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#slot_wednesday">Wednesday</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#slot_thursday">Thursday</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#slot_friday">Friday</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#slot_saturday">Saturday</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /Schedule Nav -->
+                
+            </div>
+            <!-- /Schedule Header -->
+            
+            <!-- Schedule Content -->
+            <div class="tab-content schedule-cont">
+                <a class="edit-link"  href="individualAdminSlots">
+                    <i class="fa fa-plus-circle"></i> Add Slot </a>
+                <!-- Sunday Slot -->
+               
+                <!-- /Sunday Slot -->
+
+                <!-- Monday Slot -->
+                <div id="slot_monday" class="tab-pane fade show active">
+                    <h4 class="card-title d-flex justify-content-between">
+                        <span>Time Slots</span> 
+                       
+                    </h4>
+                    
+                    <!-- Slot List -->
+                    <div class="doc-times">
+                        {% for m in slots_monday %}
+                        <div class="doc-slot-list">
+                            {{m.slot}}
+                            <a href="edit_time_slot/{{m.pk}}">
+                                <i class="fa fa-edit mr-1"></i>
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    
+                </div>													
+                    <!-- /Slot List -->
+                <!-- /Monday Slot -->
+
+                <!-- Tuesday Slot -->
+                <div id="slot_tuesday" class="tab-pane fade">
+                    <h4 class="card-title d-flex justify-content-between">
+                        <span>Time Slots</span> 
+                       
+                    </h4>
+                    
+                    <!-- Slot List -->
+                    <div class="doc-times">
+                        {% for m in slots_tuesday %}
+                        <div class="doc-slot-list">
+                            {{m.slot}}
+                            <a class="edit-link"  href="edit_time_slot/{{m.pk}}">
+                                <i class="fa fa-edit mr-1"></i>
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    
+                    
+                </div>
+                <!-- /Tuesday Slot -->
+
+                <!-- Wednesday Slot -->
+                <div id="slot_wednesday" class="tab-pane fade">
+                    <h4 class="card-title d-flex justify-content-between">
+                        <span>Time Slots</span> 
+                    </h4>
+                    
+                    <!-- Slot List -->
+                    <div class="doc-times">
+                        {% for m in slots_wednesday %}
+                        <div class="doc-slot-list">
+                            {{m.slot}}
+                            <a  href="edit_time_slot/{{m.pk}}">
+                                <i class="fa fa-edit mr-1"></i>
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    
+                </div>
+                <!-- /Wednesday Slot -->
+
+                <!-- Thursday Slot -->
+                <div id="slot_thursday" class="tab-pane fade">
+                    <h4 class="card-title d-flex justify-content-between">
+                        <span>Time Slots</span> 
+                    </h4>
+                    
+                    <!-- Slot List -->
+                    <div class="doc-times">
+                        {% for m in slots_thursday %}
+                        <div class="doc-slot-list">
+                            {{m.slot}}
+                            <a  href="edit_time_slot/{{m.pk}}">
+                                <i class="fa fa-edit mr-1"></i>
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <!-- /Thursday Slot -->
+
+                <!-- Friday Slot -->
+                <div id="slot_friday" class="tab-pane fade">
+                   
+                    <h4 class="card-title d-flex justify-content-between">
+                        <span>Time Slots</span> 
+                       
+                    </h4>
+                    
+                    <!-- Slot List -->
+                    <div class="doc-times">
+                        {% for m in slots_friday %}
+                        <div class="doc-slot-list">
+                            {{m.slot}}
+                            <a  href="edit_time_slot/{{m.pk}}">
+                                <i class="fa fa-edit mr-1"></i>
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    
+                </div>
+                <!-- /Friday Slot -->
+
+                <!-- Saturday Slot -->
+                <div id="slot_saturday" class="tab-pane fade">
+                    <h4 class="card-title d-flex justify-content-between">
+                        <span>Time Slots</span> 
+                    </h4>	
+                    
+                    <!-- Slot List -->
+                    <div class="doc-times">
+                        {% for m in slots_saturday %}
+                        <div class="doc-slot-list">
+                            {{m.slot}}
+                            <a  href="edit_time_slot/{{m.pk}}">
+                                <i class="fa fa-edit mr-1"></i>
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <!-- /Saturday Slot -->
+
+            </div>
+            <!-- /Schedule Content -->
+            
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+
+<script src="{% static 'assets/js/jquery.min.js' %}"></script>
+		
+<!-- Bootstrap Core JS -->
+<script src="{% static 'assets/js/popper.min.js' %}"></script>
+<script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+
+<!-- Sticky Sidebar JS -->
+<script src="{% static 'assets/plugins/theia-sticky-sidebar/ResizeSensor.js' %}s"></script>
+<script src="{% static 'assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js' %}"></script>
+
+<!-- Select2 JS -->
+<script src="{% static 'assets/plugins/select2/js/select2.min.js' %}"></script>
+
+<!-- Custom JS -->
+<script src="{% static 'assets/js/script.js' %}"></script>
+
+</body>
+
+<!-- doccure/schedule-timings.html  30 Nov 2019 04:12:09 GMT -->
+</html>

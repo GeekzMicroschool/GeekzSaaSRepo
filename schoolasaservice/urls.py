@@ -65,7 +65,12 @@ urlpatterns = [
     path('Profiling_accept/<uid>',views.Profiling_accept,name="Profiling_accept"),
     path('webpage_Approve',views.webpage_Approve,name="webpage_Approve"),
     path('viewbanners/<uid>',views.viewbanners,name="viewbanners"),
-
+    path('adminprofileEdit/<uid>',views.adminprofileEdit,name="adminprofileEdit"),
+    path('individualAdminSlotsView',views.individualAdminSlotsView,name="individualAdminSlotsView"),
+    path('edit_time_slot/<pk>',views.edit_time_slot,name="edit_time_slot"),
+    path('superAdmin_slots',views.superAdmin_slots,name="superAdmin_slots"),
+    path('SuperAdminSlotsView',views.SuperAdminSlotsView,name="SuperAdminSlotsView"),
+    path('superedit_time_slot/<pk>',views.superedit_time_slot,name="superedit_time_slot"),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
