@@ -326,7 +326,7 @@ class Photo_webpage1(models.Model):
 class AffliatesfeeStructure(models.Model):
     uid = models.CharField(max_length=50, primary_key=True)
     school = models.ForeignKey(individual_feedetail, on_delete=models.CASCADE)
-
+    IS_FEEREVIEW_COMPLETE = models.CharField(max_length=1, default="N")
     TaxfullYear_kindergarten = models.IntegerField()
     total_fullYear_kindergarten = models.IntegerField()
 

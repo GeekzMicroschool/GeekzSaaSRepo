@@ -254,7 +254,23 @@
                             <div class="col-lg-3 col-md-12"></div>
                         </div>
                          {% endfor %}
+
                     {% else %}
+                    {% if webform_not_APPROVEDYet == "yes" %}
+
+                    <div class="row">
+                        <div class="col-lg-3 col-md-12"></div>
+                        <div class="col-lg-6 col-md-12">
+                           
+                            <div class="form-group">
+                              <h3>Your webpage is to be approved by admin</h3>
+                               
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-12"></div>
+                    </div>
+                    {% else %}
+
                                         <div class="row">
                                             <div class="col-lg-3 col-md-12"></div>
                                             <div class="col-lg-6 col-md-12">
@@ -268,7 +284,8 @@
                                             </div>
                                             <div class="col-lg-3 col-md-12"></div>
                                         </div>
-                    {% endif %}                    
+                    {% endif %} 
+                    {% endif %}                   
                                     </div>
                                     
                                         </div>

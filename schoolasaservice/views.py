@@ -824,7 +824,7 @@ def web_form(request):
     user_id=request.session['user_id']
     user=User.objects.get(id=user_id)
     user_details=USER_DETAILS.objects.get(USER_EMAIL=user.email)
-    IE=INDIVIDUAL_WEBPAGESS1.objects.filter(uid=user_details.uid,IS_COMPLETE='Y',IS_APPROVED ='N')
+    IE=INDIVIDUAL_WEBPAGESS1.objects.filter(uid=user_details.uid,IS_COMPLETE='N',IS_APPROVED ='N')
     print(IE)
      # msg form to be reviewed
     
@@ -909,7 +909,7 @@ def web_form(request):
             time1_to = time1_to.strftime("%I:%M %p")
             latitude = request.POST['loc_lat']
             longitude = request.POST['loc_long']
-            ob = INDIVIDUAL_WEBPAGESS1(uid = user_details.uid,SCHOOL_NAME = school_name ,LOCALITY = locality ,AMENITIES_is_Spacious_Studio=is_Spacious_Studio ,AMENITIES_is_Outdoor_PlayLawn=is_Outdoor_PlayLawn,AMENITIES_is_Commute = is_Commute,AMENITIES_is_CCTV = is_CCTV,AMENITIES_is_WiFi=is_WiFi,AMENITIES_is_Device=is_Device,AMENITIES_is_Food=is_Food,AMENITIES_is_Daycare=is_Daycare,AMENITIES_is_After_School=is_After_School,AMENITIES_is_Residential= is_Residential,BANNER1=banner11,BANNER2=banner2, BANNER3=banner3,BANNER4=banner4, GOOGLE_REVIEWS_LINK =googlereview,FOUNDER_NAME=founder_name1,DESIGNATION=founder_designation,CO_FOUNDER1=founder_name2,DESIGNATION_CO1=founder_designation1,CONTENT1=about_founder1,CONTENT2=about_founder2,ADDRESS1=address1,ADDRESS2=address2,SCHOOL_LOCALITY =SchoolArea,SCHOOL_PHONE=phone,SCHOOL_PHONE1=phone1,SCHOOL_EMAIL=email,SCHOOL_HOURS_KS=time_from+' to '+ time_to,SCHOOL_HOURS_ES=time1_from+' to '+ time1_to,IS_COMPLETE='Y',LATITUDE=latitude,LONGITUDE=longitude)
+            ob = INDIVIDUAL_WEBPAGESS1(uid = user_details.uid,SCHOOL_NAME = school_name ,LOCALITY = locality ,AMENITIES_is_Spacious_Studio=is_Spacious_Studio ,AMENITIES_is_Outdoor_PlayLawn=is_Outdoor_PlayLawn,AMENITIES_is_Commute = is_Commute,AMENITIES_is_CCTV = is_CCTV,AMENITIES_is_WiFi=is_WiFi,AMENITIES_is_Device=is_Device,AMENITIES_is_Food=is_Food,AMENITIES_is_Daycare=is_Daycare,AMENITIES_is_After_School=is_After_School,AMENITIES_is_Residential= is_Residential,BANNER1=banner11,BANNER2=banner2, BANNER3=banner3,BANNER4=banner4, GOOGLE_REVIEWS_LINK =googlereview,FOUNDER_NAME=founder_name1,DESIGNATION=founder_designation,CO_FOUNDER1=founder_name2,DESIGNATION_CO1=founder_designation1,CONTENT1=about_founder1,CONTENT2=about_founder2,ADDRESS1=address1,ADDRESS2=address2,SCHOOL_LOCALITY =SchoolArea,SCHOOL_PHONE=phone,SCHOOL_PHONE1=phone1,SCHOOL_EMAIL=email,SCHOOL_HOURS_KS=time_from+' to '+ time_to,SCHOOL_HOURS_ES=time1_from+' to '+ time1_to,LATITUDE=latitude,LONGITUDE=longitude)
             ob.save()
             #OBJ = webdata2.objects.filter(url=url)
             return render(request,'individual_feedetails.html')
@@ -918,25 +918,35 @@ def web_form(request):
 
 
 def IndividualFeedetails(request):
-    if request.method == "POST":
-        user_id=request.session['user_id']
-        user=User.objects.get(id=user_id)
-        user_details=USER_DETAILS.objects.get(USER_EMAIL=user.email)
-        iw = INDIVIDUAL_WEBPAGESS1.objects.filter(uid = user_details.uid)
-        iw1 = list(iw)
-        iw1 = iw1[0]
-        fullYear_kindergarten = request.POST['fullYear_kindergarten']
-        fall_kindergarten = request.POST['fall_kindergarten']
-        spring_kindergarten = request.POST['spring_kindergarten']
-        fullYear_lowerElementary = request.POST['fullYear_lowerElementary']
-        fall_lowerElementary = request.POST['fall_lowerElementary']
-        spring_lowerElementary = request.POST['spring_lowerElementary']
-        fullYear_UpperElementary = request.POST['fullYear_UpperElementary']
-        fall_UpperElementary = request.POST['fall_UpperElementary']
-        spring_UpperElementary = request.POST['spring_UpperElementary']
-        fee_obj = individual_feedetail(admin=iw1,fullYear_kindergarten=fullYear_kindergarten,fall_kindergarten=fall_kindergarten,spring_kindergarten=spring_kindergarten,fullYear_lowerElementary=fullYear_lowerElementary,fall_lowerElementary=fall_lowerElementary,spring_lowerElementary=spring_lowerElementary,fullYear_UpperElementary=fullYear_UpperElementary,fall_UpperElementary=fall_UpperElementary,spring_UpperElementary=spring_UpperElementary)
-        fee_obj.save()
-        return render(request,'bulk_load.html')
+    user_id=request.session['user_id']
+    user=User.objects.get(id=user_id)
+    user_details=USER_DETAILS.objects.get(USER_EMAIL=user.email)
+    iw = INDIVIDUAL_WEBPAGESS1.objects.filter(uid = user_details.uid)
+    iw1 = list(iw)
+    iw1 = iw1[0]
+    fee = individual_feedetail.objects.filter(admin=iw1)
+    if fee:
+        return redirect('bulk_load')
+    else:
+        if request.method == "POST":
+            user_id=request.session['user_id']
+            user=User.objects.get(id=user_id)
+            user_details=USER_DETAILS.objects.get(USER_EMAIL=user.email)
+            iw = INDIVIDUAL_WEBPAGESS1.objects.filter(uid = user_details.uid)
+            iw1 = list(iw)
+            iw1 = iw1[0]
+            fullYear_kindergarten = request.POST['fullYear_kindergarten']
+            fall_kindergarten = request.POST['fall_kindergarten']
+            spring_kindergarten = request.POST['spring_kindergarten']
+            fullYear_lowerElementary = request.POST['fullYear_lowerElementary']
+            fall_lowerElementary = request.POST['fall_lowerElementary']
+            spring_lowerElementary = request.POST['spring_lowerElementary']
+            fullYear_UpperElementary = request.POST['fullYear_UpperElementary']
+            fall_UpperElementary = request.POST['fall_UpperElementary']
+            spring_UpperElementary = request.POST['spring_UpperElementary']
+            fee_obj = individual_feedetail(admin=iw1,fullYear_kindergarten=fullYear_kindergarten,fall_kindergarten=fall_kindergarten,spring_kindergarten=spring_kindergarten,fullYear_lowerElementary=fullYear_lowerElementary,fall_lowerElementary=fall_lowerElementary,spring_lowerElementary=spring_lowerElementary,fullYear_UpperElementary=fullYear_UpperElementary,fall_UpperElementary=fall_UpperElementary,spring_UpperElementary=spring_UpperElementary)
+            fee_obj.save()
+            return render(request,'bulk_load.html')
     return render(request,'individual_feedetails.html')
 
 def web1(request):
@@ -1024,10 +1034,14 @@ def individualAdmin_dashboard(request):
     uid_obj = USER_DETAILS.objects.get(USER_EMAIL=user.email)
     profile = MICRO_APPLY.objects.filter(uid = uid_obj.uid)
     admin_web = INDIVIDUAL_WEBPAGESS1.objects.filter(uid = uid_obj.uid,IS_APPROVED='Y')
+    admin_web1 = INDIVIDUAL_WEBPAGESS1.objects.filter(uid = uid_obj.uid,IS_APPROVED='N',IS_COMPLETE="Y")
     webform = ''
-    if admin_web:
+    webform_not_APPROVEDYet = ""
+    if admin_web1:
+        webform_not_APPROVEDYet = "yes"
+    elif admin_web:
         webform = 'done'
-    return render(request,'individualAdmin_dashboard.html',{'webform': webform,'admin_web':admin_web,'profile':profile})
+    return render(request,'individualAdmin_dashboard.html',{'webform': webform,'admin_web':admin_web,'profile':profile,'webform_not_APPROVEDYet':webform_not_APPROVEDYet})
 
 def individualAdmin_approvels(request):
     print('hiiiiii')
@@ -1258,6 +1272,9 @@ def bulk_load(request):
            # g_file =  OptimizePics(g_file1) # saving the new image file in new variable
             photo_obj = Photo_webpage1(gala_admin=g_obj,file= g_file1)
             photo_obj.save()
+            complete_FLAG = INDIVIDUAL_WEBPAGESS1.objects.get(uid = uid_obj.uid)
+            complete_FLAG.IS_COMPLETE = "Y"
+            complete_FLAG.save(update_fields=['IS_COMPLETE'])
             photo = Photo_webpage1.objects.get(file=g_file1)
             data = {'is_valid': True, 'name': photo.file.name, 'url': photo.file.url}
             #photos_list = Photo_webpage1.objects.all()  
@@ -1528,6 +1545,15 @@ def edit_time_slot(request,pk):
     obj = Individual_admin_slots.objects.filter(pk=pk)
     day = ob.day
     if request.method == "POST" :
+        inform_student = Individual_admin_slots.objects.get(day = day)
+        student = inform.student.uid.email
+        subject='Student  Profiling Reschedule'
+        html_template='socialaccount/email/student_profiling_reschedule.html'
+        html_message=render_to_string(html_template)
+        to_email= student
+        message=EmailMessage(subject, html_message, settings.EMAIL_HOST_USER, [to_email])
+        message.content_subtype='html' 
+        message.send()
         ob1 = Individual_admin_slots.objects.filter(day = day).delete()
         user_id=request.session['user_id']
         user=User.objects.get(id=user_id)
@@ -1621,6 +1647,18 @@ def superedit_time_slot(request,pk):
     obj = SLOTS_DAY.objects.filter(pk=pk)
     day = ob.day
     if request.method == "POST" :
+        affliate_inform = SLOTS_DAY.objects.filter(day = day)
+        affliate_inform = list(affliate_inform)
+        affliate_inform = affliate_inform[0]
+        email_ob = MICRO_PROFILIN.objects.get(slot = affliate_inform )
+        email = email_ob.USER
+        subject='SaaS  Profiling Reschedule'
+        html_template='socialaccount/email/student_profiling_reschedule.html'
+        html_message=render_to_string(html_template)
+        to_email= student
+        message=EmailMessage(subject, html_message, settings.EMAIL_HOST_USER, [to_email])
+        message.content_subtype='html' 
+        message.send()
         ob1 = SLOTS_DAY.objects.filter(day = day).delete()
         user_id=request.session['user_id']
         user=User.objects.get(id=user_id)
@@ -1659,76 +1697,145 @@ def feedetailsreview(request,uid):
     objj = individual_feedetail.objects.filter(admin = obj)
     obj1 = list(objj)
     obj1 = obj1[0]
-    if request.method == "POST" :
-        fullYear_kindergarten = request.POST['fullYear_kindergarten']
-        TaxfullYear_kindergarten = request.POST['TaxfullYear_kindergarten']
-        val = float(fullYear_kindergarten) * float(TaxfullYear_kindergarten)
-        print(val)
-        val = val/100
-        print(val)
-        total_fullYear_kindergarten = float(fullYear_kindergarten) + val
-        print(total_fullYear_kindergarten)
-        fall_kindergarten = request.POST['fall_kindergarten']
-        Taxfall_kindergarten = request.POST['Taxfall_kindergarten']
-        val1 = float(fall_kindergarten) * float(Taxfall_kindergarten)
-        print(val1)
-        val1 = val1/100
-        print(val1)
-        total_fall_kindergarten = float(fall_kindergarten) + val1 
-        spring_kindergarten = request.POST['spring_kindergarten']
-        Taxspring_kindergarten = request.POST['Taxspring_kindergarten']
-        val2 = float(spring_kindergarten) * float(Taxspring_kindergarten)
-        print(val2)
-        val2 = val2/100
-        print(val2)
-        total_spring_kindergarten = float(spring_kindergarten) + val2 
-        fullYear_lowerElementary = request.POST['fullYear_lowerElementary']
-        TaxfullYear_lowerElementary = request.POST['TaxfullYear_lowerElementary']
-        val3 = float(fullYear_lowerElementary) * float(TaxfullYear_lowerElementary)
-        print(val3)
-        val3 = val3/100
-        print(val3)
-        total_fullYear_lowerElementary = float(fullYear_lowerElementary) + val3
-        fall_lowerElementary = request.POST['fall_lowerElementary']
-        Taxfall_lowerElementary = request.POST['Taxfall_lowerElementary']
-        val4 = float(fall_lowerElementary) * float(Taxfall_lowerElementary)
-        print(val4)
-        val4 = val4/100
-        print(val4)
-        total_fall_lowerElementary = float(fall_lowerElementary) + val4
-        spring_lowerElementary = request.POST['spring_lowerElementary']
-        Taxspring_lowerElementary = request.POST['Taxspring_lowerElementary']
-        val5 = float(spring_lowerElementary) * float(Taxspring_lowerElementary)
-        print(val5)
-        val5 = val5/100
-        print(val5)
-        total_spring_lowerElementary = float(spring_lowerElementary) + val5
-        fullYear_UpperElementary = request.POST['fullYear_UpperElementary']
-        TaxfullYear_UpperElementary = request.POST['TaxfullYear_UpperElementary']
-        val6 = float(fullYear_UpperElementary) * float(TaxfullYear_UpperElementary)
-        print(val6)
-        val6 = val6/100
-        print(val6)
-        total_fullYear_UpperElementary= float(fullYear_UpperElementary) + val6
-        fall_UpperElementary = request.POST['fall_UpperElementary']
-        Taxfall_UpperElementary = request.POST['Taxfall_UpperElementary']
-        val7 = float(fall_UpperElementary) * float(Taxfall_UpperElementary)
-        print(val7)
-        val7 = val7/100
-        print(val7)
-        total_fall_UpperElementary= float(fall_UpperElementary) + val7
-        spring_UpperElementary = request.POST['spring_UpperElementary']
-        Taxspring_UpperElementary = request.POST['Taxspring_UpperElementary']
-        val8 = float(spring_UpperElementary) * float(Taxspring_UpperElementary)
-        print(val8)
-        val8 = val8/100
-        print(val8)
-        total_spring_UpperElementary= float(spring_UpperElementary) + val8 
-        aff = AffliatesfeeStructure(uid = uid,school = obj1,TaxfullYear_kindergarten = TaxfullYear_kindergarten,total_fullYear_kindergarten=total_fullYear_kindergarten,Taxfall_kindergarten=Taxfall_kindergarten,total_fall_kindergarten=total_fall_kindergarten,Taxspring_kindergarten=Taxspring_kindergarten,total_spring_kindergarten=total_spring_kindergarten,TaxfullYear_lowerElementary=TaxfullYear_lowerElementary,total_fullYear_lowerElementary=total_fullYear_lowerElementary,Taxfall_lowerElementary=Taxfall_lowerElementary,total_fall_lowerElementary=total_fall_lowerElementary,Taxspring_lowerElementary=Taxspring_lowerElementary,total_spring_lowerElementary=total_spring_lowerElementary,TaxfullYear_UpperElementary=TaxfullYear_UpperElementary,total_fullYear_UpperElementary=total_fullYear_UpperElementary,Taxfall_UpperElementary=Taxfall_UpperElementary,total_fall_UpperElementary=total_fall_UpperElementary,Taxspring_UpperElementary=Taxspring_UpperElementary,total_spring_UpperElementary=total_spring_UpperElementary)
-        aff.save()
+    affliates = AffliatesfeeStructure.objects.filter(uid=uid,IS_FEEREVIEW_COMPLETE='N')
+    affliates1 = AffliatesfeeStructure.objects.filter(uid=uid,IS_FEEREVIEW_COMPLETE='Y')
+    if affliates:
+        return redirect('feeSplit',uid=uid)
+    elif affliates1:
         return redirect('webpage_Approve')
+    else:
+        if request.method == "POST" :
+            fullYear_kindergarten = request.POST['fullYear_kindergarten']
+            TaxfullYear_kindergarten = request.POST['TaxfullYear_kindergarten']
+            val = float(fullYear_kindergarten) * float(TaxfullYear_kindergarten)
+            print(val)
+            val = val/100
+            print(val)
+            total_fullYear_kindergarten = float(fullYear_kindergarten) + val
+            print(total_fullYear_kindergarten)
+            fall_kindergarten = request.POST['fall_kindergarten']
+            Taxfall_kindergarten = request.POST['Taxfall_kindergarten']
+            val1 = float(fall_kindergarten) * float(Taxfall_kindergarten)
+            print(val1)
+            val1 = val1/100
+            print(val1)
+            total_fall_kindergarten = float(fall_kindergarten) + val1 
+            spring_kindergarten = request.POST['spring_kindergarten']
+            Taxspring_kindergarten = request.POST['Taxspring_kindergarten']
+            val2 = float(spring_kindergarten) * float(Taxspring_kindergarten)
+            print(val2)
+            val2 = val2/100
+            print(val2)
+            total_spring_kindergarten = float(spring_kindergarten) + val2 
+            fullYear_lowerElementary = request.POST['fullYear_lowerElementary']
+            TaxfullYear_lowerElementary = request.POST['TaxfullYear_lowerElementary']
+            val3 = float(fullYear_lowerElementary) * float(TaxfullYear_lowerElementary)
+            print(val3)
+            val3 = val3/100
+            print(val3)
+            total_fullYear_lowerElementary = float(fullYear_lowerElementary) + val3
+            fall_lowerElementary = request.POST['fall_lowerElementary']
+            Taxfall_lowerElementary = request.POST['Taxfall_lowerElementary']
+            val4 = float(fall_lowerElementary) * float(Taxfall_lowerElementary)
+            print(val4)
+            val4 = val4/100
+            print(val4)
+            total_fall_lowerElementary = float(fall_lowerElementary) + val4
+            spring_lowerElementary = request.POST['spring_lowerElementary']
+            Taxspring_lowerElementary = request.POST['Taxspring_lowerElementary']
+            val5 = float(spring_lowerElementary) * float(Taxspring_lowerElementary)
+            print(val5)
+            val5 = val5/100
+            print(val5)
+            total_spring_lowerElementary = float(spring_lowerElementary) + val5
+            fullYear_UpperElementary = request.POST['fullYear_UpperElementary']
+            TaxfullYear_UpperElementary = request.POST['TaxfullYear_UpperElementary']
+            val6 = float(fullYear_UpperElementary) * float(TaxfullYear_UpperElementary)
+            print(val6)
+            val6 = val6/100
+            print(val6)
+            total_fullYear_UpperElementary= float(fullYear_UpperElementary) + val6
+            fall_UpperElementary = request.POST['fall_UpperElementary']
+            Taxfall_UpperElementary = request.POST['Taxfall_UpperElementary']
+            val7 = float(fall_UpperElementary) * float(Taxfall_UpperElementary)
+            print(val7)
+            val7 = val7/100
+            print(val7)
+            total_fall_UpperElementary= float(fall_UpperElementary) + val7
+            spring_UpperElementary = request.POST['spring_UpperElementary']
+            Taxspring_UpperElementary = request.POST['Taxspring_UpperElementary']
+            val8 = float(spring_UpperElementary) * float(Taxspring_UpperElementary)
+            print(val8)
+            val8 = val8/100
+            print(val8)
+            total_spring_UpperElementary= float(spring_UpperElementary) + val8 
+            aff = AffliatesfeeStructure(uid = uid,school = obj1,TaxfullYear_kindergarten = TaxfullYear_kindergarten,total_fullYear_kindergarten=total_fullYear_kindergarten,Taxfall_kindergarten=Taxfall_kindergarten,total_fall_kindergarten=total_fall_kindergarten,Taxspring_kindergarten=Taxspring_kindergarten,total_spring_kindergarten=total_spring_kindergarten,TaxfullYear_lowerElementary=TaxfullYear_lowerElementary,total_fullYear_lowerElementary=total_fullYear_lowerElementary,Taxfall_lowerElementary=Taxfall_lowerElementary,total_fall_lowerElementary=total_fall_lowerElementary,Taxspring_lowerElementary=Taxspring_lowerElementary,total_spring_lowerElementary=total_spring_lowerElementary,TaxfullYear_UpperElementary=TaxfullYear_UpperElementary,total_fullYear_UpperElementary=total_fullYear_UpperElementary,Taxfall_UpperElementary=Taxfall_UpperElementary,total_fall_UpperElementary=total_fall_UpperElementary,Taxspring_UpperElementary=Taxspring_UpperElementary,total_spring_UpperElementary=total_spring_UpperElementary)
+            aff.save()
+            return redirect('feeSplit',uid=uid) 
     return render(request,'superAdminDashboard/feedetailsreview.html',{'objj':objj})
     #return render(request,'superAdminDashboard/feedetailsreview.html')
+
+def feeSplit(request,uid):
+    ob = AffliatesfeeStructure.objects.filter(uid=uid)
+    if request.method == "POST" :
+        split1_fullYear_kindergarten = request.POST['split1_fullYear_kindergarten']
+        split2_fullYear_kindergarten = request.POST['split2_fullYear_kindergarten']
+        split3_fullYear_kindergarten = request.POST['split3_fullYear_kindergarten']
+        split1_fall_kindergarten = request.POST['split1_fall_kindergarten']
+        split2_fall_kindergarten = request.POST['split2_fall_kindergarten']
+        split1_spring_kindergarten = request.POST['split1_spring_kindergarten']
+        split1_fullYear_lowerElementary = request.POST['split1_fullYear_lowerElementary']
+        split2_fullYear_lowerElementary = request.POST['split2_fullYear_lowerElementary']
+        split3_fullYear_lowerElementary = request.POST['split3_fullYear_lowerElementary']
+        split1_fall_lowerElementary = request.POST['split1_fall_lowerElementary']
+        split2_fall_lowerElementary = request.POST['split2_fall_lowerElementary']
+        split1_spring_lowerElementary = request.POST['split1_spring_lowerElementary']
+        split1_fullYear_UpperElementary = request.POST['split1_fullYear_UpperElementary']
+        split2_fullYear_UpperElementary = request.POST['split2_fullYear_UpperElementary']
+        split3_fullYear_UpperElementary = request.POST['split3_fullYear_UpperElementary']
+        split1_fall_UpperElementary = request.POST['split1_fall_UpperElementary']
+        split2_fall_UpperElementary = request.POST['split2_fall_UpperElementary']
+        split1_spring_UpperElementary = request.POST['split1_spring_UpperElementary']
+        termfees = AffliatesfeeStructure.objects.get(uid=uid)
+        termfees.split1_fullYear_kindergarten=split1_fullYear_kindergarten
+        termfees.split2_fullYear_kindergarten = split2_fullYear_kindergarten
+        termfees.split3_fullYear_kindergarten = split3_fullYear_kindergarten
+        termfees.split1_fall_kindergarten = split1_fall_kindergarten
+        termfees.split2_fall_kindergarten = split2_fall_kindergarten
+        termfees.split1_spring_kindergarten = split1_spring_kindergarten
+        termfees.split1_fullYear_lowerElementary = split1_fullYear_lowerElementary
+        termfees.split2_fullYear_lowerElementary = split2_fullYear_lowerElementary
+        termfees.split3_fullYear_lowerElementary = split3_fullYear_lowerElementary
+        termfees.split1_fall_lowerElementary = split1_fall_lowerElementary
+        termfees.split2_fall_lowerElementary = split2_fall_lowerElementary
+        termfees.split1_spring_lowerElementary = split1_spring_lowerElementary
+        termfees.split1_fullYear_UpperElementary = split1_fullYear_UpperElementary
+        termfees.split2_fullYear_UpperElementary = split2_fullYear_UpperElementary
+        termfees.split3_fullYear_UpperElementary = split3_fullYear_UpperElementary
+        termfees.split1_fall_UpperElementary = split1_fall_UpperElementary
+        termfees.split2_fall_UpperElementary = split2_fall_UpperElementary
+        termfees.split1_spring_UpperElementary = split1_spring_UpperElementary
+        termfees.save(update_fields=['split1_fullYear_kindergarten','split2_fullYear_kindergarten','split3_fullYear_kindergarten','split1_fall_kindergarten','split2_fall_kindergarten','split1_spring_kindergarten','split1_fullYear_lowerElementary','split2_fullYear_lowerElementary','split3_fullYear_lowerElementary','split1_fall_lowerElementary','split2_fall_lowerElementary','split1_spring_lowerElementary','split1_fullYear_UpperElementary','split2_fullYear_UpperElementary','split3_fullYear_UpperElementary','split1_fall_UpperElementary','split2_fall_UpperElementary','split1_spring_UpperElementary'])
+        complete = AffliatesfeeStructure.objects.get(uid = uid)
+        complete.IS_FEEREVIEW_COMPLETE = 'Y'
+        complete.save(update_fields=['IS_FEEREVIEW_COMPLETE'])
+        return redirect('webpage_Approve')
+    return render(request,'superAdminDashboard/feeSplit.html',{'ob':ob})
+
+def INDIVIDUAL_WEBPAGESSApprove(request,uid):
+    web_approve = INDIVIDUAL_WEBPAGESS1.objects.get(uid = uid)
+    web_approve.IS_APPROVED = "Y"
+    web_approve.save(update_fields=['IS_APPROVED'])
+    return redirect('webpage_Approve')
+
+def INDIVIDUAL_WEBPAGESSReject(request,uid):
+    web_approve = INDIVIDUAL_WEBPAGESS1.objects.get(uid = uid)
+    web_approve.IS_APPROVED = "R"
+    web_approve.save(update_fields=['IS_APPROVED'])
+    return redirect('webpage_Approve')
+
+
+
 
  # ajax view to get slots and populate in dropdown and reading calendar to filter slots
 def individual_load_slots(request):
@@ -2005,7 +2112,7 @@ def webpage_Approve(request):
     user_id=request.session['user_id']
     user=User.objects.get(id=user_id)
     name = user.first_name
-    iww = INDIVIDUAL_WEBPAGESS1.objects.filter(IS_APPROVED='N')
+    iww = INDIVIDUAL_WEBPAGESS1.objects.filter(IS_COMPLETE='Y',IS_APPROVED='N')
     return render(request,'superAdminDashboard/webpage_Approve.html',{'iww':iww,'name':name})
 
 

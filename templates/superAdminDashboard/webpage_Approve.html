@@ -350,6 +350,10 @@
                                                             <td>{{i.CONTENT3}}</td>
                                                             <td><a href="viewbanners/{{i.uid}}"><button  type="button"> Bannners and Gala</button></a></td>
                                                             <td><a href="feedetailsreview/{{i.uid}}"><button  type="button">Fee structure</button></a></td>
+                                                            {% if i.IS_APPROVED == 'N' %}
+                                                            <td><a href="INDIVIDUAL_WEBPAGESSApprove/{{i.uid}}"><button  type="button">Approve</button></a></td>
+                                                            <td><a href="FeestructureReject/{{i.uid}}"><button  type="button">Reject</button></a></td>
+                                                            {% endif %}
                                                         </tr>
                                                       {% endfor %}
                                                          
