@@ -228,13 +228,79 @@
                                     <!-- Page-header start -->
                                    
                                 <!-- Page-header end -->
-                                
+                                <style>
+                                .modal {
+                                display: none; /* Hidden by default */
+                                position: fixed; /* Stay in place */
+                                z-index: 1; /* Sit on top */
+                                padding-top: 100px; /* Location of the box */
+                                left: 0;
+                                top: 0;
+                                width: 100%; /* Full width */
+                                height: 100%; /* Full height */
+                                overflow: auto; /* Enable scroll if needed */
+                                background-color: rgb(0,0,0); /* Fallback color */
+                                background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+                                }
+
+                                /* Modal Content */
+                                .modal-content {
+                                background-color: #fefefe;
+                                margin: auto;
+                                padding: 20px;
+                                border: 1px solid #888;
+                                width: 80%;
+                                }
+
+                                /* The Close Button */
+                                .close {
+                                color: #aaaaaa;
+                                float: right;
+                                font-size: 28px;
+                                font-weight: bold;
+                                }
+
+                                .close:hover,
+                                .close:focus {
+                                color: #000;
+                                text-decoration: none;
+                                cursor: pointer;
+                                }
+                                </style> 
+                                <script>
+                                    // Get the modal
+                                    var modal = document.getElementById("myModal");
+
+                                    // Get the button that opens the modal
+                                    var btn = document.getElementById("myBtn");
+
+                                    // Get the <span> element that closes the modal
+                                    var span = document.getElementsByClassName("close")[0];
+
+                                    // When the user clicks the button, open the modal 
+                                    btn.onclick = function() {
+                                    modal.style.display = "block";
+                                    }
+
+                                    // When the user clicks on <span> (x), close the modal
+                                    span.onclick = function() {
+                                    modal.style.display = "none";
+                                    }
+
+                                    // When the user clicks anywhere outside of the modal, close it
+                                    window.onclick = function(event) {
+                                    if (event.target == modal) {
+                                        modal.style.display = "none";
+                                    }
+                                    }
+                                    </script>
+  
                                 <!-- Page-body start -->
                                 <div class="page-body">
                                     <!-- Basic table card start -->
                                     <div class="card">
                                         <div class="card-header">
-                                            <h5>Approvels</h5>
+                                            <h5>Students</h5>
                                            
                                             <div class="card-header-right">    <ul class="list-unstyled card-option">        <li><i class="icofont icofont-simple-left "></i></li>        <li><i class="icofont icofont-maximize full-card"></i></li>        <li><i class="icofont icofont-minus minimize-card"></i></li>        <li><i class="icofont icofont-refresh reload-card"></i></li>        <li><i class="icofont icofont-error close-card"></i></li>    </ul></div>
                                         </div>
@@ -243,25 +309,52 @@
                                                 <table class="table">
                                                     <thead>
                                                         <tr>
-                                                            <th>#</th>
-                                                            <th>Student Name</th>
-                                                            <th>Enrolling Grade</th>
+                                                            
+                                                            <th>Student id</th>
+                                                            <th>First Name</th>
+                                                            <th>Last Name</th>
+                                                            <th>Father Name</th>
+                                                            <th>Mother Name</th>
                                                             <th>Email</th>
+                                                            <th>Address</th>
                                                             <th>Phone</th>
-                                                            <th>Hear About Us</th>
-                                                            <th>Approve</th>
+                                                            <th>Geekz Commute</th>
+                                                            <th>Commute Location</th>
+                                                            <th>Enrolling year</th>
+                                                            <th>Enrolling Grade</th>
+                                                            <th> Grade</th>
+                                                            <th>Term1</th>
+                                                            <th>paid</th>
+                                                            <th>Term2</th>
+                                                            <th>paid</th>
+                                                            <th>Term3</th>
+                                                            <th>paid</th>
+                                                            <th>Edit</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        {% for i in inquirys %}
+                                                        {% for i in enrolled %}
                                                         <tr>
-                                                            <th scope="row">1</th>
-                                                            <td>{{i.studentName}}</td>
-                                                            <td>{{i.enrolling_grade}}</td>
-                                                            <td>{{i.email}}</td>
-                                                            <td>{{i.phone}}</td>
-                                                            <td>{{i.hear_about_us}}</td>
-                                                            <td><a href="inquiryApprove/{{i.uid}}"><button type="button">Approve</button></a></td>
+                                                            <td>{{i.student_enrolled.student_id}}</td>
+                                                            <td>{{i.student_enrolled.first_name}}</td>
+                                                            <td>{{i.student_enrolled.last_name}}</td>
+                                                            <td>{{i.student_enrolled.Fathersname}}</td>
+                                                            <td>{{i.student_enrolled.Mothersname}}</td>
+                                                            <td>{{i.student_enrolled.email}}</td>
+                                                            <td>{{i.student_enrolled.address}}</td>
+                                                            <td>{{i.student_enrolled.phone}}</td>
+                                                            <td>{{i.student_enrolled.geekzcommute}}</td>
+                                                            <td>{{i.student_enrolled.yescommutelocation}}</td>
+                                                            <td>{{i.student_enrolled.academic_year}}</td>
+                                                            <td>{{i.student_enrolled.enrolling_grade}}</td>
+                                                            <td>{{i.grade}}</td>
+                                                            <td>{{i.Term1}}</td>
+                                                            <td>{{i.Term1flag}}</td>
+                                                            <td>{{i.Term2}}</td> 
+                                                            <td>{{i.Term2flag}}</td>                                                         
+                                                            <td>{{i.Term3}}</td>
+                                                            <td>{{i.Term3flag}}</td>
+                                                            <td><a href="studentedit_admin/{{i.student_enrolled.student_id}}"><button  type="button">Edit</button></td>
                                                         </tr>
                                                         {% endfor %}
                                                     </tbody>
@@ -270,8 +363,6 @@
                                         </div>
                                     </div>
                                     
-                                   
-                                  
                                     <!-- Background Utilities table end -->
                                 </div>
                                 <!-- Page-body end -->
@@ -288,11 +379,7 @@
         </div>
     </div>
 </div>
-<div class="fixed-button">
-	<a href="https://codedthemes.com/item/guru-able-admin-template/" target="_blank" class="btn btn-md btn-primary">
-	  <i class="fa fa-shopping-cart" aria-hidden="true"></i> Upgrade To Pro
-	</a>
-</div>
+
 
 
 <!-- Warning Section Starts -->

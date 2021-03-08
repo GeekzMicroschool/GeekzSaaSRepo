@@ -10,7 +10,7 @@
         <h2>START YOUR GEEKZ JOURNEY!</h2>
         <p id="geekzapply">Get affiliated. Welcome your first geek.</p>
       </div>
-    
+    {% for i in obj %}
         <div class="row">
             <div class="col-md-12 contact-form wow animated fadeInLeft">
                 
@@ -36,8 +36,21 @@
                                     <input type="text" id="SaaSDOB" name="SaaSDOB" class="form-control" placeholder="Date of Birth..." onfocus="(this.type='date')" required>
                                 </div>
                                 <div class="input-field">
-									<input type="text" id="year" name="year" class="form-control" placeholder="Enrolling Year.." required>
+									<input type="text" id="year" name="academic" class="form-control" value="{{i.academic_year}}" required>
 								</div>
+                                <div class="input-field">
+									<select id="HSGrade" name="enrolling_term" class="form-control" required>
+                                        <option selected disabled>Enrolling Term...</option>
+                                        <option>Full Year <K/option>
+                                        <option>Vijayadasami</option>
+                                        <option>Spring</option>
+                                        
+									</select>
+									<div style="display: none;" id="errmsgltb">
+										<p style="color: red; font-size:10px;">Please select an item in the list.</p>
+									</div>
+								</div>
+                                
                                 <div class="input-field">
 									<select id="HSGrade" name="enrolling_grade" class="form-control" required>
                                         <option selected disabled>Enrolling Grade...</option>
@@ -140,6 +153,7 @@
 									
 								</div>
                       <input type="submit" value="SEND" class="btn btn-blue btn-effect">
+                      {% endfor %}
                 </form>
             </div>
         </div>

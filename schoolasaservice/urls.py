@@ -75,6 +75,18 @@ urlpatterns = [
     path('feeSplit/<uid>',views.feeSplit,name="feeSplit"),
     path('INDIVIDUAL_WEBPAGESSApprove/<uid>',views.INDIVIDUAL_WEBPAGESSApprove,name="INDIVIDUAL_WEBPAGESSApprove"),
     path('INDIVIDUAL_WEBPAGESSReject/<uid>',views.INDIVIDUAL_WEBPAGESSReject,name="INDIVIDUAL_WEBPAGESSReject"),
+    path('addAcademicYear',views.addAcademicYear,name="addAcademicYear"),
+    path('studentApplications',views.studentApplicationsview,name="studentApplicationsview"),
+    #path('enrolledStudents/<student_id>',views.enrolledStudents,name="enrolledStudents"),
+    path('studentsdata',views.studentsdata,name="studentsdata"),
+    path('feepayTerm1/<student_id>',views.feepayTerm1,name="feepayTerm1"),
+    path('feepayTerm2/<student_id>',views.feepayTerm2,name="feepayTerm2"),
+    path('feepayTerm3/<student_id>',views.feepayTerm3,name="feepayTerm3"),
+    path('Removestudent/<student_id>',views.Removestudent,name="Removestudent"),
+    path('individualstudent',views.individualstudent,name="individualstudent"),
+    path('IndividualAlumni',views.IndividualAlumni,name="IndividualAlumni"),
+    path('notifyUsers',views.notifyUsers,name="notifyUsers"),
+    path('superAdminAlumni',views.superAdminAlumni,name="superAdminAlumni"),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

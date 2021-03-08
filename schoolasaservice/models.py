@@ -298,7 +298,7 @@ class InquiryS(models.Model):
     ISAPPROVED = models.CharField(max_length=1, default="N")
     hear_about_us = models.CharField(max_length=250) 
     microschool = models.CharField(max_length=250) 
-
+    
 def user_directory_path_gala(instance, filename):
     # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
     return 'micro_{0}{1}'.format(instance.gala_admin.SCHOOL_NAME , filename)   
@@ -381,12 +381,11 @@ class AffliatesfeeStructure(models.Model):
     split1_spring_UpperElementary = models.IntegerField(default=0) 
 
 
-class studentApplication(models.Model):
+class studentApplications(models.Model):
     first_name = models.CharField(max_length=250)
     last_name = models.CharField(max_length=250)
     gender = models.CharField(max_length=250)
     SaaSDOB = models.DateField()
-    enrolling_year = models.CharField(max_length=250)
     enrolling_grade = models.CharField(max_length=250)
     attendedschool = models.CharField(max_length=250)
     Fathersname = models.CharField(max_length=250)
@@ -409,12 +408,14 @@ class studentApplication(models.Model):
     hear_about = models.CharField(max_length=100)
     IS_COMPLETE= models.CharField(max_length=1, default="N")
     microschool = models.ForeignKey(INDIVIDUAL_WEBPAGESS1, on_delete=models.CASCADE)
-    status = models.CharField(max_length=250)
+    academic_year = models.CharField(max_length=250)
+    enrolling_term = models.CharField(max_length=250)
     student_id = models.CharField(max_length=100,primary_key=True)
     Profiling_scheduled = models.CharField(max_length=1, default="N")
     Profiling_complete = models.CharField(max_length=1, default="N")
     Profiling_approved = models.CharField(max_length=1, default="N")
     Enrolled = models.CharField(max_length=1, default="N")
+    
 
 class Individual_admin_slots(models.Model):
     admin_id = models.ForeignKey(INDIVIDUAL_WEBPAGESS1, on_delete=models.CASCADE)
@@ -424,8 +425,8 @@ class Individual_admin_slots(models.Model):
     class Meta:
         unique_together = ('admin_id','slot','day',)
 
-class StudentProfiling(models.Model):
-    uid=models.ForeignKey(studentApplication, on_delete=models.CASCADE)
+class StudentProfilings(models.Model):
+    uid=models.ForeignKey(studentApplications, on_delete=models.CASCADE)
     IS_PROFILINGCOMPLETE=models.CharField(max_length=1, default="N")
     IS_APPROVED=models.CharField(max_length=1, default="N")
     slot = models.ForeignKey(Individual_admin_slots, on_delete=models.CASCADE)
@@ -433,7 +434,6 @@ class StudentProfiling(models.Model):
     USER = models.CharField(max_length=250)
     EVENT_ID = models.CharField(max_length=600)
     ICalUID = models.CharField(max_length=600)
-    hangoutLink = models.CharField(max_length=600)
     START_TIME = models.CharField(max_length=250)
     END_TIME = models.CharField(max_length=250)
     HEADING = models.CharField(max_length=300)  
@@ -462,12 +462,26 @@ class transcriptsRequest(models.Model):
     payment_complete = models.CharField(max_length=1, default="N")
     IS_COMPLETE= models.CharField(max_length=1, default="N")
 
-class enrolledStudents(models.Model):
-    student_enrolled = models.ForeignKey(studentApplication, on_delete=models.CASCADE)
-    active_status = models.CharField(max_length=1, default="N")
-    fees_paid  =   models.CharField(max_length=1, default="N")
-    
+class academicYear(models.Model):
+    uid = models.CharField(max_length=100,primary_key=True)
+    academic_year =  models.CharField(max_length=100)
 
+class enrolledStudents(models.Model):
+    student_enrolled = models.ForeignKey(studentApplications, on_delete=models.CASCADE)
+    school = models.ForeignKey(INDIVIDUAL_WEBPAGESS1, on_delete=models.CASCADE)
+    active_status = models.CharField(max_length=1, default="N")
+    Term1 = models.CharField(max_length=300)
+    Term1flag = models.CharField(max_length=1, default="N")
+    Term2 = models.CharField(max_length=300)
+    Term2flag = models.CharField(max_length=1, default="N")
+    Term3 = models.CharField(max_length=300)
+    Term3flag = models.CharField(max_length=1, default="N")
+    academic_year = models.CharField(max_length=100)
+    grade = models.CharField(max_length=100)
+    current_grade = models.CharField(max_length=300)
+    current_enrolling_term = models.CharField(max_length=300)
+    class Meta:
+        unique_together = ('student_enrolled','academic_year',)
     
 
 

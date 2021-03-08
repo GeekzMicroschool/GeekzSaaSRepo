@@ -545,7 +545,7 @@ def student_profileEdit(request):
     print(user)
     user_details=USER_DETAILS.objects.filter(USER_EMAIL=user.email)    
     print(user_details) 
-    student_obj = studentApplication.objects.filter(student_id = user.id)
+    student_obj = studentApplications.objects.filter(student_id = user.id)
     if request.method == "POST":
         SaaSName=request.POST['SaaSName']
         #SaaSEmail=request.POST['SaaSEmail']
@@ -693,62 +693,64 @@ def saasappointment(request):
             if schedule_date < datetime.date.today():
                 return HttpResponse("Please do not enter past date")    
             else:
-                service_account_email = "geekz-145@geekz-297209.iam.gserviceaccount.com"
+                service_account_email = "geekzcalendar@geekzcaldendar.iam.gserviceaccount.com"
                 SCOPES = ["https://www.googleapis.com/auth/calendar"]
-                credentials = ServiceAccountCredentials.from_json_keyfile_name( filename="client_secret.json", scopes=SCOPES )
+                credentials = ServiceAccountCredentials.from_json_keyfile_name( filename="clientsecret_geekz.json", scopes=SCOPES )
                 def build_service():
                     service = build("calendar", "v3", credentials=credentials)
                     return service
                 
                 def create_event():
                     service = build_service()
-                    event_cal = (service.events().insert(calendarId="c27hrqb165rc6s5mgoqq5l1e4c@group.calendar.google.com",body={
+                    event_cal = (service.events().insert(calendarId="thkmk74n50mn6kt14hi1qdru58@group.calendar.google.com",body={
                     "summary": "GEEKZ",
                     "description": "GEEKZ INTERVIEW FOR AFFLIATION",
                     "start":{"dateTime":start_time.isoformat()}, 
                     "end": {
                         "dateTime": end_time.isoformat()
                             },
-                    "conferenceData": {"createRequest": {"requestId": f"{uuid4().hex}",
-                                                    "conferenceSolutionKey": {"type": "hangoutsMeet"}}},
+                    #"conferenceData": {"createRequest": {"requestId": "7qxalsvy0e",
+                    #                                "conferenceSolutionKey": {"type": "eventNamedHangout"}}},
                     "reminders": {"useDefault": True},
                     "attendees":user.email,
 
-                        },conferenceDataVersion=1).execute())     
+                        #},conferenceDataVersion=1).execute())
+                        }).execute())       
                     print("ee",event_cal) 
-                    create_event.link = event_cal['hangoutLink'] ##  fetch google meet link from event_cal 
-                    profiling_obj = MICRO_PROFILIN(uid = user_details.uid, IS_PROFILINGCOMPLETE='Y',USER = user.email , EVENT_ID = event_cal['id'],ICalUID=event_cal['iCalUID'],hangoutLink = create_event.link,START_TIME= event_cal['start']['dateTime'],END_TIME = event_cal['end']['dateTime'],HEADING= heading,slot= qq,schedule_date= schedule_date)
+                    #create_event.link = event_cal['hangoutLink'] ##  fetch google meet link from event_cal 
+                    #profiling_obj = MICRO_PROFILIN(uid = user_details.uid, IS_PROFILINGCOMPLETE='Y',USER = user.email , EVENT_ID = event_cal['id'],ICalUID=event_cal['iCalUID'],hangoutLink = create_event.link,START_TIME= event_cal['start']['dateTime'],END_TIME = event_cal['end']['dateTime'],HEADING= heading,slot= qq,schedule_date= schedule_date)
+                    profiling_obj = MICRO_PROFILING(uid = user_details.uid, IS_PROFILINGCOMPLETE='Y',USER = user.email , EVENT_ID = event_cal['id'],ICalUID=event_cal['iCalUID'],START_TIME= event_cal['start']['dateTime'],END_TIME = event_cal['end']['dateTime'],HEADING= heading,slot= qq,schedule_date= schedule_date)
                     profiling_obj.save()
                     subject='Geekz SaaS Profiling Confirmation'
                     html_template='socialaccount/email/SaaS_profiling_copy.html'
-                    html_message=render_to_string(html_template,{'heading':heading,'link':create_event.link})
+                    html_message=render_to_string(html_template,{'heading':heading})
                     to_email= user.email
                     message=EmailMessage(subject, html_message, settings.EMAIL_HOST_USER, [to_email])
                     message.content_subtype='html'
                     message.send()
                 create_event()
-                return render(request,"joinMeeting.html",{'link':create_event.link,'heading':heading})  
+                return render(request,"joinMeeting.html",{'heading':heading})  
 
 def deletevent(request):
     if request.method == "POST" :
         user_id=request.session['user_id']
         user=User.objects.get(id=user_id)
-        micro_prof = MICRO_PROFILIN.objects.get(USER = user.email )
+        micro_prof = MICRO_PROFILING.objects.get(USER = user.email )
         SaaSreason=request.POST['reason']
         reason_ob = RESCHEDULE_REASON(uid = micro_prof.uid,reason=SaaSreason)
         reason_ob.save()
-        service_account_email = "geekz-145@geekz-297209.iam.gserviceaccount.com"
+        service_account_email = "geekzcalendar@geekzcaldendar.iam.gserviceaccount.com"
         SCOPES = ["https://www.googleapis.com/auth/calendar"]
-        credentials = ServiceAccountCredentials.from_json_keyfile_name( filename="client_secret.json", scopes=SCOPES )
+        credentials = ServiceAccountCredentials.from_json_keyfile_name( filename="clientsecret_geekz.json", scopes=SCOPES )
         def build_service():
             service = build("calendar", "v3", credentials=credentials)
             return service
                         
         def create_event():
             service = build_service()
-            event_cal = (service.events().delete(calendarId="c27hrqb165rc6s5mgoqq5l1e4c@group.calendar.google.com",eventId = micro_prof.EVENT_ID).execute() )     
+            event_cal = (service.events().delete(calendarId="thkmk74n50mn6kt14hi1qdru58@group.calendar.google.com",eventId = micro_prof.EVENT_ID).execute() )     
         create_event()
-        MICRO_PROFILIN.objects.filter(uid = micro_prof.uid).delete()
+        MICRO_PROFILING.objects.filter(uid = micro_prof.uid).delete()
         form = SlotCreationForm()
         return render(request,"profiling.html",{'form': form})
 
@@ -759,16 +761,16 @@ def load_slots(request):
     day = request.GET.get('day_id')
     print(day)
     ####################Reading Calendar###############################
-    service_account_email = "geekz-145@geekz-297209.iam.gserviceaccount.com"
+    service_account_email = "geekzcalendar@geekzcaldendar.iam.gserviceaccount.com"
     SCOPES = ["https://www.googleapis.com/auth/calendar"]
-    credentials = ServiceAccountCredentials.from_json_keyfile_name( filename="client_secret.json", scopes=SCOPES )
+    credentials = ServiceAccountCredentials.from_json_keyfile_name( filename="clientsecret_geekz.json", scopes=SCOPES )
     def build_service():
         service = build("calendar", "v3", credentials=credentials)
         return service
     page_token = None
     while True:
         service = build_service()
-        events = service.events().list(calendarId='c27hrqb165rc6s5mgoqq5l1e4c@group.calendar.google.com', pageToken=page_token).execute()
+        events = service.events().list(calendarId='thkmk74n50mn6kt14hi1qdru58@group.calendar.google.com', pageToken=page_token).execute()
         times =[]
         summery = []
         for event in events['items']:
@@ -1361,45 +1363,54 @@ def feedback_form(request):
 
 @login_required
 def student_apply(request,SCHOOL_NAME):
-    if request.method == "POST" :
-        print('hi')
-        print(SCHOOL_NAME)
-        user_id=request.session['user_id']
-        user=User.objects.get(id=user_id)
-        print(user.id)
-        first_name = request.POST['first_name']
-        last_name = request.POST['last_name']
-        gender = request.POST['gender']
-        SaaSDOB = request.POST['SaaSDOB']
-        enrolling_grade = request.POST['enrolling_grade']
-        attendedschool = request.POST['attendedschool']
-        Fathersname = request.POST['Fathersname']
-        Fathersoccupation = request.POST['Fathersoccupation']
-        Mothersname = request.POST['Mothersname']
-        Mothersoccupation = request.POST['Mothersoccupation']
-        income = request.POST['income']
-        address = request.POST['address']
-        email = request.POST['email']
-        number = request.POST['number']
-        geekzcommute = request.POST['geekzcommute']
-        yescommutelocation = request.POST['yescommutelocation']
-        childproud = request.POST['childproud']
-        familyactivities = request.POST['familyactivities']
-        childsinterests = request.POST['childsinterests']
-        yourdreams = request.POST['yourdreams']
-        medicalcondition = request.POST['medicalcondition']
-        childsuspended = request.POST['childsuspended']
-        anythingelse = request.POST['anythingelse']
-        hear_about = request.POST['hear_about']
-        year = request.POST['year']
-        micro_web = INDIVIDUAL_WEBPAGESS1.objects.filter(SCHOOL_NAME=SCHOOL_NAME)
-        micro_web1 = list(micro_web)
-        micro_web1 = micro_web1[0]
-        application_obj = studentApplication(email=email,phone= number,enrolling_grade=enrolling_grade,first_name=first_name,last_name=last_name,gender=gender,SaaSDOB=SaaSDOB,attendedschool=attendedschool,Fathersname=Fathersname,Fathersoccupation=Fathersoccupation,Mothersname=Mothersname,Mothersoccupation=Mothersoccupation,income=income,address=address,geekzcommute=geekzcommute,yescommutelocation=yescommutelocation,childproud=childproud,familyactivities=familyactivities,childsinterests=childsinterests,yourdreams=yourdreams,medicalcondition=medicalcondition,childsuspended=childsuspended,anythingelse=anythingelse,hear_about=hear_about,IS_COMPLETE='Y',student_id=user.id,microschool= micro_web1,enrolling_year=year)
-        application_obj.save()
-        form = IndividualSlotCreationForm()
-        return render(request,'student_profiling.html',{'form':form}) 
-    return render(request,'student_apply.html') 
+    user_id=request.session['user_id']
+    user=User.objects.get(id=user_id)
+    print(user.id)
+    student = studentApplications.objects.filter(student_id=user.id)
+    if student:
+        return redirect('student_profiling')
+    else:
+        obj = academicYear.objects.all()
+        if request.method == "POST" :
+            print('hi')
+            print(SCHOOL_NAME)
+            user_id=request.session['user_id']
+            user=User.objects.get(id=user_id)
+            print(user.id)
+            first_name = request.POST['first_name']
+            last_name = request.POST['last_name']
+            gender = request.POST['gender']
+            SaaSDOB = request.POST['SaaSDOB']
+            enrolling_grade = request.POST['enrolling_grade']
+            enrolling_term = request.POST['enrolling_term']
+            academic = request.POST['academic']
+            attendedschool = request.POST['attendedschool']
+            Fathersname = request.POST['Fathersname']
+            Fathersoccupation = request.POST['Fathersoccupation']
+            Mothersname = request.POST['Mothersname']
+            Mothersoccupation = request.POST['Mothersoccupation']
+            income = request.POST['income']
+            address = request.POST['address']
+            email = request.POST['email']
+            number = request.POST['number']
+            geekzcommute = request.POST['geekzcommute']
+            yescommutelocation = request.POST['yescommutelocation']
+            childproud = request.POST['childproud']
+            familyactivities = request.POST['familyactivities']
+            childsinterests = request.POST['childsinterests']
+            yourdreams = request.POST['yourdreams']
+            medicalcondition = request.POST['medicalcondition']
+            childsuspended = request.POST['childsuspended']
+            anythingelse = request.POST['anythingelse']
+            hear_about = request.POST['hear_about']
+            micro_web = INDIVIDUAL_WEBPAGESS1.objects.filter(SCHOOL_NAME=SCHOOL_NAME)
+            micro_web1 = list(micro_web)
+            micro_web1 = micro_web1[0]
+            application_obj = studentApplications(email=email,phone= number,academic_year=academic,enrolling_term=enrolling_term,enrolling_grade=enrolling_grade,first_name=first_name,last_name=last_name,gender=gender,SaaSDOB=SaaSDOB,attendedschool=attendedschool,Fathersname=Fathersname,Fathersoccupation=Fathersoccupation,Mothersname=Mothersname,Mothersoccupation=Mothersoccupation,income=income,address=address,geekzcommute=geekzcommute,yescommutelocation=yescommutelocation,childproud=childproud,familyactivities=familyactivities,childsinterests=childsinterests,yourdreams=yourdreams,medicalcondition=medicalcondition,childsuspended=childsuspended,anythingelse=anythingelse,hear_about=hear_about,IS_COMPLETE='Y',student_id=user.id,microschool= micro_web1)
+            application_obj.save()
+            form = IndividualSlotCreationForm()
+            return redirect('student_profiling')
+    return render(request,'student_apply.html',{'obj':obj}) 
 
 def student_profiling(request): 
     form = IndividualSlotCreationForm()
@@ -1438,16 +1449,16 @@ def student_profiling(request):
             print('et', end_time)
             print("type",type(start_time))
             heading = qq.day + " " + datee + " " + "at" + " " + start + " " + "to" + " " + end
-            service_account_email = "geekz-145@geekz-297209.iam.gserviceaccount.com"
+            service_account_email = "geekzcalendar@geekzcaldendar.iam.gserviceaccount.com"
             SCOPES = ["https://www.googleapis.com/auth/calendar"]
-            credentials = ServiceAccountCredentials.from_json_keyfile_name( filename="client_secret.json", scopes=SCOPES )
+            credentials = ServiceAccountCredentials.from_json_keyfile_name( filename="clientsecret_geekz.json", scopes=SCOPES )
             def build_service():
                 service = build("calendar", "v3", credentials=credentials)
                 return service
                 
             def create_event():
                 service = build_service()
-                event_cal = (service.events().insert(calendarId="c27hrqb165rc6s5mgoqq5l1e4c@group.calendar.google.com",body={
+                event_cal = (service.events().insert(calendarId="thkmk74n50mn6kt14hi1qdru58@group.calendar.google.com",body={
                 "summary": "GEEKZ",
                 "description": "GEEKZ INTERVIEW FOR STUDENT ADMISSION",
                 "start":{"dateTime":start_time.isoformat()}, 
@@ -1459,11 +1470,11 @@ def student_profiling(request):
 
                     }).execute())     
                 print("ee",event_cal) 
-                student_obj = studentApplication.objects.filter(student_id=user.id)
+                student_obj = studentApplications.objects.filter(student_id=user.id)
                 s = list(student_obj)
                 s = s[0]
                 #create_event.link = event_cal['hangoutLink'] ##  fetch google meet link from event_cal 
-                profiling_obj = StudentProfiling(uid =s, IS_PROFILINGCOMPLETE='Y',USER = user.email , EVENT_ID = event_cal['id'],ICalUID=event_cal['iCalUID'],START_TIME= event_cal['start']['dateTime'],END_TIME = event_cal['end']['dateTime'],HEADING= heading,slot= qq,schedule_date= schedule_date,modeofprofiling=modeofprofiling)
+                profiling_obj = StudentProfilings(uid =s, IS_PROFILINGCOMPLETE='Y',USER = user.email , EVENT_ID = event_cal['id'],ICalUID=event_cal['iCalUID'],START_TIME= event_cal['start']['dateTime'],END_TIME = event_cal['end']['dateTime'],HEADING= heading,slot= qq,schedule_date= schedule_date,modeofprofiling=modeofprofiling)
                 profiling_obj.save()
                 subject='Geekz SaaS Profiling Confirmation'
                 html_template='socialaccount/email/SaaS_profiling_copy.html'
@@ -1473,7 +1484,7 @@ def student_profiling(request):
                 message.content_subtype='html' 
                 message.send()
             create_event()
-            student_obj = studentApplication.objects.get(student_id=user.id)
+            student_obj = studentApplications.objects.get(student_id=user.id)
             student_obj.Profiling_scheduled ='Y'
             student_obj.save(update_fields=['Profiling_scheduled'])
             location = INDIVIDUAL_WEBPAGESS1.objects.get(SCHOOL_NAME=student_obj.microschool.SCHOOL_NAME)
@@ -1653,9 +1664,9 @@ def superedit_time_slot(request,pk):
         email_ob = MICRO_PROFILIN.objects.get(slot = affliate_inform )
         email = email_ob.USER
         subject='SaaS  Profiling Reschedule'
-        html_template='socialaccount/email/student_profiling_reschedule.html'
+        html_template='socialaccount/email/saasprofiling_reschedule.html'
         html_message=render_to_string(html_template)
-        to_email= student
+        to_email= email
         message=EmailMessage(subject, html_message, settings.EMAIL_HOST_USER, [to_email])
         message.content_subtype='html' 
         message.send()
@@ -1834,7 +1845,16 @@ def INDIVIDUAL_WEBPAGESSReject(request,uid):
     web_approve.save(update_fields=['IS_APPROVED'])
     return redirect('webpage_Approve')
 
-
+def addAcademicYear(request):
+    user_id=request.session['user_id']
+    user=User.objects.get(id=user_id)
+    name = user.first_name
+    if request.method == "POST" :
+        year = request.POST['year']
+        id,year = academicYear.objects.update_or_create(uid=user.id,defaults={"academic_year":year})
+        return redirect('superAdmin_dashboard')
+    return render(request,'superAdminDashboard/addAcademicYear.html',{'name':name})    
+        
 
 
  # ajax view to get slots and populate in dropdown and reading calendar to filter slots
@@ -1852,7 +1872,7 @@ def invoice(request):
     return render(request,'invoice.html')
 
 def invoice_pdf(request,student_id):
-    ob = studentApplication.objects.get(student_id=student_id)
+    ob = studentApplications.objects.get(student_id=student_id)
     print(ob.last_name)
     data = {
             'geekName': ob.first_name, 
@@ -1870,7 +1890,7 @@ def Invoice_requests(request):
     user_id=request.session['user_id']
     user=User.objects.get(id=user_id)
     print(user)
-    student_obj = studentApplication.objects.get(student_id=user.id)
+    student_obj = studentApplications.objects.get(student_id=user.id)
     invoice_obj = InvoiceRequest(email= student_obj.email,first_name=student_obj.first_name,last_name=student_obj.last_name,Fathersname=student_obj.Fathersname,address=student_obj.address,microschool=student_obj.microschool.SCHOOL_NAME,student_id=user.id)
     invoice_obj.save()
     print('HIIIIII')
@@ -1887,7 +1907,7 @@ def bsbasicInvoice(request):
     return render(request,'individualAdminDashboard/bs-basicInvoice.html',{'invoice':invoice,'profile':profile})
 
 def Transcript_PDF(request,student_id):
-    ob = studentApplication.objects.get(student_id=student_id)
+    ob = studentApplications.objects.get(student_id=student_id)
     print(ob.last_name)
     data = {
             'geekName': ob.first_name, 
@@ -1914,7 +1934,7 @@ def transcripts_request(request):
     user_id=request.session['user_id']
     user=User.objects.get(id=user_id)
     print(user)
-    student_obj = studentApplication.objects.get(student_id=user.id)
+    student_obj = studentApplications.objects.get(student_id=user.id)
     trans_obj = transcriptsRequest(email=student_obj.email,first_name=student_obj.first_name,last_name=student_obj.last_name,Fathersname=student_obj.Fathersname,address=student_obj.address,microschool=student_obj.microschool.SCHOOL_NAME,student_id=user.id,payment_complete='Y')
     trans_obj.save()
     location = INDIVIDUAL_WEBPAGESS1.objects.get(SCHOOL_NAME=student_obj.microschool.SCHOOL_NAME)
@@ -1928,7 +1948,7 @@ def newApplications(request):
     sch = INDIVIDUAL_WEBPAGESS1.objects.filter(uid = uid_obj.uid)
     sch1 = list(sch)
     sch1 = sch1[0]
-    student_obj = studentApplication.objects.filter(microschool=sch1)
+    student_obj = studentApplications.objects.filter(microschool=sch1)
     return render(request,'individualAdminDashboard/newApplications.html',{'student_obj': student_obj,'profile':profile})
 
 def IndividualApproveProfiling(request):
@@ -1939,47 +1959,217 @@ def IndividualApproveProfiling(request):
     ud = INDIVIDUAL_WEBPAGESS1.objects.filter(uid = uid_obj.uid)
     ud1 = list(ud)
     ud1 = ud1[0]
-    obj = studentApplication.objects.filter(microschool= ud1)
+    obj = studentApplications.objects.filter(microschool= ud1)
     o = list(obj)
     o = o[0]
-    objectProf = StudentProfiling.objects.filter(uid = o, IS_APPROVED='N')
+    objectProf = StudentProfilings.objects.filter(uid = o, IS_APPROVED='N')
     return render(request,'individualAdminDashboard/individualprofiling.html',{'objectProf':objectProf,'profile':profile})
 
 def complete_profiling(request,student_id):
-    student_obj = studentApplication.objects.get(student_id=student_id)
+    student_obj = studentApplications.objects.get(student_id=student_id)
     student_obj.Profiling_complete ='Y'
     student_obj.save(update_fields=['Profiling_complete'])
-    student_objj = studentApplication.objects.filter(student_id=student_id)
+    student_objj = studentApplications.objects.filter(student_id=student_id)
     o = list(student_objj)
     o = o[0]
-    objectProf = StudentProfiling.objects.filter(uid = o)
+    objectProf = StudentProfilings.objects.filter(uid = o)
     return redirect('IndividualApproveProfiling')
 
 def approve_profiling(request,student_id):
-    student_obj = studentApplication.objects.get(student_id=student_id)
+    student_obj = studentApplications.objects.get(student_id=student_id)
     student_obj.Profiling_approved ='Y'
-    student_obj.save(update_fields=['Profiling_approved'])
-    student_objj = studentApplication.objects.filter(student_id=student_id)
+    student_obj.Enrolled ='Y'
+    student_obj.save(update_fields=['Profiling_approved','Enrolled'])
+    student_objj = studentApplications.objects.filter(student_id=student_id)
     o = list(student_objj)
     o = o[0]
-    Prof = StudentProfiling.objects.get(uid = o)
+    Prof = StudentProfilings.objects.get(uid = o)
     Prof.IS_APPROVED = 'Y'
     Prof.save(update_fields=['IS_APPROVED'])
-    objectProf = StudentProfiling.objects.filter(uid = o)
+    print(student_obj.enrolling_grade)
+    enrolling_grade = student_obj.enrolling_grade
+    enrolling_term = student_obj.enrolling_term
+    feedetails = individual_feedetail.objects.get(admin = student_obj.microschool)
+    fees = AffliatesfeeStructure.objects.get(school = feedetails)
+    print(fees)
+    grade =''
+    Term1 = ''
+    Term2 = ''
+    Term3 = ''
+    if enrolling_grade == 'Pre-K' or enrolling_grade == 'Jr-K' or enrolling_grade == 'Sr-K':
+        grade = "Kindergarten studio"
+        if enrolling_term == 'Full Year':
+            Term1 = fees.split1_fullYear_kindergarten
+            Term2 = fees.split2_fullYear_kindergarten
+            Term3 = fees.split3_fullYear_kindergarten
+        elif enrolling_term == 'Vijayadasami':
+            Term1 = fees.split1_fall_kindergarten
+            Term2 = fees.split2_fall_kindergarten
+            Term3 = "not valid"
+        elif enrolling_term == 'Spring':
+            Term1 = fees.split1_spring_kindergarten
+            Term2 = "not valid"
+            Term3 = "not valid"
+    elif enrolling_grade == '1st Grade' or enrolling_grade =='2nd Grade' or enrolling_grade =='3rd Grade':
+        grade = 'Lower Elementary Studio'
+        if enrolling_term == 'Full Year':
+            Term1 = fees.split1_fullYear_lowerElementary 
+            Term2 = fees.split2_fullYear_lowerElementary 
+            Term3 = fees.split3_fullYear_lowerElementary 
+        elif enrolling_term == 'Vijayadasami':
+            Term1 = fees.split1_fall_lowerElementary 
+            Term2 = fees.split2_fall_lowerElementary 
+            Term3 = "not valid"
+        elif enrolling_term == 'Spring':
+            Term1 = fees.split1_spring_lowerElementary
+            Term2 = "not valid"
+            Term3 = "not valid"
+    elif enrolling_grade == '4th Grade' or enrolling_grade == '5th Grade' :
+        grade = 'Upper Elementary Studio'
+        if enrolling_term == 'Full Year':
+            Term1 = fees.split1_fullYear_UpperElementary
+            Term2 = fees.split2_fullYear_UpperElementary 
+            Term3 = fees.split3_fullYear_UpperElementary
+        elif enrolling_term == 'Vijayadasami':
+            Term1 = fees.split1_fall_UpperElementary 
+            Term2 = fees.split2_fall_UpperElementary 
+            Term3 = "not valid"
+        elif enrolling_term == 'Spring':
+            Term1 = fees.split1_spring_UpperElementary
+            Term2 = "not valid"
+            Term3 = "not valid"
+    student_tobeEnrolled = studentApplications.objects.filter(student_id=student_id) 
+    student_tobeEnrolled = list(student_tobeEnrolled)
+    student_tobeEnrolled = student_tobeEnrolled[0]   
+    enroll = enrolledStudents(student_enrolled=student_tobeEnrolled,school=student_tobeEnrolled.microschool, active_status='Y',Term1=Term1,Term2=Term2,Term3=Term3,academic_year= student_obj.academic_year,grade=grade,current_grade=enrolling_grade,current_enrolling_term=enrolling_term)    
+    enroll.save()
     return redirect('IndividualApproveProfiling')
 
 def reject_profiling(request,student_id):
-    student_obj = studentApplication.objects.get(student_id=student_id)
+    student_obj = studentApplications.objects.get(student_id=student_id)
     student_obj.Profiling_approved ='N'
     student_obj.save(update_fields=['Profiling_approved'])
-    student_objj = studentApplication.objects.filter(student_id=student_id)
+    student_objj = studentApplications.objects.filter(student_id=student_id)
     o = list(student_objj)
     o = o[0]
-    Prof = StudentProfiling.objects.get(uid = o)
+    Prof = StudentProfilings.objects.get(uid = o)
     Prof.IS_APPROVED = 'Y'
     Prof.save(update_fields=['IS_APPROVED'])
-    objectProf = StudentProfiling.objects.filter(uid = o)
+    objectProf = StudentProfilings.objects.filter(uid = o)
     return redirect('IndividualApproveProfiling')   
+
+def studentApplicationsview(request):
+    user_id=request.session['user_id']
+    user=User.objects.get(id=user_id)
+    name = user.first_name
+    student_obj = studentApplications.objects.all()
+    enrolled = enrolledStudents.objects.all()
+    return render(request,'superAdminDashboard/studentApplications.html',{'name':name,'student_obj':student_obj,'enrolled':enrolled})
+
+def studentsdata(request):
+    user_id=request.session['user_id']
+    user=User.objects.get(id=user_id)
+    name = user.first_name
+    obj = academicYear.objects.all()
+    obj = list(obj)
+    obj = obj[0]
+    enrolled = enrolledStudents.objects.filter(active_status = 'Y',academic_year=obj.academic_year)
+    return render(request,'superAdminDashboard/studentsdata.html',{'name':name,'enrolled':enrolled})
+
+
+def feepayTerm1(request,student_id):
+    obj = academicYear.objects.all()
+    obj = list(obj)
+    obj = obj[0]
+    student_object = studentApplications.objects.get(student_id=student_id)
+    fees = enrolledStudents.objects.get(student_enrolled= student_object,academic_year= obj.academic_year)
+    fees.Term1flag = 'Y'
+    fees.save(update_fields=['Term1flag'])  
+    return redirect('studentApplicationsview')  
+
+def feepayTerm2(request,student_id):
+    obj = academicYear.objects.all()
+    obj = list(obj)
+    obj = obj[0]
+    student_object = studentApplications.objects.get(student_id=student_id)
+    fees = enrolledStudents.objects.get(student_enrolled= student_object,academic_year= obj.academic_year)
+    fees.Term2flag = 'Y'
+    fees.save(update_fields=['Term2flag'])  
+    return redirect('studentApplicationsview')   
+
+def feepayTerm3(request,student_id):
+    obj = academicYear.objects.all()
+    obj = list(obj)
+    obj = obj[0]
+    student_object = studentApplications.objects.get(student_id=student_id)
+    fees = enrolledStudents.objects.get(student_enrolled= student_object,academic_year= obj.academic_year)
+    fees.Term3flag = 'Y'
+    fees.save(update_fields=['Term3flag'])  
+    return redirect('studentApplicationsview') 
+
+def Removestudent(request,student_id):
+    student_object = studentApplications.objects.get(student_id=student_id)
+    studentremove = enrolledStudents.objects.get(student_enrolled= student_object,academic_year= obj.academic_year)
+    studentremove.active_status = 'N'
+    student_object.Enrolled = 'N'
+    studentremove.save(update_fields=['active_status'])
+    student_object.save(update_fields=['Enrolled'])
+    return redirect(studentsdata)
+
+def individualstudent(request):
+    obj = academicYear.objects.all()
+    obj = list(obj)
+    obj = obj[0]
+    user_id=request.session['user_id']
+    user=User.objects.get(id=user_id)
+    uid_obj = USER_DETAILS.objects.get(USER_EMAIL=user.email)
+    profile = MICRO_APPLY.objects.filter(uid = uid_obj.uid)
+    schoolStudent = INDIVIDUAL_WEBPAGESS1.objects.get(uid= uid_obj.uid)
+    studentinfo = enrolledStudents.objects.filter(school = schoolStudent,academic_year=obj.academic_year,active_status='Y')
+    return render(request,'individualAdminDashboard/individualstudent.html',{'enrolled':studentinfo,'profile':profile})
+
+def IndividualAlumni(request):
+    user_id=request.session['user_id']
+    user=User.objects.get(id=user_id)
+    uid_obj = USER_DETAILS.objects.get(USER_EMAIL=user.email)
+    profile = MICRO_APPLY.objects.filter(uid = uid_obj.uid)
+    schoolStudent = INDIVIDUAL_WEBPAGESS1.objects.get(uid= uid_obj.uid)
+    obj = academicYear.objects.all()
+    obj = list(obj)
+    obj = obj[0]
+    studentinfo = enrolledStudents.objects.filter(school = schoolStudent,active_status='N',academic_year=obj.academic_year)
+    return render(request,'individualAdminDashboard/IndividualAlumni.html',{'enrolled':studentinfo,'profile':profile})
+
+'''def enrolledStudents(request,student_id):
+    user_id=request.session['user_id']
+    user=User.objects.get(id=user_id)
+    name = user.first_name
+    student_obj = studentApplications.objects.get(student_id=student_id)
+    student_obj.Enrolled ='Y'
+    student_obj.save(update_fields=['Enrolled'])
+    print(student_obj.enrolling_grade)
+    print(student_obj.enrolling_term)
+    feedetails = individual_feedetail.objects.get(admin = student_obj.microschool)
+    fees = AffliatesfeeStructure.objects.get(school = feedetails.admin)
+    print(fees)
+    return redirect('superAdmin_dashboard')'''
+    
+def notifyUsers(request):
+    user_id=request.session['user_id']
+    user=User.objects.get(id=user_id)
+    uid_obj = USER_DETAILS.objects.get(USER_EMAIL=user.email)
+    profile = MICRO_APPLY.objects.filter(uid = uid_obj.uid)
+    nu = notify_users.objects.all()
+    return render(request,'superAdminDashboard/notifyUsers.html',{'nu':nu,'profile':profile})
+
+def superAdminAlumni(request):
+    user_id=request.session['user_id']
+    user=User.objects.get(id=user_id)
+    uid_obj = USER_DETAILS.objects.get(USER_EMAIL=user.email)
+    profile = MICRO_APPLY.objects.filter(uid = uid_obj.uid)
+    enrolled = enrolledStudents.objects.filter(active_status = 'N',academic_year=obj.academic_year)
+    return render(request,'superAdminDashboard/superAdminAlumni.html',{'enrolled':enrolled,'profile':profile})
+
 
 
 def studentedit_admin(request,student_id):
@@ -1987,7 +2177,7 @@ def studentedit_admin(request,student_id):
     user=User.objects.get(id=user_id)
     uid_obj = USER_DETAILS.objects.get(USER_EMAIL=user.email)
     profile = MICRO_APPLY.objects.filter(uid = uid_obj.uid)
-    student_obj = studentApplication.objects.filter(student_id=student_id)
+    student_obj = studentApplications.objects.filter(student_id=student_id)
     student_obj1 = list(student_obj)
     student_obj1 = student_obj1[0]
     DOB = student_obj1. SaaSDOB 
@@ -2007,7 +2197,7 @@ def studentedit_admin(request,student_id):
         geekzcommute = request.POST['geekzcommute']
         yescommutelocation = request.POST['yescommutelocation']
         year = request.POST['year']
-        student_edit = studentApplication.objects.get(student_id=student_id)
+        student_edit = studentApplications.objects.get(student_id=student_id)
         student_edit.first_name = first_name
         student_edit.last_name = last_name
         #student_edit.SaaSDOB = SaaSDOB

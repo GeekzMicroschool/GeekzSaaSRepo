@@ -1,5 +1,5 @@
 from django.forms import ModelForm, DateInput
-from schoolasaservice.models import SLOTS_DAY,MICRO_PROFILIN,Photo_webpage1,StudentProfiling,Individual_admin_slots
+from schoolasaservice.models import SLOTS_DAY,MICRO_PROFILIN,Photo_webpage1,StudentProfilings,Individual_admin_slots
 from django import forms
 from django.contrib.admin.widgets import AdminDateWidget
 from django.forms.fields import DateField
@@ -65,7 +65,7 @@ class IndividualSlotCreationForm(forms.ModelForm):
             ('both','BOTH')]
   modeofprofiling = forms.CharField(widget=forms.Select(choices= mode,attrs={'class':'form-control'}))
   class Meta:
-    model = StudentProfiling
+    model = StudentProfilings
     fields = ['schedule_date','slot']
     max =  datetime.date.today() + datetime.timedelta(days=14)
     print(max)
