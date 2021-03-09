@@ -13,28 +13,25 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 from pathlib import Path
 import os
 
-
 # GDAL PATH
 if os.name == 'nt':
     ENV_BASE = os.environ['VIRTUAL_ENV']
-    os.environ['PATH'] = os.path.join(ENV_BASE,'Lib\\site-packages\\osgeo') + ';' + os.environ['PATH']
-    os.environ['PROJ_LIB'] = os.path.join(ENV_BASE,'Lib\\site-packages\\osgeo\\data\\proj') + ';' + os.environ['PATH']
-
+    os.environ['PATH'] = os.path.join(ENV_BASE, 'Lib\\site-packages\\osgeo') + ';' + os.environ['PATH']
+    os.environ['PROJ_LIB'] = os.path.join(ENV_BASE, 'Lib\\site-packages\\osgeo\\data\\proj') + ';' + os.environ['PATH']
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '13b5^8^@dy0ju6wi)-%j--djhpavg1$m%ncynv!cp^i1$-55sz'
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = int(os.environ.get("DEBUG", default=0))
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
 
 
 # Application definition
@@ -48,7 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
 
-    #allauth
+
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -60,7 +57,7 @@ INSTALLED_APPS = [
     'django_apscheduler',
     'django_inlinecss',
     'django.contrib.gis',
-    'django_imgur', # imgurpython installed using command (pip install -e git+http://github.com/preetamherald/django-imgur#egg=django-imgur) and present in env/src/imgurpython
+    'django_imgur',  # imgurpython installed using command (pip install -e git+http://github.com/preetamherald/django-imgur#egg=django-imgur) and present in env/src/imgurpython
 ]
 
 MIDDLEWARE = [
@@ -71,14 +68,13 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    
 ]
 
-## imgur api variables (link of github and documentation  https://github.com/preetamherald/django-imgur ##################
+# imgur api variables (link of github and documentation  https://github.com/preetamherald/django-imgur ##################
 
 IMGUR_CONSUMER_ID = "541fa6cfe5fe094"
 IMGUR_CONSUMER_SECRET = "31b929961ada14864e46be011f432a0d18f6b552"
-IMGUR_USERNAME = "geekzmicroschoolGallery"   
+IMGUR_USERNAME = "geekzmicroschoolGallery"
 IMGUR_ACCESS_TOKEN = "82c9daea192103737bd33fc06b71837ef088d953"
 IMGUR_ACCESS_TOKEN_REFRESH = "4757950415e312cfca8f96f7cc41513b63c1fe54"
 ########################################
@@ -87,7 +83,7 @@ ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_USERNAME_REQUIRED = False
-#ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+# ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 5
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 7
 ACCOUNT_SIGNUP_PASSWORD_VERIFICATION = False
@@ -101,8 +97,6 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  ### email
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -113,7 +107,7 @@ TEMPLATES = [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',  
+                'django.contrib.messages.context_processors.messages',
             ],
         },
     },
@@ -126,15 +120,15 @@ WSGI_APPLICATION = 'Geekz_Microschool.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'HOST': 'localhost',
-        'PASSWORD': 'geekz'
+    "default": {
+        "ENGINE": os.environ.get("SQL_ENGINE", "django.db.backends.sqlite3"),
+        "NAME": os.environ.get("SQL_DATABASE", os.path.join(BASE_DIR, "db.sqlite3")),
+        "USER": os.environ.get("SQL_USER", "user"),
+        "PASSWORD": os.environ.get("SQL_PASSWORD", "password"),
+        "HOST": os.environ.get("SQL_HOST", "localhost"),
+        "PORT": os.environ.get("SQL_PORT", "5432"),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -176,22 +170,20 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
-
-
 STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
 
-#after social authentication
+# after social authentication
 SITE_ID = 1
 LOGIN_REDIRECT_URL = "/index"
 
 SOCIALACCOUNT_PROVIDERS = {
-    'google' : {
-        'SCOPE' : [
+    'google': {
+        'SCOPE': [
             'profile',
             'email',
         ],
-        'AUTH_PARAMS' : {
-            'access_type' : 'online',
+        'AUTH_PARAMS': {
+            'access_type': 'online',
         }
     }
 }
@@ -215,18 +207,20 @@ SOCIALACCOUNT_PROVIDERS = {
         'EXCHANGE_TOKEN': True,
         'VERIFIED_EMAIL': False,
         'VERSION': 'v7.0',
+    },
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
     }
 }
 
 
-#EMAIL_HOST = 'smtp.gmail.com'
-#EMAIL_USE_TLS = True
-#EMAIL_PORT = 587
-#EMAIL_HOST_USER='username'
-#EMAIL_HOST_PASSWORD='password'
-#DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-
-#SMTP configuration (please do not use email password for your personal use)
+# SMTP configuration (please do not use email password for your personal use)
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
@@ -234,12 +228,12 @@ EMAIL_HOST_USER = 'geekzmicroschool@gmail.com'
 EMAIL_HOST_PASSWORD = 'geekz3months'
 EMAIL_USE_TLS = True
 
-MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
-###########job automation ###########
+# ##########job automation ###########
 SCHEDULER_CONFIG = {
     "apscheduler.jobstores.default": {
         "class": "django_apscheduler.jobstores:DjangoJobStore"
@@ -249,3 +243,11 @@ SCHEDULER_CONFIG = {
     },
 }
 SCHEDULER_AUTOSTART = True
+
+# ACCOUNT_FORMS = {'signup': 'home.forms.SimpleSignupForm'}
+
+# SOCIALACCOUNT_FORMS = {
+#    'signup': 'home.forms.CustomSocialSignupForm',
+# }
+
+# SOCIALACCOUNT_AUTO_SIGNUP = False

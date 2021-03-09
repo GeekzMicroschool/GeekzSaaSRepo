@@ -17,13 +17,14 @@ ENV PYTHONUNBUFFERED 1
 
 # install psycopg2 dependencies
 RUN apk update \
-    && apk add --no-cache python3-dev libffi-dev gcc postgresql-dev musl-dev 
+    && apk add --no-cache python3-dev libffi-dev gcc postgresql-dev musl-dev git openssl-dev
 
 # lint
 RUN pip install --upgrade pip
 RUN pip install flake8
 COPY . .
-RUN flake8 --ignore=E501,F401,E231,E265,E203,W292,E302,W391,F403,F405,E302,E303,W293,W291,W292,W191,E101,E712,E722,E251,E231,E226,E225,E111,E126,E131 .
+RUN flake8 --ignore=E501,F401 ./Geekz_Microschool 
+#RUN flake8 --ignore=E501,F401,E231,E265,E203,W292,E302,W391,F403,F405,E302,E303,W293,W291,W292,W191,E101,E712,E722,E251,E231,E226,E225,E111,E126,E131 .
 
 # install dependencies
 COPY ./requirements.txt .
@@ -51,7 +52,8 @@ RUN mkdir $APP_HOME/static
 WORKDIR $APP_HOME
 
 # install dependencies
-RUN apk update && apk add --no-cache libpq python3-dev libffi-dev gcc postgresql-dev musl-dev bash
+RUN apk update && apk add --no-cache libpq python3-dev libffi-dev gcc postgresql-dev musl-dev bash git openssl-dev
+ENV CRYPTOGRAPHY_DONT_BUILD_RUST=1
 COPY --from=builder /home/geekzsaas/sundar/GeekzSaaSRepo/wheels /wheels
 COPY --from=builder /home/geekzsaas/sundar/GeekzSaaSRepo/requirements.txt .
 RUN pip install --no-cache /wheels/*

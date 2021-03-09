@@ -2,11 +2,11 @@ version: "3.8"
    
 services:
   db:
-    image: postgres
+    image: postgis/postgis
     environment:
-      - POSTGRES_DB=GeekzSaaS
+      - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=1234
+      - POSTGRES_PASSWORD=geekz
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     networks:  # <-- connect to the bridge
