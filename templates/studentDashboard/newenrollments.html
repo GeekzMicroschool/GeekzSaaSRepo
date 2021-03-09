@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>School Admin Dashboard {% load static %} </title>
+    <title>Student Dashboard {% load static %} </title>
     <!-- HTML5 Shim and Respond.js IE9 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -112,23 +112,18 @@
                            
                             <li class="user-profile header-notification">
                                 <a href="#!">
-                                    {% for j in profile %}
-                                    <span>{{j.NAME}}</span>
+                                    
+                                    <span>{{name}}</span>
                                     <i class="ti-angle-down"></i>
                                 </a>
                                 <ul class="show-notification profile-notification">
-                                   
+                                  {% for j in info %} 
                                     <li>
-                                        <a href="adminprofileEdit/{{j.uid}}">
+                                        <a href="studentprofileEdit/{{j.student_id}}">
                                             <i class="ti-user"></i> Profile
                                         </a>
                                     </li>
-                                    <li>
-                                        <a href="individualAdminSlots">
-                                            <i class="ti-user"></i> Settings
-                                        </a>
-                                    </li>
-                                    
+                                 
                                     <li>
                                         <a href="auth-normal-sign-in.html">
                                             <i class="ti-layout-sidebar-left"></i> Logout
@@ -158,187 +153,118 @@
                                 <li class="pcoded-hasmenu">
                                     <a href="javascript:void(0)">
                                         <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i></span>
-                                        <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">Approvels</span>
+                                        <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">Menu</span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                     <ul class="pcoded-submenu">
                                         <li class=" ">
-                                            <a href="bs-basicApprovel">
+                                            <a href="studentfeestatus">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert"> Inquiry </span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Fee Status</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
                                         <li class=" ">
-                                            <a href="IndividualApproveProfiling">
+                                            <a href="invoice_pdf">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Profiling</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                        
-                                    </ul>
-                                </li>
-                                <li class="pcoded-hasmenu">
-                                    <a href="javascript:void(0)">
-                                        <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i></span>
-                                        <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">Trackers</span>
-                                        <span class="pcoded-mcaret"></span>
-                                    </a>
-                                    <ul class="pcoded-submenu">
-                                        <li class=" ">
-                                            <a href="newApplications">
-                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">New  Applications </span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                        
-                                        <li class=" ">
-                                            <a href="individualstudent">
-                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Students </span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Invoice</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
                                         <li class=" ">
-                                            <a href="individualFeeStructure">
+                                            <a href="newenrollments">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Fees Structure</span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">New Academic year enroll</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
                                         <li class=" ">
-                                            <a href="IndividualAlumni">
+                                            <a href="Transcript_pdf">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Alumni</span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Transcript</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
                                     </ul>
                                 </li>
+                               
                             </ul>
                         </div>
                     </nav>
                     <div class="pcoded-content">
                         <div class="pcoded-inner-content">
+                           
                             <!-- Main-body start -->
                             <div class="main-body">
                                 <div class="page-wrapper">
                                     <!-- Page-header start -->
                                    
-                                <!-- Page-header end -->
-                                
-                                <!-- Page-body start -->
-                                <div class="page-body">
-                                    <!-- Basic table card start -->
-                                    <div class="card">
-                                        <div class="col-md-4">
-                                            <input type="search" placeholder="Search..." class="form-control search-input" data-table="inquiry"/>
-                                        </div>
-                                        <div class="card-header">
-                                            <h5>Approvels</h5>
-                                           
-                                            <div class="card-header-right">    <ul class="list-unstyled card-option"><li><i class="icofont icofont-simple-left "></i></li>        <li><i class="icofont icofont-maximize full-card"></i></li>        <li><i class="icofont icofont-minus minimize-card"></i></li>        <li><i class="icofont icofont-refresh reload-card"></i></li>        <li><i class="icofont icofont-error close-card"></i></li>    </ul></div>
-                                        </div>
-                                        <div class="card-block table-border-style">
-                                            <div class="table-responsive">
-                                                <table class="table inquiry">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>#</th>
-                                                            <th>Student Name</th>
-                                                            <th>Enrolling Grade</th>
-                                                            <th>Email</th>
-                                                            <th>Phone</th>
-                                                            <th>Hear About Us</th>
-                                                            <th>Approve</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        {% for i in inquirys %}
-                                                        <tr>
-                                                            <th scope="row">1</th>
-                                                            <td>{{i.studentName}}</td>
-                                                            <td>{{i.enrolling_grade}}</td>
-                                                            <td>{{i.email}}</td>
-                                                            <td>{{i.phone}}</td>
-                                                            <td>{{i.hear_about_us}}</td>
-                                                            <td><a href="inquiryApprove/{{i.uid}}"><button type="button">Approve</button></a></td>
-                                                        </tr>
-                                                        {% endfor %}
-                                                    </tbody>
-                                                </table>
+                                    <!-- Page-header end -->
+
+                                    <!-- Page body start -->
+                                    <div class="page-body">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <!-- Basic Form Inputs card start -->
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <h5>New Academic Year Enrollment</h5>
+                                                       
+                                                        <div class="card-header-right"><i
+                                                            class="icofont icofont-spinner-alt-5"></i></div>
+
+                                                            <div class="card-header-right">
+                                                                <i class="icofont icofont-spinner-alt-5"></i>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="card-block">
+                                                            <form method = "POST"> {% csrf_token %}
+                                                               
+                                                                <div class="form-group row">
+                                                                    <label class="col-sm-2 col-form-label">Grade</label>
+                                                                    <div class="col-sm-10">
+                                                                        <input type="text" name="current_grade" class="form-control" placeholder="grade.." required>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group row">
+                                                                    <label class="col-sm-2 col-form-label">Enrolling Term </label>
+                                                                    <div class="col-sm-10">
+                                                                        <input type="text" name="current_enrolling_term" placeholder="Enrolling Term.." class="form-control" required>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group row">
+                                                                    <label class="col-sm-2 col-form-label">Academic Year </label>
+                                                                    <div class="col-sm-10">
+                                                                        <input type="text" name="academic_year" value="{{academic_year}}" class="form-control" required>
+                                                                    </div>
+                                                                </div>
+                                                                <button type="submit" class="btn btn-primary">SEND</button>
+                                                            </form>
+                                                         
+                                                                    </div>
+                                                                </div>
+                             
+                             
+                                                                <!-- Main-body end -->
+                                                                <div id="styleSelector">
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
+
                                     </div>
-                                    
-                                   
-                                  
-                                    <!-- Background Utilities table end -->
-                                </div>
-                                <!-- Page-body end -->
-                            </div>
-                        </div>
-                        <!-- Main-body end -->
-
-                        <div id="styleSelector">
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<script>
-    (function(document) {
-        'use strict';
-
-        var TableFilter = (function(myArray) {
-            var search_input;
-
-            function _onInputSearch(e) {
-                search_input = e.target;
-                var tables = document.getElementsByClassName(search_input.getAttribute('data-table'));
-                myArray.forEach.call(tables, function(table) {
-                    myArray.forEach.call(table.tBodies, function(tbody) {
-                        myArray.forEach.call(tbody.rows, function(row) {
-                            var text_content = row.textContent.toLowerCase();
-                            var search_val = search_input.value.toLowerCase();
-                            row.style.display = text_content.indexOf(search_val) > -1 ? '' : 'none';
-                        });
-                    });
-                });
-            }
-
-            return {
-                init: function() {
-                    var inputs = document.getElementsByClassName('search-input');
-                    myArray.forEach.call(inputs, function(input) {
-                        input.oninput = _onInputSearch;
-                    });
-                }
-            };
-        })(Array.prototype);
-
-        document.addEventListener('readystatechange', function() {
-            if (document.readyState === 'complete') {
-                TableFilter.init();
-            }
-        });
-
-    })(document);
-</script>
-
-
-
-<!-- Warning Section Starts -->
-<!-- Older IE warning message -->
-    <!--[if lt IE 9]>
+                                        <!-- Warning Section Starts -->
+                                        <!-- Older IE warning message -->
+<!--[if lt IE 9]>
 <div class="ie-warning">
     <h1>Warning!!</h1>
-    <p>You are using an outdated version of Internet Explorer, please upgrade <br/>to any of the following web browsers to access this website.</p>
+    <p>You are using an outdated version of Internet Explorer, please upgrade <br/>to any of the following web browsers
+        to access this website.</p>
     <div class="iew-container">
         <ul class="iew-download">
             <li>
@@ -381,22 +307,16 @@
 <script type="text/javascript" src='{% static "assets1/js/jquery/jquery.min.js" %}'></script>
 <script type="text/javascript" src='{% static "assets1/js/jquery-ui/jquery-ui.min.js" %}'></script>
 <script type="text/javascript" src='{% static "assets1/js/popper.js/popper.min.js" %}'></script>
-<script type="text/javascript" src= '{% static "assets1/js/bootstrap/js/bootstrap.min.js" %}'></script>
+<script type="text/javascript" src='{% static "assets1/js/bootstrap/js/bootstrap.min.js" %}'></script>
 <!-- jquery slimscroll js -->
-<script type="text/javascript" src= '{% static "assets1/js/jquery-slimscroll/jquery.slimscroll.js" %}'></script>
+<script type="text/javascript" src='{% static "assets1/js/jquery-slimscroll/jquery.slimscroll.js" %}'></script>
 <!-- modernizr js -->
 <script type="text/javascript" src='{% static "assets1/js/modernizr/modernizr.js" %}'></script>
 <script type="text/javascript" src='{% static "assets1/js/modernizr/css-scrollbars.js" %}'></script>
-<!-- am chart -->
+<!-- classie js -->
 <script type="text/javascript" src='{% static "assets1/js/classie/classie.js" %}'></script>
-<script src='{% static "assets1/pages/widget/amchart/amcharts.min.js" %}'></script>
-<script src='{% static "assets1/pages/widget/amchart/serial.min.js" %}'></script>
-<!-- Todo js -->
-<script type="text/javascript " src='{% static "assets1/pages/todo/todo.js" %}'></script>
 <!-- Custom js -->
-<script type="text/javascript" src='{% static "assets1/pages/dashboard/custom-dashboard.js" %}'></script>
 <script type="text/javascript" src='{% static "assets1/js/script.js" %}'></script>
-<script type="text/javascript " src='{% static "assets1/js/SmoothScroll.js" %}'></script>
 <script src='{% static "assets1/js/pcoded.min.js" %}'></script>
 <script src='{% static "assets1/js/demo-12.js" %}'></script>
 <script src='{% static "assets1/js/jquery.mCustomScrollbar.concat.min.js" %}'></script>

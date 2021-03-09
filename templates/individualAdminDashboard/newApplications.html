@@ -299,6 +299,9 @@
                                 <div class="page-body">
                                     <!-- Basic table card start -->
                                     <div class="card">
+                                        <div class="col-md-4">
+                                            <input type="search" placeholder="Search..." class="form-control search-input" data-table="applications"/>
+                                        </div>
                                         <div class="card-header">
                                             <h5>New Applications</h5>
                                            
@@ -306,10 +309,10 @@
                                         </div>
                                         <div class="card-block table-border-style">
                                             <div class="table-responsive">
-                                                <table class="table">
+                                                <table class="table applications">
                                                     <thead>
                                                         <tr>
-                                                            <th>#</th>
+                                                          
                                                             <th>Student id</th>
                                                             <th>First Name</th>
                                                             <th>Last Name</th>
@@ -332,7 +335,7 @@
                                                     <tbody>
                                                         {% for i in student_obj %}
                                                         <tr>
-                                                            <th scope="row">1</th>
+                                                           
                                                             <td>{{i.student_id}}</td>
                                                             <td>{{i.first_name}}</td>
                                                             <td>{{i.last_name}}</td>
@@ -374,6 +377,45 @@
         </div>
     </div>
 </div>
+<script>
+    (function(document) {
+        'use strict';
+
+        var TableFilter = (function(myArray) {
+            var search_input;
+
+            function _onInputSearch(e) {
+                search_input = e.target;
+                var tables = document.getElementsByClassName(search_input.getAttribute('data-table'));
+                myArray.forEach.call(tables, function(table) {
+                    myArray.forEach.call(table.tBodies, function(tbody) {
+                        myArray.forEach.call(tbody.rows, function(row) {
+                            var text_content = row.textContent.toLowerCase();
+                            var search_val = search_input.value.toLowerCase();
+                            row.style.display = text_content.indexOf(search_val) > -1 ? '' : 'none';
+                        });
+                    });
+                });
+            }
+
+            return {
+                init: function() {
+                    var inputs = document.getElementsByClassName('search-input');
+                    myArray.forEach.call(inputs, function(input) {
+                        input.oninput = _onInputSearch;
+                    });
+                }
+            };
+        })(Array.prototype);
+
+        document.addEventListener('readystatechange', function() {
+            if (document.readyState === 'complete') {
+                TableFilter.init();
+            }
+        });
+
+    })(document);
+</script>
 
 
 

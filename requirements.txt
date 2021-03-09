@@ -5,3 +5,9 @@ git+https://github.com/preetamherald/django-imgur.git#egg=django-imgur
 django-inlinecss==0.3.0
 gunicorn==20.0.4
 django-apscheduler
+google-api-python-client== 1.12.8
+oauth2client
+django-xhtml2pdf==0.2.5
+Pillow== 8.0.1
+httplib2==0.18.1
+pytz==2020.1

@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Super Admin Dashboard {% load static %} </title>
+    <title>Student Dashboard {% load static %} </title>
     <!-- HTML5 Shim and Respond.js IE9 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -109,30 +109,21 @@
                             </li>
                         </ul>
                         <ul class="nav-right">
-                    
+                           
                             <li class="user-profile header-notification">
                                 <a href="#!">
-                                   
+                                    
                                     <span>{{name}}</span>
                                     <i class="ti-angle-down"></i>
                                 </a>
                                 <ul class="show-notification profile-notification">
-                                    
+                                  {% for j in info %} 
                                     <li>
-                                        <a href="#">
+                                        <a href="studentprofileEdit/{{j.student_id}}">
                                             <i class="ti-user"></i> Profile
                                         </a>
                                     </li>
-                                    <li>
-                                        <a href="superAdmin_slots">
-                                            <i class="ti-user"></i> Add Slots
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="addAcademicYear">
-                                            <i class="ti-user"></i> Academic Year
-                                        </a>
-                                    </li>
+                                 
                                     <li>
                                         <a href="auth-normal-sign-in.html">
                                             <i class="ti-layout-sidebar-left"></i> Logout
@@ -143,16 +134,17 @@
                         </ul>
                     </div>
                 </div>
-            </nav>
+            </nav>{% endfor %}
             <div class="pcoded-main-container">
                 <div class="pcoded-wrapper">
                     <nav class="pcoded-navbar">
                         <div class="sidebar_toggle"><a href="#"><i class="icon-close icons"></i></a></div>
                         <div class="pcoded-inner-navbar main-menu">
-                           
+                            
                             <ul class="pcoded-item pcoded-left-item">
+                                <br><br><br><br>
                                 <li class="active">
-                                    <a href="index.html">
+                                    <a href="individualAdmin_approvels">
                                         <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
                                         <span class="pcoded-mtext" data-i18n="nav.dash.main">Dashboard</span>
                                         <span class="pcoded-mcaret"></span>
@@ -161,211 +153,86 @@
                                 <li class="pcoded-hasmenu">
                                     <a href="javascript:void(0)">
                                         <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i></span>
-                                        <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">Approvels</span>
-                                        <span class="pcoded-mcaret"></span>
-                                    </a>
-                                    <ul class="pcoded-submenu">
-                                       
-                                        <li class=" ">
-                                            <a href="auditionApprove">
-                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert"> Audition </span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                        <li class=" ">
-                                            <a href="Profiling_saas">
-                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Profiling</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                        <li class=" ">
-                                            <a href="webpage_Approve">
-                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Webpages</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                        <li class=" ">
-                                            <a href="studentApplications">
-                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Students Enroll</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                        
-                                        
-                                    </ul>
-                                </li>
-                                <li class="pcoded-hasmenu">
-                                    <a href="javascript:void(0)">
-                                        <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i></span>
-                                        <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">Trackers</span>
+                                        <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">Menu</span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                     <ul class="pcoded-submenu">
                                         <li class=" ">
-                                            <a href="Affliatestracker">
+                                            <a href="studentfeestatus">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Affliates </span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                        
-                                        <li class=" ">
-                                            <a href="studentsdata">
-                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Students </span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Fee Status</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
                                         <li class=" ">
-                                            <a href="superAdminFeeStructure">
+                                            <a href="invoice_pdf">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">FeesStructure</span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Invoice</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
                                         <li class=" ">
-                                            <a href="notifyUsers">
+                                            <a href="newenrollments">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Notify Users</span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">New Academic year enroll</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
                                         <li class=" ">
-                                            <a href="superAdminAlumni">
+                                            <a href="Transcript_pdf">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Alumni</span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Transcript</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
                                     </ul>
                                 </li>
+                               
                             </ul>
                         </div>
                     </nav>
                     <div class="pcoded-content">
                         <div class="pcoded-inner-content">
-                            <!-- Main-body start -->
                             <div class="main-body">
                                 <div class="page-wrapper">
-                                    <!-- Page-header start -->
-                                   
-                                <!-- Page-header end -->
-                                
-  
-                                <!-- Page-body start -->
-                                <div class="page-body">
-                                    <!-- Basic table card start -->
-                                   
-                                     <div class="card">
-                                        <div class="col-md-4">
-                                            <input type="search" placeholder="Search..." class="form-control search-input" data-table="profiling"/>
-                                        </div>
-                                        <div class="card-header">
-                                            <h5>PROFILING SAAS</h5>
-                                           
-                                            <div class="card-header-right">    <ul class="list-unstyled card-option">        <li><i class="icofont icofont-simple-left "></i></li>        <li><i class="icofont icofont-maximize full-card"></i></li>        <li><i class="icofont icofont-minus minimize-card"></i></li>        <li><i class="icofont icofont-refresh reload-card"></i></li>        <li><i class="icofont icofont-error close-card"></i></li>    </ul></div>
-                                        </div>
-                                        <div class="card-block table-border-style">
-                                            <div class="table-responsive">
-                                                <table class="table profiling">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>#</th>
-                                                            <th>admin id</th>
-                                                            <th>Slot</th>
-                                                            <th>Schedule_date</th>
-                                                            <th>EVENT_ID</th>
-                                                            <th>HangoutLink</th>
-                                                            <th>HEADING</th>
-                                                            <th>Approve</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        {% for i in micro %}
-                                                        <tr>
-                                                            <th scope="row">1</th>
-                                                            <td>{{i.uid}}</td>
-                                                            <td>{{i.slot}}</td>
-                                                            <td>{{i.schedule_date}}</td>
-                                                            <td>{{i.EVENT_ID}}</td>
-                                                            <td>{{i.hangoutLink}}</td>
-                                                            <td>{{i.HEADING}}</td>
-                                                            {% if IS_APPROVED == 'N' %}
-                                                            <td><a href="Profiling_accept/{{i.uid}}"><button  type="button">Approve</button></td>
-                                                            <td><a href="Profiling_reject/{{i.uid}}"><button  type="button">Reject</button></td>
-                                                            {% endif %}
-                                                        </tr>
-                                                        {% endfor %}
-                                                    </tbody>
-                                                </table>
-                                                
-                                            </div>
-                                        </div>
+                                  
+                                    <div class="card-block">
+                                        <div class="row"></div>
+                                        <div class="row"></div>
+                                        <br><br><br><br>
+                                        
+					           {% for k in admin_web %}
+                        <div class="row">
+                            <div class="col-lg-3 col-md-12"></div>
+                            <div class="col-lg-6 col-md-12">
+                                <div class="form-group">
+                                    <center>  <a href="microschool/{{k.LOCALITY}}">  <img src="{{k.BANNER1.url}}"style="width:100%">{{k.SCHOOL_NAME}}</a></center> 
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-12"></div>
+                        </div>
+                         {% endfor %}
+
+                    
                                     </div>
                                     
-                                    <!-- Background Utilities table end -->
+                                        </div>
+                                    </div>
+
+                                    <div id="styleSelector">
+
+                                    </div>
                                 </div>
-                                <!-- Page-body end -->
                             </div>
-                        </div>
-                        <!-- Main-body end -->
-
-                        <div id="styleSelector">
-
                         </div>
                     </div>
                 </div>
+                
             </div>
         </div>
-    </div>
-</div>
-<script>
-    (function(document) {
-        'use strict';
 
-        var TableFilter = (function(myArray) {
-            var search_input;
-
-            function _onInputSearch(e) {
-                search_input = e.target;
-                var tables = document.getElementsByClassName(search_input.getAttribute('data-table'));
-                myArray.forEach.call(tables, function(table) {
-                    myArray.forEach.call(table.tBodies, function(tbody) {
-                        myArray.forEach.call(tbody.rows, function(row) {
-                            var text_content = row.textContent.toLowerCase();
-                            var search_val = search_input.value.toLowerCase();
-                            row.style.display = text_content.indexOf(search_val) > -1 ? '' : 'none';
-                        });
-                    });
-                });
-            }
-
-            return {
-                init: function() {
-                    var inputs = document.getElementsByClassName('search-input');
-                    myArray.forEach.call(inputs, function(input) {
-                        input.oninput = _onInputSearch;
-                    });
-                }
-            };
-        })(Array.prototype);
-
-        document.addEventListener('readystatechange', function() {
-            if (document.readyState === 'complete') {
-                TableFilter.init();
-            }
-        });
-
-    })(document);
-</script>
-
-
-<!-- Warning Section Starts -->
-<!-- Older IE warning message -->
+        <!-- Warning Section Starts -->
+        <!-- Older IE warning message -->
     <!--[if lt IE 9]>
 <div class="ie-warning">
     <h1>Warning!!</h1>
@@ -417,9 +284,7 @@
 <script type="text/javascript" src= '{% static "assets1/js/jquery-slimscroll/jquery.slimscroll.js" %}'></script>
 <!-- modernizr js -->
 <script type="text/javascript" src='{% static "assets1/js/modernizr/modernizr.js" %}'></script>
-<script type="text/javascript" src='{% static "assets1/js/modernizr/css-scrollbars.js" %}'></script>
 <!-- am chart -->
-<script type="text/javascript" src='{% static "assets1/js/classie/classie.js" %}'></script>
 <script src='{% static "assets1/pages/widget/amchart/amcharts.min.js" %}'></script>
 <script src='{% static "assets1/pages/widget/amchart/serial.min.js" %}'></script>
 <!-- Todo js -->
@@ -431,6 +296,18 @@
 <script src='{% static "assets1/js/pcoded.min.js" %}'></script>
 <script src='{% static "assets1/js/demo-12.js" %}'></script>
 <script src='{% static "assets1/js/jquery.mCustomScrollbar.concat.min.js" %}'></script>
+<script>
+var $window = $(window);
+var nav = $('.fixed-button');
+    $window.scroll(function(){
+        if ($window.scrollTop() >= 200) {
+         nav.addClass('active');
+     }
+     else {
+         nav.removeClass('active');
+     }
+ });
+</script>
 </body>
 
 </html>

@@ -260,6 +260,9 @@
                                 <div class="page-body">
                                     <!-- Basic table card start -->
                                     <div class="card">
+                                        <div class="col-md-4">
+                                            <input type="search" placeholder="Search..." class="form-control search-input" data-table="AffliateStudents"/>
+                                        </div>
                                         <div class="card-header">
                                             <h5>Affliate Students</h5>
                                            
@@ -267,10 +270,10 @@
                                         </div>
                                         <div class="card-block table-border-style">
                                             <div class="table-responsive">
-                                                <table class="table">
+                                                <table class="table AffliateStudents">
                                                     <thead>
                                                         <tr>
-                                                            <th>#</th>
+                                                           
                                                             <th>admin id</th>
                                                             <th>NAME</th>
                                                             <th>DOB</th>
@@ -296,7 +299,7 @@
                                                     <tbody>
                                                         {% for i in personal_info %}
                                                         <tr>
-                                                            <th scope="row">1</th>
+                                                            
                                                             <td>{{i.uid}}</td>
                                                             <td>{{i.NAME}}</td>
                                                             <td>{{i.DOB}}</td>

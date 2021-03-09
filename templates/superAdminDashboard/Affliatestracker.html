@@ -260,6 +260,9 @@
                                 <div class="page-body">
                                     <!-- Basic table card start -->
                                     <div class="card">
+                                        <div class="col-md-4">
+                                        <input type="search" placeholder="Search..." class="form-control search-input" data-table="table_personalinfo"/>
+                                       </div>
                                         <div class="card-header">
                                             <h5>Personal Info</h5>
                                            
@@ -267,10 +270,11 @@
                                         </div>
                                         <div class="card-block table-border-style">
                                             <div class="table-responsive">
-                                                <table class="table">
+                                               
+                                                <table class="table table_personalinfo">
                                                     <thead>
                                                         <tr>
-                                                            <th>#</th>
+                                                            
                                                             <th>admin id</th>
                                                             <th>NAME</th>
                                                             <th>DOB</th>
@@ -296,7 +300,7 @@
                                                     <tbody>
                                                         {% for i in personal_info %}
                                                         <tr>
-                                                            <th scope="row">1</th>
+                                                          
                                                             <td>{{i.uid}}</td>
                                                             <td>{{i.NAME}}</td>
                                                             <td>{{i.DOB}}</td>
@@ -326,7 +330,11 @@
                                             </div>
                                         </div>
                                     </div>
+                                   
                                      <div class="card">
+                                        <div class="col-md-4">
+                                            <input type="search" placeholder="Search..." class="form-control search-input" data-table="table_audition"/>
+                                           </div>
                                         <div class="card-header">
                                             <h5>Audition Info</h5>
                                            
@@ -334,10 +342,10 @@
                                         </div>
                                         <div class="card-block table-border-style">
                                             <div class="table-responsive">
-                                                <table class="table">
+                                                <table class="table table_audition">
                                                     <thead>
                                                         <tr>
-                                                            <th>#</th>
+                                                            
                                                             <th>admin id</th>
                                                             <th>ENGLISH_FLUENCY</th>
                                                             <th> CODING_SKILL</th>
@@ -361,7 +369,7 @@
                                                     <tbody>
                                                         {% for i in audition %}
                                                         <tr>
-                                                            <th scope="row">1</th>
+                                                           
                                                             <td>{{i.uid}}</td>
                                                             <td>{{i.ENGLISH_FLUENCY}}</td>
                                                             <td>{{i.CODING_SKILL}}</td>
@@ -406,11 +414,45 @@
         </div>
     </div>
 </div>
-<div class="fixed-button">
-	<a href="https://codedthemes.com/item/guru-able-admin-template/" target="_blank" class="btn btn-md btn-primary">
-	  <i class="fa fa-shopping-cart" aria-hidden="true"></i> Upgrade To Pro
-	</a>
-</div>
+<script>
+    (function(document) {
+        'use strict';
+
+        var TableFilter = (function(myArray) {
+            var search_input;
+
+            function _onInputSearch(e) {
+                search_input = e.target;
+                var tables = document.getElementsByClassName(search_input.getAttribute('data-table'));
+                myArray.forEach.call(tables, function(table) {
+                    myArray.forEach.call(table.tBodies, function(tbody) {
+                        myArray.forEach.call(tbody.rows, function(row) {
+                            var text_content = row.textContent.toLowerCase();
+                            var search_val = search_input.value.toLowerCase();
+                            row.style.display = text_content.indexOf(search_val) > -1 ? '' : 'none';
+                        });
+                    });
+                });
+            }
+
+            return {
+                init: function() {
+                    var inputs = document.getElementsByClassName('search-input');
+                    myArray.forEach.call(inputs, function(input) {
+                        input.oninput = _onInputSearch;
+                    });
+                }
+            };
+        })(Array.prototype);
+
+        document.addEventListener('readystatechange', function() {
+            if (document.readyState === 'complete') {
+                TableFilter.init();
+            }
+        });
+
+    })(document);
+</script>
 
 
 <!-- Warning Section Starts -->
