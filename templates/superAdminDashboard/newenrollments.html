@@ -269,7 +269,72 @@
                                     <!-- Page-header start -->
                                    
                                 <!-- Page-header end -->
-                                
+                                <style>
+                                .modal {
+                                display: none; /* Hidden by default */
+                                position: fixed; /* Stay in place */
+                                z-index: 1; /* Sit on top */
+                                padding-top: 100px; /* Location of the box */
+                                left: 0;
+                                top: 0;
+                                width: 100%; /* Full width */
+                                height: 100%; /* Full height */
+                                overflow: auto; /* Enable scroll if needed */
+                                background-color: rgb(0,0,0); /* Fallback color */
+                                background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+                                }
+
+                                /* Modal Content */
+                                .modal-content {
+                                background-color: #fefefe;
+                                margin: auto;
+                                padding: 20px;
+                                border: 1px solid #888;
+                                width: 80%;
+                                }
+
+                                /* The Close Button */
+                                .close {
+                                color: #aaaaaa;
+                                float: right;
+                                font-size: 28px;
+                                font-weight: bold;
+                                }
+
+                                .close:hover,
+                                .close:focus {
+                                color: #000;
+                                text-decoration: none;
+                                cursor: pointer;
+                                }
+                                </style> 
+                                <script>
+                                    // Get the modal
+                                    var modal = document.getElementById("myModal");
+
+                                    // Get the button that opens the modal
+                                    var btn = document.getElementById("myBtn");
+
+                                    // Get the <span> element that closes the modal
+                                    var span = document.getElementsByClassName("close")[0];
+
+                                    // When the user clicks the button, open the modal 
+                                    btn.onclick = function() {
+                                    modal.style.display = "block";
+                                    }
+
+                                    // When the user clicks on <span> (x), close the modal
+                                    span.onclick = function() {
+                                    modal.style.display = "none";
+                                    }
+
+                                    // When the user clicks anywhere outside of the modal, close it
+                                    window.onclick = function(event) {
+                                    if (event.target == modal) {
+                                        modal.style.display = "none";
+                                    }
+                                    }
+                                    </script>
   
                                 <!-- Page-body start -->
                                 <div class="page-body">
@@ -280,7 +345,7 @@
                                         <input type="search" placeholder="Search..." class="form-control search-input" data-table="table_personalinfo"/>
                                        </div>
                                         <div class="card-header">
-                                            <h5>Personal Info</h5>
+                                            <h5>New Enrollments</h5>
                                            
                                             <div class="card-header-right">    <ul class="list-unstyled card-option">        <li><i class="icofont icofont-simple-left "></i></li>        <li><i class="icofont icofont-maximize full-card"></i></li>        <li><i class="icofont icofont-minus minimize-card"></i></li>        <li><i class="icofont icofont-refresh reload-card"></i></li>        <li><i class="icofont icofont-error close-card"></i></li>    </ul></div>
                                         </div>
@@ -289,124 +354,31 @@
                                                 <table class="table table_personalinfo">
                                                     <thead>
                                                         <tr>
-                                                            <th>#</th>
-                                                            <th>admin id</th>
-                                                            <th>NAME</th>
-                                                            <th>DOB</th>
-                                                            <th>EMAIL</th>
-                                                            <th>COUNTRY_CODE</th>
-                                                            <th> PHONE</th>
-                                                            <th>LOVE_TO_BE</th>
-                                                            <th>SCHOOL_MODE</th>
-                                                            <th>SCHOOL_OPERATE</th>
-                                                            <th>SCHOOL_LOCALITY</th>
-                                                            <th>location</th>
-                                                            <th>BUSINESS</th>
-                                                            <th>SCHOOL_NAME</th>
-                                                            <th>SCHOOL_WEBSITE</th>
-                                                            <th>SCHOOL_FB</th>
-                                                            <th>LINKEDIN</th>
-                                                            <th>OCCUPATION</th>
-                                                            <th>PASSION</th>
-                                                            <th>WHY_AFFILIATE</th>
-                                                            <th>COMPLETE</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        {% for i in personal_info %}
-                                                        <tr>
-                                                            <th scope="row">1</th>
-                                                            <td>{{i.uid}}</td>
-                                                            <td>{{i.NAME}}</td>
-                                                            <td>{{i.DOB}}</td>
-                                                            <td>{{i.EMAIL}}</td>
-                                                            <td>{{i.COUNTRY_CODE}}</td>
-                                                            <td>{{i.PHONE}}</td>
-                                                            <td>{{i.LOVE_TO_BE}}</td>
-                                                            <td>{{i.SCHOOL_MODE}}</td>
-                                                            <td>{{i.SCHOOL_OPERATE}}</td>
-                                                            <td>{{i.SCHOOL_LOCALITY}}</td>
-                                                            <td>{{i.location}}</td>
-                                                            <td>{{i.BUSINESS}}</td>
-                                                            <td>{{i.SCHOOL_NAME}}</td>
-                                                            <td>{{i.SCHOOL_WEBSITE}}</td>
-                                                            <td>{{i.SCHOOL_FB}}</td>
-                                                            <td>{{i.OCCUPATION}}</td>
-                                                            <td>{{i.LINKEDIN}}</td>
-                                                            <td>{{i.PASSION}}</td>
-                                                            <td>{{i.WHY_AFFILIATE}}</td>
-                                                            <td>{{i.IS_COMPLETE}}</td>
-                                                        </tr>
-                                                        {% endfor %}
-                                                         
-                                                    </tbody>
-                                                </table>
-                                                
-                                            </div>
-                                        </div>
-                                    </div>
-                                     <div class="card">
-                                        <br>
-                                        <div class="col-md-4">
-                                        <input type="search" placeholder="Search..." class="form-control search-input" data-table="Audition"/>
-                                       </div>
-                                        <div class="card-header">
-                                            <h5>Audition Info</h5>
-                                           
-                                            <div class="card-header-right">    <ul class="list-unstyled card-option">        <li><i class="icofont icofont-simple-left "></i></li>        <li><i class="icofont icofont-maximize full-card"></i></li>        <li><i class="icofont icofont-minus minimize-card"></i></li>        <li><i class="icofont icofont-refresh reload-card"></i></li>        <li><i class="icofont icofont-error close-card"></i></li>    </ul></div>
-                                        </div>
-                                        <div class="card-block table-border-style">
-                                            <div class="table-responsive">
-                                                <table class="table Audition">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>#</th>
-                                                            <th>admin id</th>
-                                                            <th>ENGLISH_FLUENCY</th>
-                                                            <th> CODING_SKILL</th>
-                                                            <th>PHOTO_EDITING</th>
-                                                            <th>VIDEO_EDITING</th>
-                                                            <th>PASSION_TO_LEARN</th>
-                                                            <th>FINANCIAL_MONEY_REQUIRED</th>
-                                                            <th>MONEY_COME_FROM</th>
-                                                            <th>HD_WEBCAM</th>
-                                                            <th>INTERNET_MODE</th>
-                                                            <th>INTERNET_SPEED</th>
-                                                            <th>YOUTUBE_VIDEO</th>
-                                                            <th>NO_OF_STUDENTS</th>
-                                                            <th>QUESTIONS</th>
-                                                            <th>Audition Complete</th>
-                                                            <th>Audition Approved</th>
                                                             
+                                                            <th>Student id</th>
+                                                            <th>First Name</th>
+                                                            <th>Last Name</th>
+                                                            <th>School</th>
+                                                            <th>Enroll</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        {% for i in audition %}
+                                                        {% for i in student_tobeEnrolled %}
                                                         <tr>
-                                                            <th scope="row">1</th>
-                                                            <td>{{i.uid}}</td>
-                                                            <td>{{i.ENGLISH_FLUENCY}}</td>
-                                                            <td>{{i.CODING_SKILL}}</td>
-                                                            <td>{{i.PHOTO_EDITING}}</td>
-                                                            <td>{{i.VIDEO_EDITING}}</td>
-                                                            <td>{{i.PASSION_TO_LEARN}}</td>
-                                                            <td>{{i.FINANCIAL_MONEY_REQUIRED}}</td>
-                                                            <td>{{i.MONEY_COME_FROM}}</td>
-                                                            <td>{{i.HD_WEBCAM}}</td>
-                                                            <td>{{i.INTERNET_MODE}}</td>
-                                                            <td>{{i.INTERNET_SPEED}}</td>
-                                                            <td>{{i.YOUTUBE_VIDEO}}</td>
-                                                            <td>{{i.NO_OF_STUDENTS}}</td>
-                                                            <td>{{i.QUESTIONS}}</td>
-                                                            <td>{{i.IS_COMPLETE}}</td>
-                                                            <td>{{i.IS_APPROVED}}</td>
+                                                            <td>{{i.student_id}}</td>
+                                                            <td>{{i.first_name}}</td>
+                                                            <td>{{i.last_name}}</td>
+                                                            <td>{{i.microschool.SCHOOL_NAME}}</td>
+                                                            {% if i.Enrolled == "N"  %}
+                                                            <td><a href="enrollment/{{i.student_id}}"><button  type="button">Enroll</button></td>
+                                                            {% endif %}  
+                                                            {% if i.microschool.invoice_generation == "N" %}
+                                                            <td><a href="manualgenerate/{{i.student_id}}"><button  type="button">Generate Invoice</button></td>
+                                                            {% endif %}  
                                                         </tr>
                                                         {% endfor %}
-
-                                                           
                                                     </tbody>
                                                 </table>
-                                                
                                             </div>
                                         </div>
                                     </div>

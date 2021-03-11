@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Super Admin Dashboard {% load static %} </title>
+    <title>Student Dashboard {% load static %} </title>
     <!-- HTML5 Shim and Respond.js IE9 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -109,30 +109,21 @@
                             </li>
                         </ul>
                         <ul class="nav-right">
-                    
+                           
                             <li class="user-profile header-notification">
                                 <a href="#!">
-                                   
+                                    
                                     <span>{{name}}</span>
                                     <i class="ti-angle-down"></i>
                                 </a>
                                 <ul class="show-notification profile-notification">
-                                    
+                                  {% for j in info %} 
                                     <li>
-                                        <a href="#">
+                                        <a href="studentprofileEdit/{{j.student_id}}">
                                             <i class="ti-user"></i> Profile
                                         </a>
                                     </li>
-                                    <li>
-                                        <a href="superAdmin_slots">
-                                            <i class="ti-user"></i> Add Slots
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="addAcademicYear">
-                                            <i class="ti-user"></i> Academic Year
-                                        </a>
-                                    </li>
+                                 
                                     <li>
                                         <a href="auth-normal-sign-in.html">
                                             <i class="ti-layout-sidebar-left"></i> Logout
@@ -143,16 +134,17 @@
                         </ul>
                     </div>
                 </div>
-            </nav>
+            </nav>{% endfor %}
             <div class="pcoded-main-container">
                 <div class="pcoded-wrapper">
                     <nav class="pcoded-navbar">
                         <div class="sidebar_toggle"><a href="#"><i class="icon-close icons"></i></a></div>
                         <div class="pcoded-inner-navbar main-menu">
-                           
+                            
                             <ul class="pcoded-item pcoded-left-item">
+                                <br><br><br><br>
                                 <li class="active">
-                                    <a href="index.html">
+                                    <a href="individualAdmin_approvels">
                                         <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
                                         <span class="pcoded-mtext" data-i18n="nav.dash.main">Dashboard</span>
                                         <span class="pcoded-mcaret"></span>
@@ -161,110 +153,47 @@
                                 <li class="pcoded-hasmenu">
                                     <a href="javascript:void(0)">
                                         <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i></span>
-                                        <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">Approvels</span>
+                                        <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">Menu</span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                     <ul class="pcoded-submenu">
-                                       
                                         <li class=" ">
-                                            <a href="auditionApprove">
+                                            <a href="studentfeestatus">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert"> Audition </span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Fee Status</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
                                         <li class=" ">
-                                            <a href="Profiling_saas">
+                                            <a href="invoice_pdf">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Profiling</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                        <li class=" ">
-                                            <a href="webpage_Approve">
-                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Webpages</span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Invoice</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
                                         <li class=" ">
                                             <a href="newenrollments">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">New Enrollments</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-
-                                        <li class=" ">
-                                            <a href="studentApplications">
-                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Students Enroll</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                        
-                                        
-                                    </ul>
-                                </li>
-                                <li class="pcoded-hasmenu">
-                                    <a href="javascript:void(0)">
-                                        <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i></span>
-                                        <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">Trackers</span>
-                                        <span class="pcoded-mcaret"></span>
-                                    </a>
-                                    <ul class="pcoded-submenu">
-                                        <li class=" ">
-                                            <a href="Affliatestracker">
-                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Affliates </span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">New Academic year enroll</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
                                         <li class=" ">
-                                            <a href="WebpageTracker">
+                                            <a href="Transcript_pdf">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Webpages</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                        
-                                        <li class=" ">
-                                            <a href="studentsdata">
-                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Students </span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                        <li class=" ">
-                                            <a href="superAdminFeeStructure">
-                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">FeesStructure</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                        <li class=" ">
-                                            <a href="notifyUsers">
-                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Notify Users</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                        <li class=" ">
-                                            <a href="superAdminAlumni">
-                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Alumni</span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Transcript</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
                                     </ul>
                                 </li>
+                               
                             </ul>
                         </div>
                     </nav>
                     <div class="pcoded-content">
                         <div class="pcoded-inner-content">
-                            <a class="btn btn-primary"  href="SuperAdminSlotsView">
-                               View Slot </a>
+                           
                             <!-- Main-body start -->
                             <div class="main-body">
                                 <div class="page-wrapper">
@@ -279,7 +208,7 @@
                                                 <!-- Basic Form Inputs card start -->
                                                 <div class="card">
                                                     <div class="card-header">
-                                                        <h5>Add Slots</h5>
+                                                        <h5>New Academic Year Enrollment</h5>
                                                        
                                                         <div class="card-header-right"><i
                                                             class="icofont icofont-spinner-alt-5"></i></div>
@@ -291,43 +220,23 @@
                                                         </div>
                                                         <div class="card-block">
                                                             <form method = "POST"> {% csrf_token %}
+                                                               
                                                                 <div class="form-group row">
-                                                                    <label class="col-sm-2 col-form-label">Select Duration</label>
+                                                                    <label class="col-sm-2 col-form-label">Grade</label>
                                                                     <div class="col-sm-10">
-                                                                        <select name="duration" class="form-control" required>
-                                                                            <option>-</option>
-                                                                            <option value="15" >15 </option>
-                                                                            <option value="30" selected="selected">30 </option>  
-                                                                            <option value="45">45 </option>
-                                                                            <option value="60">60</option>
-                                                                        </select>
+                                                                        <input type="text" name="current_grade" class="form-control" placeholder="grade.." required>
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group row">
-                                                                    <label class="col-sm-2 col-form-label">Start-time</label>
+                                                                    <label class="col-sm-2 col-form-label">Enrolling Term </label>
                                                                     <div class="col-sm-10">
-                                                                        <input type="time" name="Start-time" class="form-control" req>
+                                                                        <input type="text" name="current_enrolling_term" placeholder="Enrolling Term.." class="form-control" required>
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group row">
-                                                                    <label class="col-sm-2 col-form-label">End-time</label>
+                                                                    <label class="col-sm-2 col-form-label">Academic Year </label>
                                                                     <div class="col-sm-10">
-                                                                        <input type="time" name="End-time" class="form-control" required>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="form-group row">
-                                                                    <label class="col-sm-2 col-form-label">Select Day</label>
-                                                                    <div class="col-sm-10">
-                                                                        <select name="Days" class="form-control">
-                                                                            <option selected disabled>Day...</option>
-                                                                            <option>-</option>
-                                                                            <option value="Monday">Monday</option>
-                                                                            <option value="Tuesday">Tuesday</option>  
-                                                                            <option value="Wednesday">Wednesday</option>
-                                                                            <option value="Thursday">Thursday</option>
-                                                                            <option value="Friday">Friday</option>
-                                                                            <option value="Saturday">Saturday</option>
-                                                                        </select>
+                                                                        <input type="text" name="academic_year" value="{{academic_year}}" class="form-control" required>
                                                                     </div>
                                                                 </div>
                                                                 <button type="submit" class="btn btn-primary">SEND</button>

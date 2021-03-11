@@ -188,14 +188,6 @@
                                             </a>
                                         </li>
                                         <li class=" ">
-                                            <a href="newenrollments">
-                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">New Enrollments</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-
-                                        <li class=" ">
                                             <a href="studentApplications">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                 <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Students Enroll</span>
@@ -223,11 +215,10 @@
                                         <li class=" ">
                                             <a href="WebpageTracker">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Webpages</span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Webpages </span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
-                                        
                                         <li class=" ">
                                             <a href="studentsdata">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
@@ -277,67 +268,96 @@
                                     <div class="card">
                                         <br>
                                         <div class="col-md-4">
-                                        <input type="search" placeholder="Search..." class="form-control search-input" data-table="table_personalinfo"/>
-                                       </div>
+                                            <input type="search" placeholder="Search..." class="form-control search-input" data-table="web"/>
+                                        </div>
                                         <div class="card-header">
-                                            <h5>Personal Info</h5>
+                                            <h5>Webpage Details</h5>
                                            
-                                            <div class="card-header-right">    <ul class="list-unstyled card-option">        <li><i class="icofont icofont-simple-left "></i></li>        <li><i class="icofont icofont-maximize full-card"></i></li>        <li><i class="icofont icofont-minus minimize-card"></i></li>        <li><i class="icofont icofont-refresh reload-card"></i></li>        <li><i class="icofont icofont-error close-card"></i></li>    </ul></div>
+                                            <div class="card-header-right">    <ul class="list-unstyled card-option"> <li><i class="icofont icofont-simple-left "></i></li>        <li><i class="icofont icofont-maximize full-card"></i></li>        <li><i class="icofont icofont-minus minimize-card"></i></li>        <li><i class="icofont icofont-refresh reload-card"></i></li>        <li><i class="icofont icofont-error close-card"></i></li>    </ul></div>
                                         </div>
                                         <div class="card-block table-border-style">
                                             <div class="table-responsive">
-                                                <table class="table table_personalinfo">
+                                                <table class="table web">
                                                     <thead>
                                                         <tr>
-                                                            <th>#</th>
+                                                            
                                                             <th>admin id</th>
-                                                            <th>NAME</th>
-                                                            <th>DOB</th>
-                                                            <th>EMAIL</th>
-                                                            <th>COUNTRY_CODE</th>
-                                                            <th> PHONE</th>
-                                                            <th>LOVE_TO_BE</th>
-                                                            <th>SCHOOL_MODE</th>
-                                                            <th>SCHOOL_OPERATE</th>
-                                                            <th>SCHOOL_LOCALITY</th>
-                                                            <th>location</th>
-                                                            <th>BUSINESS</th>
                                                             <th>SCHOOL_NAME</th>
-                                                            <th>SCHOOL_WEBSITE</th>
-                                                            <th>SCHOOL_FB</th>
-                                                            <th>LINKEDIN</th>
-                                                            <th>OCCUPATION</th>
-                                                            <th>PASSION</th>
-                                                            <th>WHY_AFFILIATE</th>
-                                                            <th>COMPLETE</th>
+                                                            <th>LOCALITY</th>
+                                                            <th>is_Spacious_Studio</th>
+                                                            <th>is_Outdoor_PlayLawn</th>
+                                                            <th> is_Commute</th>
+                                                            <th>is_WiFi</th>
+                                                            <th>is_CCTV</th>
+                                                            <th>is_Device</th>
+                                                            <th>is_Food</th>
+                                                            <th>is_Daycare</th>
+                                                            <th>is_After_School</th>
+                                                            <th>is_Residential</th>
+                                                            <th>GOOGLE_REVIEWS_LINK </th>
+                                                            <th>ADDRESS1</th>
+                                                            <th>ADDRESS2</th>
+                                                            <th>SCHOOL_LOCALITY</th>
+                                                            <th>SCHOOL_PHONE</th>
+                                                            <th>SCHOOL_PHONE1</th>
+                                                            <th>SCHOOL_EMAIL</th>
+                                                            <th>SCHOOL_HOURS_KS</th>
+                                                            <th>SCHOOL_HOURS_ES</th>
+                                                            <th>FOUNDER_NAME</th>
+                                                            <th>DESIGNATION</th>
+                                                            <th>CONTENT</th>
+                                                            <th>CO_FOUNDER1</th>
+                                                            <th>DESIGNATION_CO1</th>
+                                                            <th>CONTENT</th>
+                                                            <th>CO_FOUNDER2</th>
+                                                            <th>DESIGNATION_CO2</th>
+                                                            <th>CONTENT</th>
+                                                            <th>Bannners</th>
+                                                            <th>Complete </th>
+                                                            <th>Approve</th> 
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        {% for i in personal_info %}
+                                                        {% for i in web %}
                                                         <tr>
-                                                            <th scope="row">1</th>
+                                                           
                                                             <td>{{i.uid}}</td>
-                                                            <td>{{i.NAME}}</td>
-                                                            <td>{{i.DOB}}</td>
-                                                            <td>{{i.EMAIL}}</td>
-                                                            <td>{{i.COUNTRY_CODE}}</td>
-                                                            <td>{{i.PHONE}}</td>
-                                                            <td>{{i.LOVE_TO_BE}}</td>
-                                                            <td>{{i.SCHOOL_MODE}}</td>
-                                                            <td>{{i.SCHOOL_OPERATE}}</td>
-                                                            <td>{{i.SCHOOL_LOCALITY}}</td>
-                                                            <td>{{i.location}}</td>
-                                                            <td>{{i.BUSINESS}}</td>
                                                             <td>{{i.SCHOOL_NAME}}</td>
-                                                            <td>{{i.SCHOOL_WEBSITE}}</td>
-                                                            <td>{{i.SCHOOL_FB}}</td>
-                                                            <td>{{i.OCCUPATION}}</td>
-                                                            <td>{{i.LINKEDIN}}</td>
-                                                            <td>{{i.PASSION}}</td>
-                                                            <td>{{i.WHY_AFFILIATE}}</td>
-                                                            <td>{{i.IS_COMPLETE}}</td>
+                                                            <td>{{i.LOCALITY}}</td>
+                                                            <td>{{i.AMENITIES_is_Spacious_Studio}}</td>
+                                                            <td>{{i.AMENITIES_is_Outdoor_PlayLawn}}</td>
+                                                            <td>{{i.AMENITIES_is_Commute}}</td>
+                                                            <td>{{i.AMENITIES_is_WiFi}}</td>
+                                                            <td>{{i.AMENITIES_is_CCTV}}</td>
+                                                            <td>{{i.AMENITIES_is_Food }}</td>
+                                                            <td>{{i.AMENITIES_is_Daycare}}</td>
+                                                            <td>{{i.AMENITIES_is_After_School}}</td>
+                                                            <td>{{i.AMENITIES_is_Residential}}</td>
+                                                            <td>{{i.AMENITIES_is_Device}}</td>
+                                                            <td>{{i.GOOGLE_REVIEWS_LINK}}</td>
+                                                            <td>{{i.ADDRESS1}}</td>
+                                                            <td>{{i.ADDRESS2}}</td>
+                                                            <td>{{i.SCHOOL_LOCALITY}}</td>
+                                                            <td>{{i.SCHOOL_PHONE}}</td>
+                                                            <td>{{i.SCHOOL_PHONE1}}</td>
+                                                            <td>{{i.SCHOOL_EMAIL}}</td>
+                                                            <td>{{i.SCHOOL_HOURS_KS }}</td>
+                                                            <td>{{i.SCHOOL_HOURS_ES}}</td>
+                                                            <td>{{i.FOUNDER_NAME}}</td>
+                                                            <td>{{i.DESIGNATION}}</td>
+                                                            <td>{{i.CONTENT1}}</td>
+                                                            <td>{{i.CO_FOUNDER1}}</td>
+                                                            <td>{{i.DESIGNATION_CO1}}</td>
+                                                            <td>{{i.CONTENT2}}</td>
+                                                            <td>{{i.CO_FOUNDER2}}</td>
+                                                            <td>{{i.DESIGNATION_CO2}}</td>
+                                                            <td>{{i.CONTENT3}}</td>
+                                                            <td><a href="viewbanners/{{i.uid}}"><button  type="button"> Bannners and Gala</button></a></td>
+                                                           
+                                                           <td>{{i.IS_COMPLETE}}</td>
+                                                           <td>{{i.IS_APPROVED}}</td>
                                                         </tr>
-                                                        {% endfor %}
+                                                      {% endfor %}
                                                          
                                                     </tbody>
                                                 </table>
@@ -345,77 +365,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                     <div class="card">
-                                        <br>
-                                        <div class="col-md-4">
-                                        <input type="search" placeholder="Search..." class="form-control search-input" data-table="Audition"/>
-                                       </div>
-                                        <div class="card-header">
-                                            <h5>Audition Info</h5>
-                                           
-                                            <div class="card-header-right">    <ul class="list-unstyled card-option">        <li><i class="icofont icofont-simple-left "></i></li>        <li><i class="icofont icofont-maximize full-card"></i></li>        <li><i class="icofont icofont-minus minimize-card"></i></li>        <li><i class="icofont icofont-refresh reload-card"></i></li>        <li><i class="icofont icofont-error close-card"></i></li>    </ul></div>
-                                        </div>
-                                        <div class="card-block table-border-style">
-                                            <div class="table-responsive">
-                                                <table class="table Audition">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>#</th>
-                                                            <th>admin id</th>
-                                                            <th>ENGLISH_FLUENCY</th>
-                                                            <th> CODING_SKILL</th>
-                                                            <th>PHOTO_EDITING</th>
-                                                            <th>VIDEO_EDITING</th>
-                                                            <th>PASSION_TO_LEARN</th>
-                                                            <th>FINANCIAL_MONEY_REQUIRED</th>
-                                                            <th>MONEY_COME_FROM</th>
-                                                            <th>HD_WEBCAM</th>
-                                                            <th>INTERNET_MODE</th>
-                                                            <th>INTERNET_SPEED</th>
-                                                            <th>YOUTUBE_VIDEO</th>
-                                                            <th>NO_OF_STUDENTS</th>
-                                                            <th>QUESTIONS</th>
-                                                            <th>Audition Complete</th>
-                                                            <th>Audition Approved</th>
-                                                            
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        {% for i in audition %}
-                                                        <tr>
-                                                            <th scope="row">1</th>
-                                                            <td>{{i.uid}}</td>
-                                                            <td>{{i.ENGLISH_FLUENCY}}</td>
-                                                            <td>{{i.CODING_SKILL}}</td>
-                                                            <td>{{i.PHOTO_EDITING}}</td>
-                                                            <td>{{i.VIDEO_EDITING}}</td>
-                                                            <td>{{i.PASSION_TO_LEARN}}</td>
-                                                            <td>{{i.FINANCIAL_MONEY_REQUIRED}}</td>
-                                                            <td>{{i.MONEY_COME_FROM}}</td>
-                                                            <td>{{i.HD_WEBCAM}}</td>
-                                                            <td>{{i.INTERNET_MODE}}</td>
-                                                            <td>{{i.INTERNET_SPEED}}</td>
-                                                            <td>{{i.YOUTUBE_VIDEO}}</td>
-                                                            <td>{{i.NO_OF_STUDENTS}}</td>
-                                                            <td>{{i.QUESTIONS}}</td>
-                                                            <td>{{i.IS_COMPLETE}}</td>
-                                                            <td>{{i.IS_APPROVED}}</td>
-                                                        </tr>
-                                                        {% endfor %}
-
-                                                           
-                                                    </tbody>
-                                                </table>
-                                                
-                                            </div>
-                                        </div>
-                                    </div>
                                     
-                                    <!-- Background Utilities table end -->
-                                </div>
-                                <!-- Page-body end -->
-                            </div>
-                        </div>
                         <!-- Main-body end -->
 
                         <div id="styleSelector">
@@ -466,7 +416,6 @@
 
     })(document);
 </script>
-
 
 
 <!-- Warning Section Starts -->

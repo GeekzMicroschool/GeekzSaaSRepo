@@ -46,11 +46,11 @@ urlpatterns = [
     path('individualAdminSlots',views.individualAdminSlots,name="individualAdminSlots"),
     path('ajax/individual_load_slots/', views.individual_load_slots, name='ajax_individual_load_slots'), # AJAX
     path('invoicees',views.invoice,name="invoice"),
-    path('invoice_pdf/<student_id>',views.invoice_pdf,name="invoice_pdf"),
+    #path('invoice_pdf/<student_id>',views.invoice_pdf,name="invoice_pdf"),
     path('Invoice_requests',views.Invoice_requests,name="invoice_requests"),
     path('bs-basicInvoice',views.bsbasicInvoice,name="bs-basicInvoice"),
     path('transcriptsApprove',views.transcriptsApprove,name="transcriptsApprove"),
-    path('Transcript_PDF/<student_id>',views.Transcript_PDF,name="transcript_PDF"),
+    #path('Transcript_PDF/<student_id>',views.Transcript_PDF,name="transcript_PDF"),
     path('transcripts_request',views.transcripts_request,name="transcripts_request"),
     path('newApplications',views.newApplications,name="newApplications"),
     path('IndividualApproveProfiling',views.IndividualApproveProfiling,name="IndividualApproveProfiling"),
@@ -87,6 +87,17 @@ urlpatterns = [
     path('IndividualAlumni',views.IndividualAlumni,name="IndividualAlumni"),
     path('notifyUsers',views.notifyUsers,name="notifyUsers"),
     path('superAdminAlumni',views.superAdminAlumni,name="superAdminAlumni"),
+    path('newenrollments',views.newenrollments,name="newenrollments"),
+    path('enrollment/<student_id>',views.enrollment,name="enrollment"),
+    path('WebpageTracker',views.WebpageTracker,name="WebpageTracker"),
+    path('studentDashboard',views.studentDashboard,name="studentDashboard"),
+    path('studentfeestatus',views.studentfeestatus,name="studentfeestatus"),
+    path('invoice_pdf',views.invoice_pdf,name="invoice_pdf"),
+    path('studentinvoice_pdf/<student_id>',views.studentinvoice_pdf,name="studentinvoice_pdf"),
+    #path('newenrollments',views.newenrollments,name="newenrollments"),
+    path('Transcript_pdf',views.Transcript_pdf,name="Transcript_pdf"),
+    path('studentTranscript_pdf/<student_id>',views.studentTranscript_pdf,name="studentTranscript_PDF"),
+    path('studentprofileEdit/<student_id>',views.studentprofileEdit,name="studentprofileEdit"),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

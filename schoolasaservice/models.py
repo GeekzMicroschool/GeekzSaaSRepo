@@ -250,6 +250,8 @@ class INDIVIDUAL_WEBPAGESS1(models.Model):
     IS_APPROVED = models.CharField(max_length=1, default="N")
     LATITUDE = models.FloatField(max_length=600)
     LONGITUDE = models.FloatField(max_length=600)
+    invoice_generation = models.CharField(max_length=1, default="N")
+
 
     '''def save(self, *args, **kwargs):
         if not self.uid:
@@ -480,8 +482,28 @@ class enrolledStudents(models.Model):
     grade = models.CharField(max_length=100)
     current_grade = models.CharField(max_length=300)
     current_enrolling_term = models.CharField(max_length=300)
+    invoice_show = models.CharField(max_length=1, default="N")
     class Meta:
         unique_together = ('student_enrolled','academic_year',)
+
+class studentInvoice(models.Model):
+    student_id = models.ForeignKey(enrolledStudents, on_delete=models.CASCADE)
+    invoice_no = models.IntegerField()
+    edTech = models.IntegerField()
+    Totalfees = models.IntegerField()
+    amountpaid = models.IntegerField()
+    academic_year = models.CharField(max_length=300)
+
+val = '000107'   
+
+class invoicecounter(models.Model):
+    invoice_value = models.IntegerField(default=int(val))    
+    
+
+
+
+
+
     
 
 

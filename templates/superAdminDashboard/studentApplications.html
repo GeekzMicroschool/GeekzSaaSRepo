@@ -188,6 +188,14 @@
                                             </a>
                                         </li>
                                         <li class=" ">
+                                            <a href="newenrollments">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">New Enrollments</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+
+                                        <li class=" ">
                                             <a href="studentApplications">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                 <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Students Enroll</span>
@@ -209,6 +217,13 @@
                                             <a href="Affliatestracker">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                 <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Affliates </span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                        <li class=" ">
+                                            <a href="WebpageTracker">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Webpages</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
@@ -325,6 +340,10 @@
                                 <div class="page-body">
                                     <!-- Basic table card start -->
                                     <div class="card">
+                                        <br>
+                                        <div class="col-md-4">
+                                        <input type="search" placeholder="Search..." class="form-control search-input" data-table="table_personalinfo"/>
+                                       </div>
                                         <div class="card-header">
                                             <h5>Fee Applications</h5>
                                            
@@ -332,67 +351,48 @@
                                         </div>
                                         <div class="card-block table-border-style">
                                             <div class="table-responsive">
-                                                <table class="table">
+                                                <table class="table table_personalinfo">
                                                     <thead>
                                                         <tr>
+                                                            {% for i in enrolled %}
                                                             
                                                             <th>Student id</th>
                                                             <th>First Name</th>
                                                             <th>Last Name</th>
-                                                            <th>Father Name</th>
-                                                            <th>Mother Name</th>
-                                                            <th>Email</th>
-                                                            <th>Address</th>
-                                                            <th>Phone</th>
-                                                            <th>Geekz Commute</th>
-                                                            <th>Commute Location</th>
-                                                            <th>Enrolling year</th>
-                                                            <th>Enrolling Grade</th>
-                                                            <th>Profiling scheduled</th>
-                                                            <th>Profiling Complete</th>
-                                                            <th>Profiling Approved</th>
-                                                            <th>Enrolled</th>
                                                             <th>School</th>
+                                                            {% if i.Term1flag == "N" %}
                                                             <th>Term1</th>
                                                             <th>Pay</th>
+                                                            {% endif %}
                                                             <th>Term2</th>
                                                             <th>Pay</th>
                                                             <th>Term3</th>
                                                             <th>Pay</th>
+                                                            <th>Invoice</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        {% for i in enrolled %}
+                                                        
                                                         <tr>
                                                             <td>{{i.student_enrolled.student_id}}</td>
                                                             <td>{{i.student_enrolled.first_name}}</td>
                                                             <td>{{i.student_enrolled.last_name}}</td>
-                                                            <td>{{i.student_enrolled.Fathersname}}</td>
-                                                            <td>{{i.student_enrolled.Mothersname}}</td>
-                                                            <td>{{i.student_enrolled.email}}</td>
-                                                            <td>{{i.student_enrolled.address}}</td>
-                                                            <td>{{i.student_enrolled.phone}}</td>
-                                                            <td>{{i.student_enrolled.geekzcommute}}</td>
-                                                            <td>{{i.student_enrolled.yescommutelocation}}</td>
-                                                            <td>{{i.student_enrolled.academic_year}}</td>
-                                                            <td>{{i.student_enrolled.enrolling_grade}}</td>
-                                                            <td>{{i.student_enrolled.Profiling_scheduled}}</td>
-                                                            <td>{{i.student_enrolled.Profiling_complete}}</td>
-                                                            <td>{{i.student_enrolled.Profiling_approved}}</td>
-                                                            <td>{{i.student_enrolled.Enrolled}}</td>
                                                             <td>{{i.student_enrolled.microschool.SCHOOL_NAME}}</td>
-                                                            <td>{{i.Term1}}</td>
                                                             {% if i.Term1flag == "N" %}
+                                                            <td>{{i.Term1}}</td>
                                                             <td><a href="feepayTerm1/{{i.student_enrolled.student_id}}"><button  type="button">payment done</button></td>
                                                             {% endif %}
+                                                            {% if i.Term2flag == "N" and i.Term2 != "not valid" %}
                                                             <td>{{i.Term2}}</td>
-                                                            {% if i.Term2flag == "N" and i.Term2 != "notvalid" %}
                                                             <td><a href="feepayTerm2/{{i.student_enrolled.student_id}}"><button  type="button">payment done</button></td>
                                                             {% endif %}
+                                                            {% if i.Term3flag == "N" and i.Term3 != "not valid" %}
                                                             <td>{{i.Term3}}</td>
-                                                            {% if i.Term3flag == "N" and i.Term3 != "notvalid" %}
                                                             <td><a href="feepayTerm3/{{i.student_enrolled.student_id}}"><button  type="button">payment done</button></td>
                                                             {% endif %}
+                                                            {% if i.student_enrolled.microschool.invoice_generation == "N" %}
+                                                            <td><a href="manualgenerate/{{i.student_id}}"><button  type="button">Generate Invoice</button></td>
+                                                            {% endif %}  
                                                         </tr>
                                                         {% endfor %}
                                                     </tbody>
@@ -417,6 +417,45 @@
         </div>
     </div>
 </div>
+<script>
+    (function(document) {
+        'use strict';
+
+        var TableFilter = (function(myArray) {
+            var search_input;
+
+            function _onInputSearch(e) {
+                search_input = e.target;
+                var tables = document.getElementsByClassName(search_input.getAttribute('data-table'));
+                myArray.forEach.call(tables, function(table) {
+                    myArray.forEach.call(table.tBodies, function(tbody) {
+                        myArray.forEach.call(tbody.rows, function(row) {
+                            var text_content = row.textContent.toLowerCase();
+                            var search_val = search_input.value.toLowerCase();
+                            row.style.display = text_content.indexOf(search_val) > -1 ? '' : 'none';
+                        });
+                    });
+                });
+            }
+
+            return {
+                init: function() {
+                    var inputs = document.getElementsByClassName('search-input');
+                    myArray.forEach.call(inputs, function(input) {
+                        input.oninput = _onInputSearch;
+                    });
+                }
+            };
+        })(Array.prototype);
+
+        document.addEventListener('readystatechange', function() {
+            if (document.readyState === 'complete') {
+                TableFilter.init();
+            }
+        });
+
+    })(document);
+</script>
 
 
 
