@@ -275,7 +275,6 @@
                                 <div class="page-body">
                                     <!-- Basic table card start -->
                                     <div class="card">
-                                        <br>
                                         <div class="col-md-4">
                                         <input type="search" placeholder="Search..." class="form-control search-input" data-table="table_personalinfo"/>
                                        </div>
@@ -289,7 +288,7 @@
                                                 <table class="table table_personalinfo">
                                                     <thead>
                                                         <tr>
-                                                            <th>#</th>
+                                                            
                                                             <th>admin id</th>
                                                             <th>NAME</th>
                                                             <th>DOB</th>
@@ -315,7 +314,7 @@
                                                     <tbody>
                                                         {% for i in personal_info %}
                                                         <tr>
-                                                            <th scope="row">1</th>
+                                                          
                                                             <td>{{i.uid}}</td>
                                                             <td>{{i.NAME}}</td>
                                                             <td>{{i.DOB}}</td>
@@ -345,11 +344,11 @@
                                             </div>
                                         </div>
                                     </div>
+                                   
                                      <div class="card">
-                                        <br>
                                         <div class="col-md-4">
-                                        <input type="search" placeholder="Search..." class="form-control search-input" data-table="Audition"/>
-                                       </div>
+                                            <input type="search" placeholder="Search..." class="form-control search-input" data-table="table_audition"/>
+                                           </div>
                                         <div class="card-header">
                                             <h5>Audition Info</h5>
                                            
@@ -357,18 +356,10 @@
                                         </div>
                                         <div class="card-block table-border-style">
                                             <div class="table-responsive">
-                                                <table class="table Audition">
+                                                <table class="table table_audition">
                                                     <thead>
                                                         <tr>
-                                                            <th>#</th>
-                                                            <th>admin id</th>
-                                                            <th>ENGLISH_FLUENCY</th>
-                                                            <th> CODING_SKILL</th>
-                                                            <th>PHOTO_EDITING</th>
-                                                            <th>VIDEO_EDITING</th>
-                                                            <th>PASSION_TO_LEARN</th>
                                                             <th>FINANCIAL_MONEY_REQUIRED</th>
-                                                            <th>MONEY_COME_FROM</th>
                                                             <th>HD_WEBCAM</th>
                                                             <th>INTERNET_MODE</th>
                                                             <th>INTERNET_SPEED</th>
@@ -383,7 +374,7 @@
                                                     <tbody>
                                                         {% for i in audition %}
                                                         <tr>
-                                                            <th scope="row">1</th>
+                                                           
                                                             <td>{{i.uid}}</td>
                                                             <td>{{i.ENGLISH_FLUENCY}}</td>
                                                             <td>{{i.CODING_SKILL}}</td>
@@ -466,7 +457,10 @@
 
     })(document);
 </script>
+<<<<<<< HEAD
 
+=======
+>>>>>>> c9fd787392bf585d3048ce78143487cddbbd8484
 
 
 <!-- Warning Section Starts -->

@@ -43,6 +43,7 @@ urlpatterns = [
     path('feedback_form',views.feedback_form,name="feedback_users"),
     path('student_apply/<SCHOOL_NAME>',views.student_apply,name="student_apply"),
     path('student_profiling',views.student_profiling,name="student_profiling"),
+    path('studentdeletevent',views.studentdeletevent,name="studentdeletevent"),
     path('individualAdminSlots',views.individualAdminSlots,name="individualAdminSlots"),
     path('ajax/individual_load_slots/', views.individual_load_slots, name='ajax_individual_load_slots'), # AJAX
     path('invoicees',views.invoice,name="invoice"),

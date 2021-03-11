@@ -1421,7 +1421,7 @@ def student_apply(request,SCHOOL_NAME):
             micro_web1 = micro_web1[0]
             application_obj = studentApplication(email=email,phone= number,academic_year=academic,enrolling_term=enrolling_term,enrolling_grade=enrolling_grade,first_name=first_name,last_name=last_name,gender=gender,SaaSDOB=SaaSDOB,attendedschool=attendedschool,Fathersname=Fathersname,Fathersoccupation=Fathersoccupation,Mothersname=Mothersname,Mothersoccupation=Mothersoccupation,income=income,address=address,geekzcommute=geekzcommute,yescommutelocation=yescommutelocation,childproud=childproud,familyactivities=familyactivities,childsinterests=childsinterests,yourdreams=yourdreams,medicalcondition=medicalcondition,childsuspended=childsuspended,anythingelse=anythingelse,hear_about=hear_about,IS_COMPLETE='Y',student_id=user.id,microschool= micro_web1)
             application_obj.save()
-            student = studentApplication.objects.get(student_id = user.id)
+            student = studentApplications.objects.get(student_id = user.id)
             form = IndividualSlotCreationForm()
             subject='Application submitted'
             html_template='socialaccount/email/student_application.html'
@@ -1437,7 +1437,7 @@ def student_profiling(request):
     form = IndividualSlotCreationForm()
     user_id=request.session['user_id']
     user=User.objects.get(id=user_id)
-    student_obj = studentApplication.objects.get(student_id = user.id)
+    student_obj = studentApplications.objects.get(student_id = user.id)
     event_obj = StudentProfilings.objects.filter(uid=student_obj)
     if event_obj:
         return render(request,'studentreschedule.html',{'heading':heading})
@@ -1498,7 +1498,7 @@ def student_profiling(request):
 
                         }).execute())     
                     print("ee",event_cal) 
-                    student_obj = studentApplication.objects.filter(student_id=user.id)
+                    student_obj = studentApplications.objects.filter(student_id=user.id)
                     s = list(student_obj)
                     s = s[0]
                     #create_event.link = event_cal['hangoutLink'] ##  fetch google meet link from event_cal 
@@ -1512,7 +1512,7 @@ def student_profiling(request):
                     message.content_subtype='html' 
                     message.send()
                 create_event()
-                student_obj = studentApplication.objects.get(student_id=user.id)
+                student_obj = studentApplications.objects.get(student_id=user.id)
                 student_obj.Profiling_scheduled ='Y'
                 student_obj.save(update_fields=['Profiling_scheduled'])
                 location = INDIVIDUAL_WEBPAGESS1.objects.get(SCHOOL_NAME=student_obj.microschool.SCHOOL_NAME)
@@ -1523,7 +1523,7 @@ def studentdeletevent(request):
     if request.method == "POST" :
         user_id=request.session['user_id']
         user=User.objects.get(id=user_id)
-        student_obj = studentApplication.objects.get(student_id = user.id)
+        student_obj = studentApplications.objects.get(student_id = user.id)
         event_obj = StudentProfilings.objects.get(uid=student_obj)
         SaaSreason=request.POST['reason']
         reason_ob = RESCHEDULE_REASON(uid = user.id,reason=SaaSreason)
@@ -2553,18 +2553,18 @@ def Transcript_pdf(request):
     obj = obj[0]
     user_id=request.session['user_id']
     user=User.objects.get(id=user_id)
-    info = studentApplication.objects.filter(student_id=user.id)
-    studentObj = studentApplication.objects.get(student_id=user.id)
+    info = studentApplications.objects.filter(student_id=user.id)
+    studentObj = studentApplications.objects.get(student_id=user.id)
     name = studentObj.first_name
-    studentinfo = enrolledStudent.objects.filter(student_enrolled = studentObj, academic_year=obj.academic_year,active_status='N')
+    studentinfo = enrolledStudents.objects.filter(student_enrolled = studentObj, academic_year=obj.academic_year,active_status='N')
     return render(request,'studentDashboard/Transcript_pdf.html',{'name':name,'academic_year':obj.academic_year,'enrolled':studentinfo,'info':info}) 
 
 def studentTranscript_pdf(request,student_id):
     obj = academicYear.objects.all()
     obj = list(obj)
     obj = obj[0]
-    ob = studentApplication.objects.get(student_id=student_id)
-    studentinfo = enrolledStudent.objects.get(student_enrolled = ob, academic_year=obj.academic_year,active_status='N')
+    ob = studentApplications.objects.get(student_id=student_id)
+    studentinfo = enrolledStudents.objects.get(student_enrolled = ob, academic_year=obj.academic_year,active_status='N')
     print(ob.last_name)
     data = {
             'geekName': studentinfo.student_enrolled.first_name + ' ' + studentinfo.student_enrolled.last_name, 
@@ -2583,8 +2583,8 @@ def studentprofileEdit(request,student_id):
     obj = academicYear.objects.all()
     obj = list(obj)
     obj = obj[0]
-    info = studentApplication.objects.filter(student_id=student_id)
-    studentObj = studentApplication.objects.get(student_id=student_id)
+    info = studentApplications.objects.filter(student_id=student_id)
+    studentObj = studentApplications.objects.get(student_id=student_id)
     name = studentObj.first_name
     if request.method == "POST" :
         first_name = request.POST['first_name']
@@ -2599,7 +2599,7 @@ def studentprofileEdit(request,student_id):
         number = request.POST['number']
         geekzcommute = request.POST['geekzcommute']
         yescommutelocation = request.POST['yescommutelocation']
-        student_edit = studentApplication.objects.get(student_id=student_id)
+        student_edit = studentApplications.objects.get(student_id=student_id)
         student_edit.first_name = first_name
         student_edit.last_name = last_name
         #student_edit.SaaSDOB = SaaSDOB
