@@ -545,7 +545,7 @@ def student_profileEdit(request):
     print(user)
     user_details=USER_DETAILS.objects.filter(USER_EMAIL=user.email)    
     print(user_details) 
-    student_obj = studentApplication.objects.filter(student_id = user.id)
+    student_obj = studentApplications.objects.filter(student_id = user.id)
     if request.method == "POST":
         SaaSName=request.POST['SaaSName']
         #SaaSEmail=request.POST['SaaSEmail']
@@ -723,7 +723,7 @@ def saasappointment(request):
                     profiling_obj.save()
                     subject='Geekz SaaS Profiling Confirmation'
                     html_template='socialaccount/email/SaaS_profiling_copy.html'
-                    html_message=render_to_string(html_template,{'heading':heading})
+                    html_message=render_to_string(html_template,{'heading':heading,'uid':user_details.uid})
                     to_email= user.email
                     message=EmailMessage(subject, html_message, settings.EMAIL_HOST_USER, [to_email])
                     message.content_subtype='html'
@@ -998,19 +998,13 @@ def webpage(request,LOCALITY):
                 school_name = request.POST['school_name']
                 inquiry_obj = InquiryS(uid=user.id,studentName=name,enrolling_grade=enrolling_grade,email=email,phone=phone,hear_about_us=hear_about,microschool=school_name)
                 inquiry_obj.save()
-                subject='Inquiry Mail'
-                html_template='socialaccount/email/inquirymail.html'
-                html_message=render_to_string(html_template)
-                to_email= email
-                message=EmailMessage(subject, html_message, settings.EMAIL_HOST_USER, [to_email])
-                message.content_subtype='html'
-                message.send()
+                
                 #### email  to   individual admin #####
-                email = MICRO_APPLY.objects.get(uid=obj_admin.uid)
+                emailadmin = MICRO_APPLY.objects.get(uid=obj_admin.uid)
                 subject='Student submitted inquiry'
-                html_template='socialaccount/email/inquirymail.html'
+                html_template='socialaccount/email/admin_emailInquiry.html'
                 html_message=render_to_string(html_template)
-                to_email= email.EMAIL
+                to_email= emailadmin.EMAIL
                 message=EmailMessage(subject, html_message, settings.EMAIL_HOST_USER, [to_email])
                 message.content_subtype='html'
                 message.send()
@@ -1084,7 +1078,7 @@ def inquiryApprove(request,uid):
     message=EmailMessage(subject, html_message, settings.EMAIL_HOST_USER, [to_email])
     message.content_subtype='html'
     message.send()
-    return render(request,'individualAdminDashboard/bs-basicApprovel.html',{'inquirys': inquirys_updated })
+    return redirect('individualAdmin_approvels')
 
 #### landing page #######
 def index1(request):
@@ -1379,7 +1373,7 @@ def student_apply(request,SCHOOL_NAME):
     user_id=request.session['user_id']
     user=User.objects.get(id=user_id)
     print(user.id)
-    student = studentApplication.objects.filter(student_id=user.id)
+    student = studentApplications.objects.filter(student_id=user.id)
     if student:
         return redirect('student_profiling')
     else:
@@ -1419,7 +1413,7 @@ def student_apply(request,SCHOOL_NAME):
             micro_web = INDIVIDUAL_WEBPAGESS1.objects.filter(SCHOOL_NAME=SCHOOL_NAME)
             micro_web1 = list(micro_web)
             micro_web1 = micro_web1[0]
-            application_obj = studentApplication(email=email,phone= number,academic_year=academic,enrolling_term=enrolling_term,enrolling_grade=enrolling_grade,first_name=first_name,last_name=last_name,gender=gender,SaaSDOB=SaaSDOB,attendedschool=attendedschool,Fathersname=Fathersname,Fathersoccupation=Fathersoccupation,Mothersname=Mothersname,Mothersoccupation=Mothersoccupation,income=income,address=address,geekzcommute=geekzcommute,yescommutelocation=yescommutelocation,childproud=childproud,familyactivities=familyactivities,childsinterests=childsinterests,yourdreams=yourdreams,medicalcondition=medicalcondition,childsuspended=childsuspended,anythingelse=anythingelse,hear_about=hear_about,IS_COMPLETE='Y',student_id=user.id,microschool= micro_web1)
+            application_obj = studentApplications(email=email,phone= number,academic_year=academic,enrolling_term=enrolling_term,enrolling_grade=enrolling_grade,first_name=first_name,last_name=last_name,gender=gender,SaaSDOB=SaaSDOB,attendedschool=attendedschool,Fathersname=Fathersname,Fathersoccupation=Fathersoccupation,Mothersname=Mothersname,Mothersoccupation=Mothersoccupation,income=income,address=address,geekzcommute=geekzcommute,yescommutelocation=yescommutelocation,childproud=childproud,familyactivities=familyactivities,childsinterests=childsinterests,yourdreams=yourdreams,medicalcondition=medicalcondition,childsuspended=childsuspended,anythingelse=anythingelse,hear_about=hear_about,IS_COMPLETE='Y',student_id=user.id,microschool= micro_web1)
             application_obj.save()
             student = studentApplications.objects.get(student_id = user.id)
             form = IndividualSlotCreationForm()
@@ -1440,7 +1434,8 @@ def student_profiling(request):
     student_obj = studentApplications.objects.get(student_id = user.id)
     event_obj = StudentProfilings.objects.filter(uid=student_obj)
     if event_obj:
-        return render(request,'studentreschedule.html',{'heading':heading})
+        objs = StudentProfilings.objects.get(uid=student_obj)
+        return render(request,'studentreschedule.html',{'heading':objs.HEADING})
     else:
         if request.method == 'POST':
             print("inside  profiling")
@@ -1501,13 +1496,22 @@ def student_profiling(request):
                     student_obj = studentApplications.objects.filter(student_id=user.id)
                     s = list(student_obj)
                     s = s[0]
+                    emailObject = MICRO_APPLY.objects.get(uid = s.microschool.uid)
                     #create_event.link = event_cal['hangoutLink'] ##  fetch google meet link from event_cal 
-                    profiling_obj = StudentProfilings(uid =s, IS_PROFILINGCOMPLETE='Y',USER = user.email , EVENT_ID = event_cal['id'],ICalUID=event_cal['iCalUID'],START_TIME= event_cal['start']['dateTime'],END_TIME = event_cal['end']['dateTime'],HEADING= heading,slot= qq,schedule_date= schedule_date,modeofprofiling=modeofprofiling)
+                    profiling_obj = StudentProfilings(uid =s, IS_PROFILINGCOMPLETE='Y',USER = s.microschool.SCHOOL_NAME , EVENT_ID = event_cal['id'],ICalUID=event_cal['iCalUID'],START_TIME= event_cal['start']['dateTime'],END_TIME = event_cal['end']['dateTime'],HEADING= heading,slot= qq,schedule_date= schedule_date,modeofprofiling=modeofprofiling)
                     profiling_obj.save()
                     subject='Student Profiling Confirmation'
                     html_template='socialaccount/email/studentprofilingconfirmation.html'
-                    html_message=render_to_string(html_template,{'heading':heading})
+                    html_message=render_to_string(html_template,{'heading':heading,'id':s.student_id})
                     to_email= user.email
+                    message=EmailMessage(subject, html_message, settings.EMAIL_HOST_USER, [to_email])
+                    message.content_subtype='html' 
+                    message.send()
+                    ##### email to admin
+                    subject='Student Profiling Confirmation to admin'
+                    html_template='socialaccount/email/studentprofilingconfirmationtoadmin.html'
+                    html_message=render_to_string(html_template,{'heading':heading,'email':s.email})
+                    to_email=  emailObject.EMAIL
                     message=EmailMessage(subject, html_message, settings.EMAIL_HOST_USER, [to_email])
                     message.content_subtype='html' 
                     message.send()
@@ -1515,7 +1519,7 @@ def student_profiling(request):
                 student_obj = studentApplications.objects.get(student_id=user.id)
                 student_obj.Profiling_scheduled ='Y'
                 student_obj.save(update_fields=['Profiling_scheduled'])
-                location = INDIVIDUAL_WEBPAGESS1.objects.get(SCHOOL_NAME=student_obj.microschool.SCHOOL_NAME)
+                #location = INDIVIDUAL_WEBPAGESS1.objects.get(SCHOOL_NAME=student_obj.microschool.SCHOOL_NAME)
                 return render(request,'studentreschedule.html',{'heading':heading})
     return render(request,'student_profiling.html',{'form':form})  
 
@@ -1531,7 +1535,7 @@ def studentdeletevent(request):
         emailObject = MICRO_APPLY.objects.get(uid = student_obj.microschool.uid)
         subject='Student Profiling Rescheduled by student'
         html_template='socialaccount/email/reschedulebystudent.html'
-        html_message=render_to_string(html_template,{'heading':heading})
+        html_message=render_to_string(html_template,{'heading':event_obj.HEADING})
         to_email= emailObject.EMAIL
         message=EmailMessage(subject, html_message, settings.EMAIL_HOST_USER, [to_email])
         message.content_subtype='html' 
@@ -1971,7 +1975,7 @@ def Invoice_requests(request):
     user_id=request.session['user_id']
     user=User.objects.get(id=user_id)
     print(user)
-    student_obj = studentApplication.objects.get(student_id=user.id)
+    student_obj = studentApplications.objects.get(student_id=user.id)
     invoice_obj = InvoiceRequest(email= student_obj.email,first_name=student_obj.first_name,last_name=student_obj.last_name,Fathersname=student_obj.Fathersname,address=student_obj.address,microschool=student_obj.microschool.SCHOOL_NAME,student_id=user.id)
     invoice_obj.save()
     print('HIIIIII')
@@ -2003,7 +2007,7 @@ def transcripts_request(request):
     user_id=request.session['user_id']
     user=User.objects.get(id=user_id)
     print(user)
-    student_obj = studentApplication.objects.get(student_id=user.id)
+    student_obj = studentApplications.objects.get(student_id=user.id)
     trans_obj = transcriptsRequest(email=student_obj.email,first_name=student_obj.first_name,last_name=student_obj.last_name,Fathersname=student_obj.Fathersname,address=student_obj.address,microschool=student_obj.microschool.SCHOOL_NAME,student_id=user.id,payment_complete='Y')
     trans_obj.save()
     location = INDIVIDUAL_WEBPAGESS1.objects.get(SCHOOL_NAME=student_obj.microschool.SCHOOL_NAME)
@@ -2017,7 +2021,7 @@ def newApplications(request):
     sch = INDIVIDUAL_WEBPAGESS1.objects.filter(uid = uid_obj.uid)
     sch1 = list(sch)
     sch1 = sch1[0]
-    student_obj = studentApplication.objects.filter(microschool=sch1)
+    student_obj = studentApplications.objects.filter(microschool=sch1)
     return render(request,'individualAdminDashboard/newApplications.html',{'student_obj': student_obj,'profile':profile})
 
 def IndividualApproveProfiling(request):
@@ -2028,17 +2032,44 @@ def IndividualApproveProfiling(request):
     ud = INDIVIDUAL_WEBPAGESS1.objects.filter(uid = uid_obj.uid)
     ud1 = list(ud)
     ud1 = ud1[0]
-    obj = studentApplication.objects.filter(microschool= ud1)
-    o = list(obj)
-    o = o[0]
-    objectProf = StudentProfilings.objects.filter(uid = o, IS_APPROVED='N')
+    objectProf = studentProfileFeedback.objects.filter(USER=ud1.SCHOOL_NAME, Profiling_done='Y')
     return render(request,'individualAdminDashboard/individualprofiling.html',{'objectProf':objectProf,'profile':profile})
 
+def Studentfeedbackprofiling(request):
+    user_id=request.session['user_id']
+    user=User.objects.get(id=user_id)
+    uid_obj = USER_DETAILS.objects.get(USER_EMAIL=user.email)
+    ud = INDIVIDUAL_WEBPAGESS1.objects.get(uid = uid_obj.uid)
+    profile = MICRO_APPLY.objects.filter(uid = uid_obj.uid)
+    scheduled = StudentProfilings.objects.filter( IS_PROFILINGCOMPLETE='Y',IS_APPROVED='N',USER=ud.SCHOOL_NAME)
+    return render(request,'individualAdminDashboard/Studentfeedbackprofiling.html',{'profile':profile,'scheduled':scheduled})
+
+def StudentprofileMessage(request,id):
+    user_id=request.session['user_id']
+    user=User.objects.get(id=user_id)
+    uid_obj = USER_DETAILS.objects.get(USER_EMAIL=user.email)
+    ud = INDIVIDUAL_WEBPAGESS1.objects.get(uid = uid_obj.uid)
+    profile = MICRO_APPLY.objects.filter(uid = uid_obj.uid)
+    if request.method == "POST":
+        user_id=request.session['user_id']
+        user=User.objects.get(id=user_id)
+        uid_obj = USER_DETAILS.objects.get(USER_EMAIL=user.email)
+        ud = INDIVIDUAL_WEBPAGESS1.objects.get(uid = uid_obj.uid)
+        profile = MICRO_APPLY.objects.filter(uid = uid_obj.uid)
+        student_obj = studentApplications.objects.get(student_id=id)
+        feedback  =  request.POST['feedback']
+        feedback_obj = studentProfileFeedback(uid = id ,feedback=feedback,Profiling_done = 'Y',school=ud.SCHOOL_NAME,studentProfile= student_obj)
+        feedback_obj.save()
+        student_obj.Profiling_complete = 'Y'
+        student_obj.save(update_fields = ['Profiling_complete'])
+        return redirect('Studentfeedbackprofiling')
+    return render(request,'individualAdminDashboard/StudentprofileMessage.html',{'profile':profile})
+
 def complete_profiling(request,student_id):
-    student_obj = studentApplication.objects.get(student_id=student_id)
+    student_obj = studentApplications.objects.get(student_id=student_id)
     student_obj.Profiling_complete ='Y'
     student_obj.save(update_fields=['Profiling_complete'])
-    student_objj = studentApplication.objects.filter(student_id=student_id)
+    student_objj = studentApplications.objects.filter(student_id=student_id)
     o = list(student_objj)
     o = o[0]
     objectProf = StudentProfilings.objects.filter(uid = o)
@@ -2051,7 +2082,34 @@ def approve_profiling(request,student_id):
     Prof = StudentProfilings.objects.get(uid = o)
     Prof.IS_APPROVED = 'Y'
     Prof.save(update_fields=['IS_APPROVED'])
+    subject='Kid Selected'
+    html_template='socialaccount/email/onselectionkid.html'
+    html_message=render_to_string(html_template)
+    to_email= student_obj.email
+    message=EmailMessage(subject, html_message, settings.EMAIL_HOST_USER, [to_email])
+    message.content_subtype='html' 
+    message.send()
     return redirect('IndividualApproveProfiling')
+
+def reject_profiling(request,student_id):
+    student_obj = studentApplications.objects.get(student_id=student_id)
+    student_obj.Profiling_approved ='R'
+    student_obj.save(update_fields=['Profiling_approved'])
+    student_objj = studentApplications.objects.filter(student_id=student_id)
+    o = list(student_objj)
+    o = o[0]
+    Prof = StudentProfilings.objects.get(uid = o)
+    Prof.IS_APPROVED = 'R'
+    Prof.save(update_fields=['IS_APPROVED'])
+    objectProf = StudentProfilings.objects.filter(uid = o)
+    subject='Kid Selected'
+    html_template='socialaccount/email/onrejectionkid.html'
+    html_message=render_to_string(html_template)
+    to_email= student_obj.email
+    message=EmailMessage(subject, html_message, settings.EMAIL_HOST_USER, [to_email])
+    message.content_subtype='html' 
+    message.send()
+    return redirect('IndividualApproveProfiling')       
 
 def newenrollments(request):
     user_id=request.session['user_id']
@@ -2180,18 +2238,7 @@ def enrollment(request,student_id):
     invoice_values.save()
     return redirect('newenrollments')
         
-def reject_profiling(request,student_id):
-    student_obj = studentApplication.objects.get(student_id=student_id)
-    student_obj.Profiling_approved ='N'
-    student_obj.save(update_fields=['Profiling_approved'])
-    student_objj = studentApplication.objects.filter(student_id=student_id)
-    o = list(student_objj)
-    o = o[0]
-    Prof = StudentProfilings.objects.get(uid = o)
-    Prof.IS_APPROVED = 'Y'
-    Prof.save(update_fields=['IS_APPROVED'])
-    objectProf = StudentProfilings.objects.filter(uid = o)
-    return redirect('IndividualApproveProfiling')   
+
 
 def studentApplicationsview(request):
     user_id=request.session['user_id']
@@ -2361,7 +2408,7 @@ def studentedit_admin(request,student_id):
         geekzcommute = request.POST['geekzcommute']
         yescommutelocation = request.POST['yescommutelocation']
         year = request.POST['year']
-        student_edit = studentApplication.objects.get(student_id=student_id)
+        student_edit = studentApplications.objects.get(student_id=student_id)
         student_edit.first_name = first_name
         student_edit.last_name = last_name
         #student_edit.SaaSDOB = SaaSDOB
@@ -2438,8 +2485,28 @@ def Profiling_saas(request):
     user_id=request.session['user_id']
     user=User.objects.get(id=user_id)
     name = user.first_name
-    micro = MICRO_PROFILING.objects.filter(IS_PROFILINGCOMPLETE='Y',IS_APPROVED='N')
+    micro = MicroProfile_feedback.objects.filter(Profiling_done='Y')
     return render(request,'superAdminDashboard/Profiling_saas.html',{'micro':micro,'name':name})
+
+def SaaSProfileFeedback(request):
+    user_id=request.session['user_id']
+    user=User.objects.get(id=user_id)
+    name = user.first_name
+    micro = MICRO_PROFILING.objects.filter(IS_PROFILINGCOMPLETE='Y',IS_APPROVED='N')
+    if request.method == "POST" :
+        uid = request.POST['uid']
+        return redirect('SaaSprofileMessage',uid=uid)
+    return render(request,'superAdminDashboard/SaaSProfileFeedback.html',{'micro':micro,'name':name})
+
+def SaaSprofileMessage(request,uid):
+    if request.method == "POST" :
+        feedback = request.POST['feedback']
+        obj_micro = MICRO_PROFILING.objects.get(IS_PROFILINGCOMPLETE='Y',IS_APPROVED='N',uid = uid)
+        message = MicroProfile_feedback(uid= uid,Profiling_done='Y',micro=obj_micro,feedback=feedback)
+        message.save()
+        return redirect('superAdmin_dashboard')
+    return render(request,'superAdminDashboard/SaaSprofileMessage.html')
+
 
 def Profiling_accept(request,uid):
     aud =  MICRO_PROFILING.objects.get(uid = uid)
@@ -2508,11 +2575,26 @@ def studentDashboard(request):
     obj = academicYear.objects.all()
     obj = list(obj)
     obj = obj[0]
-    info = studentApplications.objects.filter(student_id=user.id)
-    studentObj = studentApplications.objects.get(student_id=user.id)
+    info = studentApplications.objects.filter(student_id=user.id,academic_year=obj.academic_year,Profiling_approved='Y')
+    studentObj = studentApplications.objects.get(student_id=user.id,academic_year=obj.academic_year,Profiling_approved='Y')
+    enrolling_grade = studentObj.enrolling_grade
+    ##### Studio
+    grade = ''
     name = studentObj.first_name + studentObj.last_name
+    if enrolling_grade == 'Pre-K' or enrolling_grade == 'Jr-K' or enrolling_grade == 'Sr-K':
+        grade = "Kindergarten studio"
+    elif enrolling_grade == '1st Grade' or enrolling_grade =='2nd Grade' or enrolling_grade =='3rd Grade':
+        grade = 'Lower Elementary Studio'
+    elif enrolling_grade == '4th Grade' or enrolling_grade == '5th Grade' :
+        grade = 'Upper Elementary Studio'
+    ########
     enrolled = enrolledStudents.objects.filter(active_status = 'Y',academic_year=obj.academic_year,student_enrolled=studentObj)
-    return render(request,'studentDashboard/studentDashboard.html',{'name':name,'enrolled':enrolled,'info':info})
+    student_active=''
+    if enrolled:
+        student_active = 'yes'
+    else:
+        student_active = 'no'    
+    return render(request,'studentDashboard/studentDashboard.html',{'name':name,'enrolled':enrolled,'info':info,'student_active':student_active,'grade':grade})
 
 def studentfeestatus(request):
     obj = academicYear.objects.all()
@@ -2520,12 +2602,79 @@ def studentfeestatus(request):
     obj = obj[0]
     user_id=request.session['user_id']
     user=User.objects.get(id=user_id)
-    info = studentApplications.objects.filter(student_id=user.id)
-    studentObj = studentApplications.objects.get(student_id=user.id)
-    name = studentObj.first_name
-    studentinfo = enrolledStudents.objects.get(student_enrolled = studentObj, academic_year=obj.academic_year,active_status='Y')
-    invoice = studentInvoice.objects.filter(student_id= studentinfo,academic_year=obj.academic_year)
-    return render(request,'studentDashboard/studentfeestatus.html',{'name':name,'info':info,'invoice':invoice})
+    duedates_obj = duedates.objects.all()
+    info = studentApplications.objects.filter(student_id=user.id,academic_year=obj.academic_year,Profiling_approved='Y')
+    studentObj = studentApplications.objects.get(student_id=user.id,academic_year=obj.academic_year,Profiling_approved='Y')
+    enrolling_grade = studentObj.enrolling_grade
+    enrolling_term = studentObj. enrolling_term
+    feedetails = individual_feedetail.objects.get(admin = studentObj.microschool)
+    fees = AffliatesfeeStructure.objects.get(school = feedetails)
+    name = studentObj.first_name + studentObj.last_name
+    ##### Fee Structure
+    grade =''
+    Term1 = ''
+    Term2 = ''
+    Term3 = ''
+    Total = ''
+    if enrolling_grade == 'Pre-K' or enrolling_grade == 'Jr-K' or enrolling_grade == 'Sr-K':
+        grade = "Kindergarten studio"
+        if enrolling_term == 'Full Year':
+            Term1 = fees.split1_fullYear_kindergarten
+            Term2 = fees.split2_fullYear_kindergarten
+            Term3 = fees.split3_fullYear_kindergarten
+            Total = fees.total_fullYear_kindergarten
+        elif enrolling_term == 'Vijayadasami':
+            Term1 = fees.split1_fall_kindergarten
+            Term2 = fees.split2_fall_kindergarten
+            Term3 = "not valid"
+            Total = fees.total_fall_kindergarten
+        elif enrolling_term == 'Spring':
+            Term1 = fees.split1_spring_kindergarten
+            Term2 = "not valid"
+            Term3 = "not valid"
+            Total = fees.total_spring_kindergarten
+    elif enrolling_grade == '1st Grade' or enrolling_grade =='2nd Grade' or enrolling_grade =='3rd Grade':
+        grade = 'Lower Elementary Studio'
+        if enrolling_term == 'Full Year':
+            Term1 = fees.split1_fullYear_lowerElementary 
+            Term2 = fees.split2_fullYear_lowerElementary 
+            Term3 = fees.split3_fullYear_lowerElementary 
+            Total = fees.total_fullYear_lowerElementary 
+        elif enrolling_term == 'Vijayadasami':
+            Term1 = fees.split1_fall_lowerElementary 
+            Term2 = fees.split2_fall_lowerElementary 
+            Term3 = "not valid"
+            Total = fees.total_fall_lowerElementary
+        elif enrolling_term == 'Spring':
+            Term1 = fees.split1_spring_lowerElementary
+            Term2 = "not valid"
+            Term3 = "not valid"
+            Total = fees.total_spring_lowerElementary
+    elif enrolling_grade == '4th Grade' or enrolling_grade == '5th Grade' :
+        grade = 'Upper Elementary Studio'
+        if enrolling_term == 'Full Year':
+            Term1 = fees.split1_fullYear_UpperElementary
+            Term2 = fees.split2_fullYear_UpperElementary 
+            Term3 = fees.split3_fullYear_UpperElementary
+            Total = fees.total_fullYear_UpperElementary
+        elif enrolling_term == 'Vijayadasami':
+            Term1 = fees.split1_fall_UpperElementary 
+            Term2 = fees.split2_fall_UpperElementary 
+            Term3 = "not valid"
+            Total = fees.total_fall_UpperElementary
+        elif enrolling_term == 'Spring':
+            Term1 = fees.split1_spring_UpperElementary
+            Term2 = "not valid"
+            Term3 = "not valid"
+            Total = fees.total_spring_UpperElementary
+    studentinfo = enrolledStudents.objects.filter(student_enrolled = studentObj, academic_year=obj.academic_year,active_status='Y')
+    #invoice = studentInvoice.objects.filter(student_id= studentinfo,academic_year=obj.academic_year)
+    student_active=''
+    if studentinfo:
+        student_active = 'yes'
+    else:
+        student_active = 'no' 
+    return render(request,'studentDashboard/studentfeestatus.html',{'name':name,'info':info,'studentinfo':studentinfo,'student_active': student_active,'duedates':duedates_obj,'Term1':Term1,'Term2':Term2,'Term3':Term3,'Total':Total,'Studio':grade})
 
 def invoice_pdf(request):
     obj = academicYear.objects.all()
@@ -2540,12 +2689,23 @@ def invoice_pdf(request):
     return render(request,'studentDashboard/invoice_pdf.html',{'enrolled':studentinfo,'name':name,'info':info})
 
 def studentinvoice_pdf(request,student_id):
-    ob = studentApplications.objects.get(student_id=student_id)
-    print(ob.last_name)
+    obj = academicYear.objects.all()
+    obj = list(obj)
+    obj = obj[0]
+    studentObj = studentApplications.objects.get(student_id=student_id,academic_year=obj.academic_year,Profiling_approved='Y')
+    studentinfo = enrolledStudents.objects.get(student_enrolled = studentObj, academic_year=obj.academic_year,active_status='Y')
+    ob = studentInvoice.objects.get(student_id=studentinfo)
+    
     data = {
-            'geekName': ob.first_name+' '+ob.last_name, 
-            'fathername': ob.Fathersname,
-            'address': ob.address,      
+            'geekName': ob.student_id.student_enrolled.first_name+' '+ob.student_id.student_enrolled.last_name, 
+            'fathername': ob.student_id.student_enrolled.Fathersname,
+            'address': ob.student_id.student_enrolled.address,  
+            'num':ob.invoice_no,
+            'edTech':ob.edTech,
+            'Total':ob.Totalfees,
+            'amountpaid':ob.amountpaid,
+            'id': ob.student_id.student_enrolled.student_id,
+            'date': datetime.date.today(),
     }
     pdf = render_to_pdf('invoice.html',data)
     return HttpResponse(pdf, content_type='application/pdf')

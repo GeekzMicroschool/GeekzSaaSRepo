@@ -300,12 +300,11 @@
                                                 <table class="table table_personalinfo">
                                                     <thead>
                                                         <tr>
-                                                            <th>#</th>
-                                                            <th>admin id</th>
-                                                            <th>Slot</th>
+                                                            
+                                                            <th>Affliate id</th>
+                                                            <th>Feedback</th>
                                                             <th>Schedule_date</th>
                                                             <th>EVENT_ID</th>
-                                                            <th>HangoutLink</th>
                                                             <th>HEADING</th>
                                                             <th>Approve</th>
                                                         </tr>
@@ -313,14 +312,13 @@
                                                     <tbody>
                                                         {% for i in micro %}
                                                         <tr>
-                                                            <th scope="row">1</th>
+                                                           
                                                             <td>{{i.uid}}</td>
-                                                            <td>{{i.slot}}</td>
-                                                            <td>{{i.schedule_date}}</td>
-                                                            <td>{{i.EVENT_ID}}</td>
-                                                            <td>{{i.hangoutLink}}</td>
-                                                            <td>{{i.HEADING}}</td>
-                                                            {% if IS_APPROVED == 'N' %}
+                                                            <td>{{i.feedback}}</td>
+                                                            <td>{{i.micro.schedule_date}}</td>
+                                                            <td>{{i.micro.EVENT_ID}}</td>
+                                                            <td>{{i.micro.HEADING}}</td>
+                                                            {% if i.micro.IS_APPROVED == 'N' %}
                                                             <td><a href="Profiling_accept/{{i.uid}}"><button  type="button">Approve</button></td>
                                                             <td><a href="Profiling_reject/{{i.uid}}"><button  type="button">Reject</button></td>
                                                             {% endif %}

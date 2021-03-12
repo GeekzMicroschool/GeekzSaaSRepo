@@ -235,37 +235,43 @@
                                     <!-- Basic table card start -->
                                     <div class="card">
                                         <div class="col-md-4">
-                                            <input type="search" placeholder="Search..." class="form-control search-input" data-table="inquiry"/>
+                                            <input type="search" placeholder="Search..." class="form-control search-input" data-table="approvals"/>
                                         </div>
                                         <div class="card-header">
                                             <h5>Approvels</h5>
                                            
-                                            <div class="card-header-right">    <ul class="list-unstyled card-option"><li><i class="icofont icofont-simple-left "></i></li>        <li><i class="icofont icofont-maximize full-card"></i></li>        <li><i class="icofont icofont-minus minimize-card"></i></li>        <li><i class="icofont icofont-refresh reload-card"></i></li>        <li><i class="icofont icofont-error close-card"></i></li>    </ul></div>
+                                            <div class="card-header-right">    <ul class="list-unstyled card-option">        <li><i class="icofont icofont-simple-left "></i></li>        <li><i class="icofont icofont-maximize full-card"></i></li>        <li><i class="icofont icofont-minus minimize-card"></i></li>        <li><i class="icofont icofont-refresh reload-card"></i></li>        <li><i class="icofont icofont-error close-card"></i></li>    </ul></div>
                                         </div>
                                         <div class="card-block table-border-style">
                                             <div class="table-responsive">
-                                                <table class="table inquiry">
+                                                <table class="table approvals">
                                                     <thead>
                                                         <tr>
-                                                            <th>#</th>
-                                                            <th>Student Name</th>
-                                                            <th>Enrolling Grade</th>
+                                                           
+                                                            <th>Student Id</th>
+                                                            <th>First Name</th>
                                                             <th>Email</th>
-                                                            <th>Phone</th>
-                                                            <th>Hear About Us</th>
-                                                            <th>Approve</th>
+                                                            <th>Schedule Date</th>
+                                                            <th>Event</th>
+                                                            <th>Mode</th>
+                                                            <th>Profiling Complete</th>
+                                                           
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        {% for i in inquirys %}
+                                                        {% for i in scheduled %}
                                                         <tr>
-                                                            <th scope="row">1</th>
-                                                            <td>{{i.studentName}}</td>
-                                                            <td>{{i.enrolling_grade}}</td>
-                                                            <td>{{i.email}}</td>
-                                                            <td>{{i.phone}}</td>
-                                                            <td>{{i.hear_about_us}}</td>
-                                                            <td><a href="inquiryApprove/{{i.uid}}"><button type="button">Approve</button></a></td>
+                                                           
+                                                            <td>{{i.uid.student_id}}</td>
+                                                            <td>{{i.uid.first_name}}</td>
+                                                            <td>{{i.uid.email}}</td>
+                                                            <td>{{i.schedule_date}}</td>
+                                                            <td>{{i.HEADING}}</td>
+                                                            <td>{{i.modeofprofiling}}</td>
+                                                            {% if i.uid.Profiling_scheduled == 'Y' and i.uid.Profiling_complete == 'N' %}
+                                                            <td><a href="StudentprofileMessage/{{i.uid.student_id}}"><button type="button">Give Feedback</button></a></td>
+                                                            {% endif %}
+                                                            
                                                         </tr>
                                                         {% endfor %}
                                                     </tbody>

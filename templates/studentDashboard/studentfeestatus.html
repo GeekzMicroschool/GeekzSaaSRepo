@@ -172,25 +172,263 @@
                                                       
                                                         
                                                     </div>
+                                                    {% if student_active == 'yes' %}
+                                                    {% for i in studentinfo %}
                                                     <div class="card-block">
                                                     <div class="container">
-                                                        {% for i in invoice %}
-                                                       
-                                                         <div class="row">
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                               <b> Studio :</b> 
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                {{Studio}}
+                                                            </div>
+                                                       </div>
+                                                       <br>
+                                                       <div class="row">
+                                                        <div class="col-md-4">
+                                                           <b> Term Enrolled :</b> 
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            {{i.current_enrolling_term}}
+                                                        </div>
+                                                   </div>
+                                                   <br>
+                                                        <div class="row">
                                                              <div class="col-md-4">
                                                                 <b> Annually :</b> 
                                                              </div>
                                                              <div class="col-md-6">
-                                                                 {{i.Totalfees}}
+                                                                 {{Total}}
                                                              </div>
-                                                         </div> 
-                                                         <br>
-                                                         {% endfor %}
-                                                                         <br> <br>
+                                                        </div>
+                                                        <br><br>
+                                                    
+                                                        <h5>Payable in following 3 terms</h5>
+                                                        <br>
+                                                        <div class="row">
+                                                          <div class="col-md-4">
+                                                             <b> Term </b> 
+                                                          </div>
+                                                          <div class="col-md-4">
+                                                            <b> Fees</b>
+                                                          </div>
+                                                          <div class="col-md-4">
+                                                             <b> Due Date</b>
+                                                           </div>
+                                                        </div>
+                                                     <br>
+                                                     {% for j in duedates %}
                                                         
+                                                      <div class="row">
+                                                          <div class="col-md-4">
+                                                             <b> Term1 :</b> 
+                                                          </div>
+                                                          <div class="col-md-4">
+                                                              {{Term1}}
+                                                          </div>
+                                                          <div class="col-md-4">
+                                                              {{j.Term1_duedate}}
+                                                          </div>
+                                                      </div>
+                                                     <br>
+                                                     <div class="row">
+                                                          <div class="col-md-4">
+                                                          <b> Term2 :</b> 
+                                                          </div>
+                                                          <div class="col-md-4">
+                                                              {{Term2}}
+                                                          </div>
+                                                          <div class="col-md-4">
+                                                              {{j.Term2_duedate}}
+                                                          </div>
+                                                      </div>
+                                                      <br>
+                                                      <div class="row">
+                                                          <div class="col-md-4">
+                                                          <b> Term3 :</b> 
+                                                          </div>
+                                                          <div class="col-md-4">
+                                                              {{Term3}}
+                                                          </div>
+                                                          <div class="col-md-4">
+                                                              {{j.Term3_duedate}}
+                                                          </div>
+                                                      </div>
+                                                      
+                                                     {% endfor %}
+                                                     
+                                                      
+                                                        <br>
+                                                        <br>
+                                                        <h5>Fee Status</h5>
+                                                        <br>
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                               <b> Fee Status</b> 
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                              <b> Paid</b>
+                                                            </div>
+                                                        </div>
+                                                       <br>
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                               <b> Term1 :</b> 
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                {{i.Term1flag}}
+                                                            </div>
+                                                        </div>
+                                                       <br>
+                                                       <div class="row">
+                                                            <div class="col-md-4">
+                                                            <b> Term2 :</b> 
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                {{i.Term2flag}}
+                                                            </div>
+                                                        </div>
+                                                        <br>
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                            <b> Term3 :</b> 
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                {{i.Term3flag}}
+                                                            </div>
+                                                        </div>
+                                                        <br>
+                                                       
+                                                        
+                                                        <br> <br>
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                            {% if i.student_enrolled.microschool.invoice_generation == 'N' and i.invoice_show == 'Y' %}  
+                                                               <a href = "studentinvoice_pdf/{{i.student_enrolled.student_id}}"><button type="button" class="btn btn-primary">Invoice</button></a>  &nbsp; &nbsp;
+                                                            {% endif %}
+                                                            {% if i.student_enrolled.microschool.invoice_generation == 'Y' %}  
+                                                            <a href = "studentinvoice_pdf/{{i.student_enrolled.student_id}}"><button type="button" class="btn btn-primary">Invoice</button></a>  &nbsp; &nbsp;
+                                                            {% endif %}
+                                                              <a href=""><button type="button" class="btn btn-primary">Pay </button> </a>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                                         <br> <br>
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                            <p><b>CANCELLATION/REFUND POLICY</b> - Fees once paid shall not be refunded for any reason whatsoever</p>
+                                                            </div>
+                                                        </div>
+                                                        {% endfor %}   
                                                     </div>
                                                     </div>
-
+                                                    {% endif %}
+                                                    {% if student_active == 'no' %}
+                                                    {% for i in info %}
+                                                    <div class="card-block">
+                                                    <div class="container">
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                               <b> Studio :</b> 
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                {{Studio}}
+                                                            </div>
+                                                       </div>
+                                                       <br>
+                                                       <div class="row">
+                                                        <div class="col-md-4">
+                                                           <b> Term Enrolled :</b> 
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            {{i.enrolling_term}}
+                                                        </div>
+                                                   </div>
+                                                   <br>
+                                                        <div class="row">
+                                                             <div class="col-md-4">
+                                                                <b> Annually :</b> 
+                                                             </div>
+                                                             <div class="col-md-6">
+                                                                 {{Total}}
+                                                             </div>
+                                                        </div>
+                                                        <br><br>
+                                                    
+                                                        <h5>Payable in following 3 terms</h5>
+                                                          <br>
+                                                          <div class="row">
+                                                            <div class="col-md-4">
+                                                               <b> Term </b> 
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                               Fees
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                Due Date
+                                                             </div>
+                                                        </div>
+                                                       <br>
+                                                       {% for j in duedates %}
+                                                          
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                               <b> Term1 :</b> 
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                {{Term1}}
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                {{j.Term1_duedate}}
+                                                            </div>
+                                                        </div>
+                                                       <br>
+                                                       <div class="row">
+                                                            <div class="col-md-4">
+                                                            <b> Term2 :</b> 
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                {{Term2}}
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                {{j.Term2_duedate}}
+                                                            </div>
+                                                        </div>
+                                                        <br>
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                            <b> Term3 :</b> 
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                {{Term3}}
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                {{j.Term3_duedate}}
+                                                            </div>
+                                                        </div>
+                                                        <br>
+                                                        <br>
+                                                       {% endfor %}
+                                                       
+                                                        
+                                                        <br> <br>
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                              <a href=""><button type="button" class="btn btn-primary">Pay </button> </a>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                                         <br> <br>
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                            <p><b>CANCELLATION/REFUND POLICY</b> - Fees once paid shall not be refunded for any reason whatsoever</p>
+                                                            </div>
+                                                        </div>
+                                                        {% endfor %}   
+                                                    </div>
+                                                    </div>
+                                                    {% endif %}
                                                 </div>
                                             </div>
                                         </div>

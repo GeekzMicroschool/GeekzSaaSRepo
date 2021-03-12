@@ -188,7 +188,14 @@ class MICRO_PROFILING(models.Model):
     hangoutLink = models.CharField(max_length=600)
     START_TIME = models.CharField(max_length=250)
     END_TIME = models.CharField(max_length=250)
-    HEADING = models.CharField(max_length=300)    
+    HEADING = models.CharField(max_length=300) 
+
+class MicroProfile_feedback(models.Model):
+    micro = models.ForeignKey(MICRO_PROFILING, on_delete=models.CASCADE)
+    Profiling_done = models.CharField(max_length=1, default="N")
+    feedback = models.CharField(max_length=900)
+    uid = models.CharField(max_length=50, primary_key=True)
+
 
 class RESCHEDULE_REASON(models.Model):
     uid =  models.CharField(max_length=50, primary_key=True)
@@ -417,6 +424,8 @@ class studentApplications(models.Model):
     Profiling_complete = models.CharField(max_length=1, default="N")
     Profiling_approved = models.CharField(max_length=1, default="N")
     Enrolled = models.CharField(max_length=1, default="N")
+
+
     
 
 class Individual_admin_slots(models.Model):
@@ -440,6 +449,16 @@ class StudentProfilings(models.Model):
     END_TIME = models.CharField(max_length=250)
     HEADING = models.CharField(max_length=300)  
     modeofprofiling =  models.CharField(max_length=300) 
+
+ 
+
+class studentProfileFeedback(models.Model):
+    studentProfile = models.ForeignKey(StudentProfilings, on_delete=models.CASCADE)
+    Profiling_done = models.CharField(max_length=1, default="N")
+    feedback = models.CharField(max_length=900)
+    school = models.CharField(max_length=300)
+    uid = models.CharField(max_length=50, primary_key=True)
+
 
 class InvoiceRequest(models.Model):
     first_name = models.CharField(max_length=250)

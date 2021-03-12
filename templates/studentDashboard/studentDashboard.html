@@ -172,6 +172,7 @@
                                                       
                                                         
                                                     </div>
+                                                    {% if student_active == 'yes' %}
                                                     <div class="card-block">
                                                     <div class="container">
                                                         {% for i in enrolled %}
@@ -242,7 +243,78 @@
                                                         {% endfor %}
                                                     </div>
                                                     </div>
-
+                                                {% endif %}
+                                                {% if student_active == 'no' %}
+                                                <div class="card-block">
+                                                <div class="container">
+                                                    {% for i in info %}
+                                                    <h5>Profile</h5>
+                                                    <br>
+                                                     <div class="row">
+                                                         <div class="col-md-4">
+                                                            <b> School Name :</b> 
+                                                         </div>
+                                                         <div class="col-md-6">
+                                                             {{i.microschool.SCHOOL_NAME}}
+                                                         </div>
+                                                     </div> 
+                                                     <br>
+                                                     <div class="row">
+                                                        <div class="col-md-4">
+                                                           <b> Studio :</b> 
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            {{grade}}
+                                                        </div>
+                                                    </div> 
+                                                    <br> 
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                           <b> Grade :</b> 
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            {{i.enrolling_grade}}
+                                                        </div>
+                                                    </div>  
+                                                    <br> 
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                           <b> Status Active :</b> 
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                          No
+                                                        </div>
+                                                    </div>  
+                                                    <br> 
+                                                    <br>
+                                                    <h4>Parent Information</h4>
+                                                    <br>
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                           <b> Father Name :</b> 
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            {{i.Fathersname}}
+                                                        </div>
+                                                    </div> 
+                                                    <br>
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                           <b> Mother Name :</b> 
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            {{i.Mothersname}}
+                                                        </div>
+                                                    </div> 
+                                                   
+                                                    <br> <br>
+                                                    <div class="row">
+                                                        <a href = "studentprofileEdit/{{i.student_id}}"><button type="button" class="btn btn-primary">Update</button></a> 
+                                                    </div> 
+                                                    {% endfor %}
+                                                </div>
+                                                </div>
+                                            {% endif %}
                                                 </div>
                                             </div>
                                         </div>

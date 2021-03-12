@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>School Admin Dashboard {% load static %} </title>
+    <title>Super Admin Dashboard {% load static %} </title>
     <!-- HTML5 Shim and Respond.js IE9 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -109,26 +109,40 @@
                             </li>
                         </ul>
                         <ul class="nav-right">
-                           
+                    
                             <li class="user-profile header-notification">
                                 <a href="#!">
-                                    {% for j in profile %}
-                                    <span>{{j.NAME}}</span>
+                                   
+                                    <span>{{name}}</span>
                                     <i class="ti-angle-down"></i>
                                 </a>
                                 <ul class="show-notification profile-notification">
-                                   
+                                    
                                     <li>
-                                        <a href="adminprofileEdit/{{j.uid}}">
+                                        <a href="#">
                                             <i class="ti-user"></i> Profile
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="individualAdminSlots">
-                                            <i class="ti-user"></i> Settings
+                                        <a href="superAdmin_slots">
+                                            <i class="ti-user"></i> Add Slots
                                         </a>
                                     </li>
-                                    
+                                    <li>
+                                        <a href="addAcademicYear">
+                                            <i class="ti-user"></i> Academic Year
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="invoiceConfig">
+                                            <i class="ti-user"></i> Invoice Configs
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="duedatesADD">
+                                            <i class="ti-user"></i> Due dates
+                                        </a>
+                                    </li>
                                     <li>
                                         <a href="auth-normal-sign-in.html">
                                             <i class="ti-layout-sidebar-left"></i> Logout
@@ -139,17 +153,16 @@
                         </ul>
                     </div>
                 </div>
-            </nav>{% endfor %}
+            </nav>
             <div class="pcoded-main-container">
                 <div class="pcoded-wrapper">
                     <nav class="pcoded-navbar">
                         <div class="sidebar_toggle"><a href="#"><i class="icon-close icons"></i></a></div>
                         <div class="pcoded-inner-navbar main-menu">
-                            
+                           
                             <ul class="pcoded-item pcoded-left-item">
-                                <br><br><br><br>
                                 <li class="active">
-                                    <a href="individualAdmin_approvels">
+                                    <a href="index.html">
                                         <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
                                         <span class="pcoded-mtext" data-i18n="nav.dash.main">Dashboard</span>
                                         <span class="pcoded-mcaret"></span>
@@ -162,27 +175,51 @@
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                     <ul class="pcoded-submenu">
+                                       
                                         <li class=" ">
-                                            <a href="bs-basicApprovel">
+                                            <a href="auditionApprove">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert"> Inquiry </span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert"> Audition </span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
                                         <li class=" ">
-                                            <a href="Studentfeedbackprofiling">
+                                            <a href="SaaSProfileFeedback">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Profiling Feedback</span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert"> SaaS Feedback </span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
                                         <li class=" ">
-                                            <a href="IndividualApproveProfiling">
+                                            <a href="Profiling_saas">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                 <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Profiling</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
+                                        <li class=" ">
+                                            <a href="webpage_Approve">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Webpages</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                        <li class=" ">
+                                            <a href="newenrollments">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">New Enrollments</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+
+                                        <li class=" ">
+                                            <a href="studentApplications">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Students Enroll</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                        
                                         
                                     </ul>
                                 </li>
@@ -194,23 +231,43 @@
                                     </a>
                                     <ul class="pcoded-submenu">
                                         <li class=" ">
-                                            <a href="newApplications">
+                                            <a href="Affliatestracker">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">New  Applications </span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Affliates </span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                        <li class=" ">
+                                            <a href="WebpageTracker">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Webpages</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
                                         
                                         <li class=" ">
-                                            <a href="individualstudent">
+                                            <a href="studentsdata">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                 <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Students </span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
-                                       
                                         <li class=" ">
-                                            <a href="IndividualAlumni">
+                                            <a href="superAdminFeeStructure">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">FeesStructure</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                        <li class=" ">
+                                            <a href="notifyUsers">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Notify Users</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                        <li class=" ">
+                                            <a href="superAdminAlumni">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                 <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Alumni</span>
                                                 <span class="pcoded-mcaret"></span>
@@ -223,123 +280,73 @@
                     </nav>
                     <div class="pcoded-content">
                         <div class="pcoded-inner-content">
+                            
                             <!-- Main-body start -->
                             <div class="main-body">
                                 <div class="page-wrapper">
                                     <!-- Page-header start -->
                                    
-                                <!-- Page-header end -->
-                                
-                                <!-- Page-body start -->
-                                <div class="page-body">
-                                    <!-- Basic table card start -->
-                                    <div class="card">
-                                        <div class="col-md-4">
-                                            <input type="search" placeholder="Search..." class="form-control search-input" data-table="inquiry"/>
-                                        </div>
-                                        <div class="card-header">
-                                            <h5>Approvels</h5>
-                                           
-                                            <div class="card-header-right">    <ul class="list-unstyled card-option"><li><i class="icofont icofont-simple-left "></i></li>        <li><i class="icofont icofont-maximize full-card"></i></li>        <li><i class="icofont icofont-minus minimize-card"></i></li>        <li><i class="icofont icofont-refresh reload-card"></i></li>        <li><i class="icofont icofont-error close-card"></i></li>    </ul></div>
-                                        </div>
-                                        <div class="card-block table-border-style">
-                                            <div class="table-responsive">
-                                                <table class="table inquiry">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>#</th>
-                                                            <th>Student Name</th>
-                                                            <th>Enrolling Grade</th>
-                                                            <th>Email</th>
-                                                            <th>Phone</th>
-                                                            <th>Hear About Us</th>
-                                                            <th>Approve</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        {% for i in inquirys %}
-                                                        <tr>
-                                                            <th scope="row">1</th>
-                                                            <td>{{i.studentName}}</td>
-                                                            <td>{{i.enrolling_grade}}</td>
-                                                            <td>{{i.email}}</td>
-                                                            <td>{{i.phone}}</td>
-                                                            <td>{{i.hear_about_us}}</td>
-                                                            <td><a href="inquiryApprove/{{i.uid}}"><button type="button">Approve</button></a></td>
-                                                        </tr>
-                                                        {% endfor %}
-                                                    </tbody>
-                                                </table>
+                                    <!-- Page-header end -->
+
+                                    <!-- Page body start -->
+                                    <div class="page-body">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <!-- Basic Form Inputs card start -->
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <h5>SaaS Profile Feedback</h5>
+                                                       
+                                                        <div class="card-header-right"><i
+                                                            class="icofont icofont-spinner-alt-5"></i></div>
+
+                                                            <div class="card-header-right">
+                                                                <i class="icofont icofont-spinner-alt-5"></i>
+                                                            </div>
+
+                                                        </div>
+                                                        
+                                                        <div class="card-block">
+                                                            <form method = "POST"> {% csrf_token %}
+                                                              
+                                                                <div class="form-group row">
+                                                                    <label class="col-sm-2 col-form-label">Choose Affliate</label>
+                                                                    <div class="col-sm-10">
+                                                                        <select name="uid" class="form-control" required>
+                                                                            <option>-</option>
+                                                                            {% for i in micro %}
+                                                                            <option >{{i.uid}} </option>
+                                                                            {% endfor %}
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                                
+                                                                <button type="submit" class="btn btn-primary">SEND</button>
+                                                            </form>
+                                                         
+                                                                    </div>
+                                                                </div>
+                             
+                             
+                                                                <!-- Main-body end -->
+                                                                <div id="styleSelector">
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
+
                                     </div>
-                                    
-                                   
-                                  
-                                    <!-- Background Utilities table end -->
-                                </div>
-                                <!-- Page-body end -->
-                            </div>
-                        </div>
-                        <!-- Main-body end -->
-
-                        <div id="styleSelector">
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<script>
-    (function(document) {
-        'use strict';
-
-        var TableFilter = (function(myArray) {
-            var search_input;
-
-            function _onInputSearch(e) {
-                search_input = e.target;
-                var tables = document.getElementsByClassName(search_input.getAttribute('data-table'));
-                myArray.forEach.call(tables, function(table) {
-                    myArray.forEach.call(table.tBodies, function(tbody) {
-                        myArray.forEach.call(tbody.rows, function(row) {
-                            var text_content = row.textContent.toLowerCase();
-                            var search_val = search_input.value.toLowerCase();
-                            row.style.display = text_content.indexOf(search_val) > -1 ? '' : 'none';
-                        });
-                    });
-                });
-            }
-
-            return {
-                init: function() {
-                    var inputs = document.getElementsByClassName('search-input');
-                    myArray.forEach.call(inputs, function(input) {
-                        input.oninput = _onInputSearch;
-                    });
-                }
-            };
-        })(Array.prototype);
-
-        document.addEventListener('readystatechange', function() {
-            if (document.readyState === 'complete') {
-                TableFilter.init();
-            }
-        });
-
-    })(document);
-</script>
-
-
-
-<!-- Warning Section Starts -->
-<!-- Older IE warning message -->
-    <!--[if lt IE 9]>
+                                        <!-- Warning Section Starts -->
+                                        <!-- Older IE warning message -->
+<!--[if lt IE 9]>
 <div class="ie-warning">
     <h1>Warning!!</h1>
-    <p>You are using an outdated version of Internet Explorer, please upgrade <br/>to any of the following web browsers to access this website.</p>
+    <p>You are using an outdated version of Internet Explorer, please upgrade <br/>to any of the following web browsers
+        to access this website.</p>
     <div class="iew-container">
         <ul class="iew-download">
             <li>
@@ -382,22 +389,16 @@
 <script type="text/javascript" src='{% static "assets1/js/jquery/jquery.min.js" %}'></script>
 <script type="text/javascript" src='{% static "assets1/js/jquery-ui/jquery-ui.min.js" %}'></script>
 <script type="text/javascript" src='{% static "assets1/js/popper.js/popper.min.js" %}'></script>
-<script type="text/javascript" src= '{% static "assets1/js/bootstrap/js/bootstrap.min.js" %}'></script>
+<script type="text/javascript" src='{% static "assets1/js/bootstrap/js/bootstrap.min.js" %}'></script>
 <!-- jquery slimscroll js -->
-<script type="text/javascript" src= '{% static "assets1/js/jquery-slimscroll/jquery.slimscroll.js" %}'></script>
+<script type="text/javascript" src='{% static "assets1/js/jquery-slimscroll/jquery.slimscroll.js" %}'></script>
 <!-- modernizr js -->
 <script type="text/javascript" src='{% static "assets1/js/modernizr/modernizr.js" %}'></script>
 <script type="text/javascript" src='{% static "assets1/js/modernizr/css-scrollbars.js" %}'></script>
-<!-- am chart -->
+<!-- classie js -->
 <script type="text/javascript" src='{% static "assets1/js/classie/classie.js" %}'></script>
-<script src='{% static "assets1/pages/widget/amchart/amcharts.min.js" %}'></script>
-<script src='{% static "assets1/pages/widget/amchart/serial.min.js" %}'></script>
-<!-- Todo js -->
-<script type="text/javascript " src='{% static "assets1/pages/todo/todo.js" %}'></script>
 <!-- Custom js -->
-<script type="text/javascript" src='{% static "assets1/pages/dashboard/custom-dashboard.js" %}'></script>
 <script type="text/javascript" src='{% static "assets1/js/script.js" %}'></script>
-<script type="text/javascript " src='{% static "assets1/js/SmoothScroll.js" %}'></script>
 <script src='{% static "assets1/js/pcoded.min.js" %}'></script>
 <script src='{% static "assets1/js/demo-12.js" %}'></script>
 <script src='{% static "assets1/js/jquery.mCustomScrollbar.concat.min.js" %}'></script>

@@ -170,6 +170,13 @@
                                             </a>
                                         </li>
                                         <li class=" ">
+                                            <a href="Studentfeedbackprofiling">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Profiling Feedback</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                        <li class=" ">
                                             <a href="IndividualApproveProfiling">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                 <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Profiling</span>
@@ -201,13 +208,7 @@
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
-                                        <li class=" ">
-                                            <a href="individualFeeStructure">
-                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Fees Structure</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
+                                       
                                         <li class=" ">
                                             <a href="IndividualAlumni">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
@@ -249,11 +250,12 @@
                                                            
                                                             <th>Student Id</th>
                                                             <th>First Name</th>
+                                                            <th>Last Name</th>
                                                             <th>Email</th>
                                                             <th>Schedule Date</th>
                                                             <th>Event</th>
                                                             <th>Mode</th>
-                                                            <th>Profiling Complete</th>
+                                                            <th>Feedback</th>
                                                             <th>Profiling Approve</th>
                                                         </tr>
                                                     </thead>
@@ -261,18 +263,17 @@
                                                         {% for i in objectProf %}
                                                         <tr>
                                                            
-                                                            <td>{{i.uid.student_id}}</td>
-                                                            <td>{{i.uid.first_name}}</td>
-                                                            <td>{{i.uid.email}}</td>
-                                                            <td>{{i.schedule_date}}</td>
-                                                            <td>{{i.HEADING}}</td>
-                                                            <td>{{i.modeofprofiling}}</td>
-                                                            {% if i.uid.Profiling_scheduled == 'Y' and i.uid.Profiling_complete == 'N' %}
-                                                            <td><a href="complete_profiling/{{i.uid.student_id}}"><button type="button">Done</button></a></td>
-                                                            {% endif %}
+                                                            <td>{{i.studentProfile.uid.student_id}}</td>
+                                                            <td>{{i.studentProfile.uid.first_name}}</td>
+                                                            <td>{{i.studentProfile.uid.last_name}}</td>
+                                                            <td>{{i.studentProfile.uid.email}}</td>
+                                                            <td>{{i.studentProfile.schedule_date}}</td>
+                                                            <td>{{i.studentProfile.HEADING}}</td>
+                                                            <td>{{i.studentProfile.modeofprofiling}}</td>
+                                                            <td>{{i.feedback}}</td>
                                                             {% if i.uid.Profiling_complete == 'Y' %}
-                                                            <td><a href="approve_profiling/{{i.uid.student_id}}"><button type="button">Approve</button></a></td>
-                                                            <td><a href="reject_profiling/{{i.uid.student_id}}"><button type="button">Reject</button></a></td>
+                                                            <td><a href="approve_profiling/{{i.studentProfile.uid.student_id}}"><button type="button">Approve</button></a></td>
+                                                            <td><a href="reject_profiling/{{i.studentProfile.uid.student_id}}"><button type="button">Reject</button></a></td>
                                                             {% endif %}
                                                         </tr>
                                                         {% endfor %}
