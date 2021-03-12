@@ -497,7 +497,14 @@ class studentInvoice(models.Model):
 val = '000107'   
 
 class invoicecounter(models.Model):
-    invoice_value = models.IntegerField(default=int(val))    
+    invoice_value = models.BigIntegerField(default=int(val))    
+
+
+class duedates(models.Model):
+    Term1_duedate = models.DateField()
+    Term2_duedate = models.DateField()
+    Term3_duedate = models.DateField()
+        
     
 
 

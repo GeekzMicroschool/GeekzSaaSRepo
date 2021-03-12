@@ -134,6 +134,16 @@
                                         </a>
                                     </li>
                                     <li>
+                                        <a href="invoiceConfig">
+                                            <i class="ti-user"></i> Invoice Configs
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="duedatesADD">
+                                            <i class="ti-user"></i> Due dates
+                                        </a>
+                                    </li>
+                                    <li>
                                         <a href="auth-normal-sign-in.html">
                                             <i class="ti-layout-sidebar-left"></i> Logout
                                         </a>
@@ -360,20 +370,19 @@
                                                             <th>Last Name</th>
                                                             <th>School</th>
                                                             <th>Enroll</th>
+                                                                                                                      
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        {% for i in student_tobeEnrolled %}
+                                                       
                                                         <tr>
+                                                            {% for i in student_tobeEnrolled %}
                                                             <td>{{i.student_id}}</td>
                                                             <td>{{i.first_name}}</td>
                                                             <td>{{i.last_name}}</td>
                                                             <td>{{i.microschool.SCHOOL_NAME}}</td>
                                                             {% if i.Enrolled == "N"  %}
                                                             <td><a href="enrollment/{{i.student_id}}"><button  type="button">Enroll</button></td>
-                                                            {% endif %}  
-                                                            {% if i.microschool.invoice_generation == "N" %}
-                                                            <td><a href="manualgenerate/{{i.student_id}}"><button  type="button">Generate Invoice</button></td>
                                                             {% endif %}  
                                                         </tr>
                                                         {% endfor %}

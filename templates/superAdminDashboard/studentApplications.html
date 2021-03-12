@@ -134,6 +134,16 @@
                                         </a>
                                     </li>
                                     <li>
+                                        <a href="invoiceConfig">
+                                            <i class="ti-user"></i> Invoice Configs
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="duedatesADD">
+                                            <i class="ti-user"></i> Due dates
+                                        </a>
+                                    </li>
+                                    <li>
                                         <a href="auth-normal-sign-in.html">
                                             <i class="ti-layout-sidebar-left"></i> Logout
                                         </a>
@@ -360,15 +370,21 @@
                                                             <th>First Name</th>
                                                             <th>Last Name</th>
                                                             <th>School</th>
-                                                            {% if i.Term1flag == "N" %}
                                                             <th>Term1</th>
+                                                            {% if i.Term1flag == "N" %}
                                                             <th>Pay</th>
                                                             {% endif %}
                                                             <th>Term2</th>
+                                                            {% if i.Term2flag == "N" %}
                                                             <th>Pay</th>
+                                                            {% endif %}
                                                             <th>Term3</th>
+                                                            {% if i.Term3flag == "N" %}
                                                             <th>Pay</th>
+                                                            {% endif %}
+                                                            {% if i.student_enrolled.microschool.invoice_generation == "N" %}
                                                             <th>Invoice</th>
+                                                            {% endif %}
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -378,16 +394,19 @@
                                                             <td>{{i.student_enrolled.first_name}}</td>
                                                             <td>{{i.student_enrolled.last_name}}</td>
                                                             <td>{{i.student_enrolled.microschool.SCHOOL_NAME}}</td>
-                                                            {% if i.Term1flag == "N" %}
+                                                            
                                                             <td>{{i.Term1}}</td>
+                                                            {% if i.Term1flag == "N" %}
                                                             <td><a href="feepayTerm1/{{i.student_enrolled.student_id}}"><button  type="button">payment done</button></td>
                                                             {% endif %}
-                                                            {% if i.Term2flag == "N" and i.Term2 != "not valid" %}
+                                                            
                                                             <td>{{i.Term2}}</td>
+                                                            {% if i.Term2flag == "N" and i.Term2 != "not valid" %}
                                                             <td><a href="feepayTerm2/{{i.student_enrolled.student_id}}"><button  type="button">payment done</button></td>
                                                             {% endif %}
-                                                            {% if i.Term3flag == "N" and i.Term3 != "not valid" %}
+                                                           
                                                             <td>{{i.Term3}}</td>
+                                                            {% if i.Term3flag == "N" and i.Term3 != "not valid" %}
                                                             <td><a href="feepayTerm3/{{i.student_enrolled.student_id}}"><button  type="button">payment done</button></td>
                                                             {% endif %}
                                                             {% if i.student_enrolled.microschool.invoice_generation == "N" %}

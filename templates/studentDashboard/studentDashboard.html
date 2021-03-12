@@ -117,15 +117,10 @@
                                     <i class="ti-angle-down"></i>
                                 </a>
                                 <ul class="show-notification profile-notification">
-                                  {% for j in info %} 
-                                    <li>
-                                        <a href="studentprofileEdit/{{j.student_id}}">
-                                            <i class="ti-user"></i> Profile
-                                        </a>
-                                    </li>
+                                 
                                  
                                     <li>
-                                        <a href="auth-normal-sign-in.html">
+                                        <a href="/logout">
                                             <i class="ti-layout-sidebar-left"></i> Logout
                                         </a>
                                     </li>
@@ -134,7 +129,7 @@
                         </ul>
                     </div>
                 </div>
-            </nav>{% endfor %}
+            </nav>
             <div class="pcoded-main-container">
                 <div class="pcoded-wrapper">
                     <nav class="pcoded-navbar">
@@ -144,48 +139,19 @@
                             <ul class="pcoded-item pcoded-left-item">
                                 <br><br><br><br>
                                 <li class="active">
-                                    <a href="individualAdmin_approvels">
+                                    <a href="studentDashboard">
                                         <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
                                         <span class="pcoded-mtext" data-i18n="nav.dash.main">Dashboard</span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                 </li>
-                                <li class="pcoded-hasmenu">
-                                    <a href="javascript:void(0)">
+                                <li class="active">
+                                    <a href="studentfeestatus">
                                         <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i></span>
-                                        <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">Menu</span>
+                                        <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">Fee Status</span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
-                                    <ul class="pcoded-submenu">
-                                        <li class=" ">
-                                            <a href="studentfeestatus">
-                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Fee Status</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                        <li class=" ">
-                                            <a href="invoice_pdf">
-                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Invoice</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                        <li class=" ">
-                                            <a href="newenrollments">
-                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">New Academic year enroll</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                        <li class=" ">
-                                            <a href="Transcript_pdf">
-                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Transcript</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                    </ul>
+                                    
                                 </li>
                                
                             </ul>
@@ -196,24 +162,90 @@
                             <div class="main-body">
                                 <div class="page-wrapper">
                                   
-                                    <div class="card-block">
-                                        <div class="row"></div>
-                                        <div class="row"></div>
-                                        <br><br><br><br>
-                                        
-					           {% for k in admin_web %}
-                        <div class="row">
-                            <div class="col-lg-3 col-md-12"></div>
-                            <div class="col-lg-6 col-md-12">
-                                <div class="form-group">
-                                    <center>  <a href="microschool/{{k.LOCALITY}}">  <img src="{{k.BANNER1.url}}"style="width:100%">{{k.SCHOOL_NAME}}</a></center> 
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-12"></div>
-                        </div>
-                         {% endfor %}
+                                    <div class="page-body">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                       
+                                                        <h3>{{name}}</h3>
+                                                      
+                                                        
+                                                    </div>
+                                                    <div class="card-block">
+                                                    <div class="container">
+                                                        {% for i in enrolled %}
+                                                        <h5>Profile</h5>
+                                                        <br>
+                                                         <div class="row">
+                                                             <div class="col-md-4">
+                                                                <b> School Name :</b> 
+                                                             </div>
+                                                             <div class="col-md-6">
+                                                                 {{i.student_enrolled.microschool.SCHOOL_NAME}}
+                                                             </div>
+                                                         </div> 
+                                                         <br>
+                                                         <div class="row">
+                                                            <div class="col-md-4">
+                                                               <b> Studio :</b> 
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                {{i.grade}}
+                                                            </div>
+                                                        </div> 
+                                                        <br> 
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                               <b> Grade :</b> 
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                {{i.current_grade}}
+                                                            </div>
+                                                        </div>  
+                                                        <br> 
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                               <b> Status Active :</b> 
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                {{i.active_status}}
+                                                            </div>
+                                                        </div>  
+                                                        <br> 
+                                                        <br>
+                                                        <h4>Parent Information</h4>
+                                                        <br>
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                               <b> Father Name :</b> 
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                {{i.student_enrolled.Fathersname}}
+                                                            </div>
+                                                        </div> 
+                                                        <br>
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                               <b> Mother Name :</b> 
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                {{i.student_enrolled.Mothersname}}
+                                                            </div>
+                                                        </div> 
+                                                       
+                                                        <br> <br>
+                                                        <div class="row">
+                                                            <a href = "studentprofileEdit/{{i.student_enrolled.student_id}}"><button type="button" class="btn btn-primary">Update</button></a>  &nbsp; &nbsp;
+                                                            <button type="button" class="btn btn-primary">Request Tc</button> 
+                                                        </div> 
+                                                        {% endfor %}
+                                                    </div>
+                                                    </div>
 
-                    
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     
                                         </div>

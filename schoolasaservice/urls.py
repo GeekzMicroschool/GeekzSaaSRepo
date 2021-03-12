@@ -99,6 +99,10 @@ urlpatterns = [
     path('Transcript_pdf',views.Transcript_pdf,name="Transcript_pdf"),
     path('studentTranscript_pdf/<student_id>',views.studentTranscript_pdf,name="studentTranscript_PDF"),
     path('studentprofileEdit/<student_id>',views.studentprofileEdit,name="studentprofileEdit"),
+    path('invoiceConfig',views.invoiceConfig,name="invoiceConfig"),
+    path('Enableinvoice/<school>',views.Enableinvoice,name="Enableinvoice"),
+    path('Disableinvoice/<school>',views.Disableinvoice,name="Disableinvoice"),
+    path('duedatesADD',views.duedatesADD,name="duedatesADD"),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

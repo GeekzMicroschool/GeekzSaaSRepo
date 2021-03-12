@@ -288,7 +288,7 @@
                                                 <!-- Basic Form Inputs card start -->
                                                 <div class="card">
                                                     <div class="card-header">
-                                                        <h5>Change Invoice Configurations</h5>
+                                                        <h5>Add Due Dates</h5>
                                                        
                                                         <div class="card-header-right"><i
                                                             class="icofont icofont-spinner-alt-5"></i></div>
@@ -298,19 +298,25 @@
                                                             </div>
 
                                                         </div>
-                                                        
                                                         <div class="card-block">
                                                             <form method = "POST"> {% csrf_token %}
                                                               
                                                                 <div class="form-group row">
-                                                                    <label class="col-sm-2 col-form-label">Choose School</label>
+                                                                    <label class="col-sm-2 col-form-label">Term 1</label>
                                                                     <div class="col-sm-10">
-                                                                        <select name="school" class="form-control" required>
-                                                                            <option>-</option>
-                                                                            {% for i in schools %}
-                                                                            <option >{{i.SCHOOL_NAME}} </option>
-                                                                            {% endfor %}
-                                                                        </select>
+                                                                        <input type="date" name="Term1_duedate" class="form-control" required>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group row">
+                                                                    <label class="col-sm-2 col-form-label">Term 2</label>
+                                                                    <div class="col-sm-10">
+                                                                        <input type="date" name="Term2_duedate" class="form-control" required>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group row">
+                                                                    <label class="col-sm-2 col-form-label">Term 3</label>
+                                                                    <div class="col-sm-10">
+                                                                        <input type="date" name="Term3_duedate" class="form-control" required>
                                                                     </div>
                                                                 </div>
                                                                 

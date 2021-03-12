@@ -1937,7 +1937,18 @@ def addAcademicYear(request):
         id,year = academicYear.objects.update_or_create(uid=user.id,defaults={"academic_year":year})
         return redirect('superAdmin_dashboard')
     return render(request,'superAdminDashboard/addAcademicYear.html',{'name':name})    
-        
+
+def duedatesADD(request):
+    user_id=request.session['user_id']
+    user=User.objects.get(id=user_id)
+    name = user.first_name
+    if request.method == "POST":
+        Term1_duedate  =  request.POST['Term1_duedate']
+        Term2_duedate  =  request.POST['Term2_duedate'] 
+        Term3_duedate  =  request.POST['Term3_duedate']
+        id,term = duedates.objects.update_or_create(pk=1,defaults={'Term1_duedate':Term1_duedate,'Term2_duedate':Term2_duedate,'Term3_duedate':Term3_duedate})   
+        return redirect('superAdmin_dashboard')
+    return render(request,'superAdminDashboard/duedatesADD.html',{'name':name})
 
 
  # ajax view to get slots and populate in dropdown and reading calendar to filter slots
@@ -2053,8 +2064,32 @@ def invoiceConfig(request):
     user_id=request.session['user_id']
     user=User.objects.get(id=user_id)
     name = user.first_name
-    schools = INDIVIDUAL_WEBPAGESS1.objects.filter(uid = uid_obj.uid)
+    schools = INDIVIDUAL_WEBPAGESS1.objects.all()
+    if request.method == "POST" :
+        school = request.POST['school']
+        school_obj = INDIVIDUAL_WEBPAGESS1.objects.get(SCHOOL_NAME = school)
+        if school_obj.invoice_generation == 'N':
+            return redirect('Enableinvoice',school=school)
+        else:
+            return redirect('Disableinvoice',school=school)    
+
     return render(request,'superAdminDashboard/invoiceConfig.html',{'name':name,'schools':schools})
+
+def Enableinvoice(request,school):
+    if request.method == "POST" :
+        school_obj = INDIVIDUAL_WEBPAGESS1.objects.get(SCHOOL_NAME=school)
+        school_obj.invoice_generation = 'Y'
+        school_obj.save(update_fields=['invoice_generation'])
+        return redirect('invoiceConfig')
+    return render(request,'superAdminDashboard/Enableinvoice.html',{'school':school})
+
+def Disableinvoice(request,school):
+    if request.method == "POST" :
+        school_obj = INDIVIDUAL_WEBPAGESS1.objects.get(SCHOOL_NAME=school)
+        school_obj.invoice_generation = 'N'
+        school_obj.save(update_fields=['invoice_generation'])
+        return redirect('invoiceConfig')
+    return render(request,'superAdminDashboard/Disableinvoice.html',{'school':school})
 
 def manualgenerate(request,student_id):
     s_obj = studentApplications.objects.get(student_id=student_id)
@@ -2127,9 +2162,22 @@ def enrollment(request,student_id):
     student_tobeEnrolled = student_tobeEnrolled[0]   
     enroll = enrolledStudents(student_enrolled=student_tobeEnrolled,school=student_tobeEnrolled.microschool, active_status='Y',Term1=Term1,Term2=Term2,Term3=Term3,academic_year= student_obj.academic_year,grade=grade,current_grade=enrolling_grade,current_enrolling_term=enrolling_term, Term1flag='Y')    
     enroll.save()
-    invoice_no = '000107'
+    ### FETCH OLD COUNTER
+    invoicecounter_obj = invoicecounter.objects.all()
+    invoicecounter_obj = list(invoicecounter_obj)
+    invoicecounter_obj = invoicecounter_obj[0]
+    #### increment the counter
+    invoiceNum = invoicecounter_obj.invoice_value + 1
+    ###update the counter in database and assign it to invoice of student
+    invoicecounter_obj.invoice_value = invoiceNum
+    invoicecounter_obj.save(update_fields=['invoice_value'])
     invoice_obj = enrolledStudents.objects.get(student_enrolled=student_tobeEnrolled)
-    invoice_values = studentInvoice(student_id = invoice_obj ,invoice_no=float(invoice_no))
+    Totalfees = int(invoice_obj.Term1)+ int(invoice_obj.Term2 )+ int(invoice_obj.Term3)
+    print(Totalfees)
+    edTech = int(Totalfees) - 36000
+    print(edTech)
+    invoice_values = studentInvoice(student_id = invoice_obj ,invoice_no=invoiceNum,Totalfees=Totalfees,edTech=edTech,amountpaid=invoice_obj.Term1,academic_year=invoice_obj.academic_year)
+    invoice_values.save()
     return redirect('newenrollments')
         
 def reject_profiling(request,student_id):
@@ -2171,7 +2219,22 @@ def feepayTerm1(request,student_id):
     student_object = studentApplications.objects.get(student_id=student_id)
     fees = enrolledStudents.objects.get(student_enrolled= student_object,academic_year= obj.academic_year)
     fees.Term1flag = 'Y'
-    fees.save(update_fields=['Term1flag'])  
+    fees.save(update_fields=['Term1flag'])
+    invoicecounter_obj = invoicecounter.objects.all()
+    invoicecounter_obj = list(invoicecounter_obj)
+    invoicecounter_obj = invoicecounter_obj[0]
+    #### increment the counter
+    invoiceNum = invoicecounter_obj.invoice_value + 1
+    #invoice_obj = enrolledStudents.objects.get(student_enrolled=fees)
+    Totalfees = int(fees.Term1)+ int(fees.Term2 )+ int(fees.Term3)
+    print(Totalfees)
+    edTech = int(Totalfees) - 36000
+    print(edTech)
+    invoice_values = studentInvoice(student_id = fees ,invoice_no=invoiceNum,Totalfees=Totalfees,edTech=edTech,amountpaid=fees.Term1,academic_year=fees.academic_year)
+    invoice_values.save() 
+    ###update the counter in database and assign it to invoice of student
+    invoicecounter_obj.invoice_value = invoiceNum
+    invoicecounter_obj.save(update_fields=['invoice_value'])
     return redirect('studentApplicationsview')  
 
 def feepayTerm2(request,student_id):
@@ -2182,6 +2245,10 @@ def feepayTerm2(request,student_id):
     fees = enrolledStudents.objects.get(student_enrolled= student_object,academic_year= obj.academic_year)
     fees.Term2flag = 'Y'
     fees.save(update_fields=['Term2flag'])  
+    Term2_fee = fees.Term2
+    st =  studentInvoice.objects.get(student_id = fees,academic_year=fees.academic_year)
+    st.amountpaid = int(st.amountpaid) + int(Term2_fee)
+    st.save(update_fields=['amountpaid'])
     return redirect('studentApplicationsview')   
 
 def feepayTerm3(request,student_id):
@@ -2191,7 +2258,11 @@ def feepayTerm3(request,student_id):
     student_object = studentApplications.objects.get(student_id=student_id)
     fees = enrolledStudents.objects.get(student_enrolled= student_object,academic_year= obj.academic_year)
     fees.Term3flag = 'Y'
-    fees.save(update_fields=['Term3flag'])  
+    fees.save(update_fields=['Term3flag'])
+    Term3_fee = fees.Term3
+    st =  studentInvoice.objects.get(student_id = fees,academic_year=fees.academic_year)
+    st.amountpaid = int(st.amountpaid) + int(Term3_fee)
+    st.save(update_fields=['amountpaid'])  
     return redirect('studentApplicationsview') 
 
 def Removestudent(request,student_id):
@@ -2434,14 +2505,14 @@ def adminprofileEdit(request,uid):
 def studentDashboard(request):
     user_id=request.session['user_id']
     user=User.objects.get(id=user_id)
+    obj = academicYear.objects.all()
+    obj = list(obj)
+    obj = obj[0]
     info = studentApplications.objects.filter(student_id=user.id)
     studentObj = studentApplications.objects.get(student_id=user.id)
-    name = studentObj.first_name
-    admin_web = INDIVIDUAL_WEBPAGESS1.objects.filter(uid = studentObj.microschool.uid,IS_APPROVED='Y')
-    webform = ''
-    if admin_web:
-        webform = 'done'
-    return render(request,'studentDashboard/studentDashboard.html',{'name':name,' webform': webform,'admin_web':admin_web,'info':info})
+    name = studentObj.first_name + studentObj.last_name
+    enrolled = enrolledStudents.objects.filter(active_status = 'Y',academic_year=obj.academic_year,student_enrolled=studentObj)
+    return render(request,'studentDashboard/studentDashboard.html',{'name':name,'enrolled':enrolled,'info':info})
 
 def studentfeestatus(request):
     obj = academicYear.objects.all()
@@ -2452,8 +2523,9 @@ def studentfeestatus(request):
     info = studentApplications.objects.filter(student_id=user.id)
     studentObj = studentApplications.objects.get(student_id=user.id)
     name = studentObj.first_name
-    studentinfo = enrolledStudents.objects.filter(student_enrolled = studentObj, academic_year=obj.academic_year,active_status='Y')
-    return render(request,'studentDashboard/studentfeestatus.html',{'enrolled':studentinfo,'name':name,'info':info})
+    studentinfo = enrolledStudents.objects.get(student_enrolled = studentObj, academic_year=obj.academic_year,active_status='Y')
+    invoice = studentInvoice.objects.filter(student_id= studentinfo,academic_year=obj.academic_year)
+    return render(request,'studentDashboard/studentfeestatus.html',{'name':name,'info':info,'invoice':invoice})
 
 def invoice_pdf(request):
     obj = academicYear.objects.all()

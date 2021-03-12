@@ -117,15 +117,10 @@
                                     <i class="ti-angle-down"></i>
                                 </a>
                                 <ul class="show-notification profile-notification">
-                                  {% for j in info %} 
-                                    <li>
-                                        <a href="studentprofileEdit/{{j.student_id}}">
-                                            <i class="ti-user"></i> Profile
-                                        </a>
-                                    </li>
+                                 
                                  
                                     <li>
-                                        <a href="auth-normal-sign-in.html">
+                                        <a href="/logout">
                                             <i class="ti-layout-sidebar-left"></i> Logout
                                         </a>
                                     </li>
@@ -134,7 +129,7 @@
                         </ul>
                     </div>
                 </div>
-            </nav>{% endfor %}
+            </nav>
             <div class="pcoded-main-container">
                 <div class="pcoded-wrapper">
                     <nav class="pcoded-navbar">
@@ -144,48 +139,19 @@
                             <ul class="pcoded-item pcoded-left-item">
                                 <br><br><br><br>
                                 <li class="active">
-                                    <a href="individualAdmin_approvels">
+                                    <a href="studentDashboard">
                                         <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
                                         <span class="pcoded-mtext" data-i18n="nav.dash.main">Dashboard</span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                 </li>
-                                <li class="pcoded-hasmenu">
-                                    <a href="javascript:void(0)">
+                                <li class="active">
+                                    <a href="studentfeestatus">
                                         <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i></span>
-                                        <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">Menu</span>
+                                        <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">Fee Status</span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
-                                    <ul class="pcoded-submenu">
-                                        <li class=" ">
-                                            <a href="studentfeestatus">
-                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Fee Status</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                        <li class=" ">
-                                            <a href="invoice_pdf">
-                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Invoice</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                        <li class=" ">
-                                            <a href="newenrollments">
-                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">New Academic year enroll</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                        <li class=" ">
-                                            <a href="Transcript_pdf">
-                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Transcript</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                    </ul>
+                                    
                                 </li>
                                
                             </ul>
@@ -193,149 +159,60 @@
                     </nav>
                     <div class="pcoded-content">
                         <div class="pcoded-inner-content">
-                            <!-- Main-body start -->
                             <div class="main-body">
                                 <div class="page-wrapper">
-                                    <!-- Page-header start -->
-                                   
-                                <!-- Page-header end -->
-                                <style>
-                                .modal {
-                                display: none; /* Hidden by default */
-                                position: fixed; /* Stay in place */
-                                z-index: 1; /* Sit on top */
-                                padding-top: 100px; /* Location of the box */
-                                left: 0;
-                                top: 0;
-                                width: 100%; /* Full width */
-                                height: 100%; /* Full height */
-                                overflow: auto; /* Enable scroll if needed */
-                                background-color: rgb(0,0,0); /* Fallback color */
-                                background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-                                }
+                                  
+                                    <div class="page-body">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                       
+                                                        <h3>Admission Fee Structure</h3>
+                                                      
+                                                        
+                                                    </div>
+                                                    <div class="card-block">
+                                                    <div class="container">
+                                                        {% for i in invoice %}
+                                                       
+                                                         <div class="row">
+                                                             <div class="col-md-4">
+                                                                <b> Annually :</b> 
+                                                             </div>
+                                                             <div class="col-md-6">
+                                                                 {{i.Totalfees}}
+                                                             </div>
+                                                         </div> 
+                                                         <br>
+                                                         {% endfor %}
+                                                                         <br> <br>
+                                                        
+                                                    </div>
+                                                    </div>
 
-                                /* Modal Content */
-                                .modal-content {
-                                background-color: #fefefe;
-                                margin: auto;
-                                padding: 20px;
-                                border: 1px solid #888;
-                                width: 80%;
-                                }
-
-                                /* The Close Button */
-                                .close {
-                                color: #aaaaaa;
-                                float: right;
-                                font-size: 28px;
-                                font-weight: bold;
-                                }
-
-                                .close:hover,
-                                .close:focus {
-                                color: #000;
-                                text-decoration: none;
-                                cursor: pointer;
-                                }
-                                </style> 
-                                <script>
-                                    // Get the modal
-                                    var modal = document.getElementById("myModal");
-
-                                    // Get the button that opens the modal
-                                    var btn = document.getElementById("myBtn");
-
-                                    // Get the <span> element that closes the modal
-                                    var span = document.getElementsByClassName("close")[0];
-
-                                    // When the user clicks the button, open the modal 
-                                    btn.onclick = function() {
-                                    modal.style.display = "block";
-                                    }
-
-                                    // When the user clicks on <span> (x), close the modal
-                                    span.onclick = function() {
-                                    modal.style.display = "none";
-                                    }
-
-                                    // When the user clicks anywhere outside of the modal, close it
-                                    window.onclick = function(event) {
-                                    if (event.target == modal) {
-                                        modal.style.display = "none";
-                                    }
-                                    }
-                                    </script>
-  
-                                <!-- Page-body start -->
-                                <div class="page-body">
-                                    <!-- Basic table card start -->
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <h5>Students</h5>
-                                           
-                                            <div class="card-header-right">    <ul class="list-unstyled card-option">        <li><i class="icofont icofont-simple-left "></i></li>        <li><i class="icofont icofont-maximize full-card"></i></li>        <li><i class="icofont icofont-minus minimize-card"></i></li>        <li><i class="icofont icofont-refresh reload-card"></i></li>        <li><i class="icofont icofont-error close-card"></i></li>    </ul></div>
-                                        </div>
-                                        <div class="card-block table-border-style">
-                                            <div class="table-responsive">
-                                                <table class="table">
-                                                    <thead>
-                                                        <tr>
-                                                            
-                                                            <th>Student id</th>
-                                                            <th>First Name</th>
-                                                            <th>Last Name</th>
-                                                            <th> Grade</th>
-                                                            <th>Term1</th>
-                                                            <th>paid</th>
-                                                            <th>Term2</th>
-                                                            <th>paid</th>
-                                                            <th>Term3</th>
-                                                            <th>paid</th>
-                                                           
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        {% for i in enrolled %}
-                                                        <tr>
-                                                            <td>{{i.student_enrolled.student_id}}</td>
-                                                            <td>{{i.student_enrolled.first_name}}</td>
-                                                            <td>{{i.student_enrolled.last_name}}</td>
-                                                            <td>{{i.grade}}</td>
-                                                            <td>{{i.Term1}}</td>
-                                                            <td>{{i.Term1flag}}</td>
-                                                            <td>{{i.Term2}}</td> 
-                                                            <td>{{i.Term2flag}}</td>                                                         
-                                                            <td>{{i.Term3}}</td>
-                                                            <td>{{i.Term3flag}}</td>
-                                                        </tr>
-                                                        {% endfor %}
-                                                    </tbody>
-                                                </table>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                     
-                                    <!-- Background Utilities table end -->
+                                        </div>
+                                    </div>
+
+                                    <div id="styleSelector">
+
+                                    </div>
                                 </div>
-                                <!-- Page-body end -->
                             </div>
-                        </div>
-                        <!-- Main-body end -->
-
-                        <div id="styleSelector">
-
                         </div>
                     </div>
                 </div>
+                
             </div>
         </div>
-    </div>
-</div>
 
-
-
-<!-- Warning Section Starts -->
-<!-- Older IE warning message -->
+        <!-- Warning Section Starts -->
+        <!-- Older IE warning message -->
     <!--[if lt IE 9]>
 <div class="ie-warning">
     <h1>Warning!!</h1>
@@ -387,9 +264,7 @@
 <script type="text/javascript" src= '{% static "assets1/js/jquery-slimscroll/jquery.slimscroll.js" %}'></script>
 <!-- modernizr js -->
 <script type="text/javascript" src='{% static "assets1/js/modernizr/modernizr.js" %}'></script>
-<script type="text/javascript" src='{% static "assets1/js/modernizr/css-scrollbars.js" %}'></script>
 <!-- am chart -->
-<script type="text/javascript" src='{% static "assets1/js/classie/classie.js" %}'></script>
 <script src='{% static "assets1/pages/widget/amchart/amcharts.min.js" %}'></script>
 <script src='{% static "assets1/pages/widget/amchart/serial.min.js" %}'></script>
 <!-- Todo js -->
@@ -401,6 +276,18 @@
 <script src='{% static "assets1/js/pcoded.min.js" %}'></script>
 <script src='{% static "assets1/js/demo-12.js" %}'></script>
 <script src='{% static "assets1/js/jquery.mCustomScrollbar.concat.min.js" %}'></script>
+<script>
+var $window = $(window);
+var nav = $('.fixed-button');
+    $window.scroll(function(){
+        if ($window.scrollTop() >= 200) {
+         nav.addClass('active');
+     }
+     else {
+         nav.removeClass('active');
+     }
+ });
+</script>
 </body>
 
 </html>
