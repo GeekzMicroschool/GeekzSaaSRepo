@@ -1073,7 +1073,7 @@ def requestTC(request,student_id):
     subject='Student requesting Tc'
     html_template='socialaccount/email/studentrequestingTc.html'
     html_message=render_to_string(html_template,{'id': student_obj.student_id , 'firstname':student_obj.first_name,'lastname':student_obj.last_name})
-    to_email= 'hello@geekz.school'
+    to_email= ''
     message=EmailMessage(subject, html_message, settings.EMAIL_HOST_USER, [to_email])
     message.content_subtype='html'
     message.send()

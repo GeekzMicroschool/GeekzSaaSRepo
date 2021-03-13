@@ -144,7 +144,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="auth-normal-sign-in.html">
+                                        <a href="/logout">
                                             <i class="ti-layout-sidebar-left"></i> Logout
                                         </a>
                                     </li>
@@ -334,6 +334,7 @@
                                                     <tbody>
                                                         {% for i in objectProf %}
                                                         <tr>
+                                                            {% if i.studentProfile.uid.Profiling_complete == 'N' %}
                                                            
                                                             <td>{{i.studentProfile.uid.student_id}}</td>
                                                             <td>{{i.studentProfile.uid.first_name}}</td>
@@ -344,11 +345,12 @@
                                                             <td>{{i.studentProfile.HEADING}}</td>
                                                             <td>{{i.studentProfile.modeofprofiling}}</td>
                                                             <td>{{i.feedback}}</td>
-                                                            {% if i.studentProfile.uid.Profiling_complete == 'Y' %}
+                                                            {% if i.studentProfile.uid.Profiling_complete == 'N' %}
                                                             <td><a href="approve_profiling/{{i.studentProfile.uid.student_id}}"><button type="button">Approve</button></a></td>
                                                             <td><a href="reject_profiling/{{i.studentProfile.uid.student_id}}"><button type="button">Reject</button></a></td>
                                                             {% endif %}
                                                         </tr>
+                                                        {% endif %}
                                                         {% endfor %}
                                                     </tbody>
                                                 </table>
