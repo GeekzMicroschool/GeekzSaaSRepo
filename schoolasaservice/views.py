@@ -1061,16 +1061,35 @@ def individualAdmin_approvels(request):
     inquirys = InquiryS.objects.filter(microschool=admin_web.SCHOOL_NAME,ISAPPROVED='N')
     return render(request,"individualAdminDashboard/bs-basicApprovel.html",{'inquirys':inquirys,'profile':profile})
 
-### Student Inquiry Aapprove by Individual Admin
-def inquiryApprove(request,uid):
+def studentinquiryadmin(request):
     user_id=request.session['user_id']
     user=User.objects.get(id=user_id)
-    uid_obj = USER_DETAILS.objects.get(USER_EMAIL=user.email)
-    admin_web = INDIVIDUAL_WEBPAGESS1.objects.get(uid = uid_obj.uid)
-    inquirys = InquiryS.objects.get(microschool=admin_web.SCHOOL_NAME,uid=uid)
+    name = user.first_name
+    inquirys = InquiryS.objects.filter(ISAPPROVED='N')
+    return render(request,'superAdminDashboard/studentinquiryadmin.html',{'inquirys':inquirys,'name':name})
+
+def requestTC(request,student_id):
+    student_obj = studentApplications.objects.get(student_id = student_id)
+    subject='Student requesting Tc'
+    html_template='socialaccount/email/studentrequestingTc.html'
+    html_message=render_to_string(html_template,{'id': student_obj.student_id , 'firstname':student_obj.first_name,'lastname':student_obj.last_name})
+    to_email= 'hello@geekz.school'
+    message=EmailMessage(subject, html_message, settings.EMAIL_HOST_USER, [to_email])
+    message.content_subtype='html'
+    message.send()
+
+
+
+### Student Inquiry Aapprove by Individual Admin
+def inquiryApprove(request,uid):
+    #user_id=request.session['user_id']
+    #user=User.objects.get(id=user_id)
+    #uid_obj = USER_DETAILS.objects.get(USER_EMAIL=user.email)
+    #admin_web = INDIVIDUAL_WEBPAGESS1.objects.get(uid = uid)
+    inquirys = InquiryS.objects.get(uid=uid)
     inquirys.ISAPPROVED ='Y'
     inquirys.save(update_fields=['ISAPPROVED'])
-    inquirys_updated = InquiryS.objects.filter(microschool=admin_web.SCHOOL_NAME,ISAPPROVED='N')
+    inquirys_updated = InquiryS.objects.filter(ISAPPROVED='N')
     subject='Inquiry Mail'
     html_template='socialaccount/email/inquirymail.html'
     html_message=render_to_string(html_template,{'microschool': inquirys.microschool})
@@ -2032,8 +2051,15 @@ def IndividualApproveProfiling(request):
     ud = INDIVIDUAL_WEBPAGESS1.objects.filter(uid = uid_obj.uid)
     ud1 = list(ud)
     ud1 = ud1[0]
-    objectProf = studentProfileFeedback.objects.filter(USER=ud1.SCHOOL_NAME, Profiling_done='Y')
+    objectProf = studentProfileFeedback.objects.filter(school=ud1.SCHOOL_NAME, Profiling_done='Y')
     return render(request,'individualAdminDashboard/individualprofiling.html',{'objectProf':objectProf,'profile':profile})
+
+def studentProfilingadmin_Approve(request):
+    user_id=request.session['user_id']
+    user=User.objects.get(id=user_id)
+    name = user.first_name
+    objectProf = studentProfileFeedback.objects.filter(Profiling_done='Y')
+    return render(request,'superAdminDashboard/studentProfilingadmin_Approve.html',{'objectProf':objectProf,'name':name})
 
 def Studentfeedbackprofiling(request):
     user_id=request.session['user_id']
@@ -2057,8 +2083,9 @@ def StudentprofileMessage(request,id):
         ud = INDIVIDUAL_WEBPAGESS1.objects.get(uid = uid_obj.uid)
         profile = MICRO_APPLY.objects.filter(uid = uid_obj.uid)
         student_obj = studentApplications.objects.get(student_id=id)
+        scheduled = StudentProfilings.objects.get( uid = student_obj)
         feedback  =  request.POST['feedback']
-        feedback_obj = studentProfileFeedback(uid = id ,feedback=feedback,Profiling_done = 'Y',school=ud.SCHOOL_NAME,studentProfile= student_obj)
+        feedback_obj = studentProfileFeedback(uid = id ,feedback=feedback,Profiling_done = 'Y',school=ud.SCHOOL_NAME,studentProfile= scheduled)
         feedback_obj.save()
         student_obj.Profiling_complete = 'Y'
         student_obj.save(update_fields = ['Profiling_complete'])
@@ -2079,7 +2106,7 @@ def approve_profiling(request,student_id):
     student_obj = studentApplications.objects.get(student_id=student_id)
     student_obj.Profiling_approved ='Y'
     student_obj.save(update_fields=['Profiling_approved'])
-    Prof = StudentProfilings.objects.get(uid = o)
+    Prof = StudentProfilings.objects.get(uid = student_obj)
     Prof.IS_APPROVED = 'Y'
     Prof.save(update_fields=['IS_APPROVED'])
     subject='Kid Selected'
@@ -2493,9 +2520,6 @@ def SaaSProfileFeedback(request):
     user=User.objects.get(id=user_id)
     name = user.first_name
     micro = MICRO_PROFILING.objects.filter(IS_PROFILINGCOMPLETE='Y',IS_APPROVED='N')
-    if request.method == "POST" :
-        uid = request.POST['uid']
-        return redirect('SaaSprofileMessage',uid=uid)
     return render(request,'superAdminDashboard/SaaSProfileFeedback.html',{'micro':micro,'name':name})
 
 def SaaSprofileMessage(request,uid):
@@ -2506,6 +2530,7 @@ def SaaSprofileMessage(request,uid):
         message.save()
         return redirect('superAdmin_dashboard')
     return render(request,'superAdminDashboard/SaaSprofileMessage.html')
+
 
 
 def Profiling_accept(request,uid):
@@ -2589,12 +2614,16 @@ def studentDashboard(request):
         grade = 'Upper Elementary Studio'
     ########
     enrolled = enrolledStudents.objects.filter(active_status = 'Y',academic_year=obj.academic_year,student_enrolled=studentObj)
+    enrolled_alumni = enrolledStudents.objects.filter(active_status = 'N',academic_year=obj.academic_year,student_enrolled=studentObj)
     student_active=''
     if enrolled:
         student_active = 'yes'
     else:
-        student_active = 'no'    
-    return render(request,'studentDashboard/studentDashboard.html',{'name':name,'enrolled':enrolled,'info':info,'student_active':student_active,'grade':grade})
+        student_active = 'no' 
+    if enrolled_alumni:
+        student_active = 'left'
+                  
+    return render(request,'studentDashboard/studentDashboard.html',{'name':name,'enrolled':enrolled,'info':info,'student_active':student_active,'grade':grade,'enrolled_alumni':enrolled_alumni})
 
 def studentfeestatus(request):
     obj = academicYear.objects.all()

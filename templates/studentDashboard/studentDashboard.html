@@ -234,16 +234,85 @@
                                                                 {{i.student_enrolled.Mothersname}}
                                                             </div>
                                                         </div> 
-                                                       
                                                         <br> <br>
                                                         <div class="row">
                                                             <a href = "studentprofileEdit/{{i.student_enrolled.student_id}}"><button type="button" class="btn btn-primary">Update</button></a>  &nbsp; &nbsp;
-                                                            <button type="button" class="btn btn-primary">Request Tc</button> 
+                                                         <a href ="requestTC/{{i.student_enrolled.student_id}}">  <button type="button" class="btn btn-primary">Request Tc</button> </a> 
                                                         </div> 
                                                         {% endfor %}
                                                     </div>
                                                     </div>
                                                 {% endif %}
+                                                {% if student_active == 'left' %}
+                                                <div class="card-block">
+                                                <div class="container">
+                                                    {% for i in enrolled_alumni %}
+                                                    <h5>Profile</h5>
+                                                    <br>
+                                                     <div class="row">
+                                                         <div class="col-md-4">
+                                                            <b> School Name :</b> 
+                                                         </div>
+                                                         <div class="col-md-6">
+                                                             {{i.student_enrolled.microschool.SCHOOL_NAME}}
+                                                         </div>
+                                                     </div> 
+                                                     <br>
+                                                     <div class="row">
+                                                        <div class="col-md-4">
+                                                           <b> Studio :</b> 
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            {{i.grade}}
+                                                        </div>
+                                                    </div> 
+                                                    <br> 
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                           <b> Grade :</b> 
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            {{i.current_grade}}
+                                                        </div>
+                                                    </div>  
+                                                    <br> 
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                           <b> Status Active :</b> 
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            {{i.active_status}}
+                                                        </div>
+                                                    </div>  
+                                                    <br> 
+                                                    <br>
+                                                    <h4>Parent Information</h4>
+                                                    <br>
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                           <b> Father Name :</b> 
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            {{i.student_enrolled.Fathersname}}
+                                                        </div>
+                                                    </div> 
+                                                    <br>
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                           <b> Mother Name :</b> 
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            {{i.student_enrolled.Mothersname}}
+                                                        </div>
+                                                    </div> 
+                                                    <br> <br>
+                                                    <div class="row">
+                                                     <a href ="studentTranscript_pdf/{{i.student_enrolled.student_id}}">  <button type="button" class="btn btn-primary">Download Tc</button> </a> 
+                                                    </div> 
+                                                    {% endfor %}
+                                                </div>
+                                                </div>
+                                            {% endif %}
                                                 {% if student_active == 'no' %}
                                                 <div class="card-block">
                                                 <div class="container">

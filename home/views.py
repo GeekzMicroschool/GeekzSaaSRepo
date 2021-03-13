@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User,auth
 from django.contrib import messages
 from schoolasaservice.models import MICRO_APPLN, QUEST_APPLN, MICRO_AUDN, QUEST_AUDN,MICRO_APPLY
+from schoolasaservice.models import *
 from .models import USER_DETAILS
 #from allauth.account.decorators import verified_email_required
 from django.contrib.auth.decorators import login_required
@@ -49,9 +50,97 @@ def searchbar(request):
 def search_filter(request):
      return render(request,'search_filter.html')
 
+#### landing page #######
 #@login_required
 def index(request):
-    return render(request, 'index.html')
+    if request.method == "POST" :
+        SaaSLoc_lat=float(request.POST['loc_lat'])
+        SaaSLoc_long=float(request.POST['loc_long'])
+        user_location = Point(SaaSLoc_long,SaaSLoc_lat)
+        cr = MICRO_APPLY.objects.values()
+        clients = cr.filter(location__distance_lt=(user_location,Distance(m=5000)))
+        print(type(clients))
+        print("data",clients)
+        cl = list(clients)
+        print('hhhhhhhhhhhhhhhhhhhh',cl)
+        uid_list = []
+        if clients:
+            for c in cl:
+                print("for loo",c)
+                uid_list.append(c['uid'])
+            print(uid_list)    
+            cl1 = cl[0]
+            print(cl1)
+            cl2 = cl1['uid']
+            print(cl2)
+            cards = []
+            feeds = []
+            for k in uid_list:
+                cards_obj = INDIVIDUAL_WEBPAGESS1.objects.filter(uid = k)
+                cards_obj1 = INDIVIDUAL_WEBPAGESS1.objects.get(uid = k)
+                #feed_obj = feedback_users.objects.filter(school_name=cards_obj1.SCHOOL_NAME).order_by('rating')
+                #if feed_obj:
+                    #feeds.append(feed_obj)
+                cards.append(cards_obj)
+            print('objects',cards) 
+            #print('feed',feeds)   
+            #cards_obj = INDIVIDUAL_WEBPAGESS1.objects.filter(uid = cl2)
+            #cards_obj1 = INDIVIDUAL_WEBPAGESS1.objects.get(uid = cl2)
+            #feed_obj = feedback_users.objects.filter(school_name=cards_obj1.SCHOOL_NAME).order_by('rating')
+            #fed = list(feed_obj)
+            #fed1 =fed[0]
+            #print(fed1.rating)
+            print(cards_obj)
+            return render(request,'affliateslist.html',{'cards_obj':cards})
+        else:
+            return render(request,'affliatesnotfound.html')
+    return render(request,'index.html')
+
+def webpage(request,LOCALITY):
+    print('url',LOCALITY)
+    l = INDIVIDUAL_WEBPAGESS1.objects.filter(LOCALITY=LOCALITY)
+    obj_admin = list(l)
+    obj_admin = obj_admin[0]
+    user_id=request.session['user_id']
+    user=User.objects.get(id=user_id) 
+    s_inquiry = InquiryS.objects.filter(uid = user.id)
+    if s_inquiry:
+        l= INDIVIDUAL_WEBPAGESS1.objects.filter(LOCALITY=LOCALITY) 
+        return render(request, 'webpage.html',{'webform_done':'done','l':l})
+    else:
+        if request.method == "POST" :
+            user_id=request.session['user_id']
+            user=User.objects.get(id=user_id)
+            print(user.id)
+            name = request.POST['s_name']
+            enrolling_grade = request.POST['enrolling_grade']
+            email = request.POST['email']
+            phone = request.POST['phone']
+            hear_about = request.POST['hear_about']
+            school_name = request.POST['school_name']
+            inquiry_obj = InquiryS(uid=user.id,studentName=name,enrolling_grade=enrolling_grade,email=email,phone=phone,hear_about_us=hear_about,microschool=school_name)
+            inquiry_obj.save()
+            
+            #### email  to   individual admin #####
+            emailadmin = MICRO_APPLY.objects.get(uid=obj_admin.uid)
+            subject='Student submitted inquiry'
+            html_template='socialaccount/email/admin_emailInquiry.html'
+            html_message=render_to_string(html_template)
+            to_email= emailadmin.EMAIL
+            message=EmailMessage(subject, html_message, settings.EMAIL_HOST_USER, [to_email])
+            message.content_subtype='html'
+            message.send()
+            location = INDIVIDUAL_WEBPAGESS1.objects.get(LOCALITY=LOCALITY)
+            latitude = location.LATITUDE
+            longitude = location.LONGITUDE
+            print(type(latitude))
+            return redirect('webpage',LOCALITY=location.LOCALITY)
+    return render(request, 'webpage.html',{'l':l})
+
+
+#@login_required
+'''def index(request):
+    return render(request, 'index.html')'''
 
 def schoolasaservice(request):
     return render(request, 'schoolasaservice.html')

@@ -1,5 +1,7 @@
 from django.urls import path
 from . import views
+from schoolasaservice.views import *
+
 
 urlpatterns = [
     path('', views.index, name="index"),
@@ -15,6 +17,7 @@ urlpatterns = [
     #path('signup', views.signup, name="signup"),
     path('serachbar',views.searchbar,name="searchbar"),
     path('search_filter',views.search_filter,name="search_filter"),
-    path('student_profileEdit',views.student_profileEdit,name="spe")
+    path('student_profileEdit',views.student_profileEdit,name="spe"),
+    path('microschool/<LOCALITY>',views.webpage, name='webpage'),
 ]  
     

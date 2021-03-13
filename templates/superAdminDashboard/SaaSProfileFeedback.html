@@ -162,7 +162,7 @@
                            
                             <ul class="pcoded-item pcoded-left-item">
                                 <li class="active">
-                                    <a href="index.html">
+                                    <a href="superAdmin_dashboard">
                                         <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
                                         <span class="pcoded-mtext" data-i18n="nav.dash.main">Dashboard</span>
                                         <span class="pcoded-mcaret"></span>
@@ -186,14 +186,14 @@
                                         <li class=" ">
                                             <a href="SaaSProfileFeedback">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert"> SaaS Feedback </span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">SaaS Profiling Feedback</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
                                         <li class=" ">
                                             <a href="Profiling_saas">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Profiling</span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">SaaS Profiling</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
@@ -201,6 +201,20 @@
                                             <a href="webpage_Approve">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                 <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Webpages</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                        <li class=" ">
+                                            <a href="studentinquiryadmin">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Student Inquiry</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                        <li class=" ">
+                                            <a href="studentProfilingadmin_Approve">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Student Profiling  </span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
@@ -253,9 +267,9 @@
                                             </a>
                                         </li>
                                         <li class=" ">
-                                            <a href="superAdminFeeStructure">
+                                            <a href="generalinqury">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">FeesStructure</span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">General Inquiry</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
@@ -289,56 +303,41 @@
                                     <!-- Page-header end -->
 
                                     <!-- Page body start -->
-                                    <div class="page-body">
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                <!-- Basic Form Inputs card start -->
-                                                <div class="card">
-                                                    <div class="card-header">
-                                                        <h5>SaaS Profile Feedback</h5>
-                                                       
-                                                        <div class="card-header-right"><i
-                                                            class="icofont icofont-spinner-alt-5"></i></div>
-
-                                                            <div class="card-header-right">
-                                                                <i class="icofont icofont-spinner-alt-5"></i>
-                                                            </div>
-
-                                                        </div>
-                                                        
-                                                        <div class="card-block">
-                                                            <form method = "POST"> {% csrf_token %}
-                                                              
-                                                                <div class="form-group row">
-                                                                    <label class="col-sm-2 col-form-label">Choose Affliate</label>
-                                                                    <div class="col-sm-10">
-                                                                        <select name="uid" class="form-control" required>
-                                                                            <option>-</option>
-                                                                            {% for i in micro %}
-                                                                            <option >{{i.uid}} </option>
-                                                                            {% endfor %}
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                                
-                                                                <button type="submit" class="btn btn-primary">SEND</button>
-                                                            </form>
-                                                         
-                                                                    </div>
-                                                                </div>
-                             
-                             
-                                                                <!-- Main-body end -->
-                                                                <div id="styleSelector">
-
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                    <div class="card">
+                                        <br>
+                                        <div class="col-md-4">
+                                        <input type="search" placeholder="Search..." class="form-control search-input" data-table="table_personalinfo"/>
+                                       </div>
+                                        <div class="card-header">
+                                            <h5>SaaS Profile Feedback</h5>
+                                           
+                                            <div class="card-header-right">    <ul class="list-unstyled card-option">        <li><i class="icofont icofont-simple-left "></i></li>        <li><i class="icofont icofont-maximize full-card"></i></li>        <li><i class="icofont icofont-minus minimize-card"></i></li>        <li><i class="icofont icofont-refresh reload-card"></i></li>        <li><i class="icofont icofont-error close-card"></i></li>    </ul></div>
+                                        </div>
+                                        <div class="card-block table-border-style">
+                                            <div class="table-responsive">
+                                                <table class="table table_personalinfo">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>uid</th>
+                                                            <th>Event Id</th>
+                                                            <th>Heading</th>
+                                                            <th>Feedback</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {% for i in micro %}
+                                                        <tr>
+                                                            
+                                                            <td>{{i.uid}}</td>
+                                                            <td>{{i.EVENT_ID}}</td>
+                                                            <td>{{i.HEADING}}</td>
+                                                            <td><a href="SaaSprofileMessage/{{i.uid}}"><button  type="button">Give Feedback</button></td>
+                                                        </tr>
+                                                        {% endfor %}
+                                                    </tbody>
+                                                </table>
                                             </div>
                                         </div>
-
                                     </div>
                                         <!-- Warning Section Starts -->
                                         <!-- Older IE warning message -->

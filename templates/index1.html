@@ -1427,6 +1427,103 @@ video {
                 </div>
             </div>
         </section>
+        <section id="job"  style="background-color:#f8f8f8;">
+            <div class="container">
+                <div class="row" align="center">
+                
+                    <div class="sec-title text-center wow animated fadeInDown">
+                        <h2>Jobs at Geekz</h2>
+                        <p>Be the change.</p><br>
+                        <p>We look for educators with care, creativity and passion to rebuild schooling ground up, NOT the degrees or teaching experience as you don't need them to be talented. We welcome innovative talents looking to switch from IT, Visual Communication or any other domains to build future of our nation. <br><br>If you feel driven to create transformative educational experiences that will prepare  our children for 2040 and beyond, please take a look at our jobs below and apply for an open position today.</p>
+                    </div>
+                    <a href="/jobs" target="_blank" class="btn btn-blue btn-effect">Open positions</a>
+                </div>
+            </div>
+        </section>
+        <section id="contact" >
+            <div class="container">
+                <div class="row">
+                    
+                    <div class="sec-title text-center wow animated fadeInDown">
+                        <h2>Contact</h2>
+                        <p>Leave a Message</p>
+                    </div>
+                    
+                    
+                    <div class="col-md-7 contact-form wow animated fadeInLeft">
+                        <p id="geekzinquiry"></p>
+                        <form id="inquiry" action="javascript:postInquiryToGoogle()" method="post">
+                            <div class="input-field">
+                                <input type="text" id="InquiryName" class="form-control" placeholder="Your Name..." required>
+                            </div>
+                            <div class="input-field">
+                                <input type="text" id="InquiryDOB" class="form-control" placeholder="Date of Birth..." onfocus="(this.type='date')" required>
+                            </div>
+                            <div class="input-field">
+                                <select id="InquiryGrade" class="form-control" required>
+                                    <option selected disabled>Your Grade...</option>
+                                    <option>Pre-K</option>
+                                    <option>Jr-K</option>
+                                    <option>Sr-K</option>
+                                    <option>1st Grade</option>
+                                    <option>2nd Grade</option>
+                                    <option>3rd Grade</option>
+                                    <option>4th Grade</option>
+                                    <option>5th Grade</option>
+                                </select>
+                            </div>
+                            <div class="input-field">
+                                <input type="email" id="InquiryEmail" class="form-control" placeholder="Your Email..." required>
+<!--                                    <input type="email" name="_replyto" class="form-control" placeholder="Your Email..." required>-->
+<!--                                    <input type="hidden" name="_subject" value="Regarding your message to Studio Geekz!" />-->
+                            </div>
+                            <div class="input-field">
+                                <input type="number" id="InquiryPhone" class="form-control" placeholder="Your Phone..." required>
+                            </div>
+                            <div class="input-field">
+                                <input type="text" id="InquirySubject" class="form-control" placeholder="Subject..." required>
+                            </div>
+                            <div class="input-field">
+                                <textarea id="InquiryMessage" class="form-control" placeholder="Messages..." required></textarea>
+                            </div>
+                            <div class="input-field">
+                                <select id="InquiryMarketing" class="form-control" required>
+                                    <option selected disabled>How Did You Hear About Geekz...</option>
+                                    <option>Previous School Students/Families</option>
+                                    <option>Geekz Students/Families</option>
+                                    <option>Friend/Acquaintance</option>
+                                    <option>Geekz Website</option>
+                                    <option>Web Search</option>
+                                    <option>Print Ad</option>
+                                    <option>Online Ad</option>
+                                    <option>News Article</option>
+                                    <option>Geekz Blog</option>
+                                    <option>Social Media</option>
+                                    <option>Other</option>
+                                </select>
+                            </div>
+                               <button type="submit" id="submit" class="btn btn-blue btn-effect">Send</button>
+                        </form>
+                    </div>
+                    
+                    <div class="col-md-5 wow animated fadeInRight">
+                        <address class="contact-details">
+                            <h3>Contact Us</h3>						
+<!--								<p><i class="fa fa-pencil"></i>Phoenix Inc.<span>PO Box 345678</span> <span>Little Lonsdale St, Melbourne </span><span>Australia</span></p><br>-->
+                            <p><i class="fa fa-pencil"></i>Door No 21 Plot No 196<span>4th Street Murugu Nagar</span><span>Velachery Chennai</span></p><br>
+                            <p><i class="fa fa-phone"></i>Phone: +91 98842 GEEKZ<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+91 98842 43359</span></p>
+                            <p><i class="fa fa-envelope"></i>hello@geekz.school</p>
+                        </address>
+                    </div>
+        
+                </div>
+            </div>
+        </section>
+
+        <section id="google-map">
+            <div id="map-canvas" class="wow animated fadeInUp"></div>
+        </section>
+        
             <!-- jQuery -->
 		<script src="{% static 'assets/js/jquery.min.js' %}"></script>
 		

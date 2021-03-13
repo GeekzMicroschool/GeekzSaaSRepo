@@ -301,111 +301,59 @@
                                    
                                 <!-- Page-header end -->
                                 
-  
                                 <!-- Page-body start -->
                                 <div class="page-body">
                                     <!-- Basic table card start -->
                                     <div class="card">
-                                        <br>
                                         <div class="col-md-4">
-                                            <input type="search" placeholder="Search..." class="form-control search-input" data-table="web"/>
+                                            <input type="search" placeholder="Search..." class="form-control search-input" data-table="inquiry"/>
                                         </div>
                                         <div class="card-header">
-                                            <h5>Webpage Details</h5>
+                                            <h5>Approvels</h5>
                                            
-                                            <div class="card-header-right">    <ul class="list-unstyled card-option"> <li><i class="icofont icofont-simple-left "></i></li>        <li><i class="icofont icofont-maximize full-card"></i></li>        <li><i class="icofont icofont-minus minimize-card"></i></li>        <li><i class="icofont icofont-refresh reload-card"></i></li>        <li><i class="icofont icofont-error close-card"></i></li>    </ul></div>
+                                            <div class="card-header-right">    <ul class="list-unstyled card-option"><li><i class="icofont icofont-simple-left "></i></li>        <li><i class="icofont icofont-maximize full-card"></i></li>        <li><i class="icofont icofont-minus minimize-card"></i></li>        <li><i class="icofont icofont-refresh reload-card"></i></li>        <li><i class="icofont icofont-error close-card"></i></li>    </ul></div>
                                         </div>
                                         <div class="card-block table-border-style">
                                             <div class="table-responsive">
-                                                <table class="table web">
+                                                <table class="table inquiry">
                                                     <thead>
                                                         <tr>
-                                                            
-                                                            <th>admin id</th>
-                                                            <th>SCHOOL_NAME</th>
-                                                            <th>LOCALITY</th>
-                                                            <th>is_Spacious_Studio</th>
-                                                            <th>is_Outdoor_PlayLawn</th>
-                                                            <th> is_Commute</th>
-                                                            <th>is_WiFi</th>
-                                                            <th>is_CCTV</th>
-                                                            <th>is_Device</th>
-                                                            <th>is_Food</th>
-                                                            <th>is_Daycare</th>
-                                                            <th>is_After_School</th>
-                                                            <th>is_Residential</th>
-                                                            <th>GOOGLE_REVIEWS_LINK </th>
-                                                            <th>ADDRESS1</th>
-                                                            <th>ADDRESS2</th>
-                                                            <th>SCHOOL_LOCALITY</th>
-                                                            <th>SCHOOL_PHONE</th>
-                                                            <th>SCHOOL_PHONE1</th>
-                                                            <th>SCHOOL_EMAIL</th>
-                                                            <th>SCHOOL_HOURS_KS</th>
-                                                            <th>SCHOOL_HOURS_ES</th>
-                                                            <th>FOUNDER_NAME</th>
-                                                            <th>DESIGNATION</th>
-                                                            <th>CONTENT</th>
-                                                            <th>CO_FOUNDER1</th>
-                                                            <th>DESIGNATION_CO1</th>
-                                                            <th>CONTENT</th>
-                                                            <th>CO_FOUNDER2</th>
-                                                            <th>DESIGNATION_CO2</th>
-                                                            <th>CONTENT</th>
-                                                            <th>Bannners</th>
-                                                            <th>Complete </th>
-                                                            <th>Approve</th> 
+                                                            <th>#</th>
+                                                            <th>Student Name</th>
+                                                            <th>Enrolling Grade</th>
+                                                            <th>Email</th>
+                                                            <th>Phone</th>
+                                                            <th>School</th>
+                                                            <th>Hear About Us</th>
+                                                            <th>Approve</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        {% for i in web %}
+                                                        {% for i in inquirys %}
                                                         <tr>
-                                                           
-                                                            <td>{{i.uid}}</td>
-                                                            <td>{{i.SCHOOL_NAME}}</td>
-                                                            <td>{{i.LOCALITY}}</td>
-                                                            <td>{{i.AMENITIES_is_Spacious_Studio}}</td>
-                                                            <td>{{i.AMENITIES_is_Outdoor_PlayLawn}}</td>
-                                                            <td>{{i.AMENITIES_is_Commute}}</td>
-                                                            <td>{{i.AMENITIES_is_WiFi}}</td>
-                                                            <td>{{i.AMENITIES_is_CCTV}}</td>
-                                                            <td>{{i.AMENITIES_is_Food }}</td>
-                                                            <td>{{i.AMENITIES_is_Daycare}}</td>
-                                                            <td>{{i.AMENITIES_is_After_School}}</td>
-                                                            <td>{{i.AMENITIES_is_Residential}}</td>
-                                                            <td>{{i.AMENITIES_is_Device}}</td>
-                                                            <td>{{i.GOOGLE_REVIEWS_LINK}}</td>
-                                                            <td>{{i.ADDRESS1}}</td>
-                                                            <td>{{i.ADDRESS2}}</td>
-                                                            <td>{{i.SCHOOL_LOCALITY}}</td>
-                                                            <td>{{i.SCHOOL_PHONE}}</td>
-                                                            <td>{{i.SCHOOL_PHONE1}}</td>
-                                                            <td>{{i.SCHOOL_EMAIL}}</td>
-                                                            <td>{{i.SCHOOL_HOURS_KS }}</td>
-                                                            <td>{{i.SCHOOL_HOURS_ES}}</td>
-                                                            <td>{{i.FOUNDER_NAME}}</td>
-                                                            <td>{{i.DESIGNATION}}</td>
-                                                            <td>{{i.CONTENT1}}</td>
-                                                            <td>{{i.CO_FOUNDER1}}</td>
-                                                            <td>{{i.DESIGNATION_CO1}}</td>
-                                                            <td>{{i.CONTENT2}}</td>
-                                                            <td>{{i.CO_FOUNDER2}}</td>
-                                                            <td>{{i.DESIGNATION_CO2}}</td>
-                                                            <td>{{i.CONTENT3}}</td>
-                                                            <td><a href="viewbanners/{{i.uid}}"><button  type="button"> Bannners and Gala</button></a></td>
-                                                           
-                                                           <td>{{i.IS_COMPLETE}}</td>
-                                                           <td>{{i.IS_APPROVED}}</td>
+                                                            <th scope="row">1</th>
+                                                            <td>{{i.studentName}}</td>
+                                                            <td>{{i.enrolling_grade}}</td>
+                                                            <td>{{i.email}}</td>
+                                                            <td>{{i.phone}}</td>
+                                                            <td>{{i.school}}</td>
+                                                            <td>{{i.hear_about_us}}</td>
+                                                            <td><a href="inquiryApprove/{{i.uid}}"><button type="button">Approve</button></a></td>
                                                         </tr>
-                                                      {% endfor %}
-                                                         
+                                                        {% endfor %}
                                                     </tbody>
                                                 </table>
-                                                
                                             </div>
                                         </div>
                                     </div>
                                     
+                                   
+                                  
+                                    <!-- Background Utilities table end -->
+                                </div>
+                                <!-- Page-body end -->
+                            </div>
+                        </div>
                         <!-- Main-body end -->
 
                         <div id="styleSelector">
@@ -456,6 +404,7 @@
 
     })(document);
 </script>
+
 
 
 <!-- Warning Section Starts -->
