@@ -2460,7 +2460,7 @@ def auditionApprove(request):
     name = user.first_name
     personal_info = MICRO_APPLY.objects.all()
     audition = MICRO_AUDN.objects.filter(IS_COMPLETE='Y',IS_APPROVED='N')
-    return render(request,'superAdminDashboard/auditionApprove.html',{'audition':audition,'name':name}) 
+    return render(request,'superAdminDashboard/auditionApprove.html',{'personal_info':personal_info,'audition':audition,'name':name}) 
 
 
 

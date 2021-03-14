@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'base_new.html' %}
 {% load static %}
 {% load socialaccount %}
 {% block title %}Apply | Geekz School-as-a-Service{% endblock title %}
@@ -351,28 +351,13 @@
                         <div class="tabb">
                            <h3><b>Affiliate Information</b></h3>
                            <div class="input-field">
-                                <select id="SaaSLTB" name="SaaSLTB" class="form-control" required>
-                                    <option value="" selected disabled>Love To Become...</option>
-                                    <option value="Questschool">Questschool</option>
-                                    <option value="Microschool">Microschool</option>
-                                    <option value="Both">Both</option>
-                                </select>
-                                <div style="display: none;" id="errmsgltb">
-                                    <p style="color: red; font-size:10px;">Please select an item in the list.</p>
-                                </div>
-                            </div>
-
+                            <input type="text" id="SaaSName" name="SaaSName" value="Microschool" readonly class="form-control" placeholder="Your Name..." required>
+                          </div>
+                          
                             <div class="input-field">
-                                <select id="SaaSSchoolMode" name="SaaSSchoolMode" class="form-control" required>
-                                    <option value="" selected disabled>School Mode Of Operation...</option>
-                                    <option value="Online">Online</option>
-                                    <option value="In-Person (Post Covid)">In-Person (Post Covid)</option>
-                                    <option value="Both">Both</option>
-                                </select>
-                                <div style="display: none;" id="errmsgsm">
-                                    <p style="color: red; font-size:10px;">Please select an item in the list.</p>
-                                </div>
+                                <input type="text" id="SaaSName" name="SaaSName" value="In-Person" readonly class="form-control" placeholder="Your Name..." required>
                             </div>
+                            
 
                             <div class="input-field">
                                 <select id="SaaSSOperate" name="SaaSSOperate" class="form-control" required>
@@ -390,10 +375,10 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-<div class="form-group">
+<div class="input-field">
   <input type="text" class="form-control" name="SaaSSchoolArea" id="SaaSSchoolArea" placeholder="School Locality...." />
-  <input type="text" name="loc_lat"  id="loc_lat" />
-  <input type="text" name="loc_long" id="loc_long" />
+  <input type="hidden" name="loc_lat"  id="loc_lat" />
+  <input type="hidden" name="loc_long" id="loc_long" />
 </div>
 <!-- Remove powered by gogle -->
 <style>

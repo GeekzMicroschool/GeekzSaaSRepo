@@ -19,5 +19,9 @@ urlpatterns = [
     path('search_filter',views.search_filter,name="search_filter"),
     path('student_profileEdit',views.student_profileEdit,name="spe"),
     path('microschool/<LOCALITY>',views.webpage, name='webpage'),
+    path('Account_Email',views.Account_Email, name='Account_Email'),
+    path('searchresults',views.searchresults, name='searchresults'),
+    path('locationnotvalid',views.locationnotvalid, name='locationnotvalid'),
+    path('notify',views.notify, name='notify'),
 ]  
     

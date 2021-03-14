@@ -1,387 +1,458 @@
-{% extends 'base.html' %}
+{% extends 'base_new.html' %}
 {% load static %}
 
 {% block content %}
 
-		
-    <!--Home Slider==================================== -->
+{% load static %}
+<div class="section slide-caption">
+     <div class="contents_header caption-content">
+    <h2 class="animated fadeInDown"><b style="color:#FF0000;">American</b> School</h2>
+    <br>
+    <span style="color:white;" class="animated fadeInDown">Internationally affiliated to | <b style="color:#FF0000">US Curriculum</b></span>
+   <!-- <a href="#portfolio" class="btn btn-blue btn-effect">Gala</a> -->
+    <!--Day At geekz Video -->
+    <link href="assets/img/favicon.png" rel="icon">
+    <a href="/schoolasaservice" class ="btn btn-blue btn-effect buttongeekzhome">School as a Service</a><br><br>
     
-    <section id="home-slider">
-        <div id="slider" class="sl-slider-wrapper">
-            <div class="sl-slider">
-                
-               <!-- <div class="sl-slide" data-orientation="horizontal" data-slice1-rotation="3" data-slice2-rotation="3" data-slice1-scale="2" data-slice2-scale="1">
-                    
-                    <div class="bg-img bg-img-4"></div>
-                    <div class="slide-caption">
-                        <div class="caption-content">
-                            <h2 style="color:#FF0000;">Air Pollution Awareness Art Contest</h2>
-                            <span>Go Green. Breathe Clean.</span>
-                            <a href="AirPollutionArtContest.html" target="_blank" class="btn btn-blue btn-effect">Enroll</a>
-                        </div>
-                    </div>
-                </div> -->
-                
-                <div class="sl-slide" data-orientation="vertical" data-slice1-rotation="10" data-slice2-rotation="-15" data-slice1-scale="1.5" data-slice2-scale="1.5">
-                
-                    <div class="bg-img bg-img-5"></div>
-                    <div class="slide-caption">
-                        <div class="caption-content">
-                            <h2 class="animated fadeInDown"><b style="color:#FF0000">American</b> School</h2>
-                            <span class="animated fadeInDown">Internationally affiliated to | <b style="color:#FF0000">US Curriculum</b></span>
-                           <!-- <a href="#portfolio" class="btn btn-blue btn-effect">Gala</a> -->
-                            <!--Day At geekz Video -->
-                            <a href="/schoolasaservice" class ="btn btn-blue btn-effect buttongeekzhome">School as a Service</a><br><br>                            
-                            <a href="/homeschool" class ="btn btn-blue btn-effect buttongeekzhome">Homeschool</a><br><br>
-                            <a href="https://www.youtube.com/channel/UCNy54QG09WBP7ZU8eOSRntQ/videos" target="_blank" class ="btn btn-blue btn-effect buttongeekzhome">Geekz Curriculum</a>
-                               <!-- <div class="modal" id="myModal">
-                                    <div class="modal-content" id="modal-content">
-                                        <div class="video-box"> 
-                                            <span class="close">&times;</span>
-                                            <video id="myVideo" height="400" width="600" controls preload="none">
-                                                <source src="{% static 'img/slider/DayAtGeekz.mp4' %}" type="video/mp4">
-                                                Your browser doesn't support this.
-                                            </video>
-                                        </div>
-                                    </div>
-                                </div> -->
-                        </div>
-                    </div>
-                    
-                </div>
+    <a href="/homeschool" class ="btn btn-blue btn-effect buttongeekzhome">Homeschool</a><br><br>
+    <a href="https://www.youtube.com/channel/UCNy54QG09WBP7ZU8eOSRntQ/videos" target="_blank" class ="btn btn-blue btn-effect buttongeekzhome">Geekz Curriculum</a>
+  
+     </div>
 
-                
-                <div class="sl-slide" data-orientation="horizontal" data-slice1-rotation="-25" data-slice2-rotation="-25" data-slice1-scale="2" data-slice2-scale="2">
+        <div class="video-container" >
+            <div class="color-overlay"></div>
+            <video autoplay loop muted style="filter:brightness(40%);">
+                <source src='{% static "img/geekz_video.mp4" type="video/mp4" %}'>
+            </video>
+        </div>
 
-                    <div class="bg-img bg-img-1"></div>
+</div>
+	
+<div class="container" style="margin-bottom: 65px;">
+    <br>
+    <div class="sec-title text-center wow animated fadeInDown">
+        <h2>A School for the 21st Centuary</h2>
+    </div>
+     <div  class="row">
+         <div  class="col-md-5">
+            <div class="row">
+                <div  class="col-md-12" >							
+                          <div class="c-div">
+                         <img src="{% static 'img/flip.png' %} " style="width:100%;height:70%;max-width:700px;max-height:300px;display:block;margin:0 auto;padding-top:35px;" alt="learning cycle">
+                    <!-- 	<button  data-dismiss="modal" class="btn1 close"><i style="color: rgba(0,158,227, 0.78);font-size:30px;"class="fa fa-play" aria-hidden="true"></i></button> -->
+                    <center><h3>Disruptive Education</h3>
+                        <p>An award winning independent documentary about Acton Academy</p></center>
+                    <a class="btn1"  href="https://www.youtube.com/embed/hj6iaKZSllg" data-lity><i style="color: rgba(0,158,227, 0.78);font-size:30px;"class="fa fa-play" aria-hidden="true"></i></a>
+                       
+                          </div>  
+              </div>
+        </div>
+        </div>  
+                   
+        <div class="col-md-7">
+            <div  class="row" style="padding-bottom: 6px;">
+                <div  class="col-md-6 ">
+                    <div class="c-div">
+                        <img src="{% static 'img/flip.png' %} " style="width:100%;height:auto;max-width:700px;max-height:300px;display:block;margin:0 auto;" alt="learning cycle">
+                   <!-- 	<button  data-dismiss="modal" class="btn1 close"><i style="color: rgba(0,158,227, 0.78);font-size:30px;"class="fa fa-play" aria-hidden="true"></i></button> -->
+                   <a class="btn1"  href="https://www.youtube.com/embed/hj6iaKZSllg" data-lity><i style="color: rgba(0,158,227, 0.78);font-size:30px;"class="fa fa-play" aria-hidden="true"></i></a>
+                   <center><h4>Disruptive Education</h4>
+                    <p>An award winning independent </p></center>
+                     </div>   
+                </div>  
+                <div class="col-md-6 ">
+                    <div class="c-div">
+                        <img src="{% static 'img/flip.png' %} " style="width:100%;height:auto;max-width:700px;max-height:300px;display:block;margin:0 auto;" alt="learning cycle">
+                   <!-- 	<button  data-dismiss="modal" class="btn1 close"><i style="color: rgba(0,158,227, 0.78);font-size:30px;"class="fa fa-play" aria-hidden="true"></i></button> -->
+                   <a class="btn1"  href="https://www.youtube.com/embed/hj6iaKZSllg" data-lity><i style="color: rgba(0,158,227, 0.78);font-size:30px;"class="fa fa-play" aria-hidden="true"></i></a>
+                   <center><h4>Disruptive Education</h4>
+                    <p>An award winning independent </p></center>
+                         </div>  
+                 </div>         
+            </div> 
+             
+            <div  class="row">
+                <div class="col-md-6">
+                    <div class="c-div">
+                        <img src="{% static 'img/flip.png' %} " style="width:100%;height:auto;max-width:700px;max-height:300px;display:block;margin:0 auto;" alt="learning cycle">
+                   <!-- 	<button  data-dismiss="modal" class="btn1 close"><i style="color: rgba(0,158,227, 0.78);font-size:30px;"class="fa fa-play" aria-hidden="true"></i></button> -->
+                   <a class="btn1"  href="https://www.youtube.com/embed/hj6iaKZSllg" data-lity><i style="color: rgba(0,158,227, 0.78);font-size:30px;"class="fa fa-play" aria-hidden="true"></i></a>
+                   <center><h4>Disruptive Education</h4>
+                    <p>An award winning independent </p></center>
+                         </div>  
+                </div>  
+                <div class="col-md-6" >
+                    <div class="c-div">
+                        <img src="{% static 'img/flip.png' %} " style="width:100%;height:auto;max-width:700px;max-height:300px;display:block;margin:0 auto;" alt="learning cycle">
+                   <!-- 	<button  data-dismiss="modal" class="btn1 close"><i style="color: rgba(0,158,227, 0.78);font-size:30px;"class="fa fa-play" aria-hidden="true"></i></button> -->
+                   <a class="btn1"  href="https://www.youtube.com/embed/hj6iaKZSllg" data-lity><i style="color: rgba(0,158,227, 0.78);font-size:30px;"class="fa fa-play" aria-hidden="true"></i></a>
+                   <center><h4>Disruptive Education</h4>
+                    <p>An award winning independent </p></center>
+                         </div>  
+                 </div>         
+            </div> 
+         </div>      
+    </div>
+    <br>
+</div>
 
-                    <div class="slide-caption">
-                        <div class="caption-content">
-                            <h2 class="animated fadeInDown">School,<Span style="color:#FF0000"> Reimagined.</Span></h2>
-                            <span class="animated fadeInDown"><Span style="color:#FF0000">Your school |</Span> to learn life at your own pace</span>
-                            <a href="#service" class="btn btn-blue btn-effect">Edu Model</a>
-                        </div>
-                    </div>
-                    
-                </div>
-                
-                <div class="sl-slide" data-orientation="vertical" data-slice1-rotation="10" data-slice2-rotation="-15" data-slice1-scale="1.5" data-slice2-scale="1.5">
-                
-                    <div class="bg-img bg-img-2"></div>
-                    <div class="slide-caption">
-                        <div class="caption-content">
-                            <h2 style="color:#FF0000;">Admissions Open</h2>
-                            <span>We're accepting applications for the 2020-2021 school year in the following location:</span>
-                            <a href="#admissions" class="btn btn-blue btn-effect">Velachery</a>
-                        </div>
-                    </div>
-                    
-                </div>
-                
-                <div class="sl-slide" data-orientation="horizontal" data-slice1-rotation="3" data-slice2-rotation="3" data-slice1-scale="2" data-slice2-scale="1">
-                    
-                    <div class="bg-img bg-img-3"></div>
-                    <div class="slide-caption">
-                        <div class="caption-content">
-                            <h2 style="color:#FF0000;">EdTech Startup</h2>
-                            <span>Brain child of Ex-Microsoft Program Manager</span>
-                            <a href="#testimonials" class="btn btn-blue btn-effect">About US</a>
-                        </div>
-                    </div>
+<style>
+  
+.section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
 
-                </div>
+.section .contents_header {
+  text-align: center;
+  padding: 20px;
+  margin: 15px;
+  z-index: 1;
+  opacity: 0.7;
+}
 
-            </div><!-- /sl-slider -->
+video {
+  object-fit: cover;
+  width:100%;
+  min-height: 100%;
+}
+@media (max-aspect-ratio: 16/9) {
+    .video-container { 
+        width:auto;
+        height: 100%;
+    }
+}
 
-            <!-- 
-            <nav id="nav-arrows" class="nav-arrows">
-                <span class="nav-arrow-prev">Previous</span>
-                <span class="nav-arrow-next">Next</span>
-            </nav>
-            -->
-            
-            <nav id="nav-arrows" class="nav-arrows hidden-xs hidden-sm visible-md visible-lg">
-                <a href="javascript:;" class="sl-prev">
-                    <i class="fa fa-angle-left fa-3x"></i>
-                </a>
-                <a href="javascript:;" class="sl-next">
-                    <i class="fa fa-angle-right fa-3x"></i>
-                </a>
-            </nav>
-            
+.video-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height:100%;
+}
 
-            <nav id="nav-dots" class="nav-dots visible-xs visible-sm hidden-md hidden-lg">
-                <span class="nav-dot-current"></span>
-                <span></span>
-                <span></span>
-            </nav>
+.container h1{
+    padding:60x 0;
+    color:black;
+    font-size:44x;
+    text-align:center;   
+}
 
-        </div><!-- /slider-wrapper -->
-    </section>
+
+.feature-img{
     
+    border-radius:6px;
+    
+}
+/* Container needed to position the button. Adjust the width as needed */
+.c-div {
+  position: relative;
+  width: 100%;
+  padding-bottom: 6px;
+}
+
+/* Make the image responsive */
+
+
+/* Style the button and place it in the middle of the container/image */
+.c-div .btn1 {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  color: white;
+  font-size: 16px;
+  padding: 12px 24px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  
+}
+
+.c-div.btn1:hover {
+  color: white;
+}
+.video-con {
+    position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 30px; 
+    width:100%;
+    height: 100%; 
+    overflow: hidden;
+}
+
+.video-con iframe,
+.video-con object,
+.video-con embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+</style>
+
+
+<section id="about" >
+    <!--				<div class="container">-->
+    <!--					<div class="row">-->
     <!--
-    End Home SliderEnd
-    ==================================== -->
-        
-        <!-- about section -->
-        <section id="about" >
-<!--				<div class="container">-->
-<!--					<div class="row">-->
-<!--
-                    <div class="col-md-4 wow animated fadeInLeft">
-                        <div class="recent-works">
-                            <h3>Recent Works</h3>
-                            <div id="works">
-                                <div class="work-item">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. <br> <br> There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.</p>
-                                </div>
-                                <div class="work-item">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. <br><br> There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.</p>
-                                </div>
-                                <div class="work-item">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. <br><br> There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.</p>
+                        <div class="col-md-4 wow animated fadeInLeft">
+                            <div class="recent-works">
+                                <h3>Recent Works</h3>
+                                <div id="works">
+                                    <div class="work-item">
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. <br> <br> There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.</p>
+                                    </div>
+                                    <div class="work-item">
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. <br><br> There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.</p>
+                                    </div>
+                                    <div class="work-item">
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. <br><br> There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
--->
-<!--						<div class="col-md-7 col-md-offset-1 wow animated fadeInRight">-->
-                        <div class="welcome-block text-center">
-                            <h3>Dreams of Education!</h3>								
-                              <div class="message-body" style="align:center;">
-<!--									<img src="{% static 'img/future.jpg' %}" class="pull-left" alt="member">-->
-                                 <p style="color:#000;font-size:16px;">Do you believe schools changed very little over 100 years?<br>Do you believe we should prepare each child for the world they're expected to be in future?<br>Do you believe helping kids learn life is more important than textbook?<br><br>Then perhaps <b>Geekz Microschool</b> is for <b>you</b> and <b>your family</b>.</p><br><br><p style="font-size:20px;"><b>Together let's prepare our kids to be ready for the world in 2040!</b> </p>
-                              </div>
-                               <a href="/apply" target="_blank" class="btn btn-border btn-effect">Apply Now</a>
-                        </div>
-<!--						</div>-->
-<!--					</div>-->
-<!--				</div>-->
-        </section>
-        <!-- end about section -->
-        
-        
-        <!-- Service section -->
-        <section id="service">
-            <div class="container">
-                <div class="row" style="height:500px;">
-                    <div class="sec-title text-center">
-                        <h2 class="wow animated bounceInLeft">Geekz Edu Model</h2>
-                        <p class="wow animated bounceInRight">Education reimagined.</p>
-                    </div>
+    -->
+    <!--						<div class="col-md-7 col-md-offset-1 wow animated fadeInRight">-->
+                            <div class="welcome-block text-center">
+                                <h3>Dreams of Education!</h3>								
+                                  <div class="message-body" style="align:center;">
+    <!--									<img src="{% static 'img/future.jpg' %}" class="pull-left" alt="member">-->
+                                     <p style="color:#000;font-size:16px;">Do you believe schools changed very little over 100 years?<br>Do you believe we should prepare each child for the world they're expected to be in future?<br>Do you believe helping kids learn life is more important than textbook?<br><br>Then perhaps <b>Geekz Microschool</b> is for <b>you</b> and <b>your family</b>.</p><br><br><p style="font-size:20px;"><b>Together let's prepare our kids to be ready for the world in 2040!</b> </p>
+                                  </div>
+                                   <a href="/apply" target="_blank" class="btn btn-border btn-effect">Apply Now</a>
+                            </div>
+    <!--						</div>-->
+    <!--					</div>-->
+    <!--				</div>-->
+            </section>
+
+            <section id="service">
+                <div class="container">
+                    <div class="row" style="height:500px;">
                     
-                    <div class="col-md-3 col-sm-6 col-xs-12 text-center wow animated zoomIn">
-                        <div class="service-item">
-                            <div class="service-icon">
-                                <i class="fa fa-user fa-3x"></i>
-                            </div>
-                            <h3>Personalized</h3>
-                            <p>Custom made curriculum for each individual's needs, learning styles, passions, skill levels & parental priorities.</p>
+                        <div class="sec-title text-center">
+                            <h2 class="wow animated bounceInLeft">Geekz Edu Model</h2>
+                            <p class="wow animated bounceInRight">Education reimagined.</p>
                         </div>
+                        
+                        <div class="col-md-3 col-sm-6 col-xs-12 text-center wow animated zoomIn">
+                            <div class="service-item">
+                                <div class="service-icon">
+                                    <i class="fa fa-user fa-3x"></i>
+                                </div>
+                                <h3>Personalized</h3>
+                                <p>Custom made curriculum for each individual's needs, learning styles, passions, skill levels & parental priorities.</p>
+                            </div>
+                        </div>
+                    
+                        <div class="col-md-3 col-sm-6 col-xs-12 text-center wow animated zoomIn" data-wow-delay="0.3s">
+                            <div class="service-item">
+                                <div class="service-icon">
+                                    <i class="fa fa-globe fa-3x"></i>
+                                </div>
+                                <h3>Real World Career</h3>
+                                <p>To bridge the gap between school & real world, we pick real life careers, integrate with core curriculum, simulate in our studio & empower students to be ready for the world in 2040. </p>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-3 col-sm-6 col-xs-12 text-center wow animated zoomIn" data-wow-delay="0.6s">
+                            <div class="service-item">
+                                <div class="service-icon">
+                                    <i class="fa fa-heart fa-3x"></i>
+                                </div>
+                                <h3>Passion</h3>
+                                <p>No 2 brains are same. We find the passion of each student, integrate it with their subjects, make them curious & empower them learn.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-3 col-sm-6 col-xs-12 text-center wow animated zoomIn" data-wow-delay="0.9s">
+                            <div class="service-item">
+                                <div class="service-icon">
+                                    <i class="fa fa-tablet fa-3x"></i>
+                                </div>
+                                <h3>1:1 Device</h3>
+                                <p>Technology can never replace educators but integrating it in classroom enhances the education experience. </p>
+                            </div>
+                        </div>
+                        
                     </div>
+                </div>
                 
-                    <div class="col-md-3 col-sm-6 col-xs-12 text-center wow animated zoomIn" data-wow-delay="0.3s">
-                        <div class="service-item">
-                            <div class="service-icon">
-                                <i class="fa fa-globe fa-3x"></i>
-                            </div>
-                            <h3>Real World Career</h3>
-                            <p>To bridge the gap between school & real world, we pick real life careers, integrate with core curriculum, simulate in our studio & empower students to be ready for the world in 2040. </p>
-                        </div>
-                    </div>
+    <!--Second set of features for the school-->
+                <div class="container">
+                    <div class="row" style="height:320px;">
                     
-                    <div class="col-md-3 col-sm-6 col-xs-12 text-center wow animated zoomIn" data-wow-delay="0.6s">
-                        <div class="service-item">
-                            <div class="service-icon">
-                                <i class="fa fa-heart fa-3x"></i>
-                            </div>
-                            <h3>Passion</h3>
-                            <p>No 2 brains are same. We find the passion of each student, integrate it with their subjects, make them curious & empower them learn.</p>
+    <!--
+                        <div class="sec-title text-center">
+                            <h2 class="wow animated bounceInLeft">Geekz Edu Model</h2>
+                            <p class="wow animated bounceInRight">Education re-imagined.</p>
                         </div>
-                    </div>
+    -->
+                        <div class="col-md-3 col-sm-6 col-xs-12 text-center wow animated zoomIn">
+                            <div class="service-item">
+                                <div class="service-icon">
+                                    <i class="fa fa-clock-o fa-3x"></i>
+                                </div>
+                                <h3>Self Paced</h3>
+                                <p>One-size-fits-all don't fit in education. Each student can learn at their own pace to become individual lifelong learners.</p>
+                            </div>
+                        </div>
                     
-                    <div class="col-md-3 col-sm-6 col-xs-12 text-center wow animated zoomIn" data-wow-delay="0.9s">
-                        <div class="service-item">
-                            <div class="service-icon">
-                                <i class="fa fa-tablet fa-3x"></i>
+                        <div class="col-md-3 col-sm-6 col-xs-12 text-center wow animated zoomIn" data-wow-delay="0.3s">
+                            <div class="service-item">
+                                <div class="service-icon">
+                                    <i class="fa fa-graduation-cap fa-3x"></i>
+                                </div>
+                                
+                                <h3>Mastery Learning</h3>
+                                <p>Every student reach a prescribed degree of mastering a concept before advancing to the next concept.</p>							
                             </div>
-                            <h3>1:1 Device</h3>
-                            <p>Technology can never replace educators but integrating it in classroom enhances the education experience. </p>
                         </div>
+                        
+                        <div class="col-md-3 col-sm-6 col-xs-12 text-center wow animated zoomIn" data-wow-delay="0.6s">
+                            <div class="service-item">
+                                <div class="service-icon">
+                                    <i class="fa fa-trophy fa-3x"></i>
+                                </div>
+                                <h3>Assessment</h3>
+                                <p>We montior each students' progress real time, create learner profile, analyze & calibrate them against mastery level of their personal goals.</p>
+                            </div>
+                        </div>
+                    
+                        <div class="col-md-3 col-sm-6 col-xs-12 text-center wow animated zoomIn" data-wow-delay="0.9s">
+                            <div class="service-item">
+                                <div class="service-icon">
+                                    <i class="fa fa-university fa-3x"></i>
+                                </div>
+                                <h3>Flipped Classroom</h3>
+                                <p>Watch short video lectures as homework. Practice problems at school with educators' help.</p>
+                            </div>
+                        </div>
+                    
+                        
+                        
                     </div>
+                    <br>
                     
                 </div>
-            </div>
-            
-<!--Second set of features for the school-->
-            <div class="container">
-                <div class="row" style="height:320px;">
-                
-<!--
-                    <div class="sec-title text-center">
-                        <h2 class="wow animated bounceInLeft">Geekz Edu Model</h2>
-                        <p class="wow animated bounceInRight">Education re-imagined.</p>
-                    </div>
--->
-                    <div class="col-md-3 col-sm-6 col-xs-12 text-center wow animated zoomIn">
-                        <div class="service-item">
-                            <div class="service-icon">
-                                <i class="fa fa-clock-o fa-3x"></i>
-                            </div>
-                            <h3>Self Paced</h3>
-                            <p>One-size-fits-all don't fit in education. Each student can learn at their own pace to become individual lifelong learners.</p>
-                        </div>
-                    </div>
-                
-                    <div class="col-md-3 col-sm-6 col-xs-12 text-center wow animated zoomIn" data-wow-delay="0.3s">
-                        <div class="service-item">
-                            <div class="service-icon">
-                                <i class="fa fa-graduation-cap fa-3x"></i>
-                            </div>
-                            
-                            <h3>Mastery Learning</h3>
-                            <p>Every student reach a prescribed degree of mastering a concept before advancing to the next concept.</p>							
-                        </div>
-                    </div>
+                <div class="container">
+                    <div class="row" style="height:250px;">
                     
-                    <div class="col-md-3 col-sm-6 col-xs-12 text-center wow animated zoomIn" data-wow-delay="0.6s">
-                        <div class="service-item">
-                            <div class="service-icon">
-                                <i class="fa fa-trophy fa-3x"></i>
-                            </div>
-                            <h3>Assessment</h3>
-                            <p>We montior each students' progress real time, create learner profile, analyze & calibrate them against mastery level of their personal goals.</p>
+    <!--
+                        <div class="sec-title text-center">
+                            <h2 class="wow animated bounceInLeft">Geekz Edu Model</h2>
+                            <p class="wow animated bounceInRight">Education re-imagined.</p>
                         </div>
-                    </div>
-                
-                    <div class="col-md-3 col-sm-6 col-xs-12 text-center wow animated zoomIn" data-wow-delay="0.9s">
-                        <div class="service-item">
-                            <div class="service-icon">
-                                <i class="fa fa-university fa-3x"></i>
+    -->
+                        <div class="col-md-3 col-sm-6 col-xs-12 text-center wow animated zoomIn">
+                            <div class="service-item">
+                                <div class="service-icon">
+                                    <i class="fa fa-android fa-3x"></i>
+                                </div>
+                                <h3>STEM</h3>
+                                <p>Inspire creativity and curiosity in the Robotics STEM education and beyond.</p>
                             </div>
-                            <h3>Flipped Classroom</h3>
-                            <p>Watch short video lectures as homework. Practice problems at school with educators' help.</p>
                         </div>
-                    </div>
-                
                     
+                        <div class="col-md-3 col-sm-6 col-xs-12 text-center wow animated zoomIn" data-wow-delay="0.3s">
+                            <div class="service-item">
+                                <div class="service-icon">
+                                    <i class="fa fa-group fa-3x"></i>
+                                </div>
+                                
+                                <h3>Mixed Age</h3>
+                                <p>Kids with varying ages learn together to be independent, bold & experience real world in our classroom.</p>							
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-3 col-sm-6 col-xs-12 text-center wow animated zoomIn" data-wow-delay="0.6s">
+                            <div class="service-item">
+                                <div class="service-icon">
+                                    <i class="fa fa-lightbulb-o fa-3x"></i>
+                                </div>
+                                <h3>Entrepreneurship</h3>
+                                <p>Integrated in daily lesson plans. School is the safe ground to take informed risk, fail hard, learn and strive for greatness.</p>
+                            </div>
+                        </div>
+                    
+                        <div class="col-md-3 col-sm-6 col-xs-12 text-center wow animated zoomIn" data-wow-delay="0.9s">
+                            <div class="service-item">
+                                <div class="service-icon">
+                                    <i class="fa fa-child fa-3x"></i>
+                                </div>
+                                <h3>Social-Emotional</h3>
+                                <p>Whole-child approach to develop kids' mind, body and spirit with self-awareness, responsibility & clean habits.</p>							
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <br>
                     
                 </div>
-                <br>
-                
-            </div>
-            <div class="container">
-                <div class="row" style="height:250px;">
-                
-<!--
-                    <div class="sec-title text-center">
-                        <h2 class="wow animated bounceInLeft">Geekz Edu Model</h2>
-                        <p class="wow animated bounceInRight">Education re-imagined.</p>
-                    </div>
--->
-                    <div class="col-md-3 col-sm-6 col-xs-12 text-center wow animated zoomIn">
-                        <div class="service-item">
-                            <div class="service-icon">
-                                <i class="fa fa-android fa-3x"></i>
-                            </div>
-                            <h3>STEM</h3>
-                            <p>Inspire creativity and curiosity in the Robotics STEM education and beyond.</p>
-                        </div>
-                    </div>
-                
-                    <div class="col-md-3 col-sm-6 col-xs-12 text-center wow animated zoomIn" data-wow-delay="0.3s">
-                        <div class="service-item">
-                            <div class="service-icon">
-                                <i class="fa fa-group fa-3x"></i>
-                            </div>
-                            
-                            <h3>Mixed Age</h3>
-                            <p>Kids with varying ages learn together to be independent, bold & experience real world in our classroom.</p>							
-                        </div>
-                    </div>
-                    
-                    <div class="col-md-3 col-sm-6 col-xs-12 text-center wow animated zoomIn" data-wow-delay="0.6s">
-                        <div class="service-item">
-                            <div class="service-icon">
-                                <i class="fa fa-lightbulb-o fa-3x"></i>
-                            </div>
-                            <h3>Entrepreneurship</h3>
-                            <p>Integrated in daily lesson plans. School is the safe ground to take informed risk, fail hard, learn and strive for greatness.</p>
-                        </div>
-                    </div>
-                
-                    <div class="col-md-3 col-sm-6 col-xs-12 text-center wow animated zoomIn" data-wow-delay="0.9s">
-                        <div class="service-item">
-                            <div class="service-icon">
-                                <i class="fa fa-child fa-3x"></i>
-                            </div>
-                            <h3>Social-Emotional</h3>
-                            <p>Whole-child approach to develop kids' mind, body and spirit with self-awareness, responsibility & clean habits.</p>							
-                        </div>
-                    </div>
-                    
-                </div>
-                <br>
-                
-            </div>
-        </section>
-        <!-- end Service section -->
-        
-        <!-- Learning Cycle section -->
-        <section id="about" >
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-4 wow animated fadeInLeft">
-                        <div class="recent-works">
-                            <h3>Our Approach</h3>
-                            <div id="works">
-                                <div class="work-item" style="text-align:justify;">
-                                    <p style="font-size:18px;">Personalize</p><br>
-                                    <p>A whole-child, personalized education supports each student as an individual learner. We tailor our students learning materials that fit each individual's needs, learning styles, passion, interests, skill levels, parental priorities and specific tasks educators feel will best challenge & prepare child to succeed.<br><br>Say we are helping kids learn a Math lesson. For a student who is interested in Xbox games, we integrate Math in Minecraft. They play as well as learn how math practically used in real life. We help all our students learn the same lesson - in different ways.</p>
-                                </div>
-                                <div class="work-item" style="text-align:justify;">
-                                    <p style="font-size:18px;">Wonder</p><br>
-                                    <p>Teachers engage students with provocations or essential questions that need to be answered. This gives students a purpose and an awareness of knowledge they want to understand, skills they want to develop, or new interests to explore.<br><br>You can teach students a lesson for few days but if you can help them learn by tapping their curiosity, they will continue the learning process as long as they live and become lifelong learners.</p>
-                                </div>
-                                <div class="work-item" style="text-align:justify;">
-                                    <p style="font-size:18px;">Inquire</p><br>
-                                    <p>This is the phase where students focus their time on the process of learning. Students investigate the topic through an inquiry-driven research process, building their knowledge of a subject area, applying thinking strategies for tackling challenging problems, and developing habits.<br><br>We use U.S curriculum, partnering with Acton Academy at Austin Texas USA to learn core skills and our education approach is based on Chicago's 1919 Winnetka education model for a child-centered personalized social-emotional learning.</p>
-                                </div>
-                                <div class="work-item" style="text-align:justify;">
-                                    <p style="font-size:18px;">Mastery</p><br>
-                                    <p>Every student practice and reach a prescribed degree of mastering a concept before advancing to the next concept.<br><br>Learning is structured not in terms of time but in terms of certain target levels the student achieve. This is not 21st century idea, back in 1919 Washburne introduced this concept part of Winnetka Plan. He was advocating the opposite to then and now traditional model. What should be fixed is a high level of comprehension and what need to be variable is the amount of time students have to understand a concept.</p>
-                                </div>
-                                <div class="work-item" style="text-align:justify;">
-                                    <p style="font-size:18px;">Reflect</p><br>
-                                    <p>Students create an external representation of what they have learned, such as a piece of writing or building catapult. Demonstrating to an audience creates accountability and the motivation to complete challenges. Students then reflect on the learning process by asking if they answered the essential question of the unit and how they arrived at that answer.<br><br>A focus on reflection fosters a growth mindset and a culture of iteration, which allows students to take ownership over their own learning.</p>
-                                </div>
-                                <div class="work-item" style="text-align:justify;">
-                                    <p style="font-size:18px;">Evaluate</p><br>
-                                    <p>Real time assessment is essential to personalizing learning for students. With the help of 1:1 device, teachers montior each students' progress as they learn and provide feedback immediately to fuel engagement and growth.<br><br>Assessing Milestone achievement allows educators to understand students deeply by documenting and analyzing their performance against their personal Goals. Based on the mastery levels, curriculum will be customized and personal goals will be set for each student to keep iterating on the learning cycle.</p>
+            </section>
+            <!-- end Service section -->
+            <section id="about" >
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4 wow animated fadeInLeft">
+                            <div class="recent-works">
+                                <h3>Our Approach</h3>
+                                <div id="works">
+                                    <div class="work-item" style="text-align:justify;">
+                                        <p style="font-size:18px;">Personalize</p><br>
+                                        <p>A whole-child, personalized education supports each student as an individual learner. We tailor our students learning materials that fit each individual's needs, learning styles, passion, interests, skill levels, parental priorities and specific tasks educators feel will best challenge & prepare child to succeed.<br><br>Say we are helping kids learn a Math lesson. For a student who is interested in Xbox games, we integrate Math in Minecraft. They play as well as learn how math practically used in real life. We help all our students learn the same lesson - in different ways.</p>
+                                    </div>
+                                    <div class="work-item" style="text-align:justify;">
+                                        <p style="font-size:18px;">Wonder</p><br>
+                                        <p>Teachers engage students with provocations or essential questions that need to be answered. This gives students a purpose and an awareness of knowledge they want to understand, skills they want to develop, or new interests to explore.<br><br>You can teach students a lesson for few days but if you can help them learn by tapping their curiosity, they will continue the learning process as long as they live and become lifelong learners.</p>
+                                    </div>
+                                    <div class="work-item" style="text-align:justify;">
+                                        <p style="font-size:18px;">Inquire</p><br>
+                                        <p>This is the phase where students focus their time on the process of learning. Students investigate the topic through an inquiry-driven research process, building their knowledge of a subject area, applying thinking strategies for tackling challenging problems, and developing habits.<br><br>We use U.S curriculum, partnering with Acton Academy at Austin Texas USA to learn core skills and our education approach is based on Chicago's 1919 Winnetka education model for a child-centered personalized social-emotional learning.</p>
+                                    </div>
+                                    <div class="work-item" style="text-align:justify;">
+                                        <p style="font-size:18px;">Mastery</p><br>
+                                        <p>Every student practice and reach a prescribed degree of mastering a concept before advancing to the next concept.<br><br>Learning is structured not in terms of time but in terms of certain target levels the student achieve. This is not 21st century idea, back in 1919 Washburne introduced this concept part of Winnetka Plan. He was advocating the opposite to then and now traditional model. What should be fixed is a high level of comprehension and what need to be variable is the amount of time students have to understand a concept.</p>
+                                    </div>
+                                    <div class="work-item" style="text-align:justify;">
+                                        <p style="font-size:18px;">Reflect</p><br>
+                                        <p>Students create an external representation of what they have learned, such as a piece of writing or building catapult. Demonstrating to an audience creates accountability and the motivation to complete challenges. Students then reflect on the learning process by asking if they answered the essential question of the unit and how they arrived at that answer.<br><br>A focus on reflection fosters a growth mindset and a culture of iteration, which allows students to take ownership over their own learning.</p>
+                                    </div>
+                                    <div class="work-item" style="text-align:justify;">
+                                        <p style="font-size:18px;">Evaluate</p><br>
+                                        <p>Real time assessment is essential to personalizing learning for students. With the help of 1:1 device, teachers montior each students' progress as they learn and provide feedback immediately to fuel engagement and growth.<br><br>Assessing Milestone achievement allows educators to understand students deeply by documenting and analyzing their performance against their personal Goals. Based on the mastery levels, curriculum will be customized and personal goals will be set for each student to keep iterating on the learning cycle.</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-7 col-md-offset-1 wow animated fadeInRight">
-                        <div class="welcome-block ">
-                            <h3>Learning Cycle</h3>								
-                            <h4 style="color:white;">Rate of Learning is 2.5x Faster in this Personalized Education Model!</h4><br>
-                              <div class="message-body" style="text-align:justify;">
-                                <img src="{% static 'img/LearningCycle.jpg' %}" style="height:auto;width:auto;max-width:300px;max-height:300px;display:block;margin:0 auto;" alt="learning cycle">
-                              </div>
-                               <a href="https://thegeekstudio.wordpress.com/2016/10/09/angry-birds-transdisciplinary-education/" target="_blank" class="btn btn-border btn-effect pull-right">Example from the Classroom</a>
-<!--
-                            <div class="pull-right">&nbsp;&nbsp;&nbsp;</div>
-                            <a href="#contact" class="btn btn-border btn-effect pull-right">Contact Us</a>
--->
+                        <div class="col-md-7 col-md-offset-1 wow animated fadeInRight">
+                            <div class="welcome-block ">
+                                <h3>Learning Cycle</h3>								
+                                <h4 style="color:white;">Rate of Learning is 2.5x Faster in this Personalized Education Model!</h4><br>
+                                  <div class="message-body" style="text-align:justify;">
+                                    <img src="{% static 'img/LearningCycle.jpg' %}" style="height:auto;width:auto;max-width:300px;max-height:300px;display:block;margin:0 auto;" alt="learning cycle">
+                                  </div>
+                                   <a href="https://thegeekstudio.wordpress.com/2016/10/09/angry-birds-transdisciplinary-education/" target="_blank" class="btn btn-border btn-effect pull-right">Example from the Classroom</a>
+    <!--
+                                <div class="pull-right">&nbsp;&nbsp;&nbsp;</div>
+                                <a href="#contact" class="btn btn-border btn-effect pull-right">Contact Us</a>
+    -->
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
-        <!-- end Learning Cycle section -->
-        
-        <!-- Technology section -->
+            </section>
+            <!-- end Learning Cycle section -->
+             <!-- Technology section -->
         <section id="service">
             <div class="container">
                 <div class="row" style="height:700px;">
@@ -547,9 +618,6 @@
                 
             </div>
         </section>
-        <!-- end Technology section -->
-        
-        <!-- Day section -->
         <section id="price"  style="background-color:#f8f8f8;">
             <div class="container">
                 <div class="row">
@@ -766,9 +834,8 @@
             </div>
         </section>
         <!-- end Day section -->
-        
-        <!-- FAQ section -->
-        <section id="service">
+         <!-- FAQ section -->
+         <section id="service">
             <div class="container">
                 <div class="row">
                 
@@ -793,9 +860,8 @@
             </div>
         </section>
         <!-- end FAQ section -->
-        
-        <!-- Admissions section -->
-        <section id="admissions" >
+         <!-- Admissions section -->
+         <section id="admissions" >
             <div class="container">
                 <div class="row">
                     <div class="col-md-4 wow animated fadeInLeft">
@@ -847,9 +913,6 @@
             </div>
         </section>
         <!-- end admissions section -->
-        
-        <!-- portfolio section -->
-
         <section id="portfolio">
             <div class="container">
                 <div class="row">
@@ -1082,40 +1145,252 @@
                 </div>
             </div>
         </section>
-
-        <!-- end portfolio section -->
-        
-        <!-- Social section -->
         <section id="social" class="parallax">
             <div class="overlay">
                 <div class="container">
                     <div class="row">
-                    
                         <div class="sec-title text-center white wow animated fadeInDown">
                             <h2>FOLLOW US</h2>
                             <p>Dream with us and make dreams a reality.</p>
                         </div>
 <!--                            <iframe src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2FVrGeekz%2F%3Ffref%3Dts&width=20&layout=button&action=like&size=small&show_faces=true&share=false&height=65&appId" width="200" height="65" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>-->
-                        
+                        <style>
+                            .social-button  li a:hover {
+                                color: white;
+                            }
+                        </style>
                         <ul class="social-button">
-                            <li class="wow animated zoomIn"><a href="https://www.facebook.com/VrGeekz/" target="_blank"><i class="fa fa-facebook fa-2x"></i></a></li>
-                            <li class="wow animated zoomIn" data-wow-delay="0.3s"><a href="https://www.instagram.com/VrGeekz/" target="_blank"><i class="fa fa-instagram fa-2x"></i></a></li>
-                            <li class="wow animated zoomIn" data-wow-delay="0.6s"><a href="https://www.youtube.com/channel/UCNy54QG09WBP7ZU8eOSRntQ/videos" target="_blank"><i class="fa fa-youtube-play fa-2x"></i></a></li>							
+                            <li class="wow animated zoomIn"><a href="https://www.facebook.com/VrGeekz/" target="_blank" style="background-color: inherit;" ><i class="fa fa-facebook fa-2x"></i></a></li>
+                            <li class="wow animated zoomIn" data-wow-delay="0.3s"><a href="https://www.instagram.com/VrGeekz/" target="_blank" style="background-color: inherit;"><i class="fa fa-instagram fa-2x"></i></a></li>
+                            <li class="wow animated zoomIn" data-wow-delay="0.6s"><a href="https://www.youtube.com/channel/UCNy54QG09WBP7ZU8eOSRntQ/videos" target="_blank" style="background-color: inherit;"><i class="fa fa-youtube-play fa-2x"></i></a></li>							
                         </ul>
                         
                     </div>
                 </div>
             </div>
         </section>
-        <!-- end Social section -->
-        
+        <section id="process">
+            <div class="container">
+                <div class="row">
+                
+                    <div class="sec-title text-center wow animated fadeInDown">
+                        <h2>Testimonials</h2>
+                        <p>Admissions personalized.</p><br>
+                        <p></p>
+                    </div>
+                        <div class="row">
+                    <div class="col-md-4 wow animated fadeInUp">
+                        
+                        <div class="profile-widget">
+                            <div class="doc-img">
+                                <a href="doctor-profile.html">
+                                    <img class="img-fluid" alt="User Image" src="{% static 'assets/img/doctors/doctor-01.jpg' %}">
+                                </a>
+                                <a href="javascript:void(0)" class="fav-btn">
+                                    <i class="far fa-bookmark"></i>
+                                </a>
+                            </div>
+                            <div class="pro-content">
+                                <div class="service-item">
+                                   <center><h3>Ruby Perrin</h3></center> 
+                                    <p>Thanks for such an outstanding sprint "How To Become An Astronaut".
+                                        It inculcates many skills in kids and has many dimensions: Knowledge, Confidence,and many more. </p></p>
+                                  </p>							
+                                </div>
+                                <br>
+                                <div class="row row-sm">
+                                    <div class="col-12">
+                                        <ul class="available-info">
+                                        <li>
+                                            <center>  Working Professional Mother </center>
+                                        </li>
+                                    </ul>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
+                    
+                    <div class="col-md-4 wow animated fadeInUp" data-wow-delay="0.3s">
+                          
+                        <div class="profile-widget">
+                            <div class="doc-img">
+                                <a href="doctor-profile.html">
+                                    <img class="img-fluid" alt="User Image" src="{% static 'assets/img/doctors/doctor-01.jpg' %}">
+                                </a>
+                                <a href="javascript:void(0)" class="fav-btn">
+                                    <i class="far fa-bookmark"></i>
+                                </a>
+                            </div>
+                            <div class="pro-content">
+                                <div class="service-item">
+                                   <center><h3>Ruby Perrin</h3></center> 
+                                    <p>Thanks for such an outstanding sprint "How To Become An Astronaut".
+                                        It inculcates many skills in kids and has many dimensions: Knowledge, Confidence,and many more. </p></p>
+                                  </p>							
+                                </div>
+                                <br>
+                                <div class="row row-sm">
+                                    <div class="col-12">
+                                        <ul class="available-info">
+                                        <li>
+                                            <center>  Working Professional Mother </center>
+                                        </li>
+                                    </ul>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4 wow animated fadeInUp" data-wow-delay="0.6s" style="height:250px;">
+                          
+                        <div class="profile-widget">
+                            <div class="doc-img">
+                                <a href="doctor-profile.html">
+                                    <img class="img-fluid" alt="User Image" src="{% static 'assets/img/doctors/doctor-01.jpg' %}">
+                                </a>
+                                <a href="javascript:void(0)" class="fav-btn">
+                                    <i class="far fa-bookmark"></i>
+                                </a>
+                            </div>
+                            <div class="pro-content">
+                                <div class="service-item">
+                                   <center><h3>Ruby Perrin</h3></center> 
+                                    <p>Thanks for such an outstanding sprint "How To Become An Astronaut".
+                                        It inculcates many skills in kids and has many dimensions: Knowledge, Confidence,and many more. </p></p>
+                                  </p>							
+                                </div>
+                                <br>
+                                <div class="row row-sm">
+                                    <div class="col-12">
+                                        <ul class="available-info">
+                                        <li>
+                                            <center>  Working Professional Mother </center>
+                                        </li>
+                                    </ul>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 wow animated fadeInUp">
+                        
+                        <div class="profile-widget">
+                            <div class="doc-img">
+                                <a href="doctor-profile.html">
+                                    <img class="img-fluid" alt="User Image" src="{% static 'assets/img/doctors/doctor-01.jpg' %}">
+                                </a>
+                                <a href="javascript:void(0)" class="fav-btn">
+                                    <i class="far fa-bookmark"></i>
+                                </a>
+                            </div>
+                            <div class="pro-content">
+                                <div class="service-item">
+                                   <center><h3>Ruby Perrin</h3></center> 
+                                    <p>Thanks for such an outstanding sprint "How To Become An Astronaut".
+                                        It inculcates many skills in kids and has many dimensions: Knowledge, Confidence,and many more. </p></p>
+                                  </p>							
+                                </div>
+                                <br>
+                                <div class="row row-sm">
+                                    <div class="col-12">
+                                        <ul class="available-info">
+                                        <li>
+                                            <center>  Working Professional Mother </center>
+                                        </li>
+                                    </ul>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    <div class="col-md-4 wow animated fadeInUp" data-wow-delay="0.3s">
+                          
+                        <div class="profile-widget">
+                            <div class="doc-img">
+                                <a href="doctor-profile.html">
+                                    <img class="img-fluid" alt="User Image" src="{% static 'assets/img/doctors/doctor-01.jpg' %}">
+                                </a>
+                                <a href="javascript:void(0)" class="fav-btn">
+                                    <i class="far fa-bookmark"></i>
+                                </a>
+                            </div>
+                            <div class="pro-content">
+                                <div class="service-item">
+                                   <center><h3>Ruby Perrin</h3></center> 
+                                    <p>Thanks for such an outstanding sprint "How To Become An Astronaut".
+                                        It inculcates many skills in kids and has many dimensions: Knowledge, Confidence,and many more. </p></p>
+                                  </p>							
+                                </div>
+                                <br>
+                                <div class="row row-sm">
+                                    <div class="col-12">
+                                        <ul class="available-info">
+                                        <li>
+                                            <center>  Working Professional Mother </center>
+                                        </li>
+                                    </ul>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4 wow animated fadeInUp" data-wow-delay="0.6s" style="height:250px;">
+                          
+                        <div class="profile-widget">
+                            <div class="doc-img">
+                                <a href="doctor-profile.html">
+                                    <img class="img-fluid" alt="User Image" src="{% static 'assets/img/doctors/doctor-01.jpg' %}">
+                                </a>
+                                <a href="javascript:void(0)" class="fav-btn">
+                                    <i class="far fa-bookmark"></i>
+                                </a>
+                            </div>
+                            <div class="pro-content">
+                                <div class="service-item">
+                                   <center><h3>Ruby Perrin</h3></center> 
+                                    <p>Thanks for such an outstanding sprint "How To Become An Astronaut".
+                                        It inculcates many skills in kids and has many dimensions: Knowledge, Confidence,and many more. </p></p>
+                                  </p>							
+                                </div>
+                                <br>
+                                <div class="row row-sm">
+                                    <div class="col-12">
+                                        <ul class="available-info">
+                                        <li>
+                                            <center>  Working Professional Mother </center>
+                                        </li>
+                                    </ul>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                                            
+                </div>
+        </section>
+        
+        <!-- end Technology section -->
         <!-- About section -->
         <section id="testimonials" class="parallax">
             <div class="overlay">
                 <div class="container">
                     <div class="row">
-                    
                         <div class="sec-title text-center white wow animated fadeInDown">
                             <h2>About</h2>
                         </div>
@@ -1152,80 +1427,6 @@
                 </div>
             </div>
         </section>
-        <!-- end About section -->
-        
-        <!-- Price section -->
-<!--
-        <section id="price">
-            <div class="container">
-                <div class="row">
-                
-                    <div class="sec-title text-center wow animated fadeInDown">
-                        <h2>Price</h2>
-                        <p>Our price for your company</p>
-                    </div>
-                    
-                    <div class="col-md-4 wow animated fadeInUp">
-                        <div class="price-table text-center">
-                            <span>Silver</span>
-                            <div class="value">
-                                <span>$</span>
-                                <span>24,35</span><br>
-                                <span>month</span>
-                            </div>
-                            <ul>
-                                <li>No Bonus Points</li>
-                                <li>No Bonus Points</li>
-                                <li>No Bonus Points</li>
-                                <li>No Bonus Points</li>
-                                <li><a href="#">sign up</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="col-md-4 wow animated fadeInUp" data-wow-delay="0.4s">
-                        <div class="price-table featured text-center">
-                            <span>Gold</span>
-                            <div class="value">
-                                <span>$</span>
-                                <span>50,00</span><br>
-                                <span>month</span>
-                            </div>
-                            <ul>
-                                <li>Free Trial</li>
-                                <li>Free Trial</li>
-                                <li>Free Trial</li>
-                                <li>Free Trial</li>
-                                <li><a href="#">sign up</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="col-md-4 wow animated fadeInUp" data-wow-delay="0.8s">
-                        <div class="price-table text-center">
-                            <span>Diamond</span>
-                            <div class="value">
-                                <span>$</span>
-                                <span>123,12</span><br>
-                                <span>month</span>
-                            </div>
-                            <ul>
-                                <li>All Bonus Points</li>
-                                <li>All Bonus Points</li>
-                                <li>All Bonus Points</li>
-                                <li>All Bonus Points</li>
-                                <li><a href="#">sign up</a></li>
-                            </ul>
-                        </div>
-                    </div>
-    
-                </div>
-            </div>
-        </section>
--->
-        <!-- end Price section -->
-        
-        <!-- Jobs section -->
         <section id="job"  style="background-color:#f8f8f8;">
             <div class="container">
                 <div class="row" align="center">
@@ -1239,9 +1440,6 @@
                 </div>
             </div>
         </section>
-        <!-- end Jobs section -->
-        
-        <!-- Contact section -->
         <section id="contact" >
             <div class="container">
                 <div class="row">
@@ -1321,11 +1519,23 @@
                 </div>
             </div>
         </section>
-        <!-- end Contact section -->
-        
+
         <section id="google-map">
             <div id="map-canvas" class="wow animated fadeInUp"></div>
         </section>
-    
-    
-{% endblock content %}
+        
+            <!-- jQuery -->
+		<script src="{% static 'assets/js/jquery.min.js' %}"></script>
+		
+		<!-- Bootstrap Core JS -->
+		<script src="{% static 'assets/js/popper.min.js' %}"></script>
+		<script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+		
+		<!-- Sticky Sidebar JS -->
+        <script src="{% static 'assets/plugins/theia-sticky-sidebar/ResizeSensor.js' %}"></script>
+        <script src="{% static 'assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js' %}"></script>
+		
+		<!-- Custom JS -->
+		<script src="{% static 'assets/js/script.js"></script>
+   
+{% endblock %}

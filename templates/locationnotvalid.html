@@ -14,40 +14,16 @@
  </div>
  <div class="container">
      <div class="row">
-         <div class="col-md-6">
+         <div class="col-md-12">
             <div class="service-item">
                 <center>
-                <h3>Don't see a Microschool near you?</h3>
-                <p>Do you believe your people are capable of doing remarkable things? </p><br>
-                <a class ="btn btn-blue btn-effect " href = "/schoolasaservice">Become a Microschool</a></center>
+                <h3>Location not found</h3>
+                <p>Please search Microschool Location </p><br>
+                
             </div>
           
          </div>
-         <div class="col-md-6">
-            <div class="service-item">
-                <center>
-                <h3>Sign up to be notified about your city</h3>
-                <p>We will email you as soon as we launch</p><br>
-                <button type="button" onclick="reasonform(1)" id ="reschedule" class="btn btn-blue btn-effect">Notify You</button></center>
-                <br><br>
-                <center>
-                    <form action ="notify" id = "notify" method ="POST" class="subscribe-form wow animated fadeInUp">
-                        {% csrf_token %}
-                        <div class="input-field">
-                            <input type="email" id="Email" name="email" class="subscribe form-control" placeholder="Enter Your Email..." required>
-                        </div>
-                        <div class="input-field">
-                            <input type="number" id="phone" name="phone" class="subscribe form-control" placeholder="Enter Your WhatsApp No...." required>
-                        </div>   
-                            <button type="submit" class ="btn btn-blue btn-effect " >
-                                Send
-                            </button>
-                            <span id="subscribed" style="width:100px"></span>
-                        </div>
-                    </form>
-                    </center>
-            </div>
-         </div>
+         
 
      </div>
 

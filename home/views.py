@@ -94,7 +94,83 @@ def index(request):
             return render(request,'affliateslist.html',{'cards_obj':cards})
         else:
             return render(request,'affliatesnotfound.html')
-    return render(request,'index.html')
+    return render(request,'index.html')        
+    
+
+def locationnotvalid(request):
+    return render(request,'locationnotvalid.html')
+
+def notify(request):
+    if request.method == "POST" :
+        email = request.POST['email']
+        phone = request.POST['phone']
+        not_obj = notify_users(email = email ,phone= phone )
+        not_obj.save()
+        return render(request,'affliatesnotfound.html')
+
+def searchresults(request):
+    if request.method == "POST" :
+        SaaSLoc_lat=request.POST['loc_lat']
+        SaaSLoc_long=request.POST['loc_long']
+        def is_float1(SaaSLoc_lat):
+            try:
+                num = float(SaaSLoc_lat)
+            except ValueError:
+                return False
+            return True
+
+        def is_float2(SaaSLoc_long):
+            try:
+                num = float(SaaSLoc_long)
+            except ValueError:
+                return False
+            return True
+
+        if is_float1(SaaSLoc_lat) and is_float2(SaaSLoc_long):
+            SaaSLoc_lat = float(SaaSLoc_lat)
+            SaaSLoc_long = float(SaaSLoc_long)
+
+            user_location = Point(SaaSLoc_long,SaaSLoc_lat)
+            cr = MICRO_APPLY.objects.values()
+            clients = cr.filter(location__distance_lt=(user_location,Distance(m=5000)))
+            print(type(clients))
+            print("data",clients)
+            cl = list(clients)
+            print('hhhhhhhhhhhhhhhhhhhh',cl)
+            uid_list = []
+            if clients:
+                for c in cl:
+                    print("for loo",c)
+                    uid_list.append(c['uid'])
+                print(uid_list)    
+                cl1 = cl[0]
+                print(cl1)
+                cl2 = cl1['uid']
+                print(cl2)
+                cards = []
+                feeds = []
+                for k in uid_list:
+                    cards_obj = INDIVIDUAL_WEBPAGESS1.objects.filter(uid = k)
+                    cards_obj1 = INDIVIDUAL_WEBPAGESS1.objects.get(uid = k)
+                    #feed_obj = feedback_users.objects.filter(school_name=cards_obj1.SCHOOL_NAME).order_by('rating')
+                    #if feed_obj:
+                        #feeds.append(feed_obj)
+                    cards.append(cards_obj)
+                print('objects',cards) 
+                #print('feed',feeds)   
+                #cards_obj = INDIVIDUAL_WEBPAGESS1.objects.filter(uid = cl2)
+                #cards_obj1 = INDIVIDUAL_WEBPAGESS1.objects.get(uid = cl2)
+                #feed_obj = feedback_users.objects.filter(school_name=cards_obj1.SCHOOL_NAME).order_by('rating')
+                #fed = list(feed_obj)
+                #fed1 =fed[0]
+                #print(fed1.rating)
+                print(cards_obj)
+                return render(request,'affliateslist.html',{'cards_obj':cards})
+            else:
+                return render(request,'affliatesnotfound.html')
+        else:
+            return redirect('locationnotvalid')
+
 
 def webpage(request,LOCALITY):
     print('url',LOCALITY)
@@ -154,6 +230,31 @@ def homeschool(request):
 def jobs(request):
     return render(request, 'jobs.html')
 
+@login_required
+def Account_Email(request):
+    user_id=request.session['user_id']
+    user=User.objects.get(id=user_id)
+    print(user.email)
+    if USER_DETAILS.objects.filter(USER_EMAIL=user.email):
+        session = USER_DETAILS.objects.get(USER_EMAIL=user.email)
+        if MICRO_PROFILING.objects.filter(uid= session.uid):
+            return redirect('individualAdmin_dashboard')
+        else:
+            return redirect('index')    
+    elif studentApplications.objects.filter(student_id=user.id):
+        if studentApplications.objects.filter(student_id=user.id,Profiling_approved='Y'):
+            return redirect('studentDashboard')
+        else:
+            return redirect('index') 
+    elif user.email == 'admin@g.com':
+        return redirect('superAdmin_dashboard')
+    else:
+        return redirect('index') 
+
+
+
+               
+    
 
 #@verified_email_required
 '''
